@@ -289,8 +289,8 @@ void main(void) {
 		// Display the ADC values on the LCD
 		display_x_y(x, y);
 
-		printf("ADC[8]=0x%04x V=%fV\r", (int)x, (x*3.3)/0x1000);
-		printf("ADC[9]=0x%04x V=%fV\r", (int)y, (y*3.3)/0x1000);
+		printf("ADC[8]=0x%04x\r\n", (int)x);
+		printf("ADC[9]=0x%04x\r\n", (int)y);
 
 		fflush(stdout); // GCC printf wants a \n in order to send something.  If \n is not present, we fflush(stdout)
 		waitms(200);

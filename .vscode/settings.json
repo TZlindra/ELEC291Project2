@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "serial.h": "c",
+        "stm32l051xx.h": "c",
+        "speaker.h": "c",
+        "lcd.h": "c",
+        "stdio.h": "c",
+        "math.h": "c"
+    }
+}

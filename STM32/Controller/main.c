@@ -25,6 +25,8 @@
 #include "../Common/Include/serial.h"
 #include "../Common/Include/stm32l051xx.h"
 #include "lcd.h"
+#include "speaker.h"
+#include "adc.h"
 
 #define F_CPU 32000000L
 
@@ -52,95 +54,6 @@ void display_x_y(float x, float y);
 void delay(int dly) {
 	while( dly--);
 }
-
-void wait_1ms(void) {
-	// For SysTick info check the STM32L0xxx Cortex-M0 programming manual page 85.
-	SysTick->LOAD = (F_CPU/1000L) - 1;  // set reload register, counter rolls over from zero, hence -1
-	SysTick->VAL = 0; // load the SysTick counter
-	SysTick->CTRL  = SysTick_CTRL_CLKSOURCE_Msk | SysTick_CTRL_ENABLE_Msk; // Enable SysTick IRQ and SysTick Timer */
-	while((SysTick->CTRL & BIT16)==0); // Bit 16 is the COUNTFLAG.  True when counter rolls over from zero.
-	SysTick->CTRL = 0x00; // Disable Systick counter
-}
-
-void waitms(unsigned int ms) {
-	unsigned int j;
-	for(j=0; j<ms; j++) wait_1ms();
-}
-
-void Delay_us(unsigned char us) {
-	// For SysTick info check the STM32L0xxx Cortex-M0 programming manual page 85.
-	SysTick->LOAD = (F_CPU/(1000000L/us)) - 1;  // set reload register, counter rolls over from zero, hence -1
-	SysTick->VAL = 0; // load the SysTick counter
-	SysTick->CTRL  = SysTick_CTRL_CLKSOURCE_Msk | SysTick_CTRL_ENABLE_Msk; // Enable SysTick IRQ and SysTick Timer */
-	while((SysTick->CTRL & BIT16)==0); // Bit 16 is the COUNTFLAG.  True when counter rolls over from zero.
-	SysTick->CTRL = 0x00; // Disable Systick counter
-}
-
-void initADC(void) {
-	RCC->APB2ENR |= BIT9; // peripheral clock enable for ADC (page 175 or RM0451)
-
-	// ADC clock selection procedure (page 746 of RM0451)
-	/* (1) Select PCLK by writing 11 in CKMODE */
-	ADC1->CFGR2 |= ADC_CFGR2_CKMODE; /* (1) */
-
-	// ADC enable sequence procedure (page 745 of RM0451)
-	/* (1) Clear the ADRDY bit */
-	/* (2) Enable the ADC */
-	/* (3) Wait until ADC ready */
-	ADC1->ISR |= ADC_ISR_ADRDY; /* (1) */
-	ADC1->CR |= ADC_CR_ADEN; /* (2) */
-	if ((ADC1->CFGR1 & ADC_CFGR1_AUTOFF) == 0)
-	{
-		while ((ADC1->ISR & ADC_ISR_ADRDY) == 0) /* (3) */
-		{
-			/* For robust implementation, add here time-out management */
-		}
-	}
-
-	// Calibration code procedure (page 745 of RM0451)
-	/* (1) Ensure that ADEN = 0 */
-	/* (2) Clear ADEN */
-	/* (3) Set ADCAL=1 */
-	/* (4) Wait until EOCAL=1 */
-	/* (5) Clear EOCAL */
-	if ((ADC1->CR & ADC_CR_ADEN) != 0) /* (1) */
-	{
-		ADC1->CR |= ADC_CR_ADDIS; /* (2) */
-	}
-	ADC1->CR |= ADC_CR_ADCAL; /* (3) */
-	while ((ADC1->ISR & ADC_ISR_EOCAL) == 0) /* (4) */
-	{
-		/* For robust implementation, add here time-out management */
-	}
-	ADC1->ISR |= ADC_ISR_EOCAL; /* (5) */
-}
-
-int readADC(unsigned int channel) {
-	// Single conversion sequence code example - Software trigger (page 746 of RM0451)
-	/* (1) Select HSI16 by writing 00 in CKMODE (reset value) */
-	/* (2) Select the auto off mode */
-	/* (3) Select channel */
-	/* (4) Select a sampling mode of 111 i.e. 239.5 ADC clk to be greater than17.1us */
-	/* (5) Wake-up the VREFINT (only for VRefInt) */
-	//ADC1->CFGR2 &= ~ADC_CFGR2_CKMODE; /* (1) */
-	ADC1->CFGR1 |= ADC_CFGR1_AUTOFF; /* (2) */
-	ADC1->CHSELR = channel; /* (3) */
-	ADC1->SMPR |= ADC_SMPR_SMP_0 | ADC_SMPR_SMP_1 | ADC_SMPR_SMP_2; /* (4) */
-	if(channel==ADC_CHSELR_CHSEL17)
-	{
-		ADC->CCR |= ADC_CCR_VREFEN; /* (5) */
-	}
-
-	/* Performs the AD conversion */
-	ADC1->CR |= ADC_CR_ADSTART; /* start the ADC conversion */
-	while ((ADC1->ISR & ADC_ISR_EOC) == 0) /* wait end of conversion */
-	{
-		/* For robust implementation, add here time-out management */
-	}
-
-	return ADC1->DR; // ADC_DR has the 12 bits out of the ADC
-}
-
 
 void ConfigPinsLCD(void) {
 	RCC->IOPENR |= BIT0; // peripheral clock enable for port A
@@ -185,63 +98,10 @@ void ConfigPinADC(void) {
 	GPIOB->MODER |= (BIT2|BIT3);  // Select analog mode for PB1 (pin 15 of LQFP32 package)
 }
 
-void LCD_pulse(void) {
-	LCD_E_1;
-	Delay_us(40);
-	LCD_E_0;
-}
-
-void LCD_byte(unsigned char x) {
-	//Send high nible
-	if(x&0x80) LCD_D7_1; else LCD_D7_0;
-	if(x&0x40) LCD_D6_1; else LCD_D6_0;
-	if(x&0x20) LCD_D5_1; else LCD_D5_0;
-	if(x&0x10) LCD_D4_1; else LCD_D4_0;
-	LCD_pulse();
-	Delay_us(40);
-	//Send low nible
-	if(x&0x08) LCD_D7_1; else LCD_D7_0;
-	if(x&0x04) LCD_D6_1; else LCD_D6_0;
-	if(x&0x02) LCD_D5_1; else LCD_D5_0;
-	if(x&0x01) LCD_D4_1; else LCD_D4_0;
-	LCD_pulse();
-}
-
-void WriteData (unsigned char x) {
-	LCD_RS_1;
-	LCD_byte(x);
-	waitms(2);
-}
-
-void WriteCommand (unsigned char x) {
-	LCD_RS_0;
-	LCD_byte(x);
-	waitms(5);
-}
-
-void LCD_4BIT(void) {
-	LCD_E_0; // Resting state of LCD's enable is zero
-	//LCD_RW=0; // We are only writing to the LCD in this program
-	waitms(20);
-	// First make sure the LCD is in 8-bit mode and then change to 4-bit mode
-	WriteCommand(0x33);
-	WriteCommand(0x33);
-	WriteCommand(0x32); // Change to 4-bit mode
-
-	// Configure the LCD
-	WriteCommand(0x28);
-	WriteCommand(0x0c);
-	WriteCommand(0x01); // Clear screen command (takes some time)
-	waitms(20); // Wait for clear screen command to finsih.
-}
-
-void LCDprint(char * string, unsigned char line, unsigned char clear) {
-	int j;
-
-	WriteCommand(line==2?0xc0:0x80);
-	waitms(5);
-	for(j=0; string[j]!=0; j++)	WriteData(string[j]);// Write the message
-	if(clear) for(; j<CHARS_PER_LINE; j++) WriteData(' '); // Clear the rest of the line
+void ConfigSpeakerPin(void)
+{
+	RCC->IOPENR |= BIT0; // peripheral clock enable for port A
+    GPIOA->MODER = (GPIOA->MODER & ~(BIT17|BIT16)) | BIT16; // PA8
 }
 
 void display_rx() {
@@ -261,10 +121,10 @@ void display_rx() {
 }
 
 void display_x_y(float x, float y) {
-	sprintf(LCD_BUFF, "ADC[8]=0x%04x V=%fV", (int)x, (x*3.3)/0x1000);
+	sprintf(LCD_BUFF, "ADC[8]=%d", (int)x);
 	LCDprint(LCD_BUFF, 1, 1);
 
-	sprintf(LCD_BUFF, "ADC[9]=0x%04x V=%fV", (int)y, (y*3.3)/0x1000);
+	sprintf(LCD_BUFF, "ADC[9]=%d", (int)y);
 	LCDprint(LCD_BUFF, 2, 1);
 }
 
@@ -275,6 +135,10 @@ void main(void) {
 	LCD_4BIT();
 	ConfigPinButton();
 	ConfigPinADC();
+	ConfigSpeakerPin();
+
+	InitTimer2();
+	ToggleSpeakerTimer();
 
 	initADC();
 

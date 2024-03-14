@@ -10,27 +10,25 @@ LIBPATH1=$(subst \libgcc.a,,$(shell dir /s /b "$(GCCPATH)*libgcc.a" | find "v6-m
 LIBPATH2=$(subst \libc_nano.a,,$(shell dir /s /b "$(GCCPATH)*libc_nano.a" | find "v6-m"))
 LIBSPEC=-L"$(LIBPATH1)" -L"$(LIBPATH2)"
 
-OBJS=main.o startup.o serial.o adc.o newlib_stubs.o
+OBJS=main.o startup.o serial.o newlib_stubs.o
 
+# Notice that floating point is enabled with printf (-u _printf_float)
 main.hex: $(OBJS)
-	$(LD) $(OBJS) $(LIBSPEC) -Os -u _printf_float -nostdlib -lnosys -lgcc -T ../../Common/LDscripts/stm32l051xx.ld --cref -Map main.map -o main.elf
+	$(LD) $(OBJS) $(LIBSPEC) -Os -u _printf_float -nostdlib -lnosys -lgcc -T ../Common/LDscripts/stm32l051xx.ld --cref -Map main.map -o main.elf
 	arm-none-eabi-objcopy -O ihex main.elf main.hex
 	@echo Success!
 
-main.o: main.c adc.h
+main.o: main.c
 	$(CC) -c $(CCFLAGS) main.c -o main.o
 
-adc.o: adc.c adc.h
-	$(CC) -c $(CCFLAGS) adc.c -o adc.o
+startup.o: ../Common/Source/startup.c
+	$(CC) -c $(CCFLAGS) -DUSE_USART1 ../Common/Source/startup.c -o startup.o
 
-startup.o: ../../Common/Source/startup.c
-	$(CC) -c $(CCFLAGS) -DUSE_USART1 ../../Common/Source/startup.c -o startup.o
+serial.o: ../Common/Source/serial.c
+	$(CC) -c $(CCFLAGS) ../Common/Source/serial.c -o serial.o
 
-serial.o: ../../Common/Source/serial.c
-	$(CC) -c $(CCFLAGS) ../../Common/Source/serial.c -o serial.o
-
-newlib_stubs.o: ../../Common/Source/newlib_stubs.c
-	$(CC) -c $(CCFLAGS) ../../Common/Source/newlib_stubs.c -o newlib_stubs.o
+newlib_stubs.o: ../Common/Source/newlib_stubs.c
+	$(CC) -c $(CCFLAGS) ../Common/Source/newlib_stubs.c -o newlib_stubs.o
 
 clean:
 	@del $(OBJS) 2>NUL

@@ -6,5 +6,6 @@
         "lcd.h": "c",
         "stdio.h": "c",
         "math.h": "c"
-    }
+    },
+    "makefile.makePath": "C:\\mingw\\bin"
 }

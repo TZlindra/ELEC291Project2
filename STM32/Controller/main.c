@@ -27,6 +27,8 @@
 #include "lcd.h"
 #include "speaker.h"
 #include "adc.h"
+#include "UART2.h"
+#include "JDY_STM32.h"
 
 #define F_CPU 32000000L
 

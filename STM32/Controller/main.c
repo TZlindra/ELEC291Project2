@@ -101,6 +101,20 @@ void ConfigPinADC(void) {
 	GPIOB->MODER |= (BIT2|BIT3);  // Select analog mode for PB1 (pin 15 of LQFP32 package)
 }
 
+void ConfigPinsUART2(void) {
+	GPIOA->OSPEEDR=0xffffffff; // All pins of port A configured for very high speed! Page 201 of RM0451
+
+	RCC->IOPENR |= BIT0; // peripheral clock enable for port A
+
+    GPIOA->MODER = (GPIOA->MODER & ~(BIT27|BIT26)) | BIT26; // Make pin PA13 output (page 200 of RM0451, two bits used to configure: bit0=1, bit1=0))
+	GPIOA->ODR |= BIT13; // 'set' pin to 1 is normal operation mode.
+
+	GPIOA->MODER &= ~(BIT22 | BIT23); // Make PA11 Input
+	// Activate pull up for pin PA11;
+	GPIOA->PUPDR |= BIT22;
+	GPIOA->PUPDR &= ~(BIT23);
+}
+
 void ConfigSpeakerPin(void)
 {
 	RCC->IOPENR |= BIT0; // peripheral clock enable for port A
@@ -138,9 +152,13 @@ void main(void) {
 	LCD_4BIT();
 	ConfigPinButton();
 	ConfigPinADC();
+	ConfigPinsUART2();
 	ConfigSpeakerPin();
 
+	InitUART2(9600);
 	InitTimer2();
+
+	ConfigJDY40();
 
 	initADC();
 

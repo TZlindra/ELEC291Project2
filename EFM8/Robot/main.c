@@ -1,3 +1,5 @@
+// Inductance = 1.001 mH
+
 /*
  * main.c : Robot Period Measurement At Pin P0.1 using Timer 0
  * and Displaying the Frequency and Colpitts Oscillator on LCD.
@@ -5,7 +7,9 @@
 
 /* Include Headers */
 #include <EFM8LB1.h>
+#include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 #define MAX_16_BIT 65536.0 // 16-Bit Maximum Value
 #define MAX_8_BIT 256.0 // 8-Bit Maximum Value
@@ -21,7 +25,7 @@
 #define VSS 5 // The measured value of VSS in volts
 #define VDD 3.3035 // The measured value of VDD in volts
 
-int overflow_count = 0; // Timer 0 Overflow Counter
+idata char buff[20];
 
 /*
  * External Startup Function
@@ -135,6 +139,128 @@ void TIMER0_Init(void) {
 	TR0 = 0; // Stop Timer/Counter 0
 }
 
+void UART1_Init (unsigned long baudrate)
+{
+    SFRPAGE = 0x20;
+	SMOD1 = 0x0C; // no parity, 8 data bits, 1 stop bit
+	SCON1 = 0x10;
+	SBCON1 =0x00;   // disable baud rate generator
+	SBRL1 = 0x10000L-((SYSCLK/baudrate)/(12L*2L));
+	TI1 = 1; // indicate ready for TX
+	SBCON1 |= 0x40;   // enable baud rate generator
+	SFRPAGE = 0x00;
+}
+
+void putchar1 (char c) 
+{
+    SFRPAGE = 0x20;
+	while (!TI1);
+	TI1=0;
+	SBUF1 = c;
+	SFRPAGE = 0x00;
+}
+
+void sendstr1 (char * s)
+{
+	while(*s)
+	{
+		putchar1(*s);
+		s++;	
+	}
+}
+
+char getchar1 (void)
+{
+	char c;
+    SFRPAGE = 0x20;
+	while (!RI1);
+	RI1=0;
+	// Clear Overrun and Parity error flags 
+	SCON1&=0b_0011_1111;
+	c = SBUF1;
+	SFRPAGE = 0x00;
+	return (c);
+}
+
+char getchar1_with_timeout (void)
+{
+	char c;
+	unsigned int timeout;
+    SFRPAGE = 0x20;
+    timeout=0;
+	while (!RI1)
+	{
+		SFRPAGE = 0x00;
+		Timer3us(20);
+		SFRPAGE = 0x20;
+		timeout++;
+		if(timeout==25000)
+		{
+			SFRPAGE = 0x00;
+			return ('\n'); // Timeout after half second
+		}
+	}
+	RI1=0;
+	// Clear Overrun and Parity error flags 
+	SCON1&=0b_0011_1111;
+	c = SBUF1;
+	SFRPAGE = 0x00;
+	return (c);
+}
+
+void getstr1 (char * s)
+{
+	char c;
+	
+	while(1)
+	{
+		c=getchar1_with_timeout();
+		if(c=='\n')
+		{
+			*s=0;
+			return;
+		}
+		*s=c;
+		s++;
+	}
+}
+
+// RXU1 returns '1' if there is a byte available in the receive buffer of UART1
+bit RXU1 (void)
+{
+	bit mybit;
+    SFRPAGE = 0x20;
+	mybit=RI1;
+	SFRPAGE = 0x00;
+	return mybit;
+}
+
+void waitms_or_RI1 (unsigned int ms)
+{
+	unsigned int j;
+	unsigned char k;
+	for(j=0; j<ms; j++)
+	{
+		for (k=0; k<4; k++)
+		{
+			if(RXU1()) return;
+			Timer3us(250);
+		}
+	}
+}
+
+void SendATCommand (char * s)
+{
+	printf("Command: %s", s);
+	P2_0=0; // 'set' pin to 0 is 'AT' mode.
+	waitms(5);
+	sendstr1(s);
+	getstr1(buff);
+	waitms(10);
+	P2_0=1; // 'set' pin to 1 is normal operation mode.
+	printf("Response: %s\r\n", buff);
+}
+
 float calculate_period_s(int overflow_count, int TH0, int TL0) {
 	return ((overflow_count * MAX_16_BIT)  + (TH0 * MAX_8_BIT) + TL0) * (12.0 / SYSCLK);
 }
@@ -143,14 +269,22 @@ float calculate_freq_Hz(float period_s) {
 	return (1.0 / period_s);
 }
 
-void main(void) {
-	float period_s, freq_Hz, capacitance_nF;
+void InitJDY(void) {
+	SendATCommand("AT+DVIDAFAF\r\n");  
+	SendATCommand("AT+RFIDFFBB\r\n");
+	// To check configuration
+	SendATCommand("AT+VER\r\n");
+	SendATCommand("AT+BAUD\r\n");
+	SendATCommand("AT+RFID\r\n");
+	SendATCommand("AT+DVID\r\n");
+	SendATCommand("AT+RFC\r\n");
+	SendATCommand("AT+POWE\r\n");
+	SendATCommand("AT+CLSS\r\n");
+}
 
-	TIMER0_Init(); // Initialize Timer 0
-    Serial_Init(); // Initialize Serial Port
-
-    while(1) {
-        // Reset Counter
+float GetPeriod(void){
+		float period_s, freq_Hz;
+		int overflow_count = 0; 
 		TL0 = 0;
 		TH0 = 0;
 		TF0 = 0;
@@ -177,9 +311,14 @@ void main(void) {
 		TR0 = 0; // Stop Timer 0. The 24-bit number [overflow_count-TH0-TL0] has the period!
 		period_s = calculate_period_s(overflow_count, TH0, TL0);
 		freq_Hz = calculate_freq_Hz(period_s);
+		return freq_Hz;
+}
 
-		/*
-		 * Print Frequency & Capacitance to Serial Port. Display on LCD.
-		 */
-	}
+void main(void) {
+	float freq; 
+	TIMER0_Init(); // Initialize Timer 0
+    Serial_Init(); // Initialize Serial Port
+	UART1_Init(9600); 
+	InitJDY();
+    GetPeriod(); 
 }

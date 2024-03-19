@@ -1,14 +1,33 @@
 // This program activates the PWM function of timer 2 channel 1 on PA15 (pin 25).
-// The PWM is changed every second or so using the ISR for TIME2.
-// An LED+1k could be attached to PA0 (pin 6).  Every time the LED toggles, the PWM changes.
+// The PWM is changed every second or so using the ISR for TIM2.
+
+// LQFP32 pinout
+//                    ----------
+//              VDD -|1      32|- VSS
+//             PC14 -|2      31|- BOOT0
+//             PC15 -|3      30|- PB7
+//             NRST -|4      29|- PB6
+//             VDDA -|5      28|- PB5
+// LCD_RS      PA0 -|6       27|- PB4
+// LCD_E       PA1 -|7       26|- PB3
+// LCD_D4      PA2 -|8       25|- PA15
+// LCD_D5      PA3 -|9       24|- PA14
+// LCD_D6      PA4 -|10      23|- PA13
+// LCD_D7      PA5 -|11      22|- PA12
+//             PA6 -|12      21|- PA11
+//             PA7 -|13      20|- PA10 (Reserved for RXD)
+// (ADC_IN8)   PB0 -|14      19|- PA9  (Reserved for TXD)
+// (ADC_IN9)   PB1 -|15      18|- PA8  (Speaker)
+//             VSS -|16      17|- VDD
+//                    ----------
 
 #include "../Common/Include/stm32l051xx.h"
 
-volatile int Count = 0;
-volatile float ratio = 1;
-
 #define SYSCLK 32000000L
 #define TICK_FREQ 2048L
+
+volatile int Count = 0;
+volatile float ratio = 1;
 
 void ToggleSpeaker(void)
 {
@@ -41,26 +60,6 @@ void TIM2_Handler(void)
 		ToggleSpeaker(); // toggle the state of the speaker
 	}
 }
-
-// LQFP32 pinout
-//             ----------
-//       VDD -|1       32|- VSS
-//      PC14 -|2       31|- BOOT0
-//      PC15 -|3       30|- PB7
-//      NRST -|4       29|- PB6
-//      VDDA -|5       28|- PB5
-// (LED) PA0 -|6       27|- PB4
-//       PA1 -|7       26|- PB3
-//       PA2 -|8       25|- PA15 (PWM output channel 1 of TIM2)
-//       PA3 -|9       24|- PA14
-//       PA4 -|10      23|- PA13
-//       PA5 -|11      22|- PA12
-//       PA6 -|12      21|- PA11
-//       PA7 -|13      20|- PA10 (Reserved for RXD)
-//       PB0 -|14      19|- PA9  (Reserved for TXD)
-//       PB1 -|15      18|- PA8
-//       VSS -|16      17|- VDD
-//             ----------
 
 void InitTimer2(void)
 {

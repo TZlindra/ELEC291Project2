@@ -81,7 +81,7 @@ int WriteCom2(int Count, unsigned char *Buffer)
 	return 0;
 }
 
-void initUART2(int BaudRate)
+void InitUART2(int BaudRate)
 {
 	int BaudRateDivisor;
 	//int j;

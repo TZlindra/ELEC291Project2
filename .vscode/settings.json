@@ -5,7 +5,8 @@
         "speaker.h": "c",
         "lcd.h": "c",
         "stdio.h": "c",
-        "math.h": "c"
+        "math.h": "c",
+        "uart2.h": "c"
     },
     "makefile.makePath": "C:\\mingw\\bin"
 }

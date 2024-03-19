@@ -1,13 +1,16 @@
 #include "movement.h"
+#include "JDY_STM32.h"
 
 #define Y_MIDPOINT 2044
 #define X_MIDPOINT 2136
 #define MINIMUM_PERCENT_ACTIVE 0.1
+#define X_STRING "Joystick_X: "
+#define Y_STRING "Joystick_Y: "
 
 void standardized_joystick_values(float* x_value, float* y_value)
 {
-    *x_value = *x_value - X_MIDPOINT;
-    *y_value = *y_value - Y_MIDPOINT;
+    *x_value = -1 * (*x_value - X_MIDPOINT);
+    *y_value = -1 * (*y_value - Y_MIDPOINT);
 }
 
 float y_direction_to_PWM_percent(float y_value)
@@ -29,7 +32,7 @@ float y_direction_to_PWM_percent(float y_value)
 
 }
 
-void JDY_PWM_Transmission_X(float x_percent, float y_percent)
+void JDY_PWM_Transmission_Y(float y_value)
 {
-    int x = 1;
+    SendCommand(Y_STRING, y_value);
 }

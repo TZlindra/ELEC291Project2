@@ -47,20 +47,6 @@ void waitms (unsigned int ms)
 		for (k=0; k<4; k++) Delay_us(250);
 }
 
-void Hardware_Init(void)
-{
-	GPIOA->OSPEEDR=0xffffffff; // All pins of port A configured for very high speed! Page 201 of RM0451
-
-	RCC->IOPENR |= BIT0; // peripheral clock enable for port A
-
-    GPIOA->MODER = (GPIOA->MODER & ~(BIT27|BIT26)) | BIT26; // Make pin PA13 output (page 200 of RM0451, two bits used to configure: bit0=1, bit1=0))
-	GPIOA->ODR |= BIT13; // 'set' pin to 1 is normal operation mode.
-
-	GPIOA->MODER &= ~(BIT22 | BIT23); // Make PA11 Input
-	// Activate pull up for pin PA11;
-	GPIOA->PUPDR |= BIT22;
-	GPIOA->PUPDR &= ~(BIT23);
-}
 
 void SendATCommand (char * s)
 {
@@ -75,23 +61,29 @@ void SendATCommand (char * s)
 	printf("Response: %s", buff);
 }
 
-int main(void)
+void SendCommand(char * s, int value)
+{	
+	int count = 0;
+	sprintf(buff, "%s %d", s, value);
+	eputs2(buff);
+	printf(".");
+	waitms(200);	
+}
+
+void ReceiveCommand(void)
 {
-	char buff[80];
-    int cnt=0;
+	if(ReceivedBytes2()>0) // Something has arrived
+	{
+		egets2(buff, sizeof(buff)-1);
+		printf("RX: %s", buff);
+	}
+}
 
-	Hardware_Init();
-	initUART2(9600);
-
-	waitms(1000); // Give putty some time to start.
-	printf("\r\nJDY-40 test\r\n");
-
-	// We should select an unique device ID.  The device ID can be a hex
-	// number from 0x0000 to 0xFFFF.  In this case is set to 0xABBA
-	SendATCommand("AT+DVIDAFAF\r\n");
+void ConfigJDY40(void) {
+	SendATCommand("AT+DVIDAFAF\r\n"); // Select a unique device ID from 0x0000 to 0xFFFF
 	SendATCommand("AT+RFIDFFBB\r\n");
 
-	// To check configuration
+	// Check Configuration
 	SendATCommand("AT+VER\r\n");
 	SendATCommand("AT+BAUD\r\n");
 	SendATCommand("AT+RFID\r\n");
@@ -99,6 +91,33 @@ int main(void)
 	SendATCommand("AT+RFC\r\n");
 	SendATCommand("AT+POWE\r\n");
 	SendATCommand("AT+CLSS\r\n");
+}
+
+void ConfigPinsUART2(void) {
+	GPIOA->OSPEEDR=0xffffffff; // All pins of port A configured for very high speed! Page 201 of RM0451
+
+	RCC->IOPENR |= BIT0; // peripheral clock enable for port A
+
+    GPIOA->MODER = (GPIOA->MODER & ~(BIT27|BIT26)) | BIT26; // Make pin PA13 output (page 200 of RM0451, two bits used to configure: bit0=1, bit1=0))
+	GPIOA->ODR |= BIT13; // 'set' pin to 1 is normal operation mode.
+
+	GPIOA->MODER &= ~(BIT22 | BIT23); // Make PA11 Input
+	// Activate pull up for pin PA11;
+	GPIOA->PUPDR |= BIT22;
+	GPIOA->PUPDR &= ~(BIT23);
+}
+
+int main(void)
+{
+	char buff[80];
+    int cnt=0;
+
+	ConfigPinsUART2();
+	InitUART2(9600);
+	ConfigJDY40();
+
+	waitms(1000); // Give putty some time to start.
+	printf("\r\nJDY-40 test\r\n");
 
 	printf("\r\nPress and hold a push-button attached to PA8 (pin 18) to transmit.\r\n");
 
@@ -107,16 +126,9 @@ int main(void)
 	{
 		if((GPIOA->IDR&BIT11)==0)
 		{
-			sprintf(buff, "JDY40 test %d\r\n", cnt++);
-			eputs2(buff);
-			printf(".");
-			waitms(200);
+			SendCommand("F: %d\r\n", 52);
 		}
-		if(ReceivedBytes2()>0) // Something has arrived
-		{
-			egets2(buff, sizeof(buff)-1);
-			printf("RX: %s", buff);
-		}
+		ReceiveCommand();
 	}
 
 }

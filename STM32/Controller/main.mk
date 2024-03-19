@@ -1,7 +1,7 @@
 SHELL=cmd
-CC=arm-none-eabi-gcc
-AS=arm-none-eabi-as
-LD=arm-none-eabi-ld
+CC=arm-none-eabi-gcc # Need Added to Path
+AS=arm-none-eabi-as # Need Added to Path
+LD=arm-none-eabi-ld # Need Added to Path
 CCFLAGS=-mcpu=cortex-m0 -mthumb -g
 
 # Search for the path of the right libraries.  Works only on Windows.

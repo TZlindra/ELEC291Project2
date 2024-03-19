@@ -10,7 +10,7 @@ LIBPATH1=$(subst \libgcc.a,,$(shell dir /s /b "$(GCCPATH)*libgcc.a" | find "v6-m
 LIBPATH2=$(subst \libc_nano.a,,$(shell dir /s /b "$(GCCPATH)*libc_nano.a" | find "v6-m"))
 LIBSPEC=-L"$(LIBPATH1)" -L"$(LIBPATH2)"
 
-OBJS=main.o startup.o serial.o lcd.o adc.o speaker.o movement.o newlib_stubs.o
+OBJS=main.o startup.o serial.o UART2.o JDY40.o lcd.o adc.o speaker.o movement.o newlib_stubs.o
 
 # Notice that floating point is enabled with printf (-u _printf_float)
 main.hex: $(OBJS)
@@ -18,7 +18,7 @@ main.hex: $(OBJS)
 	arm-none-eabi-objcopy -O ihex main.elf main.hex
 	@echo Success!
 
-main.o: main.c speaker.h lcd.h adc.h
+main.o: main.c speaker.h lcd.h adc.h movement.h JDY40.h UART2.h
 	$(CC) -c $(CCFLAGS) main.c -o main.o
 
 adc.o: adc.c adc.h
@@ -32,6 +32,12 @@ speaker.o: speaker.c speaker.h
 
 movement.o: movement.c movement.h
 	$(CC) -c $(CCFLAGS) movement.c -o movement.o
+
+JDY40.o: JDY40.c JDY40.h UART2.h
+	$(CC) -c $(CCFLAGS) JDY40.c -o JDY40.o
+
+UART2.o: UART2.c UART2.h
+	$(CC) -c $(CCFLAGS) UART2.c -o UART2.o
 
 startup.o: ../Common/Source/startup.c
 	$(CC) -c $(CCFLAGS) -DUSE_USART1 ../Common/Source/startup.c -o startup.o

@@ -6,7 +6,13 @@
         "lcd.h": "c",
         "stdio.h": "c",
         "math.h": "c",
-        "uart2.h": "c"
+        "uart2.h": "c",
+        "global.h": "c",
+        "stdlib.h": "c",
+        "jdy_stm32.h": "c",
+        "movement.h": "c",
+        "adc.h": "c",
+        "jdy40.h": "c"
     },
     "makefile.makePath": "C:\\mingw\\bin"
 }

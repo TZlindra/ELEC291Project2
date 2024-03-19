@@ -6,18 +6,7 @@
  */
 
 /* Include Headers */
-#include <EFM8LB1.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-
-#define MAX_16_BIT 65536.0 // 16-Bit Maximum Value
-#define MAX_8_BIT 256.0 // 8-Bit Maximum Value
-
-/* Clock Frequency and Baud Rate */
-#define SYSCLK    72000000L // SYSCLK Frequency in Hz
-#define BAUDRATE    115200L // Baudrate of UART in BPS
-#define SARCLK 18000000L // SARCLK Frequency in Hz
+#include "global.h"
 
 /* Define Pins */
 #define EFM8_SIGNAL P0_1 // Signal to Measure
@@ -30,20 +19,20 @@ idata char buff[20];
 /*
  * External Startup Function
  */
-char _c51_external_startup(void) {
-	// Disable Watchdog With Key Sequence
+char _c51_external_startup (void)
+{
+	// Disable Watchdog with key sequence
 	SFRPAGE = 0x00;
-	WDTCN = 0xDE; // First Key
-	WDTCN = 0xAD; // Second Key
+	WDTCN = 0xDE; //First key
+	WDTCN = 0xAD; //Second key
 
-	VDM0CN |= 0x80;
-	RSTSRC=0x02|0x04;  // Enable Reset on Missing Clock Detector and VDD
+	VDM0CN=0x80;       // enable VDD monitor
+	RSTSRC=0x02|0x04;  // Enable reset on missing clock detector and VDD
 
 	#if (SYSCLK == 48000000L)
 		SFRPAGE = 0x10;
 		PFE0CN  = 0x10; // SYSCLK < 50 MHz.
 		SFRPAGE = 0x00;
-    /* Effective SYSCLK */
 	#elif (SYSCLK == 72000000L)
 		SFRPAGE = 0x10;
 		PFE0CN  = 0x20; // SYSCLK < 75 MHz.
@@ -59,16 +48,15 @@ char _c51_external_startup(void) {
 		CLKSEL = 0x00;
 		while ((CLKSEL & 0x80) == 0);
 	#elif (SYSCLK == 48000000L)
-		// Before Setting Clock to 48 MHz, Must Transition to 24.5 MHz First
+		// Before setting clock to 48 MHz, must transition to 24.5 MHz first
 		CLKSEL = 0x00;
 		CLKSEL = 0x00;
 		while ((CLKSEL & 0x80) == 0);
 		CLKSEL = 0x07;
 		CLKSEL = 0x07;
 		while ((CLKSEL & 0x80) == 0);
-    /* Effective SYSCLK */
 	#elif (SYSCLK == 72000000L)
-		// Before Setting Clock to 72 MHz, Must Transition to 24.5 MHz First
+		// Before setting clock to 72 MHz, must transition to 24.5 MHz first
 		CLKSEL = 0x00;
 		CLKSEL = 0x00;
 		while ((CLKSEL & 0x80) == 0);
@@ -79,54 +67,27 @@ char _c51_external_startup(void) {
 		#error SYSCLK must be either 12250000L, 24500000L, 48000000L, or 72000000L
 	#endif
 
-	P0MDOUT |= 0x10; // Enable UART0 TX As Push-Pull Output
-	XBR0     = 0x01; // Enable UART0 on P0.4 (TX) and P0.5 (RX)
-	XBR1     = 0X00; // Enable T0 on P0.0
-	XBR2     = 0x40; // Enable Crossbar and Weak Pull-Ups
+	P0MDOUT |= 0x11; // Enable UART0 TX (P0.4) and UART1 TX (P0.0) as push-pull outputs
+	P2MDOUT |= 0x01; // P2.0 in push-pull mode
+	XBR0     = 0x01; // Enable UART0 on P0.4(TX) and P0.5(RX)
+	XBR1     = 0X00;
+	XBR2     = 0x41; // Enable crossbar and uart 1
 
+	// Configure Uart 0
 	#if (((SYSCLK/BAUDRATE)/(2L*12L))>0xFFL)
 		#error Timer 0 reload value is incorrect because (SYSCLK/BAUDRATE)/(2L*12L) > 0xFF
 	#endif
-
-	// Configure UART 0
 	SCON0 = 0x10;
-	CKCON0 |= 0b_0000_0000 ; // Timer 1 Uses SYSCLK / 12
-	TH1 = 0x100-((SYSCLK/BAUDRATE)/(2L*12L)); // Set Timer1 Reload Value, Initial Value
-	TL1 = TH1; 	// Init Timer1
-	TMOD &= ~0xf0;  // TMOD: Timer 1 in 8-bit auto-reload
+	TH1 = 0x100-((SYSCLK/BAUDRATE)/(2L*12L));
+	TL1 = TH1;      // Init Timer1
+	TMOD &= ~0xf0;  // TMOD: timer 1 in 8-bit auto-reload
 	TMOD |=  0x20;
-	TR1 = 1; // Start Timer1
-	TI = 1;  // Indicate TX0 Ready
+	TR1 = 1; // START Timer1
+	TI = 1;  // Indicate TX0 ready
 
 	return 0;
 }
 
-/*
- * Uses Timer 3 to delay <us> micro-seconds.
- */
-void Timer3us(unsigned char us) {
-	unsigned char i; // Microsecond Counter
-
-	// Input for Timer 3 is Selected as SYSCLK by Setting T3ML (Bit 6) of CKCON0
-	CKCON0 |= 0b_0100_0000;
-
-	TMR3RL = (-(SYSCLK)/1000000L); // Set Timer3 to Overflow in 1us
-	TMR3 = TMR3RL;                 // Initialize Timer3 for First Overflow
-
-	TMR3CN0 = 0x04;                 // Start Timer3 and Clear Overflow Flag
-	for (i = 0; i < us; i++) {      // Count Overflows (#Microseconds)
-		while (!(TMR3CN0 & 0x80));  // Wait for Overflow
-		TMR3CN0 &= ~(0x80);         // Clear Overflow Indicator
-	}
-	TMR3CN0 = 0 ;                   // Stop Timer3 and Clear Overflow Flag
-}
-
-void waitms(unsigned int ms) {
-	unsigned int j;
-	unsigned char k;
-	for (j=0; j<ms; j++)
-		for (k=0; k<4; k++) Timer3us(250);
-}
 
 void Serial_Init(void) {
 	waitms(500); // Give Putty a chance to start.
@@ -151,7 +112,7 @@ void UART1_Init (unsigned long baudrate)
 	SFRPAGE = 0x00;
 }
 
-void putchar1 (char c) 
+void putchar1 (char c)
 {
     SFRPAGE = 0x20;
 	while (!TI1);
@@ -165,7 +126,7 @@ void sendstr1 (char * s)
 	while(*s)
 	{
 		putchar1(*s);
-		s++;	
+		s++;
 	}
 }
 
@@ -175,7 +136,7 @@ char getchar1 (void)
     SFRPAGE = 0x20;
 	while (!RI1);
 	RI1=0;
-	// Clear Overrun and Parity error flags 
+	// Clear Overrun and Parity error flags
 	SCON1&=0b_0011_1111;
 	c = SBUF1;
 	SFRPAGE = 0x00;
@@ -201,7 +162,7 @@ char getchar1_with_timeout (void)
 		}
 	}
 	RI1=0;
-	// Clear Overrun and Parity error flags 
+	// Clear Overrun and Parity error flags
 	SCON1&=0b_0011_1111;
 	c = SBUF1;
 	SFRPAGE = 0x00;
@@ -211,7 +172,7 @@ char getchar1_with_timeout (void)
 void getstr1 (char * s)
 {
 	char c;
-	
+
 	while(1)
 	{
 		c=getchar1_with_timeout();
@@ -270,7 +231,7 @@ float calculate_freq_Hz(float period_s) {
 }
 
 void InitJDY(void) {
-	SendATCommand("AT+DVIDAFAF\r\n");  
+	SendATCommand("AT+DVIDAFAF\r\n");
 	SendATCommand("AT+RFIDFFBB\r\n");
 	// To check configuration
 	SendATCommand("AT+VER\r\n");
@@ -284,7 +245,7 @@ void InitJDY(void) {
 
 float GetPeriod(void){
 		float period_s, freq_Hz;
-		int overflow_count = 0; 
+		int overflow_count = 0;
 		TL0 = 0;
 		TH0 = 0;
 		TF0 = 0;
@@ -315,10 +276,10 @@ float GetPeriod(void){
 }
 
 void main(void) {
-	float freq; 
+	float freq;
 	TIMER0_Init(); // Initialize Timer 0
     Serial_Init(); // Initialize Serial Port
-	UART1_Init(9600); 
+	UART1_Init(9600);
 	InitJDY();
-    GetPeriod(); 
+    GetPeriod();
 }

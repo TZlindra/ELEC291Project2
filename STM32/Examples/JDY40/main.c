@@ -35,7 +35,7 @@ void Delay_us(unsigned char us)
 	// For SysTick info check the STM32L0xxx Cortex-M0 programming manual page 85.
 	SysTick->LOAD = (F_CPU/(1000000L/us)) - 1;  // set reload register, counter rolls over from zero, hence -1
 	SysTick->VAL = 0; // load the SysTick counter
-	SysTick->CTRL  = SysTick_CTRL_CLKSOURCE_Msk | SysTick_CTRL_ENABLE_Msk; // Enable SysTick IRQ and SysTick Timer 
+	SysTick->CTRL  = SysTick_CTRL_CLKSOURCE_Msk | SysTick_CTRL_ENABLE_Msk; // Enable SysTick IRQ and SysTick Timer
 	while((SysTick->CTRL & BIT16)==0); // Bit 16 is the COUNTFLAG.  True when counter rolls over from zero.
 	SysTick->CTRL = 0x00; // Disable Systick counter
 }
@@ -188,14 +188,13 @@ void SendATCommand (char * s)
 	printf("Response: %s", buff);
 }
 
-void SendCommand(char * s, int value)
-{	
+void SendCommand(char * s, int value) {
 	char buff[80];
 	int count = 0;
-	sprintf(buff, "%s %d", s, value);
+	sprintf(buff, "%s %d\r\n", s, value);
+	printf("%s", buff); // Print to Terminal
 	eputs2(buff);
-	printf(".");
-	waitms(200);	
+	waitms(200);
 }
 
 void ReceiveCommand(void)
@@ -203,7 +202,7 @@ void ReceiveCommand(void)
 	if(ReceivedBytes2()>0) // Something has arrived
 	{
 		egets2(buff, sizeof(buff)-1);
-		printf("RX: %s", buff);
+		printf("RX: %s\r\n", buff);
 	}
 }
 
@@ -254,10 +253,10 @@ int main(void)
 	{
 		if((GPIOA->IDR&BIT11)==0)
 		{
-			SendCommand("F: %d\r\n", 52);
+			SendCommand("F:", cnt);
+			cnt++;
 		}
 		ReceiveCommand();
 	}
 
 }
-

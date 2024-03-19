@@ -24,11 +24,12 @@
 
 #include "../Common/Include/serial.h"
 #include "../Common/Include/stm32l051xx.h"
+
 #include "lcd.h"
 #include "speaker.h"
 #include "adc.h"
-//#include "UART2.h"
-//#include "JDY_STM32.h"
+#include "UART2.h"
+#include "JDY40.h"
 #include "movement.h"
 
 #define F_CPU 32000000L
@@ -176,6 +177,13 @@ void main(void) {
 			TIM2->CR1 &= !BIT0; // enable counter enable
 		}
 		TIM2->CR1 |= BIT0;
+
+		while (!(GPIOA->IDR & BIT11))
+		{
+			JDY_PWM_Transmission_Y(y);
+		}
+		ReceiveCommand();
+
 
 		// Display the ADC values on the LCD
 		display_x_y(x, y);

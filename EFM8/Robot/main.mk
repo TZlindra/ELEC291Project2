@@ -7,7 +7,7 @@ main.hex: $(OBJS)
 	$(CC) $(OBJS)
 	@del *.asm *.lst *.lkr 2> nul
 	@echo Done!
-	
+
 main.obj: main.c lcd.h
 	$(CC) -c main.c
 
@@ -31,6 +31,6 @@ putty:
 
 Dummy: main.hex main.Map
 	@echo Nothing to see here!
-	
+
 explorer:
 	cmd /c start explorer .

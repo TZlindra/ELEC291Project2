@@ -1,5 +1,5 @@
 #include "movement.h"
-#include "JDY_STM32.h"
+#include "JDY40.h"
 
 #define Y_MIDPOINT 2044
 #define X_MIDPOINT 2136

@@ -61,10 +61,7 @@ void TIM2_Handler(void)
 	}
 }
 
-void InitTimer2(void)
-{
-
-
+void InitTimer2(void) {
 	// Configure PA15 for altenate function (TIM2_CH1, pin 25 in LQFP32 package)
 	GPIOA->OSPEEDR  |= BIT30; // MEDIUM SPEED
 	GPIOA->OTYPER   &= ~BIT15; // Push-pull

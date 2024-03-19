@@ -8,6 +8,32 @@
 #define F_CPU 32000000L
 #define DEF_F 15000L
 
+#define X_STRING "_X_"
+#define Y_STRING "_Y_"
+
+// LQFP32 pinout
+//                    ----------
+//              VDD -|1      32|- VSS
+//             PC14 -|2      31|- BOOT0
+//             PC15 -|3      30|- PB7
+//             NRST -|4      29|- PB6
+//             VDDA -|5      28|- PB5
+// LCD_RS      PA0 -|6       27|- PB4
+// LCD_E       PA1 -|7       26|- PB3
+// LCD_D4      PA2 -|8       25|- PA15
+// LCD_D5      PA3 -|9       24|- PA14
+// LCD_D6      PA4 -|10      23|- PA13
+// LCD_D7      PA5 -|11      22|- PA12
+//             PA6 -|12      21|- PA11
+//             PA7 -|13      20|- PA10 (Reserved for RXD)
+// (ADC_IN8)   PB0 -|14      19|- PA9  (Reserved for TXD)
+// (ADC_IN9)   PB1 -|15      18|- PA8  (Speaker)
+//             VSS -|16      17|- VDD
+//                    ----------
+
+char tx_buff[80];
+char rx_buff[80];
+
 void Delay_usJDY(unsigned char us)
 {
 	// For SysTick info check the STM32L0xxx Cortex-M0 programming manual page 85.
@@ -26,55 +52,33 @@ void waitmsJDY(unsigned int ms)
 		for (k=0; k<4; k++) Delay_usJDY(250);
 }
 
-
-// LQFP32 pinout
-//             ----------
-//       VDD -|1       32|- VSS
-//      PC14 -|2       31|- BOOT0
-//      PC15 -|3       30|- PB7
-//      NRST -|4       29|- PB6
-//      VDDA -|5       28|- PB5
-//       PA0 -|6       27|- PB4
-//       PA1 -|7       26|- PB3
-//       PA2 -|8       25|- PA15 (Used for RXD of UART2, connects to TXD of JDY40)
-//       PA3 -|9       24|- PA14 (Used for TXD of UART2, connects to RXD of JDY40)
-//       PA4 -|10      23|- PA13 (Used for SET of JDY40)
-//       PA5 -|11      22|- PA12
-//       PA6 -|12      21|- PA11
-//       PA7 -|13      20|- PA10 (Reserved for RXD of UART1)
-//       PB0 -|14      19|- PA9  (Reserved for TXD of UART1)
-//       PB1 -|15      18|- PA8  (pushbutton)
-//       VSS -|16      17|- VDD
-//             ----------
-
 void SendATCommand (char * s)
 {
-	char buff[40];
 	printf("Command: %s", s);
 	GPIOA->ODR &= ~(BIT13); // 'set' pin to 0 is 'AT' mode.
 	waitmsJDY(10);
 	eputs2(s);
-	egets2(buff, sizeof(buff)-1);
+	egets2(tx_buff, sizeof(tx_buff)-1);
 	GPIOA->ODR |= BIT13; // 'set' pin to 1 is normal operation mode.
 	waitmsJDY(10);
-	printf("Response: %s", buff);
+	printf("Response: %s", tx_buff);
 }
 
 void SendCommand(char * s, int value)
 {
-	char buff[80];
-	sprintf(buff, "%s %d\r\n", s, value);
-	eputs2(buff);
+	sprintf(tx_buff, "%s %d\r\n", s, value);
+	printf("TX: %s", tx_buff);
+	eputs2(tx_buff);
 	waitmsJDY(200);
 }
 
 void ReceiveCommand(void)
 {
-	char buff[80];
 	if(ReceivedBytes2()>0) // Something has arrived
 	{
-		egets2(buff, sizeof(buff)-1);
-		printf("RX: %s", buff);
+		printf("RX!\r\n");
+		// egets2(rx_buff, sizeof(rx_buff)-1);
+		// printf("RX: %s", rx_buff);
 	}
 }
 
@@ -90,4 +94,9 @@ void ConfigJDY40(void) {
 	SendATCommand("AT+RFC\r\n");
 	SendATCommand("AT+POWE\r\n");
 	SendATCommand("AT+CLSS\r\n");
+}
+
+void JDY_PWM_Transmission_Y(float y_value)
+{
+    SendCommand(Y_STRING, y_value);
 }

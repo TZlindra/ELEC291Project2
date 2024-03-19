@@ -9,7 +9,7 @@ void initADC(void)
 	// ADC clock selection procedure (page 746 of RM0451)
 	/* (1) Select PCLK by writing 11 in CKMODE */
 	ADC1->CFGR2 |= ADC_CFGR2_CKMODE; /* (1) */
-	
+
 	// ADC enable sequence procedure (page 745 of RM0451)
 	/* (1) Clear the ADRDY bit */
 	/* (2) Enable the ADC */
@@ -20,9 +20,9 @@ void initADC(void)
 	{
 		while ((ADC1->ISR & ADC_ISR_ADRDY) == 0) /* (3) */
 		{
-			/* For robust implementation, add here time-out management */
-		}
-	}	
+		}	/* For robust implementation, add here time-out management */
+
+	}
 
 	// Calibration code procedure (page 745 of RM0451)
 	/* (1) Ensure that ADEN = 0 */
@@ -39,8 +39,8 @@ void initADC(void)
 	{
 		/* For robust implementation, add here time-out management */
 	}
-	ADC1->ISR |= ADC_ISR_EOCAL; /* (5) */
-}
+	}
+
 
 int readADC(unsigned int channel)
 {
@@ -56,9 +56,9 @@ int readADC(unsigned int channel)
 	ADC1->SMPR |= ADC_SMPR_SMP_0 | ADC_SMPR_SMP_1 | ADC_SMPR_SMP_2; /* (4) */
 	if(channel==ADC_CHSELR_CHSEL17)
 	{
-		ADC->CCR |= ADC_CCR_VREFEN; /* (5) */
-	}
-	
+			ADC->CCR |= ADC_CCR_VREFEN; /* (5) */
+}
+
 	/* Performs the AD conversion */
 	ADC1->CR |= ADC_CR_ADSTART; /* start the ADC conversion */
 	while ((ADC1->ISR & ADC_ISR_EOC) == 0) /* wait end of conversion */

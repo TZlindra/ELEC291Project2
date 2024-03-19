@@ -1,11 +1,10 @@
 #include "movement.h"
-#include "JDY40.h"
 
 #define Y_MIDPOINT 2044
 #define X_MIDPOINT 2136
 #define MINIMUM_PERCENT_ACTIVE 0.1
-#define X_STRING "Joystick_X: "
-#define Y_STRING "Joystick_Y: "
+
+#define Y_STRING "Y: "
 
 void standardized_joystick_values(float* x_value, float* y_value)
 {
@@ -30,9 +29,25 @@ float y_direction_to_PWM_percent(float y_value)
 
     return 0;
 
+//    SendCommand(Y_STRING, y_value);
 }
 
-void JDY_PWM_Transmission_Y(float y_value)
+float x_direction(float x_value)
 {
-    SendCommand(Y_STRING, y_value);
+    // checks if ADC is more than 10% higher than the initial value before starting to move
+    if (x_value > X_MIDPOINT + MINIMUM_PERCENT_ACTIVE * X_MIDPOINT || x_value < X_MIDPOINT - MINIMUM_PERCENT_ACTIVE * X_MIDPOINT)
+    {
+        if (x_value > X_MIDPOINT)
+        {
+            return 4095 - X_MIDPOINT;
+        }
+        else if (x_value < X_MIDPOINT)
+        {
+            return X_MIDPOINT;
+        }
+    }
+
+    return 0;
+
+   //SendCommand(Y_STRING, y_value);
 }

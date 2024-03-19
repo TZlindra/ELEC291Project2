@@ -18,7 +18,7 @@ main.hex: $(OBJS)
 	arm-none-eabi-objcopy -O ihex main.elf main.hex
 	@echo Success!
 
-main.o: main.c speaker.h lcd.h adc.h movement.h JDY40.h UART2.h
+main.o: main.c speaker.h lcd.h
 	$(CC) -c $(CCFLAGS) main.c -o main.o
 
 adc.o: adc.c adc.h

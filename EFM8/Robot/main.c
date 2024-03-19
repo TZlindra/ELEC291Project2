@@ -6,16 +6,27 @@
  */
 
 /* Include Headers */
-#include "global.h"
+#include <EFM8LB1.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_16_BIT 65536.0 // 16-Bit Maximum Value
+#define MAX_8_BIT 256.0 // 8-Bit Maximum Value
+
+/* Clock Frequency and Baud Rate */
+#define SYSCLK    72000000L // SYSCLK Frequency in Hz
+#define BAUDRATE    115200L // Baudrate of UART in BPS
+#define SARCLK 18000000L // SARCLK Frequency in Hz
 
 /* Define Pins */
-#define EFM8_SIGNAL P0_1 // Signal to Measure
+#define EFM8_SIGNAL P1_0 // Signal to Measure
 
 #define VSS 5 // The measured value of VSS in volts
 #define VDD 3.3035 // The measured value of VDD in volts
 
-idata char buff[20];
-
+idata char buffs[80];
+idata char buffr[80];
 /*
  * External Startup Function
  */
@@ -88,6 +99,32 @@ char _c51_external_startup (void)
 	return 0;
 }
 
+/*
+ * Uses Timer 3 to delay <us> micro-seconds.
+ */
+void Timer3us(unsigned char us) {
+	unsigned char i; // Microsecond Counter
+
+	// Input for Timer 3 is Selected as SYSCLK by Setting T3ML (Bit 6) of CKCON0
+	CKCON0 |= 0b_0100_0000;
+
+	TMR3RL = (-(SYSCLK)/1000000L); // Set Timer3 to Overflow in 1us
+	TMR3 = TMR3RL;                 // Initialize Timer3 for First Overflow
+
+	TMR3CN0 = 0x04;                 // Start Timer3 and Clear Overflow Flag
+	for (i = 0; i < us; i++) {      // Count Overflows (#Microseconds)
+		while (!(TMR3CN0 & 0x80));  // Wait for Overflow
+		TMR3CN0 &= ~(0x80);         // Clear Overflow Indicator
+	}
+	TMR3CN0 = 0 ;                   // Stop Timer3 and Clear Overflow Flag
+}
+
+void waitms(unsigned int ms) {
+	unsigned int j;
+	unsigned char k;
+	for (j=0; j<ms; j++)
+		for (k=0; k<4; k++) Timer3us(250);
+}
 
 void Serial_Init(void) {
 	waitms(500); // Give Putty a chance to start.
@@ -216,10 +253,10 @@ void SendATCommand (char * s)
 	P2_0=0; // 'set' pin to 0 is 'AT' mode.
 	waitms(5);
 	sendstr1(s);
-	getstr1(buff);
+	getstr1(buffs);
 	waitms(10);
 	P2_0=1; // 'set' pin to 1 is normal operation mode.
-	printf("Response: %s\r\n", buff);
+	printf("Response: %s\r\n", buffs);
 }
 
 float calculate_period_s(int overflow_count, int TH0, int TL0) {
@@ -229,6 +266,11 @@ float calculate_period_s(int overflow_count, int TH0, int TL0) {
 float calculate_freq_Hz(float period_s) {
 	return (1.0 / period_s);
 }
+
+
+// This function initalizes the JDY40 by setting the RFID and DVID, note that the EFM8 and STM32
+// Must have the same RFID AND DVID in order to be able to communicate with eachother
+// After setting the DVID and RFID it checks the configuration at the start of the program
 
 void InitJDY(void) {
 	SendATCommand("AT+DVIDAFAF\r\n");
@@ -243,7 +285,11 @@ void InitJDY(void) {
 	SendATCommand("AT+CLSS\r\n");
 }
 
-float GetPeriod(void){
+// This function Uses timer 0 to calculate the period of a square wave
+// on P1_0, It can be easily changed to read another pin by changing
+// EFM8_SIGNAL to another pin
+
+float GetFreq(void){
 		float period_s, freq_Hz;
 		int overflow_count = 0;
 		TL0 = 0;
@@ -275,11 +321,37 @@ float GetPeriod(void){
 		return freq_Hz;
 }
 
+// This function sends the frequency on P1_0 to the JDY40 for transmission to the STM32
+// Should more data need to be sent it will either be put here or in its own function
+// We should consider adding logic so frequency is only sent if it is a certain range
+// that we will determine once we have constructed the circuit for metal detection
+void SendFreq(float freq){
+	sprintf(buffs,"%.3f\r\n",freq);
+	sendstr1(buffs);
+	waitms_or_RI1(500);
+}
+
+
+	// This function will be receiving the ADC values from the joy stick both X and Y
+	// More logic will be needed in order to store these ADC values to then control the motors
+void CheckCommand(void){
+
+	if(RXU1())
+		{
+			getstr1(buffr);
+			printf("%s\r\n", buffr);
+		}
+}
+
 void main(void) {
 	float freq;
 	TIMER0_Init(); // Initialize Timer 0
     Serial_Init(); // Initialize Serial Port
 	UART1_Init(9600);
 	InitJDY();
-    GetPeriod();
+    while(1){
+    //	freq = GetFreq();
+    //	SendFreq(freq);
+		CheckCommand();
+    }
 }

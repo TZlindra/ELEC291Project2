@@ -146,20 +146,25 @@ void display_x_y(float x, float y) {
 	LCDprint(LCD_BUFF, 2, 1);
 }
 
+void display_inductance(float inductance)
+{
+	sprintf(LCD_BUFF, "Inductance: %d", (int) inductance);
+	LCDprint(LCD_BUFF, 1, 1);
+}
+
 void main(void) {
 	float x, y;
+
+	ConfigPinsUART2();
+	InitUART2(9600);
+	ConfigJDY40();
 
 	ConfigPinsLCD();
 	LCD_4BIT();
 	ConfigPinButton();
 	ConfigPinADC();
-	ConfigPinsUART2();
 	ConfigSpeakerPin();
-
-	InitUART2(9600);
 	InitTimer2();
-
-	ConfigJDY40();
 
 	initADC();
 
@@ -184,12 +189,11 @@ void main(void) {
 		}
 		ReceiveCommand();
 
-
 		// Display the ADC values on the LCD
 		display_x_y(x, y);
 
-		printf("ADC[8]=0x%04x\r\n", (int)x);
-		printf("ADC[9]=0x%04x\r\n", (int)y);
+		// printf("ADC[8]=0x%04x\r\n", (int)x);
+		// printf("ADC[9]=0x%04x\r\n", (int)y);
 
 		fflush(stdout); // GCC printf wants a \n in order to send something.  If \n is not present, we fflush(stdout)
 		waitms(200);

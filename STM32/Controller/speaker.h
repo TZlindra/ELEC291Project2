@@ -4,4 +4,5 @@
 void InitTimer2(void);
 void TIM2_Handler(void);
 void ToggleSpeaker(void);
+void ChangeSpeakerRatio(float new_ratio);
 void ToggleSpeakerTimer(void);

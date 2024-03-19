@@ -148,11 +148,16 @@ void main(void) {
 	printf("\x1b[2J\x1b[1;1H"); // Clear screen using ANSI escape sequence.
 
 	while (1) {
-
 		x = readADC(ADC_CHSELR_CHSEL8);
 		y = readADC(ADC_CHSELR_CHSEL9);
 
-		//standardized_joystick_values(x, y);
+		standardized_joystick_values(&x, &y);
+		while (!(GPIOA->IDR & BIT12))
+		{
+			//printf("Hi");
+			TIM2->CR1 &= !BIT0; // enable counter enable
+		}
+		TIM2->CR1 |= BIT0;
 
 		// Display the ADC values on the LCD
 		display_x_y(x, y);

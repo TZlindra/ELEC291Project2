@@ -5,6 +5,7 @@
 #include "../Common/Include/stm32l051xx.h"
 
 volatile int Count = 0;
+volatile float ratio = 1;
 
 #define SYSCLK 32000000L
 #define TICK_FREQ 2048L
@@ -12,6 +13,11 @@ volatile int Count = 0;
 void ToggleSpeaker(void)
 {
     GPIOA->ODR ^= BIT8;
+}
+
+void ChangeSpeakerRatio(float new_ratio)
+{
+	ratio = new_ratio;
 }
 
 void ToggleSpeakerTimer(void)
@@ -28,7 +34,7 @@ void TIM2_Handler(void)
 {
 	TIM2->SR &= ~BIT0; // clear update interrupt flag
 	Count++;
-	if (Count > 60000)
+	if (Count >= ratio)
 	{
 		TIM2->CCR1=(TIM2->CCR1+16)&0xff;
 		Count = 0;
@@ -68,8 +74,8 @@ void InitTimer2(void)
 
 	// Set up timer
 	RCC->APB1ENR |= BIT0;  // turn on clock for timer2 (UM: page 177)
-	//TIM2->ARR = SYSCLK/TICK_FREQ;
-	TIM2->ARR = 255;
+	TIM2->ARR = SYSCLK/(TICK_FREQ * 2);
+	//TIM2->ARR = 255;
 	NVIC->ISER[0] |= BIT15; // enable timer 2 interrupts in the NVIC
 	TIM2->CR1 |= BIT4;      // Downcounting
 	TIM2->CR1 |= BIT7;      // ARPE enable
@@ -82,8 +88,8 @@ void InitTimer2(void)
 	TIM2->CCER|=BIT0; // Bit 0 CC1E: Capture/Compare 1 output enable.
 
 	// Set PWM to 50%
-	//TIM2->CCR1=SYSCLK/(TICK_FREQ*2);
-	TIM2->CCR1=128;
+	TIM2->CCR1=SYSCLK/(TICK_FREQ*2*2);
+	//TIM2->CCR1=128;
 	TIM2->EGR |= BIT0; // UG=1
 
 	__enable_irq();

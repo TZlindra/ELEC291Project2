@@ -27,8 +27,9 @@
 #include "lcd.h"
 #include "speaker.h"
 #include "adc.h"
-#include "UART2.h"
-#include "JDY_STM32.h"
+//#include "UART2.h"
+//#include "JDY_STM32.h"
+#include "movement.h"
 
 #define F_CPU 32000000L
 
@@ -140,7 +141,6 @@ void main(void) {
 	ConfigSpeakerPin();
 
 	InitTimer2();
-	ToggleSpeakerTimer();
 
 	initADC();
 
@@ -151,6 +151,8 @@ void main(void) {
 
 		x = readADC(ADC_CHSELR_CHSEL8);
 		y = readADC(ADC_CHSELR_CHSEL9);
+
+		//standardized_joystick_values(x, y);
 
 		// Display the ADC values on the LCD
 		display_x_y(x, y);

@@ -31,8 +31,8 @@
 #include "UART2.h"
 #include "JDY40.h"
 #include "movement.h"
-// #include "frequency_calc.h"
-// #include "TransmissionDelays.h"
+#include "frequency_calc.h"
+#include "TransmissionDelays.h"
 
 #define F_CPU 32000000L
 
@@ -50,6 +50,13 @@ char RX_BUFF[CHARS_PER_LINE+1];
 #define MEGA_MULTIPLIER 1000000.0 // Mega Multiplier
 #define GIGA_MULTIPLIER 1000000000.0 // Giga Multiplier
 #define TERA_MULTIPLIER 1000000000000.0 // Tera Multiplier
+
+#define Y_MIDPOINT 2044.0
+#define X_MIDPOINT 2136.0
+
+float x = 0, y = 0;
+float standardized_x = 0, standardized_y = 0;
+int Timer21Count = 0;
 
 void ConfigPinsLCD(void);
 void ConfigPinADC(void);
@@ -124,27 +131,21 @@ void ConfigSpeakerPin(void)
     GPIOA->MODER = (GPIOA->MODER & ~(BIT17|BIT16)) | BIT16; // PA8
 }
 
-void display_rx() {
-	printf("Send to LCD (16 Char Mac): ");
-	fflush(stdout); // GCC peculiarities: need to flush stdout to get string out without a '\n'
-	egets_echo(RX_BUFF, sizeof(RX_BUFF));
+void display_x_y(float x, float y) {
+	sprintf(LCD_BUFF, "X DIR: %.2f", x);
+	LCDprint(LCD_BUFF, 1, 1);
 
-	printf("\r\n");
-	for (int i=0; i<sizeof(RX_BUFF); i++) {
-		if (RX_BUFF[i]=='\n') RX_BUFF[i]=0;
-		if (RX_BUFF[i]=='\r') RX_BUFF[i]=0;
-	}
-
-	sprintf(LCD_BUFF, "%s", RX_BUFF);
-
+	sprintf(LCD_BUFF, "Y DIR: %.2f", y);
 	LCDprint(LCD_BUFF, 2, 1);
 }
 
-void display_x_y(float x, float y) {
-	sprintf(LCD_BUFF, "ADC[8]=%d", (int)x);
+void display_adc(float x, float standardized_x, float y, float standardized_y) {
+	sprintf(LCD_BUFF, "X:%.1f = %.1f", x, standardized_x);
+	printf("%s\r\n", LCD_BUFF);
 	LCDprint(LCD_BUFF, 1, 1);
 
-	sprintf(LCD_BUFF, "ADC[9]=%d", (int)y);
+	sprintf(LCD_BUFF, "Y:%.1f = %.1f", y, standardized_y);
+	printf("%s\r\n", LCD_BUFF);
 	LCDprint(LCD_BUFF, 2, 1);
 }
 
@@ -154,9 +155,18 @@ void display_inductance(float inductance)
 	LCDprint(LCD_BUFF, 1, 1);
 }
 
-void main(void) {
-	float x, y;
+void TIM21_Handler(void)
+{
+	TIM21->SR &= ~BIT0; // clear update interrupt flag
+	Timer21Count++;
+	if (Timer21Count > 1000) {
+		Timer21Count = 0;
+		JDY_PWM_Transmission_X(standardized_x);
+		JDY_PWM_Transmission_Y(standardized_y);
+	}
+}
 
+void main(void) {
 	ConfigPinsUART2();
 	InitUART2(9600);
 	ConfigJDY40();
@@ -167,6 +177,7 @@ void main(void) {
 	ConfigPinADC();
 	ConfigSpeakerPin();
 	InitTimer2();
+	InitTimer21();
 
 	initADC();
 
@@ -174,28 +185,28 @@ void main(void) {
 	printf("\x1b[2J\x1b[1;1H"); // Clear screen using ANSI escape sequence.
 
 	while (1) {
-		x = readADC(ADC_CHSELR_CHSEL8);
-		y = readADC(ADC_CHSELR_CHSEL9);
+		// ReceiveCommand();
 
-		standardized_joystick_values(&x, &y);
+		x = -1*(readADC(ADC_CHSELR_CHSEL8)-X_MIDPOINT);
+		y = -1*(readADC(ADC_CHSELR_CHSEL9)-Y_MIDPOINT);
+
+		standardized_x = x_direction_to_PWM_percent(x);
+		standardized_y = y_direction_to_PWM_percent(y);
+
 		while (!(GPIOA->IDR & BIT12))
 		{
-			//printf("Hi");
 			TIM2->CR1 &= !BIT0; // enable counter enable
 		}
 		TIM2->CR1 |= BIT0;
 
-		while (!(GPIOA->IDR & BIT11))
-		{
-			JDY_PWM_Transmission_Y(y);
-		}
-		ReceiveCommand();
+		// while (!(GPIOA->IDR & BIT11)) // Button Pressed
+		//ChangeSpeakerRatio(SpeakerFrequencyManager(metal_frequency));
 
 		// Display the ADC values on the LCD
-		display_x_y(x, y);
+		display_x_y(standardized_x, standardized_y);
 
-		// printf("ADC[8]=0x%04x\r\n", (int)x);
-		// printf("ADC[9]=0x%04x\r\n", (int)y);
+		// display_x_y(x, y);
+		// display_adc(x, standardized_x, y, standardized_y);
 
 		fflush(stdout); // GCC printf wants a \n in order to send something.  If \n is not present, we fflush(stdout)
 		waitms(200);

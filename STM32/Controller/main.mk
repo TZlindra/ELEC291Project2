@@ -10,7 +10,7 @@ LIBPATH1=$(subst \libgcc.a,,$(shell dir /s /b "$(GCCPATH)*libgcc.a" | find "v6-m
 LIBPATH2=$(subst \libc_nano.a,,$(shell dir /s /b "$(GCCPATH)*libc_nano.a" | find "v6-m"))
 LIBSPEC=-L"$(LIBPATH1)" -L"$(LIBPATH2)"
 
-OBJS=main.o startup.o serial.o UART2.o JDY40.o lcd.o adc.o speaker.o movement.o newlib_stubs.o
+OBJS=main.o startup.o serial.o UART2.o JDY40.o lcd.o adc.o speaker.o TransmissionDelays.o frequency_calc.o movement.o newlib_stubs.o
 
 # Notice that floating point is enabled with printf (-u _printf_float)
 main.hex: $(OBJS)
@@ -27,14 +27,20 @@ adc.o: adc.c adc.h
 lcd.o: lcd.c lcd.h
 	$(CC) -c $(CCFLAGS) lcd.c -o lcd.o
 
+JDY40.o: JDY40.c JDY40.h UART2.h
+	$(CC) -c $(CCFLAGS) JDY40.c -o JDY40.o
+
 speaker.o: speaker.c speaker.h
 	$(CC) -c $(CCFLAGS) speaker.c -o speaker.o
 
+TransmissionDelays.o: TransmissionDelays.c TransmissionDelays.h
+	$(CC) -c $(CCFLAGS) TransmissionDelays.c -o TransmissionDelays.o
+
+frequency_calc.o: frequency_calc.c frequency_calc.h
+	$(CC) -c $(CCFLAGS) frequency_calc.c -o frequency_calc.o
+
 movement.o: movement.c movement.h
 	$(CC) -c $(CCFLAGS) movement.c -o movement.o
-
-JDY40.o: JDY40.c JDY40.h UART2.h
-	$(CC) -c $(CCFLAGS) JDY40.c -o JDY40.o
 
 UART2.o: UART2.c UART2.h
 	$(CC) -c $(CCFLAGS) UART2.c -o UART2.o

@@ -12,7 +12,10 @@
         "jdy_stm32.h": "c",
         "movement.h": "c",
         "adc.h": "c",
-        "jdy40.h": "c"
+        "jdy40.h": "c",
+        "transmissiondelays.h": "c",
+        "frequency_calc.h": "c"
     },
-    "makefile.makePath": "C:\\mingw\\bin"
+    "makefile.makePath": "C:\\mingw\\bin",
+    "cmake.configureOnOpen": false
 }

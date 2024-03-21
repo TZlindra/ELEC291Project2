@@ -1,22 +1,8 @@
 #include "../Common/Include/stm32l051xx.h"
 #include "JDY40.h"
 
-volatile int Count = 0;
-
 #define SYSCLK 32000000L
 #define TICK_FREQ 1000L
-
-// Once every 0.001 seconds
-void TIM21_Handler(void)
-{
-	TIM21->SR &= ~BIT0; // clear update interrupt flag
-	Count++;
-	if (Count > 1000)
-	{
-		Count = 0;
-		ReceiveCommand(); // toggle the state of the LED every half second
-	}
-}
 
 // LQFP32 pinout
 //             ----------
@@ -38,11 +24,11 @@ void TIM21_Handler(void)
 //       VSS -|16      17|- VDD
 //             ----------
 
-void Timer21Init(void)
+void InitTimer21(void)
 {
 	// Set up timer
 	RCC->APB2ENR |= BIT2;  // turn on clock for timer21 (UM: page 188)
-	TIM21->ARR = SYSCLK/(TICK_FREQ*2);
+	TIM21->ARR = SYSCLK/(TICK_FREQ);
 	NVIC->ISER[0] |= BIT20; // enable timer 21 interrupts in the NVIC
 	TIM21->CR1 |= BIT4;      // Downcounting
 	TIM21->CR1 |= BIT0;      // enable counting

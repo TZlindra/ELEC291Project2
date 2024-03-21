@@ -31,7 +31,7 @@ volatile float ratio = 1;
 
 void ToggleSpeaker(void)
 {
-    GPIOA->ODR ^= BIT8;
+	GPIOA->ODR ^= BIT8;
 }
 
 void ChangeSpeakerRatio(float new_ratio)
@@ -41,7 +41,10 @@ void ChangeSpeakerRatio(float new_ratio)
 
 void ToggleSpeakerTimer(void)
 {
-    TIM2->CR1 ^= BIT0; // enable counter enable
+	if (ratio == 0)
+		TIM2->CR1 &= !BIT0;
+	else
+		TIM2->CR1 |= BIT0;
 }
 
 // Interrupt service routines are the same as normal

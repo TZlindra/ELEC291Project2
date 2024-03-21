@@ -8,8 +8,8 @@
 #define F_CPU 32000000L
 #define DEF_F 15000L
 
-#define X_STRING "_X_"
-#define Y_STRING "_Y_"
+#define X_STRING "X: "
+#define Y_STRING "Y: "
 
 // LQFP32 pinout
 //                    ----------
@@ -67,18 +67,17 @@ void SendATCommand (char * s)
 void SendCommand(char * s, int value)
 {
 	sprintf(tx_buff, "%s %d\r\n", s, value);
-	printf("TX: %s", tx_buff);
+	// printf("%s", tx_buff);
 	eputs2(tx_buff);
-	waitmsJDY(200);
+	// waitmsJDY(200);
 }
 
 void ReceiveCommand(void)
 {
 	if(ReceivedBytes2()>0) // Something has arrived
 	{
-		printf("RX!\r\n");
-		// egets2(rx_buff, sizeof(rx_buff)-1);
-		// printf("RX: %s", rx_buff);
+		egets2(tx_buff, sizeof(tx_buff)-1);
+		printf("RX: %s", tx_buff);
 	}
 }
 
@@ -94,6 +93,11 @@ void ConfigJDY40(void) {
 	SendATCommand("AT+RFC\r\n");
 	SendATCommand("AT+POWE\r\n");
 	SendATCommand("AT+CLSS\r\n");
+}
+
+void JDY_PWM_Transmission_X(float x_value)
+{
+    SendCommand(X_STRING, x_value);
 }
 
 void JDY_PWM_Transmission_Y(float y_value)

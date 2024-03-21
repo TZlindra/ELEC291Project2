@@ -19,30 +19,27 @@ float calculate_inductance(int frequency)
     int CT = calculateCT();
     return (1/(2*PI*frequency*2*PI*frequency)/CT);
 }
-
+/*
 int SpeakerFrequencyManager(int metal_frequency)
 {
-    int ratio;
-    
-    switch (1)
+    if (metal_frequency > BASE_FREQUENCY + MINIMUM_FREQUENCY_ACTIVE)
     {
-        case (metal_frequency > BASE_FREQUENCY - MINIMUM_FREQUENCY_OFFSET:
-            ratio = 1;
-            break;
-        case (metal_frequency > SECOND_RATIO_FREQUENCY):
-            ratio = 2;
-            break;
-        case (metal_frequency > THIRD_RATIO_FREQUENCY):
-            ratio = 3;
-            break;
-        case (metal_frequency > FOURTH_RATIO_FREQUENCY):
-            ratio = 4;
-            break;
-        default:
-            ratio = 0;
-            break;
+        return 1;
+    }
+    else if (metal_frequency > SECOND_RATIO_FREQUENCY)
+    {
+        return 2;
+    }
+    else if (metal_frequency > THIRD_RATIO_FREQUENCY)
+    {
+        return 3;
+    }
+    else if (metal_frequency > FOURTH_RATIO_FREQUENCY)
+    {
+        return 4;
     }
 
-    return ratio;
-}
 
+    return 0;
+}
+*/

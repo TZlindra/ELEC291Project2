@@ -130,12 +130,14 @@ void main (void) {
     // ISSUE: how to time pwm length?
     periodx = 0;      //test PWMx period
     periody = 0;      //test PWMy period
-e
+
+
 
 
     switch (test_input) {
         case 1:
-            straight(period);
+            straightnew();
+            //straight(period);
             break;
         case 2:
             back(period);
@@ -146,9 +148,18 @@ e
         case 4:
             right(period);
             break;
-        else
+        default:
+            straightnew();
     }
 
+}
+
+void straightnew()
+{
+    LEFT_MOTOR_LHS = 1;
+    LEFT_MOTOR_RHS = 0;
+    RIGHT_MOTOR_LHS = 0;
+    RIGHT_MOTOR_RHS = 1
 }
 
 //LEFT_MOTOR goes CCW
@@ -168,13 +179,13 @@ void straight(int time_on) {
         //start_timer
         // ON STATE
         LEFT_MOTOR_LHS = 1;
-        LEFT_MOTOR_LHS = 0;
+        LEFT_MOTOR_RHS = 0;
         RIGHT_MOTOR_LHS = 0;
         RIGHT_MOTOR_RHS = 1;
         if (time_off)  //limit being the 30% of the set timer overflow value
         {
             LEFT_MOTOR_LHS = 0;
-            LEFT_MOTOR_LHS = 0;
+            LEFT_MOTOR_RHS = 0;
             RIGHT_MOTOR_LHS = 0;
             RIGHT_MOTOR_RHS = 0;
         }
@@ -192,21 +203,21 @@ void straight(int time_on) {
 
 void back(int period) {
     LEFT_MOTOR_LHS = 0;
-    LEFT_MOTOR_LHS = 1;
+    LEFT_MOTOR_RHS = 1;
     RIGHT_MOTOR_LHS = 1;
     RIGHT_MOTOR_RHS = 0;
 }
 
 void left(int period) {
     LEFT_MOTOR_LHS = 0;
-    LEFT_MOTOR_LHS = 0;
+    LEFT_MOTOR_RHS = 0;
     RIGHT_MOTOR_LHS = 1;
     RIGHT_MOTOR_RHS = 0;
 }
 
 void right(int period) {
     LEFT_MOTOR_LHS = 1;
-    LEFT_MOTOR_LHS = 0;
+    LEFT_MOTOR_RHS = 0;
     RIGHT_MOTOR_LHS = 0;
     RIGHT_MOTOR_RHS = 0;
 }

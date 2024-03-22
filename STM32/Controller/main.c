@@ -10,7 +10,7 @@
 // LCD_D4      PA2 -|8       25|- PA15
 // LCD_D5      PA3 -|9       24|- PA14
 // LCD_D6      PA4 -|10      23|- PA13
-// LCD_D7      PA5 -|11      22|- PA12
+// LCD_D7      PA5 -|11      22|- PA12 (Button)
 //             PA6 -|12      21|- PA11
 //             PA7 -|13      20|- PA10 (Reserved for RXD)
 // (ADC_IN8)   PB0 -|14      19|- PA9  (Reserved for TXD)
@@ -125,7 +125,7 @@ void ConfigPinsUART2(void) {
 	GPIOA->PUPDR &= ~(BIT23);
 }
 
-void ConfigSpeakerPin(void)
+void ConfigPinSpeaker(void)
 {
 	RCC->IOPENR |= BIT0; // peripheral clock enable for port A
     GPIOA->MODER = (GPIOA->MODER & ~(BIT17|BIT16)) | BIT16; // PA8
@@ -175,7 +175,7 @@ void main(void) {
 	LCD_4BIT();
 	ConfigPinButton();
 	ConfigPinADC();
-	ConfigSpeakerPin();
+	ConfigPinSpeaker();
 	InitTimer2();
 	InitTimer21();
 

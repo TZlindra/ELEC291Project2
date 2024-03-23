@@ -70,11 +70,10 @@ void SendATCommand(char * s) {
 void SendCommand(char * s, int value) {
 	sprintf(TX_BUFF, "%s %d\r\n", s, value);
 	eputs2(TX_BUFF);
-	// JDY_Delay_ms(200);
+	// JDY_Delay_ms(200); // Delay For Response
 }
 
 void ReceiveCommand(void) {
-	// Something has arrived
 	if (ReceivedBytes2() > 0) egets2(TX_BUFF, sizeof(TX_BUFF)-1);
 }
 
@@ -94,5 +93,6 @@ void ConfigJDY40(void) {
 
 void Send_X_Y(float x_value, float y_value) {
 	sprintf(TX_BUFF, "X: %f Y: %f\r\n", x_value, y_value);
+	printf("%s", TX_BUFF);
 	eputs2(TX_BUFF);
 }

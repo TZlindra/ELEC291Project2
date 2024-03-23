@@ -9,7 +9,7 @@
 //             NRST -|4      29|- PB6
 //             VDDA -|5      28|- PB5
 // LCD_RS      PA0 -|6       27|- PB4
-// LCD_E       PA1 -|7       26|- PB3
+// LCD_E       PA1 -|7       26|- PB3 (TIM2_CH2)
 // LCD_D4      PA2 -|8       25|- PA15
 // LCD_D5      PA3 -|9       24|- PA14
 // LCD_D6      PA4 -|10      23|- PA13
@@ -25,31 +25,31 @@
 #include "speaker.h"
 
 void InitTimer2(void) {
-	// Configure PA15 for altenate function (TIM2_CH1, pin 25 in LQFP32 package)
-	GPIOA->OSPEEDR  |= BIT30; // MEDIUM SPEED
-	GPIOA->OTYPER   &= ~BIT15; // Push-pull
-	GPIOA->MODER    = (GPIOA->MODER & ~(BIT30)) | BIT31; // AF-Mode
-	GPIOA->AFR[1]   |= BIT30 | BIT28 ; // AF5 selected (check table 16 in page 43 of "en.DM00108219.pdf")
+    // Configure PB3 for alternate function (TIM2_CH2)
+	RCC->IOPENR |= RCC_IOPENR_GPIOBEN; // Enable clock for GPIOB
+    GPIOB->OSPEEDR |= (1 << 6); // Medium speed for PB3
+    GPIOB->OTYPER &= ~(1 << 3); // Push-pull for PB3
+    GPIOB->MODER = (GPIOB->MODER & ~(3 << (3 * 2))) | (2 << (3 * 2)); // Alternate function mode for PB3
+    GPIOB->AFR[0] |= (2 << (4 * 3)); // AF2 for PB3 (TIM2_CH2)
 
-	// Set up timer
-	RCC->APB1ENR |= BIT0;  // turn on clock for timer2 (UM: page 177)
-	TIM2->ARR = F_CPU/(TICK_FREQ_TIM2 * 2);
-	//TIM2->ARR = 255;
-	NVIC->ISER[0] |= BIT15; // enable timer 2 interrupts in the NVIC
-	TIM2->CR1 |= BIT4;      // Downcounting
-	TIM2->CR1 |= BIT7;      // ARPE enable
-	TIM2->DIER |= BIT0;     // enable update event (reload event) interrupt
-	TIM2->CR1 |= BIT0;      // enable counting
+    // Set up timer
+    RCC->APB1ENR |= RCC_APB1ENR_TIM2EN; // Turn on clock for timer2
+    TIM2->ARR = F_CPU / (TICK_FREQ_TIM2 * 2); // Set auto-reload value
+    NVIC_EnableIRQ(TIM2_IRQn); // Enable timer 2 interrupts in the NVIC
+    TIM2->CR1 |= TIM_CR1_DIR; // Downcounting
+    TIM2->CR1 |= TIM_CR1_ARPE; // ARPE enable
+    TIM2->DIER |= TIM_DIER_UIE; // Enable update event (reload event) interrupt
+    TIM2->CR1 |= TIM_CR1_CEN; // Enable counting
 
-	// Enable PWM in channel 1 of Timer 2
-	TIM2->CCMR1|=BIT6|BIT5; // PWM mode 1 ([6..4]=110)
-	TIM2->CCMR1|=BIT3; // OC1PE=1
-	TIM2->CCER|=BIT0; // Bit 0 CC1E: Capture/Compare 1 output enable.
+    // Enable PWM in channel 2 of Timer 2
+    TIM2->CCMR1 |= TIM_CCMR1_OC2M_1 | TIM_CCMR1_OC2M_2; // PWM mode 1 for CH2 ([13..12]=110)
+    TIM2->CCMR1 |= TIM_CCMR1_OC2PE; // Output Compare 2 Preload enable
+    TIM2->CCER |= TIM_CCER_CC2E; // Capture/Compare 2 output enable
 
-	// Set PWM to 50%
-	TIM2->CCR1=F_CPU/(TICK_FREQ_TIM2*2*2);
-	//TIM2->CCR1=128;
-	TIM2->EGR |= BIT0; // UG=1
+    // Set PWM to 50%
+    TIM2->CCR2 = F_CPU / (TICK_FREQ_TIM2 * 2 * 2); // Set capture/compare register 2 for CH2 duty cycle
+
+    TIM2->EGR |= TIM_EGR_UG; // Force update generation
 
 	__enable_irq();
 }

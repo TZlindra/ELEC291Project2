@@ -6,9 +6,9 @@
 //             NRST -|4      29|- PB6
 //             VDDA -|5      28|- PB5
 // LCD_RS      PA0 -|6       27|- PB4
-// LCD_E       PA1 -|7       26|- PB3
-// LCD_D4      PA2 -|8       25|- PA15
-// LCD_D5      PA3 -|9       24|- PA14
+// LCD_E       PA1 -|7       26|- PB3  (TIM2_CH2)
+// LCD_D4      PA2 -|8       25|- PA15 (USART2 RX)
+// LCD_D5      PA3 -|9       24|- PA14 (USART2 TX)
 // LCD_D6      PA4 -|10      23|- PA13
 // LCD_D7      PA5 -|11      22|- PA12 (Button)
 //             PA6 -|12      21|- PA11
@@ -193,7 +193,7 @@ void main(void) {
 	ConfigPinADC();
 	ConfigPinSpeaker();
 
-	// InitTimer2();
+	InitTimer2();
 	InitTimer21();
 
 	initADC();
@@ -208,16 +208,16 @@ void main(void) {
 		standardized_x = standardize_x(x);
 		standardized_y = standardize_y(y);
 
-		// while (!(GPIOA->IDR & BIT12))
-		// {
-		// 	TIM2->CR1 &= !BIT0; // enable counter enable
-		// }
+		while (!(GPIOA->IDR & BIT12))
+		{
+			TIM2->CR1 &= !BIT0; // enable counter enable
+		}
 
-		// TIM2->CR1 |= BIT0;
+		TIM2->CR1 |= BIT0;
 
 		ReceiveCommand();
 		// while (!(GPIOA->IDR & BIT11)) // Button Pressed
-		//Timer2Ratio = ChangeSpeakerRatio(SpeakerFrequencyManager(metal_frequency));
+		// Timer2Ratio = ChangeSpeakerRatio(SpeakerFrequencyManager(metal_frequency));
 
 		// Display the ADC values on the LCD
 		display_x_y(standardized_x, standardized_y);

@@ -18,28 +18,28 @@ main.hex: $(OBJS)
 	arm-none-eabi-objcopy -O ihex main.elf main.hex
 	@echo Success!
 
-main.o: main.c speaker.h lcd.h
+main.o: main.c
 	$(CC) -c $(CCFLAGS) main.c -o main.o
 
-adc.o: adc.c adc.h
+adc.o: adc.c
 	$(CC) -c $(CCFLAGS) adc.c -o adc.o
 
-lcd.o: lcd.c lcd.h
+lcd.o: lcd.c
 	$(CC) -c $(CCFLAGS) lcd.c -o lcd.o
 
-JDY40.o: JDY40.c JDY40.h UART2.h
+JDY40.o: JDY40.c
 	$(CC) -c $(CCFLAGS) JDY40.c -o JDY40.o
 
-speaker.o: speaker.c speaker.h
+speaker.o: speaker.c
 	$(CC) -c $(CCFLAGS) speaker.c -o speaker.o
 
-frequency_calc.o: frequency_calc.c frequency_calc.h
+frequency_calc.o: frequency_calc.c
 	$(CC) -c $(CCFLAGS) frequency_calc.c -o frequency_calc.o
 
-movement.o: movement.c movement.h
+movement.o: movement.c
 	$(CC) -c $(CCFLAGS) movement.c -o movement.o
 
-UART2.o: UART2.c UART2.h
+UART2.o: UART2.c
 	$(CC) -c $(CCFLAGS) UART2.c -o UART2.o
 
 startup.o: ../Common/Source/startup.c

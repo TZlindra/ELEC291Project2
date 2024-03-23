@@ -952,5 +952,3 @@ extern void INTERRUPT_0_enter_DefaultMode_from_RESET(void) {
 
 
 }
-
-

@@ -76,8 +76,8 @@
     <property object="SPI_0" propertyId="ABPeripheral.included" value="true"/>
     <property object="SPI_0" propertyId="spi.clockrate.spiclockfrequencyactual" value="1.021 MHz"/>
     <property object="SPI_0" propertyId="spi.clockrate.spiclockfrequencytarget" value="1020000"/>
-    <property object="SPI_0" propertyId="spi.clockrate.sysclk" value="24.500 MHz"/>
-    <property object="SPI_0" propertyId="spi.clockrate.sysclkdividercoefficientspi0ckr" value="11"/>
+    <property object="SPI_0" propertyId="spi.clockrate.SYSCLK" value="24.500 MHz"/>
+    <property object="SPI_0" propertyId="spi.clockrate.SYSCLKdividercoefficientspi0ckr" value="11"/>
     <property object="SPI_0" propertyId="spi.configuration.enablemastermode" value="Enable"/>
     <property object="SPI_0" propertyId="spi.configuration.spimode" value="Master"/>
     <property object="SPI_0" propertyId="spi.control.slaveselectmode" value="Slave or master 3-wire mode"/>

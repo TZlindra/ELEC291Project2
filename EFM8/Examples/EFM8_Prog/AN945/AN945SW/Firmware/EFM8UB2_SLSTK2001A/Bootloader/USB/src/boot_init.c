@@ -11,7 +11,7 @@
 // ----------------------------------------------------------------------------
 // Initialize all hardware resources needed by the bootloader.
 // ----------------------------------------------------------------------------
-void boot_initDevice(void) 
+void boot_initDevice(void)
 {
   // PCA0MD - PCA Mode
   // WDTE (Watchdog Timer Enable) = DISABLED (Disable Watchdog Timer.)
@@ -21,7 +21,7 @@ void boot_initDevice(void)
   // FOSE (Flash One-Shot Enable) = ENABLED
   // FLRT (Flash Read Timing) = SYSCLK_BELOW_48_MHZ
   FLSCL |= FLSCL_FOSE__ENABLED | FLSCL_FLRT__SYSCLK_BELOW_48_MHZ;
-  
+
   // CLKSEL - Clock Select
   // CLKSL (System Clock Source Select Bits) = HFOSC (Clock (SYSCLK)
   //     derived from the Internal High-Frequency Oscillator.)

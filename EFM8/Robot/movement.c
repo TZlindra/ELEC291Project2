@@ -140,13 +140,13 @@ void main (void) {
             //straight(period);
             break;
         case 2:
-            back(period);
+            //back(period);
             break;
         case 3:
-            left(period);
+            //left(period);
             break;
         case 4:
-            right(period);
+            //right(period);
             break;
         default:
             straightnew();

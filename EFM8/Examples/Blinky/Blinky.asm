@@ -475,7 +475,7 @@ _TFRQ           BIT 0xdf
 ;--------------------------------------------------------
 	rseg R_DSEG
 ;--------------------------------------------------------
-; overlayable items in internal ram 
+; overlayable items in internal ram
 ;--------------------------------------------------------
 	rseg	R_OSEG
 ;--------------------------------------------------------
@@ -581,8 +581,8 @@ L002004?:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'delay'
 ;------------------------------------------------------------
-;x                         Allocated to registers r2 r3 
-;j                         Allocated to registers r4 
+;x                         Allocated to registers r2 r3
+;j                         Allocated to registers r4
 ;------------------------------------------------------------
 ;	Blinky.c:35: void delay (unsigned int x)
 ;	-----------------------------------------

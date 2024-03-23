@@ -7,11 +7,11 @@ char _c51_external_startup (void)
 	SFRPAGE = 0x00;
 	WDTCN = 0xDE; //First key
 	WDTCN = 0xAD; //Second key
-  
+
 	VDM0CN |= 0x80;
 	RSTSRC = 0x02;
 
-	#if (SYSCLK == 48000000L)	
+	#if (SYSCLK == 48000000L)
 		SFRPAGE = 0x10;
 		PFE0CN  = 0x10; // SYSCLK < 50 MHz.
 		SFRPAGE = 0x00;
@@ -20,7 +20,7 @@ char _c51_external_startup (void)
 		PFE0CN  = 0x20; // SYSCLK < 75 MHz.
 		SFRPAGE = 0x00;
 	#endif
-	
+
 	#if (SYSCLK == 12250000L)
 		CLKSEL = 0x10;
 		CLKSEL = 0x10;
@@ -29,7 +29,7 @@ char _c51_external_startup (void)
 		CLKSEL = 0x00;
 		CLKSEL = 0x00;
 		while ((CLKSEL & 0x80) == 0);
-	#elif (SYSCLK == 48000000L)	
+	#elif (SYSCLK == 48000000L)
 		// Before setting clock to 48 MHz, must transition to 24.5 MHz first
 		CLKSEL = 0x00;
 		CLKSEL = 0x00;
@@ -48,11 +48,11 @@ char _c51_external_startup (void)
 	#else
 		#error SYSCLK must be either 12250000L, 24500000L, 48000000L, or 72000000L
 	#endif
-	
+
 	// Configure the pins used for square output
 	P2MDOUT|=0b_0000_0011;
 	P0MDOUT |= 0x10; // Enable UART0 TX as push-pull output
-	XBR0     = 0x01; // Enable UART0 on P0.4(TX) and P0.5(RX)                     
+	XBR0     = 0x01; // Enable UART0 on P0.4(TX) and P0.5(RX)
 	XBR1     = 0X10; // Enable T0 on P0.0
 	XBR2     = 0x40; // Enable crossbar and weak pull-ups
 
@@ -65,7 +65,7 @@ char _c51_external_startup (void)
 	TH1 = 0x100-((SYSCLK/BAUDRATE)/(2L*12L));
 	TL1 = TH1;      // Init Timer1
 	TMOD &= ~0xf0;  // TMOD: timer 1 in 8-bit auto-reload
-	TMOD |=  0x20;                       
+	TMOD |=  0x20;
 	TR1 = 1; // START Timer1
 	TI = 1;  // Indicate TX0 ready
 
@@ -77,7 +77,6 @@ char _c51_external_startup (void)
 	ET2=1;         // Enable Timer2 interrupts
 	TR2=1;         // Start Timer2
 	EA=1; // Global interrupt enable
-	
+
 	return 0;
 }
-

@@ -12,11 +12,11 @@ char _c51_external_startup (void)
 	SFRPAGE = 0x00;
 	WDTCN = 0xDE; //First key
 	WDTCN = 0xAD; //Second key
-  
+
 	VDM0CN=0x80;       // enable VDD monitor
 	RSTSRC=0x02|0x04;  // Enable reset on missing clock detector and VDD
 
-	#if (SYSCLK == 48000000L)	
+	#if (SYSCLK == 48000000L)
 		SFRPAGE = 0x10;
 		PFE0CN  = 0x10; // SYSCLK < 50 MHz.
 		SFRPAGE = 0x00;
@@ -25,7 +25,7 @@ char _c51_external_startup (void)
 		PFE0CN  = 0x20; // SYSCLK < 75 MHz.
 		SFRPAGE = 0x00;
 	#endif
-	
+
 	#if (SYSCLK == 12250000L)
 		CLKSEL = 0x10;
 		CLKSEL = 0x10;
@@ -34,7 +34,7 @@ char _c51_external_startup (void)
 		CLKSEL = 0x00;
 		CLKSEL = 0x00;
 		while ((CLKSEL & 0x80) == 0);
-	#elif (SYSCLK == 48000000L)	
+	#elif (SYSCLK == 48000000L)
 		// Before setting clock to 48 MHz, must transition to 24.5 MHz first
 		CLKSEL = 0x00;
 		CLKSEL = 0x00;
@@ -53,9 +53,9 @@ char _c51_external_startup (void)
 	#else
 		#error SYSCLK must be either 12250000L, 24500000L, 48000000L, or 72000000L
 	#endif
-	
+
 	P0MDOUT |= 0x10; // Enable UART0 TX as push-pull output
-	XBR0     = 0x01; // Enable UART0 on P0.4(TX) and P0.5(RX)                     
+	XBR0     = 0x01; // Enable UART0 on P0.4(TX) and P0.5(RX)
 	XBR1     = 0X00;
 	XBR2     = 0x41; // Enable crossbar and uart 1
 
@@ -67,10 +67,10 @@ char _c51_external_startup (void)
 	TH1 = 0x100-((SYSCLK/BAUDRATE)/(2L*12L));
 	TL1 = TH1;      // Init Timer1
 	TMOD &= ~0xf0;  // TMOD: timer 1 in 8-bit auto-reload
-	TMOD |=  0x20;                       
+	TMOD |=  0x20;
 	TR1 = 1; // START Timer1
 	TI = 1;  // Indicate TX0 ready
-  	
+
 	return 0;
 }
 
@@ -86,10 +86,10 @@ void UART1_Init (unsigned long baudrate)
 	SFRPAGE = 0x00;
 }
 
-void putchar1 (char c) 
+void putchar1 (char c)
 {
     SFRPAGE = 0x20;
-	if (c == '\n') 
+	if (c == '\n')
 	{
 		while (!TI1);
 		TI1=0;
@@ -107,7 +107,7 @@ char getchar1 (void)
     SFRPAGE = 0x20;
 	while (!RI1);
 	RI1=0;
-	// Clear Overrun and Parity error flags 
+	// Clear Overrun and Parity error flags
 	SCON1&=0b_0011_1111;
 	c = SBUF1;
 	SFRPAGE = 0x00;
@@ -129,7 +129,7 @@ void main (void)
 	printf("\r\nUart 1 test\r\n");
 
 	UART1_Init(9600);
-	
+
 	while(1)
 	{
 		putchar1('A');

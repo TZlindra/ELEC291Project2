@@ -13,8 +13,9 @@
         "movement.h": "c",
         "adc.h": "c",
         "jdy40.h": "c",
-        "transmissiondelays.h": "c",
-        "frequency_calc.h": "c"
+        "Timer21.h": "c",
+        "frequency_calc.h": "c",
+        "string.h": "c"
     },
     "makefile.makePath": "C:\\mingw\\bin",
     "cmake.configureOnOpen": false

@@ -7,7 +7,7 @@
     <property object="ADC_0" propertyId="adc.configuration.sarclktarget" value="3062500"/>
     <property object="ADC_0" propertyId="adc.configuration.sarclockdivider" value="7"/>
     <property object="ADC_0" propertyId="adc.configuration.sarclocksource" value="24.500 MHz"/>
-    <property object="ADC_0" propertyId="adc.configuration.sysclk" value="24.500 MHz"/>
+    <property object="ADC_0" propertyId="adc.configuration.SYSCLK" value="24.500 MHz"/>
     <property object="ADC_0" propertyId="adc.control.enableadc" value="Enabled"/>
     <property object="ADC_0" propertyId="adc.control.startofconversion" value="Timer 0 overflow"/>
     <property object="ADC_0" propertyId="adc.control.timer0overflowfrequency" value="2.001 kHz"/>
@@ -16,11 +16,11 @@
     <property object="ADC_0" propertyId="adc.control.timer4overflowfrequency" value="31.000 Hz"/>
     <property object="ADC_0" propertyId="adc.multiplexerselection.positiveinputselection" value="ADC0.15 (P1.7)"/>
     <property object="CIP51_0" propertyId="ABPeripheral.included" value="true"/>
-    <property object="CIP51_0" propertyId="cip51.prefetchenginecontrol.sysclk" value="24500000"/>
+    <property object="CIP51_0" propertyId="cip51.prefetchenginecontrol.SYSCLK" value="24500000"/>
     <property object="CLOCK_0" propertyId="ABPeripheral.included" value="true"/>
     <property object="CLOCK_0" propertyId="clock.clockselect.clocksourcedivider" value="SYSCLK / 1"/>
     <property object="CLOCK_0" propertyId="clock.clockselect.lfosc" value="0 Hz"/>
-    <property object="CLOCK_0" propertyId="clock.clockselect.sysclk" value="24.500 MHz"/>
+    <property object="CLOCK_0" propertyId="clock.clockselect.SYSCLK" value="24.500 MHz"/>
     <property object="CROSSBAR0" propertyId="xbar0.pca0.cex" value="CEX0, CEX1, and CEX2"/>
     <property object="CROSSBAR0" propertyId="xbar0.spi0.clockdata" value="Enabled"/>
     <property object="DefaultMode" propertyId="mode.diagramLocation" value="100, 100"/>
@@ -84,8 +84,8 @@
     <property object="SPI_0" propertyId="ABPeripheral.included" value="true"/>
     <property object="SPI_0" propertyId="spi.clockrate.spiclockfrequencyactual" value="1.021 MHz"/>
     <property object="SPI_0" propertyId="spi.clockrate.spiclockfrequencytarget" value="1000000"/>
-    <property object="SPI_0" propertyId="spi.clockrate.sysclk" value="24.500 MHz"/>
-    <property object="SPI_0" propertyId="spi.clockrate.sysclkdividercoefficientspi0ckr" value="11"/>
+    <property object="SPI_0" propertyId="spi.clockrate.SYSCLK" value="24.500 MHz"/>
+    <property object="SPI_0" propertyId="spi.clockrate.SYSCLKdividercoefficientspi0ckr" value="11"/>
     <property object="SPI_0" propertyId="spi.configuration.enablemastermode" value="Enable"/>
     <property object="SPI_0" propertyId="spi.configuration.spimode" value="Master"/>
     <property object="SPI_0" propertyId="spi.control.slaveselectmode" value="Slave or master 3-wire mode"/>

@@ -13,8 +13,8 @@
 //    GND    ->  GND
 //
 // The next line clears the "C51 command line options:" field when compiling with CrossIDE
-//  ~C51~  
-  
+//  ~C51~
+
 #include <EFM8LB1.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -75,7 +75,7 @@
 #define  PWROFF            1
 
 // Program MACROS
-#define  Poll_OutReady     while(!(C2_ReadAR()&0x01)) 
+#define  Poll_OutReady     while(!(C2_ReadAR()&0x01))
 #define  Poll_InBusy       while((C2_ReadAR()&0x02))
 #define  StrobeC2CK        C2CK = LOW; C2CK = HIGH
 #define  C2D_DriverOn      P1MDOUT|=0x02; // Configures C2D pin as push-pull output
@@ -173,11 +173,11 @@ char _c51_external_startup (void)
 	SFRPAGE = 0x00;
 	WDTCN = 0xDE; //First key
 	WDTCN = 0xAD; //Second key
-  
+
 	VDM0CN |= 0x80;
 	RSTSRC = 0x02;
 
-	#if (SYSCLK == 48000000L)	
+	#if (SYSCLK == 48000000L)
 		SFRPAGE = 0x10;
 		PFE0CN  = 0x10; // SYSCLK < 50 MHz.
 		SFRPAGE = 0x00;
@@ -186,7 +186,7 @@ char _c51_external_startup (void)
 		PFE0CN  = 0x20; // SYSCLK < 75 MHz.
 		SFRPAGE = 0x00;
 	#endif
-	
+
 	#if (SYSCLK == 12250000L)
 		CLKSEL = 0x10;
 		CLKSEL = 0x10;
@@ -195,7 +195,7 @@ char _c51_external_startup (void)
 		CLKSEL = 0x00;
 		CLKSEL = 0x00;
 		while ((CLKSEL & 0x80) == 0);
-	#elif (SYSCLK == 48000000L)	
+	#elif (SYSCLK == 48000000L)
 		// Before setting clock to 48 MHz, must transition to 24.5 MHz first
 		CLKSEL = 0x00;
 		CLKSEL = 0x00;
@@ -216,38 +216,38 @@ char _c51_external_startup (void)
 	#endif
 
 	#if ( ((SYSCLK/BAUDRATE)/(12L*2L)) > 0x100)
-		#error Can not configure baudrate using timer 1 
+		#error Can not configure baudrate using timer 1
 	#endif
-	
+
 	P0MDOUT |= 0x10; // Enable UART0 TX as push-pull output
 	P1MDOUT |= 0x01; // C2CK as push-pull output
-	XBR0     = 0x01; // Enable UART0 on P0.4(TX) and P0.5(RX)                     
+	XBR0     = 0x01; // Enable UART0 on P0.4(TX) and P0.5(RX)
 	XBR1     = 0X00;
 	XBR2     = 0x40; // Enable crossbar and weak pull-ups
-	
+
 	// Configure Uart 0
 	SCON0 = 0x10;
 	TH1 = 0x100-((SYSCLK/BAUDRATE)/(12L*2L));
 	TL1 = TH1;      // Init Timer1
 	TMOD &= ~0xf0;  // TMOD: timer 1 in 8-bit auto-reload
-	TMOD |=  0x20;                       
+	TMOD |=  0x20;
 	TR1 = 1; // START Timer1
 	TI = 1;  // Indicate TX0 ready
-	
+
 	return 0;
 }
 
-// Uses Timer3 to delay <us> micro-seconds. 
+// Uses Timer3 to delay <us> micro-seconds.
 void Timer3us(unsigned char us)
 {
 	unsigned char i;               // usec counter
-	
+
 	// The input for Timer 3 is selected as SYSCLK by setting T3ML (bit 6) of CKCON0:
 	CKCON0|=0b_0100_0000;
-	
+
 	TMR3RL = (-(SYSCLK)/1000000L); // Set Timer3 to overflow in 1us.
 	TMR3 = TMR3RL;                 // Initialize Timer3 for first overflow
-	
+
 	TMR3CN0 = 0x04;                 // Sart Timer3 and clear overflow flag
 	for (i = 0; i < us; i++)       // Count <us> overflows
 	{
@@ -279,9 +279,9 @@ unsigned char C2_ReadAR(void)
 
    // START field
    StrobeC2CK; // Strobe C2CK with C2D driver disabled
-   
+
    // INS field (10b, LSB first)
-   C2D = LOW;                       
+   C2D = LOW;
    C2D_DriverOn; // Enable C2D driver (output)
    StrobeC2CK;
    C2D = HIGH;
@@ -293,15 +293,15 @@ unsigned char C2_ReadAR(void)
    addr = 0;
    for (i=0;i<8;i++) // Shift in 8 bit ADDRESS field LSB-first
    {
-      addr >>= 1;                   
-      StrobeC2CK;     
+      addr >>= 1;
+      StrobeC2CK;
       if (C2D)
          addr |= 0x80;
-   }              
-   
+   }
+
    // STOP field
    StrobeC2CK; // Strobe C2CK with C2D driver disabled
-   
+
    return addr; // Return Address register read value
 }
 
@@ -309,17 +309,17 @@ unsigned char C2_ReadAR(void)
 void C2_WriteAR(unsigned char addr)
 {
    unsigned char i;
-   
+
    // START field
    StrobeC2CK; // Strobe C2CK with C2D driver disabled
 
    // INS field (11b, LSB first)
-   C2D = HIGH;             
+   C2D = HIGH;
    C2D_DriverOn;
-   StrobeC2CK; 
+   StrobeC2CK;
    C2D = HIGH;
    StrobeC2CK;
-   
+
    // Shift out 8-bit ADDRESS field
    for(i=0;i<8;i++)
    {
@@ -377,7 +377,7 @@ unsigned char C2_ReadDR(void)
 
    // STOP field
    StrobeC2CK;
-   
+
    return dat;
 }
 
@@ -385,7 +385,7 @@ unsigned char C2_ReadDR(void)
 void C2_WriteDR(unsigned char dat)
 {
    unsigned char i;
-   
+
    // START field
    StrobeC2CK; // Strobe C2CK with C2D driver disabled
 
@@ -395,13 +395,13 @@ void C2_WriteDR(unsigned char dat)
    StrobeC2CK;
    C2D = LOW;
    StrobeC2CK;
-   
+
    // LENGTH field (00b -> 1 byte)
    C2D = LOW;
    StrobeC2CK;
    C2D = LOW;
    StrobeC2CK;
-   
+
    // DATA field
    for (i=0;i<8;i++) // Shift out 8-bit DATA field LSB-first
    {
@@ -420,10 +420,10 @@ void C2_WriteDR(unsigned char dat)
 
    // STOP field
    StrobeC2CK; // Strobe C2CK with C2D driver disabled
-   
+
    return;
-}                    
-                  
+}
+
 // Performs a target device reset by pulling the C2CK pin low for >20us
 void C2_Reset(void)
 {
@@ -458,18 +458,18 @@ void C2_Init(void)
 {
    C2_Reset();    // Reset the target device
    Timer3us(2);   // Delay for at least 2us
- 
+
    // FPCTL: Flash Programming Control Register.
    // This register is used to enable Flash programming via the C2 interface. To enable C2
    // Flash programming, the following codes must be written in order: 0x02, 0x01. Note
    // that once C2 Flash programming is enabled, a system reset must be issued to
    // resume normal operation.
-   
+
    C2_WriteAR(FPCTL); // Target the C2 FLASH Programming Control register (FPCTL)
    C2_WriteDR(0x02);  // Write the first key code to enable C2 FLASH programming
    C2_WriteDR(0x01);  // Write the second key code to enable C2 FLASH programming
    waitms(20);        // Delay for at least 20ms to ensure the target is ready for C2 FLASH programming
-   
+
    // EFM8LB1 Device-Specific Programming Sequences.  This comes from
    // Silabs' Application Note AN127:
    // VDD Monitor Initialization:
@@ -514,7 +514,7 @@ char C2_BlockRead(void)
    Poll_OutReady;                      // Wait for status information
    status = C2_ReadDR();               // Read FLASH programming interface status
    if (status != COMMAND_OK) return 0; // Exit and indicate error
-   
+
    C2_WriteDR(FLASH_ADDR >> 8);        // Send address high byte to FPDAT
    Poll_InBusy;                        // Wait for input acknowledge
    C2_WriteDR(FLASH_ADDR & 0x00FF);    // Send address low byte to FPDAT
@@ -527,7 +527,7 @@ char C2_BlockRead(void)
    status = C2_ReadDR();               // Read FLASH programming interface status
    if (status != COMMAND_OK)
       return 0;                        // Exit and indicate error
-   
+
    // Read FLASH block
    for (i=0;i<NUM_BYTES;i++)
    {
@@ -549,7 +549,7 @@ char C2_BlockWrite(void)
    unsigned char i;                    // Counter
    unsigned char status;               // FPI status information holder
 
-   C2_WriteAR(FPDAT);                  // Select the FLASH Programming Data register 
+   C2_WriteAR(FPDAT);                  // Select the FLASH Programming Data register
                                        // for C2 Data register accesses
    C2_WriteDR(BLOCK_WRITE);            // Send FLASH block write command
    Poll_InBusy;                        // Wait for input acknowledge
@@ -578,7 +578,7 @@ char C2_BlockWrite(void)
    {
       C2_WriteDR(*C2_PTR++);           // Write data to the FPDAT register
       Poll_InBusy;                     // Wait for input acknowledge
-   }   
+   }
 
    Poll_OutReady;                      // Wait for last FLASH write to complete
    return 1;                           // Exit and indicate success
@@ -606,7 +606,7 @@ char C2_PageErase(void)
    status = C2_ReadDR();               // Read FLASH programming interface status
    if (status != COMMAND_OK)
       return 0;                        // Exit and indicate error
-   
+
    C2_WriteDR(page);                   // Send FLASH page number
    Poll_InBusy;                        // Wait for input acknowledge
 
@@ -614,7 +614,7 @@ char C2_PageErase(void)
    status = C2_ReadDR();               // Read FLASH programming interface status
    if (status != COMMAND_OK)
       return 0;                        // Exit and indicate error
-   
+
    C2_WriteDR(0x00);                   // Dummy write to initiate erase
    Poll_InBusy;                        // Wait for input acknowledge
 
@@ -664,7 +664,7 @@ void main (void)
 	printf("\x1b[2JEFM8LB1 Clonner.\n"
 	       "Based on Cygnal application note AN027 and Silicon Labs application note AN127\n"
 		   "By Jesus Calvino-Fraga (2008-2018)\n\n");
-	
+
 	while(1)
 	{
 	    printf("Press a key or the 'BOOT' pushbutton to start.\n");
@@ -675,7 +675,7 @@ void main (void)
 		C2CK=LOW;
 		C2D=LOW;
 		PWR=PWROFF; // Power-off device
-		
+
 		while((FGO==1) && (RI==0)) // Blinking Green LED indicates new device can be inserted
 		{
 			GLED=(!GLED);
@@ -692,11 +692,11 @@ void main (void)
 		while(FGO==0);
 		GLED=LEDOFF;
 		YLED=LEDOFF;
-		
+
 		// Read Device ID
 		C2_Reset();        // Reset target
-		j = C2_GetDevID(); 
-   
+		j = C2_GetDevID();
+
 		printf("Checking for EFM8LB1 microcontroller...");
 		if (j != id[1].device_id)
 		{
@@ -705,7 +705,7 @@ void main (void)
 			goto the_end;
 		}
 		printf(" Done.\n");
-		
+
 		j = C2_ReadSFR(0xAD);
 		printf("Checking for %s microcontroller...", id[1].description);
 		if (j != id[1].derivative_id)
@@ -715,15 +715,15 @@ void main (void)
 			goto the_end;
 		}
 		printf(" Done.\n");
-		
+
 		// Initiate C2 FLASH Programming
 		C2_Reset();  // Start with a target device reset
 		C2_Init();   // Enable FLASH programming via C2
-		
+
 		printf("Erasing the flash memory...");
 		C2_DeviceErase(); // Erase entire code space
 		printf(" Done.\n");
-		
+
 		printf("Verifying that the flash memory is blank...");
 		// Read back entire FLASH memory (should be all '1's)
 		for (i=0; i<NUM_BLOCKS; i++) // Perform block reads (0x0000 to 0xFBFF)
@@ -731,7 +731,7 @@ void main (void)
 			FLASH_ADDR = i*BLOCK_SIZE;    // Set target addresss
 			NUM_BYTES = BLOCK_SIZE;       // Set number of bytes to read
 			C2_PTR = R_BUF;               // Initialize C2 pointer to the read buffer
-			C2_BlockRead();               // Initiate FLASH read            
+			C2_BlockRead();               // Initiate FLASH read
 			for (j=0; j<BLOCK_SIZE; j++)  // Check read data
 			{
 				if (R_BUF[j] != 0xFF)
@@ -760,13 +760,13 @@ void main (void)
 			{
 				C2_PTR = W_BUF;
 				C2_BlockWrite();
-			
+
 				// Read back FLASH block
 				FLASH_ADDR = i*BLOCK_SIZE;
 				NUM_BYTES = BLOCK_SIZE;
 				C2_PTR = R_BUF;
 				C2_BlockRead();
-				
+
 				if (memcmp(R_BUF, W_BUF, BLOCK_SIZE) != 0) // Verify written bytes
 				{
 					printf("\nERROR: Memory flash failed.\n");
@@ -775,16 +775,16 @@ void main (void)
 				}
 			}
 		}
-	
+
 		printf(" Done.\n");
 		GLED=LEDON;
 		YLED=LEDON;
 		C2_Reset();
 		printf("The LED connected to the target EFM8LB1 P2.1 should be blinking.\n\n");
-				
+
 		the_end:
 	    printf("Press a key or the 'BOOT' pushbutton to continue.\n");
-		
+
 		//Display the result of the flashing proccess until button pressed
 		while((FGO==1)&&(RI==0));
 		if(RI) getchar();
@@ -792,5 +792,4 @@ void main (void)
 		while(FGO==0);
 		waitms(100); //Debounce...
 	}
-}   
-
+}

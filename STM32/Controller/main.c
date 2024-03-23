@@ -32,15 +32,8 @@
 #include "JDY40.h"
 #include "movement.h"
 #include "frequency_calc.h"
-#include "TransmissionDelays.h"
-
-#define F_CPU 32000000L
 
 #define CHARS_PER_LINE 16
-
-char LCD_BUFF[CHARS_PER_LINE]; // Buffer for LCD Display
-char TX_BUFF[CHARS_PER_LINE+1];
-char RX_BUFF[CHARS_PER_LINE+1];
 
 #define MAX_16_BIT 65536.0 // 16-Bit Maximum Value
 #define MAX_8_BIT 256.0 // 8-Bit Maximum Value
@@ -54,15 +47,50 @@ char RX_BUFF[CHARS_PER_LINE+1];
 #define Y_MIDPOINT 2044.0
 #define X_MIDPOINT 2136.0
 
+char LCD_BUFF[CHARS_PER_LINE]; // Buffer for LCD Display
+
+volatile int Timer2Count = 0;
+volatile int Timer21Count = 0;
+volatile float Timer2Ratio = 1;
+
 float x = 0, y = 0;
 float standardized_x = 0, standardized_y = 0;
-int Timer21Count = 0;
+
+void delay(int dly);
 
 void ConfigPinsLCD(void);
+void ConfigPinButton(void);
 void ConfigPinADC(void);
+void ConfigPinsUART2(void);
+void ConfigPinSpeaker(void);
 
-void display_rx(void);
 void display_x_y(float x, float y);
+void display_adc(float x, float standardized_x, float y, float standardized_y);
+void display_inductance(float inductance);
+
+// Interrupt service routines are the same as normal
+// subroutines (or C funtions) in Cortex-M microcontrollers.
+// The following should happen at a rate of 1kHz.
+// The following function is associated with the TIM2 interrupt
+// via the interrupt vector table defined in startup.c
+void TIM2_Handler(void) {
+	TIM2->SR &= ~BIT0; // clear update interrupt flag
+	Timer2Count++;
+	if (Timer2Count >= Timer2Ratio) {
+		TIM2->CCR1 = (TIM2->CCR1+16)&0xff;
+		Timer2Count = 0;
+		ToggleSpeaker(); // toggle the state of the speaker
+	}
+}
+
+void TIM21_Handler(void) {
+	TIM21->SR &= ~BIT0; // clear update interrupt flag
+	Timer21Count++;
+	if (Timer21Count > 1000) {
+		Timer21Count = 0;
+		Send_X_Y(standardized_x, standardized_y);
+	}
+}
 
 void delay(int dly) {
 	while( dly--);
@@ -120,13 +148,13 @@ void ConfigPinsUART2(void) {
 	GPIOA->ODR |= BIT13; // 'set' pin to 1 is normal operation mode.
 
 	GPIOA->MODER &= ~(BIT22 | BIT23); // Make PA11 Input
-	// Activate pull up for pin PA11;
+
+	// Activate Pull-Up Resistor for Pin PA11
 	GPIOA->PUPDR |= BIT22;
 	GPIOA->PUPDR &= ~(BIT23);
 }
 
-void ConfigPinSpeaker(void)
-{
+void ConfigPinSpeaker(void) {
 	RCC->IOPENR |= BIT0; // peripheral clock enable for port A
     GPIOA->MODER = (GPIOA->MODER & ~(BIT17|BIT16)) | BIT16; // PA8
 }
@@ -149,21 +177,9 @@ void display_adc(float x, float standardized_x, float y, float standardized_y) {
 	LCDprint(LCD_BUFF, 2, 1);
 }
 
-void display_inductance(float inductance)
-{
+void display_inductance(float inductance) {
 	sprintf(LCD_BUFF, "Inductance: %d", (int) inductance);
 	LCDprint(LCD_BUFF, 1, 1);
-}
-
-void TIM21_Handler(void)
-{
-	TIM21->SR &= ~BIT0; // clear update interrupt flag
-	Timer21Count++;
-	if (Timer21Count > 1000) {
-		Timer21Count = 0;
-		JDY_PWM_Transmission_X(standardized_x);
-		JDY_PWM_Transmission_Y(standardized_y);
-	}
 }
 
 void main(void) {
@@ -176,7 +192,8 @@ void main(void) {
 	ConfigPinButton();
 	ConfigPinADC();
 	ConfigPinSpeaker();
-	InitTimer2();
+
+	// InitTimer2();
 	InitTimer21();
 
 	initADC();
@@ -185,22 +202,22 @@ void main(void) {
 	printf("\x1b[2J\x1b[1;1H"); // Clear screen using ANSI escape sequence.
 
 	while (1) {
-		// ReceiveCommand();
-
 		x = -1*(readADC(ADC_CHSELR_CHSEL8)-X_MIDPOINT);
 		y = -1*(readADC(ADC_CHSELR_CHSEL9)-Y_MIDPOINT);
 
-		standardized_x = x_direction_to_PWM_percent(x);
-		standardized_y = y_direction_to_PWM_percent(y);
+		standardized_x = standardize_x(x);
+		standardized_y = standardize_y(y);
 
-		while (!(GPIOA->IDR & BIT12))
-		{
-			TIM2->CR1 &= !BIT0; // enable counter enable
-		}
-		TIM2->CR1 |= BIT0;
+		// while (!(GPIOA->IDR & BIT12))
+		// {
+		// 	TIM2->CR1 &= !BIT0; // enable counter enable
+		// }
 
+		// TIM2->CR1 |= BIT0;
+
+		ReceiveCommand();
 		// while (!(GPIOA->IDR & BIT11)) // Button Pressed
-		//ChangeSpeakerRatio(SpeakerFrequencyManager(metal_frequency));
+		//Timer2Ratio = ChangeSpeakerRatio(SpeakerFrequencyManager(metal_frequency));
 
 		// Display the ADC values on the LCD
 		display_x_y(standardized_x, standardized_y);

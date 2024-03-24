@@ -3,5 +3,5 @@
 
 void InitTimer2(void);
 void ToggleSpeaker(void);
-float ChangeSpeakerRatio(float new_ratio);
+float ChangeSpeakerRatio(float inductance);
 void ConfigSpeaker(float ratio);

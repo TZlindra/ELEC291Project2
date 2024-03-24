@@ -6,7 +6,7 @@
 //             NRST -|4      29|- PB6
 //             VDDA -|5      28|- PB5
 // LCD_RS      PA0 -|6       27|- PB4
-// LCD_E       PA1 -|7       26|- PB3  (TIM2_CH2)
+// LCD_E       PA1 -|7       26|- PB3  (Toggle Pin)
 // LCD_D4      PA2 -|8       25|- PA15 (USART2 RX)
 // LCD_D5      PA3 -|9       24|- PA14 (USART2 TX)
 // LCD_D6      PA4 -|10      23|- PA13
@@ -38,12 +38,6 @@
 #define MAX_16_BIT 65536.0 // 16-Bit Maximum Value
 #define MAX_8_BIT 256.0 // 8-Bit Maximum Value
 
-/* Define Multipliers */
-#define KILO_MULTIPLIER 1000.0 // Kilo Multiplier
-#define MEGA_MULTIPLIER 1000000.0 // Mega Multiplier
-#define GIGA_MULTIPLIER 1000000000.0 // Giga Multiplier
-#define TERA_MULTIPLIER 1000000000000.0 // Tera Multiplier
-
 #define Y_MIDPOINT 2044.0
 #define X_MIDPOINT 2136.0
 
@@ -64,6 +58,8 @@ void ConfigPinADC(void);
 void ConfigPinsUART2(void);
 void ConfigPinSpeaker(void);
 
+void TogglePin(void);
+
 void display_x_y(float x, float y);
 void display_adc(float x, float standardized_x, float y, float standardized_y);
 void display_inductance(float inductance);
@@ -74,18 +70,19 @@ void display_inductance(float inductance);
 // The following function is associated with the TIM2 interrupt
 // via the interrupt vector table defined in startup.c
 void TIM2_Handler(void) {
-	TIM2->SR &= ~BIT0; // clear update interrupt flag
+	TIM2->SR &= ~BIT0; // Clear Update Interrupt Flag
 	Timer2Count++;
 	if (Timer2Count >= Timer2Ratio) {
-		TIM2->CCR1 = (TIM2->CCR1+16)&0xff;
+		TIM2->CCR1 = (TIM2->CCR1+16)&0xFF;
 		Timer2Count = 0;
-		ToggleSpeaker(); // toggle the state of the speaker
+		ToggleSpeaker(); // Toggle Speaker
 	}
 }
 
 void TIM21_Handler(void) {
-	TIM21->SR &= ~BIT0; // clear update interrupt flag
+	TIM21->SR &= ~BIT0; // Clear Update Interrupt Flag
 	Timer21Count++;
+	// TogglePin();
 	if (Timer21Count > 1000) {
 		Timer21Count = 0;
 		Send_X_Y(standardized_x, standardized_y);
@@ -119,9 +116,13 @@ void ConfigPinsLCD(void) {
 	GPIOA->OTYPER &= ~BIT5; // Push-pull
 }
 
+void ConfigPinToggle(void) {
+	RCC->IOPENR |= RCC_IOPENR_GPIOBEN; // Enable clock for GPIOB
+	GPIOB->MODER = (GPIOB->MODER & ~(BIT6|BIT7)) | BIT6; // PB3
+}
+
 void ConfigPinButton() {
 	RCC->IOPENR |= RCC_IOPENR_GPIOAEN; // Peripheral Clock Enable for Port A
-
 	GPIOA->MODER &= ~(BIT24 | BIT25); // Make Pin PA12 Input
 
 	// Activate Pull-Up Resistor for Pin PA12
@@ -131,7 +132,7 @@ void ConfigPinButton() {
 
 void ConfigPinADC(void) {
 	// Configure the pin used for analog input: PB0 (pin 14)
-	RCC->IOPENR  |= BIT1;         // peripheral clock enable for port B
+	RCC->IOPENR |= RCC_IOPENR_GPIOBEN; // Peripheral Clock Enable for Port B
 	GPIOB->MODER |= (BIT0|BIT1);  // Select analog mode for PB0 (pin 14 of LQFP32 package)
 
 	// Configure the pin used for analog input: PB1 (pin 15)
@@ -140,9 +141,9 @@ void ConfigPinADC(void) {
 }
 
 void ConfigPinsUART2(void) {
-	GPIOA->OSPEEDR=0xffffffff; // All pins of port A configured for very high speed! Page 201 of RM0451
+	GPIOA->OSPEEDR = 0xFFFFFFFF; // All pins of port A configured for very high speed! Page 201 of RM0451
 
-	RCC->IOPENR |= BIT0; // peripheral clock enable for port A
+	RCC->IOPENR |= RCC_IOPENR_GPIOAEN; // Enable clock for GPIO Port A
 
     GPIOA->MODER = (GPIOA->MODER & ~(BIT27|BIT26)) | BIT26; // Make pin PA13 output (page 200 of RM0451, two bits used to configure: bit0=1, bit1=0))
 	GPIOA->ODR |= BIT13; // 'set' pin to 1 is normal operation mode.
@@ -155,8 +156,16 @@ void ConfigPinsUART2(void) {
 }
 
 void ConfigPinSpeaker(void) {
-	RCC->IOPENR |= BIT0; // peripheral clock enable for port A
+	RCC->IOPENR |= RCC_IOPENR_GPIOAEN; // Enable clock for GPIO Port A
     GPIOA->MODER = (GPIOA->MODER & ~(BIT17|BIT16)) | BIT16; // PA8
+}
+
+void TogglePin(void) {
+	GPIOB->ODR ^= BIT3;
+}
+
+int IsButtonPressed(void) {
+	return !(GPIOA->IDR & BIT12);
 }
 
 void display_x_y(float x, float y) {
@@ -192,6 +201,7 @@ void main(void) {
 	ConfigPinButton();
 	ConfigPinADC();
 	ConfigPinSpeaker();
+	// ConfigPinToggle();
 
 	InitTimer2();
 	InitTimer21();
@@ -208,16 +218,17 @@ void main(void) {
 		standardized_x = standardize_x(x);
 		standardized_y = standardize_y(y);
 
-		while (!(GPIOA->IDR & BIT12))
-		{
-			TIM2->CR1 &= !BIT0; // enable counter enable
-		}
+		// while (!(IsButtonPressed()))
+		// {
+		// 	TIM2->CR1 &= !BIT0; // enable counter enable
+		// }
 
-		TIM2->CR1 |= BIT0;
+		// TIM2->CR1 |= BIT0;
 
 		ReceiveCommand();
-		// while (!(GPIOA->IDR & BIT11)) // Button Pressed
-		// Timer2Ratio = ChangeSpeakerRatio(SpeakerFrequencyManager(metal_frequency));
+		if (IsButtonPressed()) {
+			Timer2Ratio = ChangeSpeakerRatio(Timer2Ratio);
+		}
 
 		// Display the ADC values on the LCD
 		display_x_y(standardized_x, standardized_y);

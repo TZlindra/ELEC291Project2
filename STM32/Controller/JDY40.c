@@ -14,11 +14,11 @@
 //             NRST -|4      29|- PB6
 //             VDDA -|5      28|- PB5
 // LCD_RS      PA0 -|6       27|- PB4
-// LCD_E       PA1 -|7       26|- PB3
-// LCD_D4      PA2 -|8       25|- PA15
-// LCD_D5      PA3 -|9       24|- PA14
+// LCD_E       PA1 -|7       26|- PB3  (Toggle Pin)
+// LCD_D4      PA2 -|8       25|- PA15 (USART2 RX)
+// LCD_D5      PA3 -|9       24|- PA14 (USART2 TX)
 // LCD_D6      PA4 -|10      23|- PA13
-// LCD_D7      PA5 -|11      22|- PA12
+// LCD_D7      PA5 -|11      22|- PA12 (Button)
 //             PA6 -|12      21|- PA11
 //             PA7 -|13      20|- PA10 (Reserved for RXD)
 // (ADC_IN8)   PB0 -|14      19|- PA9  (Reserved for TXD)
@@ -30,10 +30,10 @@ char TX_BUFF[80];
 char RX_BUFF[80];
 
 void InitTimer21(void) {
-	// Set up timer
-	RCC->APB2ENR |= BIT2;  // turn on clock for timer21 (UM: page 188)
-	TIM21->ARR = F_CPU/(TICK_FREQ_TIM21);
-	NVIC->ISER[0] |= BIT20; // enable timer 21 interrupts in the NVIC
+	RCC->APB2ENR |= RCC_APB2ENR_TIM21EN;  // turn on clock for timer21 (UM: page 188)
+	TIM21->ARR = F_CPU/TICK_FREQ_TIM21; // set auto-reload value
+
+    NVIC_EnableIRQ(TIM21_IRQn); // Enable Timer 21 Interrupts in NVIC
 	TIM21->CR1 |= BIT4;      // Downcounting
 	TIM21->CR1 |= BIT0;      // enable counting
 	TIM21->DIER |= BIT0;     // enable update event (reload event) interrupt

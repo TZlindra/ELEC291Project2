@@ -21,12 +21,14 @@
 //             VSS -|16      17|- VDD
 //                    ----------
 
+#include <stdio.h>
+
 #include "../Common/Include/stm32l051xx.h"
 #include "speaker.h"
 
 void InitTimer2(void) {
     RCC->APB1ENR |= RCC_APB1ENR_TIM2EN; // Turn on clock for timer2
-    TIM2->ARR = F_CPU / (TICK_FREQ_TIM2 * 2); // Set auto-reload value
+    TIM2->ARR = F_CPU / TICK_FREQ_TIM2 - 1; // Set the auto-reload value
 
     NVIC_EnableIRQ(TIM2_IRQn); // Enable timer 2 interrupts in the NVIC
     TIM2->CR1 |= TIM_CR1_DIR; // Downcounting
@@ -41,9 +43,16 @@ void ToggleSpeaker(void) {
 	GPIOA->ODR ^= BIT8;
 }
 
-float ChangeSpeakerRatio(float inductance) {
-    if (inductance >= 8) return 0;
-    else return inductance + 2;
+float ChangeSpeakerRatio(float current_ratio) {
+    float new_ratio, new_freq;
+
+    if (current_ratio >= 10) new_ratio = 1;
+    else new_ratio = current_ratio * 2;
+
+    new_freq = TICK_FREQ_TIM2 / new_ratio;
+    printf("Current Frequency: %f\r\n", new_freq);
+
+    return new_ratio;
 }
 
 void ConfigSpeaker(float ratio) {

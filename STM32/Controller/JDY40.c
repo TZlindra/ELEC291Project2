@@ -31,7 +31,7 @@ char RX_BUFF[80];
 
 void InitTimer21(void) {
 	RCC->APB2ENR |= RCC_APB2ENR_TIM21EN;  // turn on clock for timer21 (UM: page 188)
-	TIM21->ARR = F_CPU/TICK_FREQ_TIM21; // set auto-reload value
+	TIM21->ARR = F_CPU / TICK_FREQ_TIM21 - 1; // set the auto-reload value
 
     NVIC_EnableIRQ(TIM21_IRQn); // Enable Timer 21 Interrupts in NVIC
 	TIM21->CR1 |= BIT4;      // Downcounting

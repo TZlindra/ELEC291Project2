@@ -46,8 +46,8 @@ void ToggleSpeaker(void) {
 float ChangeSpeakerRatio(float current_ratio) {
     float new_ratio, new_freq;
 
-    if (current_ratio >= 10) new_ratio = 1;
-    else new_ratio = current_ratio * 2;
+    if (current_ratio >= 5) new_ratio = 1;
+    else new_ratio = current_ratio + 1;
 
     new_freq = TICK_FREQ_TIM2 / new_ratio;
     printf("Current Frequency: %f\r\n", new_freq);

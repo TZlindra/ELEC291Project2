@@ -1202,18 +1202,18 @@ LOAD linker stubs
  .debug_aranges
                 0x00000148       0x20 newlib_stubs.o
 
-.debug_line     0x00000000     0x1ce3
- .debug_line    0x00000000      0x3a7 main.o
- .debug_line    0x000003a7      0x296 startup.o
- .debug_line    0x0000063d      0x4d4 serial.o
- .debug_line    0x00000b11      0x4bf UART2.o
- .debug_line    0x00000fd0      0x269 JDY40.o
- .debug_line    0x00001239      0x330 lcd.o
- .debug_line    0x00001569      0x1cc adc.o
- .debug_line    0x00001735      0x1de speaker.o
- .debug_line    0x00001913       0x5f frequency_calc.o
- .debug_line    0x00001972       0xb1 movement.o
- .debug_line    0x00001a23      0x2c0 newlib_stubs.o
+.debug_line     0x00000000     0x1ceb
+ .debug_line    0x00000000      0x3af main.o
+ .debug_line    0x000003af      0x296 startup.o
+ .debug_line    0x00000645      0x4d4 serial.o
+ .debug_line    0x00000b19      0x4bf UART2.o
+ .debug_line    0x00000fd8      0x269 JDY40.o
+ .debug_line    0x00001241      0x330 lcd.o
+ .debug_line    0x00001571      0x1cc adc.o
+ .debug_line    0x0000173d      0x1de speaker.o
+ .debug_line    0x0000191b       0x5f frequency_calc.o
+ .debug_line    0x0000197a       0xb1 movement.o
+ .debug_line    0x00001a2b      0x2c0 newlib_stubs.o
 
 .debug_str      0x00000000     0x1053
  .debug_str     0x00000000      0x711 main.o

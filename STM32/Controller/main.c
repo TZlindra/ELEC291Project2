@@ -45,7 +45,7 @@ char LCD_BUFF[CHARS_PER_LINE]; // Buffer for LCD Display
 
 volatile int Timer2Count = 0;
 volatile int Timer21Count = 0;
-volatile float Timer2Ratio = 1;
+volatile float Timer2Ratio = 5;
 
 float x = 0, y = 0;
 float standardized_x = 0, standardized_y = 0;
@@ -226,9 +226,7 @@ void main(void) {
 		// TIM2->CR1 |= BIT0;
 
 		ReceiveCommand();
-		if (IsButtonPressed()) {
-			Timer2Ratio = ChangeSpeakerRatio(Timer2Ratio);
-		}
+		if (IsButtonPressed()) Timer2Ratio = ChangeSpeakerRatio(Timer2Ratio);
 
 		// Display the ADC values on the LCD
 		display_x_y(standardized_x, standardized_y);

@@ -9,11 +9,11 @@
 //             NRST -|4      29|- PB6
 //             VDDA -|5      28|- PB5
 // LCD_RS      PA0 -|6       27|- PB4
-// LCD_E       PA1 -|7       26|- PB3
-// LCD_D4      PA2 -|8       25|- PA15
-// LCD_D5      PA3 -|9       24|- PA14
+// LCD_E       PA1 -|7       26|- PB3  (TIM2_CH2)
+// LCD_D4      PA2 -|8       25|- PA15 (USART2 RX)
+// LCD_D5      PA3 -|9       24|- PA14 (USART2 TX)
 // LCD_D6      PA4 -|10      23|- PA13
-// LCD_D7      PA5 -|11      22|- PA12
+// LCD_D7      PA5 -|11      22|- PA12 (Button)
 //             PA6 -|12      21|- PA11
 //             PA7 -|13      20|- PA10 (Reserved for RXD)
 // (ADC_IN8)   PB0 -|14      19|- PA9  (Reserved for TXD)
@@ -21,75 +21,43 @@
 //             VSS -|16      17|- VDD
 //                    ----------
 
+#include <stdio.h>
+
 #include "../Common/Include/stm32l051xx.h"
+#include "speaker.h"
 
-#define SYSCLK 32000000L
-#define TICK_FREQ 2048L
+void InitTimer2(void) {
+    RCC->APB1ENR |= RCC_APB1ENR_TIM2EN; // Turn on clock for timer2
+    TIM2->ARR = F_CPU / TICK_FREQ_TIM2 - 1; // Set the auto-reload value
 
-volatile int Count = 0;
-volatile float ratio = 1;
+    NVIC_EnableIRQ(TIM2_IRQn); // Enable timer 2 interrupts in the NVIC
+    TIM2->CR1 |= TIM_CR1_DIR; // Downcounting
+    TIM2->CR1 |= TIM_CR1_ARPE; // ARPE enable
+    TIM2->DIER |= TIM_DIER_UIE; // Enable update event (reload event) interrupt
+    TIM2->CR1 |= TIM_CR1_CEN; // Enable counting
 
-void ToggleSpeaker(void)
-{
+	__enable_irq();
+}
+
+void ToggleSpeaker(void) {
 	GPIOA->ODR ^= BIT8;
 }
 
-void ChangeSpeakerRatio(float new_ratio)
-{
-	ratio = new_ratio;
+float ChangeSpeakerRatio(float current_ratio) {
+    float new_ratio, new_freq;
+
+    if (current_ratio >= 5) new_ratio = 1;
+    else new_ratio = current_ratio + 1;
+
+    new_freq = TICK_FREQ_TIM2 / new_ratio;
+    printf("Current Frequency: %f\r\n", new_freq);
+
+    return new_ratio;
 }
 
-void ToggleSpeakerTimer(void)
-{
+void ConfigSpeaker(float ratio) {
 	if (ratio == 0)
 		TIM2->CR1 &= !BIT0;
 	else
 		TIM2->CR1 |= BIT0;
-}
-
-// Interrupt service routines are the same as normal
-// subroutines (or C funtions) in Cortex-M microcontrollers.
-// The following should happen at a rate of 1kHz.
-// The following function is associated with the TIM2 interrupt
-// via the interrupt vector table defined in startup.c
-void TIM2_Handler(void)
-{
-	TIM2->SR &= ~BIT0; // clear update interrupt flag
-	Count++;
-	if (Count >= ratio)
-	{
-		TIM2->CCR1=(TIM2->CCR1+16)&0xff;
-		Count = 0;
-		ToggleSpeaker(); // toggle the state of the speaker
-	}
-}
-
-void InitTimer2(void) {
-	// Configure PA15 for altenate function (TIM2_CH1, pin 25 in LQFP32 package)
-	GPIOA->OSPEEDR  |= BIT30; // MEDIUM SPEED
-	GPIOA->OTYPER   &= ~BIT15; // Push-pull
-	GPIOA->MODER    = (GPIOA->MODER & ~(BIT30)) | BIT31; // AF-Mode
-	GPIOA->AFR[1]   |= BIT30 | BIT28 ; // AF5 selected (check table 16 in page 43 of "en.DM00108219.pdf")
-
-	// Set up timer
-	RCC->APB1ENR |= BIT0;  // turn on clock for timer2 (UM: page 177)
-	TIM2->ARR = SYSCLK/(TICK_FREQ * 2);
-	//TIM2->ARR = 255;
-	NVIC->ISER[0] |= BIT15; // enable timer 2 interrupts in the NVIC
-	TIM2->CR1 |= BIT4;      // Downcounting
-	TIM2->CR1 |= BIT7;      // ARPE enable
-	TIM2->DIER |= BIT0;     // enable update event (reload event) interrupt
-	TIM2->CR1 |= BIT0;      // enable counting
-
-	// Enable PWM in channel 1 of Timer 2
-	TIM2->CCMR1|=BIT6|BIT5; // PWM mode 1 ([6..4]=110)
-	TIM2->CCMR1|=BIT3; // OC1PE=1
-	TIM2->CCER|=BIT0; // Bit 0 CC1E: Capture/Compare 1 output enable.
-
-	// Set PWM to 50%
-	TIM2->CCR1=SYSCLK/(TICK_FREQ*2*2);
-	//TIM2->CCR1=128;
-	TIM2->EGR |= BIT0; // UG=1
-
-	__enable_irq();
 }

@@ -9,26 +9,26 @@ volatile int Count = 0;
 #define SYSCLK 32000000L
 #define TICK_FREQ 1000L
 
-void ToggleLED(void) 
-{    
+void ToggleLED(void)
+{
 	GPIOA->ODR ^= BIT0; // Toggle PA0
 }
 
 // Interrupt service routines are the same as normal
 // subroutines (or C funtions) in Cortex-M microcontrollers.
 // The following should happen at a rate of 1kHz.
-// The following function is associated with the TIM2 interrupt 
+// The following function is associated with the TIM2 interrupt
 // via the interrupt vector table defined in startup.c
-void TIM2_Handler(void) 
+void TIM2_Handler(void)
 {
 	TIM2->SR &= ~BIT0; // clear update interrupt flag
 	Count++;
 	if (Count > 60000)
-	{ 
+	{
 		TIM2->CCR1=(TIM2->CCR1+16)&0xff;
 		Count = 0;
-		ToggleLED(); // toggle the state of the LED 
-	}   
+		ToggleLED(); // toggle the state of the LED
+	}
 }
 
 // LQFP32 pinout
@@ -62,27 +62,27 @@ void Hardware_Init(void)
 	GPIOA->OTYPER   &= ~BIT15; // Push-pull
 	GPIOA->MODER    = (GPIOA->MODER & ~(BIT30)) | BIT31; // AF-Mode
 	GPIOA->AFR[1]   |= BIT30 | BIT28 ; // AF5 selected (check table 16 in page 43 of "en.DM00108219.pdf")
-	
+
 	// Set up timer
 	RCC->APB1ENR |= BIT0;  // turn on clock for timer2 (UM: page 177)
 	//TIM2->ARR = SYSCLK/TICK_FREQ;
 	TIM2->ARR = 255;
 	NVIC->ISER[0] |= BIT15; // enable timer 2 interrupts in the NVIC
-	TIM2->CR1 |= BIT4;      // Downcounting    
-	TIM2->CR1 |= BIT7;      // ARPE enable    
-	TIM2->DIER |= BIT0;     // enable update event (reload event) interrupt 
-	TIM2->CR1 |= BIT0;      // enable counting    
-	
+	TIM2->CR1 |= BIT4;      // Downcounting
+	TIM2->CR1 |= BIT7;      // ARPE enable
+	TIM2->DIER |= BIT0;     // enable update event (reload event) interrupt
+	TIM2->CR1 |= BIT0;      // enable counting
+
 	// Enable PWM in channel 1 of Timer 2
 	TIM2->CCMR1|=BIT6|BIT5; // PWM mode 1 ([6..4]=110)
 	TIM2->CCMR1|=BIT3; // OC1PE=1
 	TIM2->CCER|=BIT0; // Bit 0 CC1E: Capture/Compare 1 output enable.
-	
+
 	// Set PWM to 50%
 	//TIM2->CCR1=SYSCLK/(TICK_FREQ*2);
 	TIM2->CCR1=128;
 	TIM2->EGR |= BIT0; // UG=1
-	
+
 	__enable_irq();
 }
 

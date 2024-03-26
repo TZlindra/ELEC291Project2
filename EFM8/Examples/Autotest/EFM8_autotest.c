@@ -31,7 +31,7 @@ char _c51_external_startup (void)
 	WDTCN = 0xDE; //First key
 	WDTCN = 0xAD; //Second key
 
-	#if (SYSCLK == 48000000L)	
+	#if (SYSCLK == 48000000L)
 		SFRPAGE = 0x10;
 		PFE0CN  = 0x10; // SYSCLK < 50 MHz.
 		SFRPAGE = 0x00;
@@ -40,7 +40,7 @@ char _c51_external_startup (void)
 		PFE0CN  = 0x20; // SYSCLK < 75 MHz.
 		SFRPAGE = 0x00;
 	#endif
-	
+
 	#if (SYSCLK == 12250000L)
 		CLKSEL = 0x10;
 		CLKSEL = 0x10;
@@ -49,7 +49,7 @@ char _c51_external_startup (void)
 		CLKSEL = 0x00;
 		CLKSEL = 0x00;
 		while ((CLKSEL & 0x80) == 0);
-	#elif (SYSCLK == 48000000L)	
+	#elif (SYSCLK == 48000000L)
 		// Before setting clock to 48 MHz, must transition to 24.5 MHz first
 		CLKSEL = 0x00;
 		CLKSEL = 0x00;
@@ -70,7 +70,7 @@ char _c51_external_startup (void)
 	#endif
 
 	P0MDOUT |= 0x10; // Enable UART0 TX as push-pull output
-	XBR0     = 0x01; // Enable UART0 on P0.4(TX) and P0.5(RX)                     
+	XBR0     = 0x01; // Enable UART0 on P0.4(TX) and P0.5(RX)
 	XBR1     = 0X00;
 	XBR2     = 0x40; // Enable crossbar and weak pull-ups
 
@@ -83,25 +83,25 @@ char _c51_external_startup (void)
 	TH1 = 0x100-((SYSCLK/BAUDRATE)/2L);
 	TL1 = TH1;      // Init Timer1
 	TMOD &= ~0xf0;  // TMOD: timer 1 in 8-bit auto-reload
-	TMOD |=  0x20;                       
+	TMOD |=  0x20;
 	TR1 = 1; // START Timer1
 	TI = 1;  // Indicate TX0 ready
-	
+
 	return 0;
 }
 
 
-// Uses Timer3 to delay <us> micro-seconds. 
+// Uses Timer3 to delay <us> micro-seconds.
 void Timer3us(unsigned char us)
 {
 	unsigned char i;               // usec counter
-	
+
 	// The input for Timer 3 is selected as SYSCLK by setting T3ML (bit 6) of CKCON0:
 	CKCON0|=0b_0100_0000;
-	
+
 	TMR3RL = (-(SYSCLK)/1000000L); // Set Timer3 to overflow in 1us.
 	TMR3 = TMR3RL;                 // Initialize Timer3 for first overflow
-	
+
 	TMR3CN0 = 0x04;                 // Sart Timer3 and clear overflow flag
 	for (i = 0; i < us; i++)       // Count <us> overflows
 	{
@@ -126,9 +126,9 @@ void WaitXms (unsigned int ms)
 unsigned char countzero(void)
 {
 	unsigned char j;
-	
+
 	j=0;
-	
+
 	if (P0_0==0) j++;
 	if (P0_1==0) j++;
 	if (P0_2==0) j++;
@@ -167,73 +167,73 @@ unsigned char countzero(void)
 void Set_Pin_Output (unsigned char pin)
 {
 	unsigned char mask;
-	
+
 	mask=(1<<(pin&0x7));
 	switch(pin/0x10)
 	{
 		case 0: P0MDOUT |= mask; break;
 		case 1: P1MDOUT |= mask; break;
-		case 2: P2MDOUT |= mask; break; 
-		case 3: P3MDOUT |= mask; break; 
-	}	
+		case 2: P2MDOUT |= mask; break;
+		case 3: P3MDOUT |= mask; break;
+	}
 }
 
 void Set_Pin_Input (unsigned char pin)
 {
 	unsigned char mask;
-	
+
 	mask=(1<<(pin&0x7));
 	mask=~mask;
 	switch(pin/0x10)
 	{
 		case 0: P0MDOUT &= mask; break;
 		case 1: P1MDOUT &= mask; break;
-		case 2: P2MDOUT &= mask; break; 
-		case 3: P3MDOUT &= mask; break; 
-	}	
+		case 2: P2MDOUT &= mask; break;
+		case 3: P3MDOUT &= mask; break;
+	}
 }
 
 void Set_Pin_One (unsigned char pin)
 {
 	unsigned char mask;
-	
+
 	mask=(1<<(pin&0x7));
 	switch(pin/0x10)
 	{
 		case 0: P0 |= mask; break;
 		case 1: P1 |= mask; break;
-		case 2: P2 |= mask; break; 
-		case 3: P3 |= mask; break; 
-	}	
+		case 2: P2 |= mask; break;
+		case 3: P3 |= mask; break;
+	}
 }
 
 void Set_Pin_Zero (unsigned char pin)
 {
 	unsigned char mask;
-	
+
 	mask=(1<<(pin&0x7));
 	mask=~mask;
 	switch(pin/0x10)
 	{
 		case 0: P0 &= mask; break;
 		case 1: P1 &= mask; break;
-		case 2: P2 &= mask; break; 
-		case 3: P3 &= mask; break; 
-	}	
+		case 2: P2 &= mask; break;
+		case 3: P3 &= mask; break;
+	}
 }
 
 bit Read_Pin (unsigned char pin)
 {
 	unsigned char mask, result;
-	
+
 	mask=(1<<(pin&0x7));
 	switch(pin/0x10)
 	{
 		default:
 		case 0: result = P0 & mask; break;
 		case 1: result = P1 & mask; break;
-		case 2: result = P2 & mask; break; 
-		case 3: result = P3 & mask; break; 
+		case 2: result = P2 & mask; break;
+		case 3: result = P3 & mask; break;
 	}
 	return (result?1:0);
 }
@@ -272,7 +272,7 @@ void Test_Pair (unsigned char pin1, unsigned char pin2)
 	if(Read_Pin(pin1)==1) dofail(pin1);
 	if (countzero()!=2) dofailb(pin1);
 	dopass(pin1);
-	
+
 	Set_Pin_One(pin1);
 	Set_Pin_One(pin2);
 	Set_Pin_Input(pin1);
@@ -328,7 +328,7 @@ void main(void)
 	#define TOUT 500
 
 	WaitXms(TOUT); // Give PuTTY a chance to start
-	
+
 	printf("\n\nEFM8 board autotest\n");
 	Initial_Check();
 
@@ -348,9 +348,9 @@ void main(void)
 	Test_Pair(0x22, 0x17);
 	printf("\n");
 	Test_Pair(0x21, 0x20);
-	
+
 	printf("\n\nSuccess!\n");
-	
+
 	Set_Pin_Output(0x21);
 	while(1)
 	{

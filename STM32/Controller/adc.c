@@ -1,9 +1,9 @@
 #include  "../Common/Include/stm32l051xx.h"
+#include "adc.h"
 
 // All of this code is mostly copy/paste from the STM32L05X reference manual RM0451.
 
-void initADC(void)
-{
+void initADC(void) {
 	RCC->APB2ENR |= BIT9; // peripheral clock enable for ADC (page 175 or RM0451)
 
 	// ADC clock selection procedure (page 746 of RM0451)
@@ -42,8 +42,7 @@ void initADC(void)
 	}
 
 
-int readADC(unsigned int channel)
-{
+int readADC(unsigned int channel) {
 	// Single conversion sequence code example - Software trigger (page 746 of RM0451)
 	/* (1) Select HSI16 by writing 00 in CKMODE (reset value) */
 	/* (2) Select the auto off mode */

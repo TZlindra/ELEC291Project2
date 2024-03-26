@@ -1,14 +1,15 @@
 #include "../Common/Include/stm32l051xx.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "../Common/Include/serial.h"
 #include "UART2.h"
 
 #define SYSCLK 32000000L
 #define DEF_F 15000L
 
-char tx_buff[80];
-char rx_buff[80];
+char TX_BUFF[80];
+char RX_BUFF[80];
 
 // LQFP32 pinout
 //             ----------
@@ -57,17 +58,17 @@ void SendATCommand (char * s)
 	GPIOA->ODR &= ~(BIT13); // 'set' pin to 0 is 'AT' mode.
 	waitms(10);
 	eputs2(s);
-	egets2(tx_buff, sizeof(tx_buff)-1);
+	egets2(TX_BUFF, sizeof(TX_BUFF)-1);
 	GPIOA->ODR |= BIT13; // 'set' pin to 1 is normal operation mode.
 	waitms(10);
-	printf("Response: %s", tx_buff);
+	printf("Response: %s", TX_BUFF);
 }
 
 void SendCommand(char * s, int value) {
 	int count = 0;
-	sprintf(tx_buff, "%s %d\r\n", s, value);
-	printf("%s", tx_buff); // Print to Terminal
-	eputs2(tx_buff);
+	sprintf(TX_BUFF, "%s %d\r\n", s, value);
+	printf("%s", TX_BUFF); // Print to Terminal
+	eputs2(TX_BUFF);
 	waitms(200);
 }
 
@@ -75,8 +76,9 @@ void ReceiveCommand(void)
 {
 	if(ReceivedBytes2()>0) // Something has arrived
 	{
-		egets2(rx_buff, sizeof(rx_buff)-1);
-		printf("RX: %s", rx_buff);
+		egets2(RX_BUFF, sizeof(RX_BUFF)-1);
+		printf("RX: %s", RX_BUFF);
+		printf("Length: %d\r\n", strlen(RX_BUFF));
 	}
 }
 

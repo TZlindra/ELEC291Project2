@@ -4,12 +4,7 @@
 #include "../Common/Include/stm32l051xx.h"
 #include "../Common/Include/serial.h"
 #include "UART2.h"
-
-#define F_CPU 32000000L
-#define DEF_F 15000L
-
-#define X_STRING "X: "
-#define Y_STRING "Y: "
+#include "JDY40.h"
 
 // LQFP32 pinout
 //                    ----------
@@ -19,11 +14,11 @@
 //             NRST -|4      29|- PB6
 //             VDDA -|5      28|- PB5
 // LCD_RS      PA0 -|6       27|- PB4
-// LCD_E       PA1 -|7       26|- PB3
-// LCD_D4      PA2 -|8       25|- PA15
-// LCD_D5      PA3 -|9       24|- PA14
+// LCD_E       PA1 -|7       26|- PB3  (Toggle Pin)
+// LCD_D4      PA2 -|8       25|- PA15 (USART2 RX)
+// LCD_D5      PA3 -|9       24|- PA14 (USART2 TX)
 // LCD_D6      PA4 -|10      23|- PA13
-// LCD_D7      PA5 -|11      22|- PA12
+// LCD_D7      PA5 -|11      22|- PA12 (Button)
 //             PA6 -|12      21|- PA11
 //             PA7 -|13      20|- PA10 (Reserved for RXD)
 // (ADC_IN8)   PB0 -|14      19|- PA9  (Reserved for TXD)
@@ -31,11 +26,21 @@
 //             VSS -|16      17|- VDD
 //                    ----------
 
-char tx_buff[80];
-char rx_buff[80];
+char TX_BUFF[80];
+char RX_BUFF[80];
 
-void Delay_usJDY(unsigned char us)
-{
+void InitTimer21(void) {
+	RCC->APB2ENR |= RCC_APB2ENR_TIM21EN;  // turn on clock for timer21 (UM: page 188)
+	TIM21->ARR = F_CPU / TICK_FREQ_TIM21 - 1; // set the auto-reload value
+
+    NVIC_EnableIRQ(TIM21_IRQn); // Enable Timer 21 Interrupts in NVIC
+	TIM21->CR1 |= BIT4;      // Downcounting
+	TIM21->CR1 |= BIT0;      // enable counting
+	TIM21->DIER |= BIT0;     // enable update event (reload event) interrupt
+	__enable_irq();
+}
+
+void JDS_Delay_us(unsigned char us) {
 	// For SysTick info check the STM32L0xxx Cortex-M0 programming manual page 85.
 	SysTick->LOAD = (F_CPU/(1000000L/us)) - 1;  // set reload register, counter rolls over from zero, hence -1
 	SysTick->VAL = 0; // load the SysTick counter
@@ -44,41 +49,32 @@ void Delay_usJDY(unsigned char us)
 	SysTick->CTRL = 0x00; // Disable Systick counter
 }
 
-void waitmsJDY(unsigned int ms)
-{
+void JDY_Delay_ms(unsigned int ms) {
 	unsigned int j;
 	unsigned char k;
 	for(j=0; j<ms; j++)
-		for (k=0; k<4; k++) Delay_usJDY(250);
+		for (k=0; k<4; k++) JDS_Delay_us(250);
 }
 
-void SendATCommand (char * s)
-{
+void SendATCommand(char * s) {
 	printf("Command: %s", s);
 	GPIOA->ODR &= ~(BIT13); // 'set' pin to 0 is 'AT' mode.
-	waitmsJDY(10);
+	JDY_Delay_ms(10);
 	eputs2(s);
-	egets2(tx_buff, sizeof(tx_buff)-1);
+	egets2(TX_BUFF, sizeof(TX_BUFF)-1);
 	GPIOA->ODR |= BIT13; // 'set' pin to 1 is normal operation mode.
-	waitmsJDY(10);
-	printf("Response: %s", tx_buff);
+	JDY_Delay_ms(10);
+	printf("Response: %s", TX_BUFF);
 }
 
-void SendCommand(char * s, int value)
-{
-	sprintf(tx_buff, "%s %d\r\n", s, value);
-	// printf("%s", tx_buff);
-	eputs2(tx_buff);
-	// waitmsJDY(200);
+void SendCommand(char * s, int value) {
+	sprintf(TX_BUFF, "%s %d\r\n", s, value);
+	eputs2(TX_BUFF);
+	// JDY_Delay_ms(200); // Delay For Response
 }
 
-void ReceiveCommand(void)
-{
-	if(ReceivedBytes2()>0) // Something has arrived
-	{
-		egets2(tx_buff, sizeof(tx_buff)-1);
-		printf("RX: %s", tx_buff);
-	}
+void ReceiveCommand(void) {
+	if (ReceivedBytes2() > 0) egets2(TX_BUFF, sizeof(TX_BUFF)-1);
 }
 
 void ConfigJDY40(void) {
@@ -95,12 +91,8 @@ void ConfigJDY40(void) {
 	SendATCommand("AT+CLSS\r\n");
 }
 
-void JDY_PWM_Transmission_X(float x_value)
-{
-    SendCommand(X_STRING, x_value);
-}
-
-void JDY_PWM_Transmission_Y(float y_value)
-{
-    SendCommand(Y_STRING, y_value);
+void Send_X_Y(float x_value, float y_value) {
+	sprintf(TX_BUFF, "X: %f Y: %f\r\n", x_value, y_value);
+	printf("%s", TX_BUFF);
+	eputs2(TX_BUFF);
 }

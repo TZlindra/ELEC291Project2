@@ -1,7 +1,7 @@
 // EFM8_I2C_24C02.c: Shows how to access the 24C02 EEPROM
 // By:  Jesus Calvino-Fraga (c) 2010-2018
 //
-//  ~C51~  
+//  ~C51~
 
 #include <EFM8LB1.h>
 #include <stdio.h>
@@ -22,11 +22,11 @@ char _c51_external_startup (void)
 	SFRPAGE = 0x00;
 	WDTCN = 0xDE; //First key
 	WDTCN = 0xAD; //Second key
-  
+
 	VDM0CN=0x80;       // enable VDD monitor
 	RSTSRC=0x02|0x04;  // Enable reset on missing clock detector and VDD
 
-	#if (SYSCLK == 48000000L)	
+	#if (SYSCLK == 48000000L)
 		SFRPAGE = 0x10;
 		PFE0CN  = 0x10; // SYSCLK < 50 MHz.
 		SFRPAGE = 0x00;
@@ -35,7 +35,7 @@ char _c51_external_startup (void)
 		PFE0CN  = 0x20; // SYSCLK < 75 MHz.
 		SFRPAGE = 0x00;
 	#endif
-	
+
 	#if (SYSCLK == 12250000L)
 		CLKSEL = 0x10;
 		CLKSEL = 0x10;
@@ -44,7 +44,7 @@ char _c51_external_startup (void)
 		CLKSEL = 0x00;
 		CLKSEL = 0x00;
 		while ((CLKSEL & 0x80) == 0);
-	#elif (SYSCLK == 48000000L)	
+	#elif (SYSCLK == 48000000L)
 		// Before setting clock to 48 MHz, must transition to 24.5 MHz first
 		CLKSEL = 0x00;
 		CLKSEL = 0x00;
@@ -65,14 +65,14 @@ char _c51_external_startup (void)
 	#endif
 
 	#if ( ((SYSCLK/BAUDRATE)/(12L*2L)) > 0x100)
-		#error Can not configure baudrate using timer 1 
+		#error Can not configure baudrate using timer 1
 	#endif
 	// Configure Uart 0
 	SCON0 = 0x10;
 	TH1 = 0x100-((SYSCLK/BAUDRATE)/(12L*2L));
 	TL1 = TH1;      // Init Timer1
 	TMOD &= ~0xf0;  // TMOD: timer 1 in 8-bit auto-reload
-	TMOD |=  0x20;                       
+	TMOD |=  0x20;
 	TR1 = 1; // START Timer1
 	TI = 1;  // Indicate TX0 ready
 
@@ -89,7 +89,7 @@ char _c51_external_startup (void)
 	// Timer 0 configured to overflow at 1/3 the rate defined by SMB_FREQUENCY
 	TL0 = TH0 = 256-(SYSCLK/SMB_FREQUENCY/3);
 	TR0 = 1; // Enable timer 0
-	
+
 	// Configure and enable SMBus
 	SMB0CF = 0b_0101_1100; //INH | EXTHOLD | SMBTOE | SMBFTE ;
 	SMB0CF |= 0b_1000_0000;  // Enable SMBus
@@ -97,18 +97,18 @@ char _c51_external_startup (void)
 	return 0;
 }
 
-// Uses Timer4 to delay <ms> mili-seconds. 
+// Uses Timer4 to delay <ms> mili-seconds.
 void Timer4ms(unsigned int ms)
 {
 	unsigned int i;// usec counter
 	unsigned char k;
-	
+
 	k=SFRPAGE;
 	SFRPAGE=0x10;
-	
+
 	TMR4RL = 65536-(SYSCLK/(1000L*12L)); // Set Timer4 to overflow in 1 ms.
 	TMR4 = TMR4RL;                 // Initialize Timer4 for first overflow
-	
+
 	TF4H=0; // Clear overflow flag
 	TR4=1;  // Start Timer4
 	for (i = 0; i < ms; i++)       // Count <ms> overflows
@@ -117,7 +117,7 @@ void Timer4ms(unsigned int ms)
 		TF4H=0;         // Clear overflow indicator
 	}
 	TR4=0; // Stop Timer4
-	SFRPAGE=k;	
+	SFRPAGE=k;
 }
 
 void I2C_write (unsigned char output_data)
@@ -168,16 +168,16 @@ void Display (void)
 {
 	int j;
 	unsigned char val;
-	
+
 	printf("\r\nMemory contents:\r\n");
-	
+
 	I2C_start();
 	I2C_write(WriteDeviceAddress);
 	I2C_write(0);
 
 	I2C_start();
 	I2C_write(ReadDeviceAddress);
-	
+
 	for(j=0; j<256; j++)
 	{
 		if((j&0xf)==0) printf("\n%02x: ", j);
@@ -185,7 +185,7 @@ void Display (void)
 		printf("%02x ", val);
 	}
 	I2C_stop();
-	
+
 	printf("\n");
 }
 
@@ -195,7 +195,7 @@ void Write24c02(unsigned char *Wdata, unsigned char RomAddress, unsigned char nu
 	I2C_write(WriteDeviceAddress);
 	I2C_write(RomAddress);
 
-	for(;number!=0;number--) 
+	for(;number!=0;number--)
 	{
 		I2C_write(*Wdata);
 		Wdata++;
@@ -207,7 +207,7 @@ void Fill24c02 (unsigned char val)
 {
 	unsigned int i;
 
-	for(i=0; i<256; i++) 
+	for(i=0; i<256; i++)
 	{
 		if ((i&0x07)==0) // 8 bytes per page only
 		{
@@ -248,7 +248,7 @@ void modify_byte (void)
 {
 	unsigned char addr, val;
 	int x;
-	
+
 	printf("Location: ");
 	scanf("%x", &x);
 	addr=x;
@@ -263,7 +263,7 @@ void Test (unsigned char testval)
 	unsigned int k;
 	unsigned int cnt=0;
     xdata unsigned char inbuf[0x100];
-	
+
 	Fill24c02(testval);
 	Read24c02(inbuf, 0, 0x100);
 
@@ -297,18 +297,18 @@ void main (void)
 	char c;
 	unsigned int i, k;
 	unsigned char valin, valout;
-	
+
 	code unsigned char pattern[]={
 		 0x00,  0xff,  0x55,  0xaa,  0x0f,  0xf0,  0x5a,  0xa5,
 		 0x01,  0x02,  0x04,  0x08,  0x10,  0x20,  0x40,  0x80,
 		~0x01, ~0x02, ~0x04, ~0x08, ~0x10, ~0x20, ~0x40, ~0x80 };
-	
+
 	Timer4ms(1000);
 	printf("\x1b[2J\x1b[1;1H"); // Clear screen using ANSI escape sequence.
 	printf("\nEFM8LB1 24C02 I2C EEPROM Test.\n\n");
 
 	main_menu();
-		
+
 	while(1)
 	{
 		if(RI)
@@ -331,11 +331,11 @@ void main (void)
 			        break;
 			    case 'e': case 'E': case '4':
 			        Fill24c02(0xff);
-			        break;			        
+			        break;
 			    case 'p': case 'P': case '5':
-				    ErrCnt=0;		
+				    ErrCnt=0;
 					printf("\nPattern testing all memory locations:\n");
-				
+
 					for(i=0; i<sizeof(pattern); i++)
 					{
 					    Test(pattern[i]);
@@ -364,7 +364,7 @@ void main (void)
 						{
 							printf("\n%02x: ", k);
 						}
-						printf(" %02x", valout);			
+						printf(" %02x", valout);
 						if(valin!=valout) break;
 					}
 					if(valin!=valout)

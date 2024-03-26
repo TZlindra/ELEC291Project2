@@ -1,22 +1,16 @@
-// Inductance = 1.001 mH
-
-/*
- * main.c : Robot Period Measurement At Pin P0.1 using Timer 0
- * and Displaying the Frequency and Colpitts Oscillator on LCD.
- */
-
-/* Include Headers */
 #include <EFM8LB1.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 
+#define SYSCLK 72000000
+#define BAUDRATE 115200L
+
 #define MAX_16_BIT 65536.0 // 16-Bit Maximum Value
 #define MAX_8_BIT 256.0 // 8-Bit Maximum Value
 
 /* Clock Frequency and Baud Rate */
-#define SYSCLK    72000000L // SYSCLK Frequency in Hz
-#define BAUDRATE    115200L // Baudrate of UART in BPS
+// Baudrate of UART in BPS
 #define SARCLK 18000000L // SARCLK Frequency in Hz
 
 /* Define Pins */
@@ -25,11 +19,8 @@
 #define VSS 5 // The measured value of VSS in volts
 #define VDD 3.3035 // The measured value of VDD in volts
 
-idata char buffs[80];
-idata char buffr[80];
-/*
- * External Startup Function
- */
+idata char buff[80];
+
 char _c51_external_startup (void)
 {
 	// Disable Watchdog with key sequence
@@ -98,43 +89,43 @@ char _c51_external_startup (void)
 
 	return 0;
 }
-
-/*
- * Uses Timer 3 to delay <us> micro-seconds.
- */
-void Timer3us(unsigned char us) {
-	unsigned char i; // Microsecond Counter
-
-	// Input for Timer 3 is Selected as SYSCLK by Setting T3ML (Bit 6) of CKCON0
-	CKCON0 |= 0b_0100_0000;
-
-	TMR3RL = (-(SYSCLK)/1000000L); // Set Timer3 to Overflow in 1us
-	TMR3 = TMR3RL;                 // Initialize Timer3 for First Overflow
-
-	TMR3CN0 = 0x04;                 // Start Timer3 and Clear Overflow Flag
-	for (i = 0; i < us; i++) {      // Count Overflows (#Microseconds)
-		while (!(TMR3CN0 & 0x80));  // Wait for Overflow
-		TMR3CN0 &= ~(0x80);         // Clear Overflow Indicator
-	}
-	TMR3CN0 = 0 ;                   // Stop Timer3 and Clear Overflow Flag
+void TIMER0_Init(void) {
+	TMOD &= 0b_1111_0000; // Set the Bits of Timer/Counter 0 to 0
+	TMOD |= 0b_0000_0001; // Timer/Counter 0 Used As 16-Bit Timer
+	TR0 = 0; // Stop Timer/Counter 0
 }
 
-void waitms(unsigned int ms) {
+// Uses Timer3 to delay <us> micro-seconds.
+void Timer3us(unsigned char us)
+{
+	unsigned char i;               // usec counter
+
+	// The input for Timer 3 is selected as SYSCLK by setting T3ML (bit 6) of CKCON0:
+	CKCON0|=0b_0100_0000;
+
+	TMR3RL = (-(SYSCLK)/1000000L); // Set Timer3 to overflow in 1us.
+	TMR3 = TMR3RL;                 // Initialize Timer3 for first overflow
+
+	TMR3CN0 = 0x04;                 // Sart Timer3 and clear overflow flag
+	for (i = 0; i < us; i++)       // Count <us> overflows
+	{
+		while (!(TMR3CN0 & 0x80));  // Wait for overflow
+		TMR3CN0 &= ~(0x80);         // Clear overflow indicator
+	}
+	TMR3CN0 = 0 ;                   // Stop Timer3 and clear overflow flag
+}
+
+void waitms (unsigned int ms)
+{
 	unsigned int j;
 	unsigned char k;
-	for (j=0; j<ms; j++)
+	for(j=0; j<ms; j++)
 		for (k=0; k<4; k++) Timer3us(250);
 }
 
 void Serial_Init(void) {
 	waitms(500); // Give Putty a chance to start.
 	printf("\x1b[2J"); // Clear screen using ANSI escape sequence.
-}
-
-void TIMER0_Init(void) {
-	TMOD &= 0b_1111_0000; // Set the Bits of Timer/Counter 0 to 0
-	TMOD |= 0b_0000_0001; // Timer/Counter 0 Used As 16-Bit Timer
-	TR0 = 0; // Stop Timer/Counter 0
 }
 
 void UART1_Init (unsigned long baudrate)
@@ -253,26 +244,13 @@ void SendATCommand (char * s)
 	P2_0=0; // 'set' pin to 0 is 'AT' mode.
 	waitms(5);
 	sendstr1(s);
-	getstr1(buffs);
+	getstr1(buff);
 	waitms(10);
 	P2_0=1; // 'set' pin to 1 is normal operation mode.
-	printf("Response: %s\r\n", buffs);
+	printf("Response: %s\r\n", buff);
 }
 
-float calculate_period_s(int overflow_count, int TH0, int TL0) {
-	return ((overflow_count * MAX_16_BIT)  + (TH0 * MAX_8_BIT) + TL0) * (12.0 / SYSCLK);
-}
-
-float calculate_freq_Hz(float period_s) {
-	return (1.0 / period_s);
-}
-
-
-// This function initalizes the JDY40 by setting the RFID and DVID, note that the EFM8 and STM32
-// Must have the same RFID AND DVID in order to be able to communicate with eachother
-// After setting the DVID and RFID it checks the configuration at the start of the program
-
-void InitJDY(void) {
+void JDYInit (void){
 	SendATCommand("AT+DVIDAFAF\r\n");
 	SendATCommand("AT+RFIDFFBB\r\n");
 	// To check configuration
@@ -285,9 +263,13 @@ void InitJDY(void) {
 	SendATCommand("AT+CLSS\r\n");
 }
 
-// This function Uses timer 0 to calculate the period of a square wave
-// on P1_0, It can be easily changed to read another pin by changing
-// EFM8_SIGNAL to another pin
+float calculate_period_s(int overflow_count, int TH0, int TL0) {
+	return ((overflow_count * MAX_16_BIT)  + (TH0 * MAX_8_BIT) + TL0) * (12.0 / SYSCLK);
+}
+
+float calculate_freq_Hz(float period_s) {
+	return (1.0 / period_s);
+}
 
 float GetFreq(void){
 		float period_s, freq_Hz;
@@ -321,37 +303,26 @@ float GetFreq(void){
 		return freq_Hz;
 }
 
-// This function sends the frequency on P1_0 to the JDY40 for transmission to the STM32
-// Should more data need to be sent it will either be put here or in its own function
-// We should consider adding logic so frequency is only sent if it is a certain range
-// that we will determine once we have constructed the circuit for metal detection
 void SendFreq(float freq){
-	sprintf(buffs,"%.3f\r\n",freq);
-	sendstr1(buffs);
+	sprintf(buff,"%.3f",freq);
+	sendstr1(buff);
+	printf("%s \r\n",buff);
 	waitms_or_RI1(500);
 }
 
-
-	// This function will be receiving the ADC values from the joy stick both X and Y
-	// More logic will be needed in order to store these ADC values to then control the motors
-void CheckCommand(void){
-
-	if(RXU1())
-		{
-			getstr1(buffr);
-			printf("%s\r\n", buffr);
-		}
-}
-
-void main(void) {
+void main (void)
+{
 	float freq;
-	TIMER0_Init(); // Initialize Timer 0
-    Serial_Init(); // Initialize Serial Port
+	TIMER0_Init();
+	Serial_Init();
 	UART1_Init(9600);
-	InitJDY();
-    while(1){
-    //	freq = GetFreq();
-    //	SendFreq(freq);
-		CheckCommand();
-    }
+	JDYInit();
+
+	while(1){
+		freq = GetFreq();
+		SendFreq(freq);
+		waitms(500);
+	}
+
+
 }

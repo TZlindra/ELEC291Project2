@@ -10,7 +10,7 @@
 // ----------------------------------------------------------------------------
 // Initialize all hardware resources needed by the bootloader.
 // ----------------------------------------------------------------------------
-void boot_initDevice(void) 
+void boot_initDevice(void)
 {
   uint16_t count;
 
@@ -55,7 +55,7 @@ void boot_initDevice(void)
   // INT1 => active high, level sensitive interrupt on P0.5
   IT01CF = IT01CF_IN1PL__ACTIVE_HIGH | IT01CF_IN1SL__P0_5;
 
-  // Timer1 => gated 16-bit counter using sysclk for the timebase
+  // Timer1 => gated 16-bit counter using SYSCLK for the timebase
   CKCON0 = CKCON0_T1M__SYSCLK;
   TMOD = TMOD_GATE1__ENABLED | TMOD_T1M__MODE1;
 

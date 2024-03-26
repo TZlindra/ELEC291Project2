@@ -486,7 +486,7 @@ _TFRQ           BIT 0xdf
 ;--------------------------------------------------------
 	rseg R_DSEG
 ;--------------------------------------------------------
-; overlayable items in internal ram 
+; overlayable items in internal ram
 ;--------------------------------------------------------
 	rseg	R_OSEG
 	rseg	R_OSEG
@@ -590,7 +590,7 @@ L002004?:
 	orl	_P0MDOUT,#0x11
 ;	EFM8_JDY40_test.c:60: P2MDOUT |= 0x01; // P2.0 in push-pull mode
 	orl	_P2MDOUT,#0x01
-;	EFM8_JDY40_test.c:61: XBR0     = 0x01; // Enable UART0 on P0.4(TX) and P0.5(RX)                     
+;	EFM8_JDY40_test.c:61: XBR0     = 0x01; // Enable UART0 on P0.4(TX) and P0.5(RX)
 	mov	_XBR0,#0x01
 ;	EFM8_JDY40_test.c:62: XBR1     = 0X00;
 	mov	_XBR1,#0x00
@@ -604,7 +604,7 @@ L002004?:
 	mov	_TL1,_TH1
 ;	EFM8_JDY40_test.c:72: TMOD &= ~0xf0;  // TMOD: timer 1 in 8-bit auto-reload
 	anl	_TMOD,#0x0F
-;	EFM8_JDY40_test.c:73: TMOD |=  0x20;                       
+;	EFM8_JDY40_test.c:73: TMOD |=  0x20;
 	orl	_TMOD,#0x20
 ;	EFM8_JDY40_test.c:74: TR1 = 1; // START Timer1
 	setb	_TR1
@@ -616,8 +616,8 @@ L002004?:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'Timer3us'
 ;------------------------------------------------------------
-;us                        Allocated to registers r2 
-;i                         Allocated to registers r3 
+;us                        Allocated to registers r2
+;i                         Allocated to registers r3
 ;------------------------------------------------------------
 ;	EFM8_JDY40_test.c:81: void Timer3us(unsigned char us)
 ;	-----------------------------------------
@@ -658,9 +658,9 @@ L003007?:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'waitms'
 ;------------------------------------------------------------
-;ms                        Allocated to registers r2 r3 
-;j                         Allocated to registers r4 r5 
-;k                         Allocated to registers r6 
+;ms                        Allocated to registers r2 r3
+;j                         Allocated to registers r4 r5
+;k                         Allocated to registers r6
 ;------------------------------------------------------------
 ;	EFM8_JDY40_test.c:100: void waitms (unsigned int ms)
 ;	-----------------------------------------
@@ -710,7 +710,7 @@ L004009?:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'UART1_Init'
 ;------------------------------------------------------------
-;baudrate                  Allocated to registers r2 r3 r4 r5 
+;baudrate                  Allocated to registers r2 r3 r4 r5
 ;------------------------------------------------------------
 ;	EFM8_JDY40_test.c:108: void UART1_Init (unsigned long baudrate)
 ;	-----------------------------------------
@@ -779,9 +779,9 @@ _UART1_Init:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'putchar1'
 ;------------------------------------------------------------
-;c                         Allocated to registers r2 
+;c                         Allocated to registers r2
 ;------------------------------------------------------------
-;	EFM8_JDY40_test.c:120: void putchar1 (char c) 
+;	EFM8_JDY40_test.c:120: void putchar1 (char c)
 ;	-----------------------------------------
 ;	 function putchar1
 ;	-----------------------------------------
@@ -803,7 +803,7 @@ L006008?:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'sendstr1'
 ;------------------------------------------------------------
-;s                         Allocated to registers r2 r3 r4 
+;s                         Allocated to registers r2 r3 r4
 ;------------------------------------------------------------
 ;	EFM8_JDY40_test.c:129: void sendstr1 (char * s)
 ;	-----------------------------------------
@@ -830,7 +830,7 @@ L007001?:
 	pop	ar4
 	pop	ar3
 	pop	ar2
-;	EFM8_JDY40_test.c:134: s++;	
+;	EFM8_JDY40_test.c:134: s++;
 	inc	r2
 	cjne	r2,#0x00,L007001?
 	inc	r3
@@ -840,7 +840,7 @@ L007004?:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'getchar1'
 ;------------------------------------------------------------
-;c                         Allocated to registers 
+;c                         Allocated to registers
 ;------------------------------------------------------------
 ;	EFM8_JDY40_test.c:138: char getchar1 (void)
 ;	-----------------------------------------
@@ -866,8 +866,8 @@ L008008?:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'getchar1_with_timeout'
 ;------------------------------------------------------------
-;c                         Allocated to registers 
-;timeout                   Allocated to registers r2 r3 
+;c                         Allocated to registers
+;timeout                   Allocated to registers r2 r3
 ;------------------------------------------------------------
 ;	EFM8_JDY40_test.c:151: char getchar1_with_timeout (void)
 ;	-----------------------------------------
@@ -919,8 +919,8 @@ L009005?:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'getstr1'
 ;------------------------------------------------------------
-;s                         Allocated to registers r2 r3 r4 
-;c                         Allocated to registers r5 
+;s                         Allocated to registers r2 r3 r4
+;c                         Allocated to registers r5
 ;------------------------------------------------------------
 ;	EFM8_JDY40_test.c:177: void getstr1 (char * s)
 ;	-----------------------------------------
@@ -982,9 +982,9 @@ _RXU1:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'waitms_or_RI1'
 ;------------------------------------------------------------
-;ms                        Allocated to registers r2 r3 
-;j                         Allocated to registers r4 r5 
-;k                         Allocated to registers r6 
+;ms                        Allocated to registers r2 r3
+;j                         Allocated to registers r4 r5
+;k                         Allocated to registers r6
 ;------------------------------------------------------------
 ;	EFM8_JDY40_test.c:204: void waitms_or_RI1 (unsigned int ms)
 ;	-----------------------------------------
@@ -1053,7 +1053,7 @@ L012011?:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'SendATCommand'
 ;------------------------------------------------------------
-;s                         Allocated to registers r2 r3 r4 
+;s                         Allocated to registers r2 r3 r4
 ;------------------------------------------------------------
 ;	EFM8_JDY40_test.c:218: void SendATCommand (char * s)
 ;	-----------------------------------------
@@ -1123,7 +1123,7 @@ _SendATCommand:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'main'
 ;------------------------------------------------------------
-;cnt                       Allocated to registers 
+;cnt                       Allocated to registers
 ;------------------------------------------------------------
 ;	EFM8_JDY40_test.c:230: void main (void)
 ;	-----------------------------------------
@@ -1149,7 +1149,7 @@ _main:
 	clr	a
 	mov	b,a
 	lcall	_UART1_Init
-;	EFM8_JDY40_test.c:252: SendATCommand("AT+DVIDAFAF\r\n");  
+;	EFM8_JDY40_test.c:252: SendATCommand("AT+DVIDAFAF\r\n");
 	mov	dptr,#__str_3
 	mov	b,#0x80
 	lcall	_SendATCommand

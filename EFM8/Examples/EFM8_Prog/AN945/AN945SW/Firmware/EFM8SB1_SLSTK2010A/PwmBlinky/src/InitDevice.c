@@ -365,11 +365,11 @@ extern void PBCFG_0_enter_DefaultMode_from_RESET(void) {
 	//     pin.)
 	// CP0AE (Comparator0 Asynchronous Output Enable) = DISABLED
 	//     (Asynchronous CP0 unavailable at Port pin.)
-	// SYSCKE (SYSCLK Output Enable) = DISABLED (SYSCLK unavailable at Port
+	// JDS_Delay_usKE (SYSCLK Output Enable) = DISABLED (SYSCLK unavailable at Port
 	//     pin.)
 	*/
 	XBR0 = XBR0_URT0E__DISABLED | XBR0_SPI0E__ENABLED | XBR0_SMB0E__DISABLED
-		 | XBR0_CP0E__DISABLED | XBR0_CP0AE__DISABLED | XBR0_SYSCKE__DISABLED;
+		 | XBR0_CP0E__DISABLED | XBR0_CP0AE__DISABLED | XBR0_JDS_Delay_usKE__DISABLED;
 	// [XBR0 - Port I/O Crossbar 0]$
 
 	// $[XBR1 - Port I/O Crossbar 1]
@@ -777,5 +777,3 @@ extern void INTERRUPT_0_enter_DefaultMode_from_RESET(void) {
 
 
 }
-
-

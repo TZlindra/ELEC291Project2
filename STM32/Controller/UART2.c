@@ -234,7 +234,6 @@ int egets2(char *s, int Max)
 	{
 		s[Len]=0;
 	}
-	printf("Len = %d\n", Len);
 	return Len;
 }
 

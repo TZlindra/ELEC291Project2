@@ -18,7 +18,7 @@ void Timer2_ISR (void) interrupt INTERRUPT_TIMER2
 void main (void)
 {
 	unsigned long int x, f;
-	
+
 	printf("\x1b[2J"); // Clear screen using ANSI escape sequence.
 	printf("Variable frequency generator for the EFM8LB1.\r\n"
 	       "Check pins P2.0 and P2.1 with the oscilloscope.\r\n");

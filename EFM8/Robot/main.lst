@@ -19,7 +19,7 @@
 0000             19            R_CONST   segment code
 0000             20            R_XINIT   segment code
 0000             21            R_DINIT   segment code
-0000             22   
+0000             22
 0000             23   ;--------------------------------------------------------
 0000             24   ; Public variables in this module
 0000             25   ;--------------------------------------------------------
@@ -489,7 +489,7 @@
 0004            489   _calculate_period_s_PARM_3:
 0004            490            ds 2
 0006            491   ;--------------------------------------------------------
-0006            492   ; overlayable items in internal ram 
+0006            492   ; overlayable items in internal ram
 0006            493   ;--------------------------------------------------------
 0000            494            rseg    R_OSEG
 0000            495   ;--------------------------------------------------------
@@ -619,8 +619,8 @@
 0054            619   ;------------------------------------------------------------
 0054            620   ;Allocation info for local variables in function 'Timer3us'
 0054            621   ;------------------------------------------------------------
-0054            622   ;us                        Allocated to registers r2 
-0054            623   ;i                         Allocated to registers r3 
+0054            622   ;us                        Allocated to registers r2
+0054            623   ;i                         Allocated to registers r3
 0054            624   ;------------------------------------------------------------
 0054            625   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:103: void Timer3us(unsigned char us) {
 0054            626   ;        -----------------------------------------
@@ -661,9 +661,9 @@
 007E            661   ;------------------------------------------------------------
 007E            662   ;Allocation info for local variables in function 'waitms'
 007E            663   ;------------------------------------------------------------
-007E            664   ;ms                        Allocated to registers r2 r3 
-007E            665   ;j                         Allocated to registers r4 r5 
-007E            666   ;k                         Allocated to registers r6 
+007E            664   ;ms                        Allocated to registers r2 r3
+007E            665   ;j                         Allocated to registers r4 r5
+007E            666   ;k                         Allocated to registers r6
 007E            667   ;------------------------------------------------------------
 007E            668   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:120: void waitms(unsigned int ms) {
 007E            669   ;        -----------------------------------------
@@ -755,7 +755,7 @@
 00DE            755   ;------------------------------------------------------------
 00DE            756   ;TH0                       Allocated with name '_calculate_period_s_PARM_2'
 00DE            757   ;TL0                       Allocated with name '_calculate_period_s_PARM_3'
-00DE            758   ;overflow_count            Allocated to registers r2 r3 
+00DE            758   ;overflow_count            Allocated to registers r2 r3
 00DE            759   ;------------------------------------------------------------
 00DE            760   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:138: float calculate_period_s(int overflow_count, int TH0, int TL0) {
 00DE            761   ;        -----------------------------------------
@@ -883,7 +883,7 @@
 01CE            883   ;------------------------------------------------------------
 01CE            884   ;Allocation info for local variables in function 'calculate_freq_Hz'
 01CE            885   ;------------------------------------------------------------
-01CE            886   ;period_s                  Allocated to registers r2 r3 r4 r5 
+01CE            886   ;period_s                  Allocated to registers r2 r3 r4 r5
 01CE            887   ;------------------------------------------------------------
 01CE            888   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:142: float calculate_freq_Hz(float period_s) {
 01CE            889   ;        -----------------------------------------
@@ -918,8 +918,8 @@
 01FD            918   ;------------------------------------------------------------
 01FD            919   ;Allocation info for local variables in function 'main'
 01FD            920   ;------------------------------------------------------------
-01FD            921   ;period_s                  Allocated to registers r2 r3 r4 r5 
-01FD            922   ;freq_Hz                   Allocated to registers 
+01FD            921   ;period_s                  Allocated to registers r2 r3 r4 r5
+01FD            922   ;freq_Hz                   Allocated to registers
 01FD            923   ;capacitance_nF            Allocated with name '_main_capacitance_nF_1_39'
 01FD            924   ;------------------------------------------------------------
 01FD            925   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:146: void main(void) {
@@ -994,15 +994,15 @@
 0253 120000     994            lcall   _calculate_freq_Hz
 0256 8000       995            sjmp    L009018?
 0258            996            rseg R_CSEG
-0258            997   
+0258            997
 0000            998            rseg R_XINIT
-0000            999   
+0000            999
 0000           1000            rseg R_CONST
 0000           1001   __str_0:
 0000 1B        1002            db 0x1B
 0001 5B324A    1003            db '[2J'
 0004 00        1004            db 0x00
-0005           1005   
+0005           1005
 0003           1006            CSEG
-0003           1007   
+0003           1007
 0003           1008   end

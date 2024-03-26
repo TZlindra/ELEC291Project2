@@ -11,7 +11,7 @@
 // ----------------------------------------------------------------------------
 // Initialize all hardware resources needed by the bootloader.
 // ----------------------------------------------------------------------------
-void boot_initDevice(void) 
+void boot_initDevice(void)
 {
   //Disable Watchdog with key sequence
   WDTCN = 0xDE;

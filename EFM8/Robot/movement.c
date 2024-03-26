@@ -129,8 +129,11 @@ void main (void) {
     // ISSUE: how to time pwm length?
     periodx = 0;      //test PWMx period
     periody = 0;      //test PWMy period
+<<<<<<< HEAD
     */
     test_input = 1;  //test forward movement
+=======
+>>>>>>> 95c3ad9dee3c0f241fa9620136823aa73e114adb
 
 
 
@@ -155,7 +158,11 @@ void main (void) {
 
 }
 
+<<<<<<< HEAD
 void straightnew(void)
+=======
+void straightnew()
+>>>>>>> 95c3ad9dee3c0f241fa9620136823aa73e114adb
 {
     LEFT_MOTOR_LHS = 1;
     LEFT_MOTOR_RHS = 0;

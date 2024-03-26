@@ -11,10 +11,10 @@
     <property object="ADC_0" propertyId="adc.view.view" value="Advanced"/>
     <property object="CIP51_0" propertyId="ABPeripheral.included" value="true"/>
     <property object="CIP51_0" propertyId="cip51.prefetchenginecontrol.enableprefetch" value="Disabled"/>
-    <property object="CIP51_0" propertyId="cip51.prefetchenginecontrol.sysclk" value="24000000"/>
+    <property object="CIP51_0" propertyId="cip51.prefetchenginecontrol.SYSCLK" value="24000000"/>
     <property object="CLOCK_0" propertyId="ABPeripheral.included" value="true"/>
     <property object="CLOCK_0" propertyId="clock.clockselect.selectsystemclocksource" value="High-Frequency Oscillator / 2"/>
-    <property object="CLOCK_0" propertyId="clock.clockselect.sysclk" value="24.000 MHz"/>
+    <property object="CLOCK_0" propertyId="clock.clockselect.SYSCLK" value="24.000 MHz"/>
     <property object="CLOCK_0" propertyId="clock.clockselect.usbclk" value="48.000 MHz"/>
     <property object="CROSSBAR0" propertyId="xbar0.pca0.cex" value="CEX0, CEX1, and CEX2"/>
     <property object="CROSSBAR0" propertyId="xbar0.spi0.clockdata" value="Enabled"/>
@@ -86,8 +86,8 @@
     <property object="SPI_0" propertyId="ABPeripheral.included" value="true"/>
     <property object="SPI_0" propertyId="spi.clockrate.spiclockfrequencyactual" value="1.000 MHz"/>
     <property object="SPI_0" propertyId="spi.clockrate.spiclockfrequencytarget" value="1000000"/>
-    <property object="SPI_0" propertyId="spi.clockrate.sysclk" value="24.000 MHz"/>
-    <property object="SPI_0" propertyId="spi.clockrate.sysclkdividercoefficientspi0ckr" value="11"/>
+    <property object="SPI_0" propertyId="spi.clockrate.SYSCLK" value="24.000 MHz"/>
+    <property object="SPI_0" propertyId="spi.clockrate.SYSCLKdividercoefficientspi0ckr" value="11"/>
     <property object="SPI_0" propertyId="spi.configuration.enablemastermode" value="Enable"/>
     <property object="SPI_0" propertyId="spi.configuration.spimode" value="Master"/>
     <property object="SPI_0" propertyId="spi.control.slaveselectmode" value="Slave or master 3-wire mode"/>

@@ -35,24 +35,24 @@ void Hardware_Init(void)
 	GPIOA->OTYPER   &= ~BIT15; // Push-pull
 	GPIOA->MODER    = (GPIOA->MODER & ~(BIT30)) | BIT31; // AF-Mode
 	GPIOA->AFR[1]   |= BIT30 | BIT28 ; // AF5 selected (check table 16 in page 43 of "en.DM00108219.pdf")
-	
+
 	// Set up timer
 	RCC->APB1ENR |= BIT0;  // turn on clock for timer2 (UM: page 177)
 	TIM2->ARR = SYSCLK/DEF_F-1;
-	TIM2->CR1 |= BIT4;      // Downcounting    
-	TIM2->CR1 |= BIT7;      // ARPE enable    
-	TIM2->DIER |= BIT0;     // enable update event (reload event) interrupt 
-	TIM2->CR1 |= BIT0;      // enable counting    
-	
+	TIM2->CR1 |= BIT4;      // Downcounting
+	TIM2->CR1 |= BIT7;      // ARPE enable
+	TIM2->DIER |= BIT0;     // enable update event (reload event) interrupt
+	TIM2->CR1 |= BIT0;      // enable counting
+
 	// Enable PWM in channel 1 of Timer 2
 	TIM2->CCMR1|=BIT6|BIT5; // PWM mode 1 ([6..4]=110)
 	TIM2->CCMR1|=BIT3; // OC1PE=1
 	TIM2->CCER|=BIT0; // Bit 0 CC1E: Capture/Compare 1 output enable.
-	
+
 	// Set PWM to 50%
 	TIM2->CCR1=(SYSCLK/(DEF_F*2));
 	TIM2->EGR |= BIT0; // UG=1
-	
+
 }
 
 int main(void)
@@ -61,16 +61,16 @@ int main(void)
     int newF, reload;
 
 	Hardware_Init();
-	
+
     printf("Frequency generator for the STM32L051 using TIM2 (output is in PA15, pin 25).\r\n");
     printf("By Jesus Calvino-Fraga (c) 2018-2023.\r\n\r\n");
-	
+
 	while (1)
 	{
     	printf("Frequency: ");
     	fflush(stdout);
     	egets_echo(buf, 31); // wait here until data is received
- 
+
 	    newF=atoi(buf);
 	    if(newF>(SYSCLK/4))
 	    {
@@ -82,11 +82,11 @@ int main(void)
 	    {
 		    reload=(SYSCLK/newF);
 		    printf("\r\nFrequency set to: %d\r\n", SYSCLK/reload);
-			TIM2->CR1 &= ~BIT0; // disable timer    
+			TIM2->CR1 &= ~BIT0; // disable timer
 			TIM2->ARR = reload-1;
 			TIM2->CCR1= reload/2; // Adjust PWM output to 50%
 			TIM2->EGR |= BIT0; // UG=1
-			TIM2->CR1 |= BIT0; // enable timer    
+			TIM2->CR1 |= BIT0; // enable timer
         }
 	}
 }

@@ -489,7 +489,7 @@ _calculate_period_s_PARM_2:
 _calculate_period_s_PARM_3:
 	ds 2
 ;--------------------------------------------------------
-; overlayable items in internal ram 
+; overlayable items in internal ram
 ;--------------------------------------------------------
 	rseg	R_OSEG
 ;--------------------------------------------------------
@@ -619,8 +619,8 @@ L002004?:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'Timer3us'
 ;------------------------------------------------------------
-;us                        Allocated to registers r2 
-;i                         Allocated to registers r3 
+;us                        Allocated to registers r2
+;i                         Allocated to registers r3
 ;------------------------------------------------------------
 ;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:103: void Timer3us(unsigned char us) {
 ;	-----------------------------------------
@@ -661,9 +661,9 @@ L003007?:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'waitms'
 ;------------------------------------------------------------
-;ms                        Allocated to registers r2 r3 
-;j                         Allocated to registers r4 r5 
-;k                         Allocated to registers r6 
+;ms                        Allocated to registers r2 r3
+;j                         Allocated to registers r4 r5
+;k                         Allocated to registers r6
 ;------------------------------------------------------------
 ;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:120: void waitms(unsigned int ms) {
 ;	-----------------------------------------
@@ -755,7 +755,7 @@ _TIMER0_Init:
 ;------------------------------------------------------------
 ;TH0                       Allocated with name '_calculate_period_s_PARM_2'
 ;TL0                       Allocated with name '_calculate_period_s_PARM_3'
-;overflow_count            Allocated to registers r2 r3 
+;overflow_count            Allocated to registers r2 r3
 ;------------------------------------------------------------
 ;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:138: float calculate_period_s(int overflow_count, int TH0, int TL0) {
 ;	-----------------------------------------
@@ -883,7 +883,7 @@ _calculate_period_s:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'calculate_freq_Hz'
 ;------------------------------------------------------------
-;period_s                  Allocated to registers r2 r3 r4 r5 
+;period_s                  Allocated to registers r2 r3 r4 r5
 ;------------------------------------------------------------
 ;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:142: float calculate_freq_Hz(float period_s) {
 ;	-----------------------------------------
@@ -918,8 +918,8 @@ _calculate_freq_Hz:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'main'
 ;------------------------------------------------------------
-;period_s                  Allocated to registers r2 r3 r4 r5 
-;freq_Hz                   Allocated to registers 
+;period_s                  Allocated to registers r2 r3 r4 r5
+;freq_Hz                   Allocated to registers
 ;capacitance_nF            Allocated with name '_main_capacitance_nF_1_39'
 ;------------------------------------------------------------
 ;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:146: void main(void) {

@@ -76,11 +76,11 @@ char _c51_external_startup (void)
 	P0MDOUT|=0b_1100_0010;
 	P1MDOUT|=0b_1111_1111;
 	P2MDOUT|=0b_0001_1111;
-
+    /*
 	XBR0     = 0x00;
 	XBR1     = 0X00;
 	XBR2     = 0x40; // Enable crossbar and weak pull-ups
-
+    */
 
 	P0MDOUT |= 0x10; // Enable UART0 TX as push-pull output
 	XBR0     = 0x01; // Enable UART0 on P0.4(TX) and P0.5(RX)
@@ -295,25 +295,6 @@ enum State movement_manager(float PWM_percent_x, float PWM_percent_y, float prev
     return state;
 
 }
-/*
-void PWM_manager(float x_value, float y_value, volatile unsigned int array[])
-{
-    // array[0] LEFT WHEEL
-    // array[1] RIGHT WHEEL
-    if (x_value >= 0) // RIGHT TURN
-    {
-        array[0] = y_value;
-        array[1] = (100 - x_value) * y_value / 100;
-    }
-    else if (x_value < 0) // LEFT TURN
-    {
-        array[0] = (100 + x_value) * y_value / 100;
-        array[1] = y_value;
-    }
-
-
-}
-*/
 void PWM_manager(float x_value, float y_value)
 {
 
@@ -331,36 +312,54 @@ void PWM_manager(float x_value, float y_value)
 
 }
 /*
-void Timer3us(unsigned char us)
+void UART1_Init (unsigned long baudrate)
 {
-	unsigned char i;               // usec counter
+    SFRPAGE = 0x20;
+	SMOD1 = 0x0C; // no parity, 8 data bits, 1 stop bit
+	SCON1 = 0x10;
+	SBCON1 =0x00;   // disable baud rate generator
+	SBRL1 = 0x10000L-((SYSCLK/baudrate)/(12L*2L));
+	TI1 = 1; // indicate ready for TX
+	SBCON1 |= 0x40;   // enable baud rate generator
+	SFRPAGE = 0x00;
+}
 
-	// The input for Timer 3 is selected as SYSCLK by setting T3ML (bit 6) of CKCON0:
-	CKCON0|=0b_0100_0000;
-
-	TMR3RL = (-(SYSCLK)/1000000L); // Set Timer3 to overflow in 1us.
-	TMR3 = TMR3RL;                 // Initialize Timer3 for first overflow
-
-	TMR3CN0 = 0x04;                 // Sart Timer3 and clear overflow flag
-	for (i = 0; i < us; i++)       // Count <us> overflows
+void putchar1 (char c)
+{
+    SFRPAGE = 0x20;
+	if (c == '\n')
 	{
-		while (!(TMR3CN0 & 0x80));  // Wait for overflow
-		TMR3CN0 &= ~(0x80);         // Clear overflow indicator
+		while (!TI1);
+		TI1=0;
+		SBUF1 = '\r';
 	}
-	TMR3CN0 = 0 ;                   // Stop Timer3 and clear overflow flag
+	while (!TI1);
+	TI1=0;
+	SBUF1 = c;
+	SFRPAGE = 0x00;
 }
 
-void waitms (unsigned int ms)
+char getchar1 (void)
 {
-	unsigned int j;
-	unsigned char k;
-	for(j=0; j<ms; j++)
-		for (k=0; k<4; k++) Timer3us(250);
+	char c;
+    SFRPAGE = 0x20;
+	while (!RI1);
+	RI1=0;
+	// Clear Overrun and Parity error flags
+	SCON1&=0b_0011_1111;
+	c = SBUF1;
+	SFRPAGE = 0x00;
+	return (c);
 }
 
-void Serial_Init(void) {
-	waitms(500); // Give Putty a chance to start.
-	printf("\x1b[2J"); // Clear screen using ANSI escape sequence.
+// RXU1 returns '1' if there is a byte available in the receive buffer of UART1
+bit RXU1 (void)
+{
+	bit mybit;
+    SFRPAGE = 0x20;
+	mybit=RI1;
+	SFRPAGE = 0x00;
+	return mybit;
 }
 */
 int main(void)
@@ -372,10 +371,16 @@ int main(void)
     //straight();
     //state = straight_enum;
 
+    printf("\r\nUart 1 test\r\n");
+
+	//UART1_Init(9600);
+
+
     while(1)
     {
         PWM_manager(PWM_percent_x, PWM_percent_x);
         //state = movement_manager(PWM_percent_x, PWM_percent_y, prev_PWM_percent_x, prev_PWM_percent_y, state);
+        putchar1('A');
 
 
         //prev_PWM_percent_x = PWM_percent_x;

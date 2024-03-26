@@ -74,7 +74,29 @@ void SendCommand(char * s, int value) {
 }
 
 void ReceiveCommand(void) {
-	if (ReceivedBytes2() > 0) egets2(TX_BUFF, sizeof(TX_BUFF)-1);
+	if (ReceivedBytes2() > 0) egets2(RX_BUFF, sizeof(RX_BUFF)-1);
+}
+
+int ReceiveInductance(int inductance) {
+	int timeout_count = 0;
+	int rx = -1;
+	eputs2(REQUEST);
+
+	while (1) {
+		timeout_count++;
+
+		if (ReceivedBytes2() > 0) {
+			egets2(RX_BUFF, sizeof(RX_BUFF)-1);
+			rx = atoi(RX_BUFF);
+			// printf("Inductance: %d\r\n", rx);
+			break;
+		}
+
+		if (timeout_count > 1000) break;
+	}
+
+	if (rx != -1) return rx;
+	else return inductance;
 }
 
 void ConfigJDY40(void) {
@@ -93,6 +115,6 @@ void ConfigJDY40(void) {
 
 void Send_X_Y(float x_value, float y_value) {
 	sprintf(TX_BUFF, "X: %f Y: %f\r\n", x_value, y_value);
-	printf("%s", TX_BUFF);
+	// printf("%s", TX_BUFF);
 	eputs2(TX_BUFF);
 }

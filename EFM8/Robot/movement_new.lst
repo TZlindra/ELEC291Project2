@@ -1,7 +1,7 @@
 0000              1   ;--------------------------------------------------------
 0000              2   ; File Created by C51
 0000              3   ; Version 1.0.0 #1170 (Feb 16 2022) (MSVC)
-0000              4   ; This file was generated Tue Mar 26 12:48:45 2024
+0000              4   ; This file was generated Tue Mar 26 13:20:23 2024
 0000              5   ;--------------------------------------------------------
                   5   $name movement_new
                   6   $optc51 --model-small
@@ -30,1222 +30,1275 @@
 0000             30            public _backward
 0000             31            public _straight
 0000             32            public _idle
-0000             33            public _Timer3_ISR
-0000             34            public _TIMER3Init
-0000             35            public __c51_external_startup
-0000             36            public _movement_manager_PARM_5
-0000             37            public _movement_manager_PARM_4
-0000             38            public _movement_manager_PARM_3
-0000             39            public _movement_manager_PARM_2
-0000             40            public _prev_PWM_percent_y
-0000             41            public _prev_PWM_percent_x
-0000             42            public _PWM_percent_x
-0000             43            public _PWM_percent_y
-0000             44            public _state
-0000             45            public _count
-0000             46   ;--------------------------------------------------------
-0000             47   ; Special Function Registers
+0000             33            public _Timer4_ISR
+0000             34            public _Timer3_ISR
+0000             35            public _TIMER4Init
+0000             36            public _TIMER3Init
+0000             37            public __c51_external_startup
+0000             38            public _movement_manager_PARM_5
+0000             39            public _movement_manager_PARM_4
+0000             40            public _movement_manager_PARM_3
+0000             41            public _movement_manager_PARM_2
+0000             42            public _prev_PWM_percent_y
+0000             43            public _prev_PWM_percent_x
+0000             44            public _PWM_percent_x
+0000             45            public _PWM_percent_y
+0000             46            public _state
+0000             47            public _count
 0000             48   ;--------------------------------------------------------
-0000             49   _ACC            DATA 0xe0
-0000             50   _ADC0ASAH       DATA 0xb6
-0000             51   _ADC0ASAL       DATA 0xb5
-0000             52   _ADC0ASCF       DATA 0xa1
-0000             53   _ADC0ASCT       DATA 0xc7
-0000             54   _ADC0CF0        DATA 0xbc
-0000             55   _ADC0CF1        DATA 0xb9
-0000             56   _ADC0CF2        DATA 0xdf
-0000             57   _ADC0CN0        DATA 0xe8
-0000             58   _ADC0CN1        DATA 0xb2
-0000             59   _ADC0CN2        DATA 0xb3
-0000             60   _ADC0GTH        DATA 0xc4
-0000             61   _ADC0GTL        DATA 0xc3
-0000             62   _ADC0H          DATA 0xbe
-0000             63   _ADC0L          DATA 0xbd
-0000             64   _ADC0LTH        DATA 0xc6
-0000             65   _ADC0LTL        DATA 0xc5
-0000             66   _ADC0MX         DATA 0xbb
-0000             67   _B              DATA 0xf0
-0000             68   _CKCON0         DATA 0x8e
-0000             69   _CKCON1         DATA 0xa6
-0000             70   _CLEN0          DATA 0xc6
-0000             71   _CLIE0          DATA 0xc7
-0000             72   _CLIF0          DATA 0xe8
-0000             73   _CLKSEL         DATA 0xa9
-0000             74   _CLOUT0         DATA 0xd1
-0000             75   _CLU0CF         DATA 0xb1
-0000             76   _CLU0FN         DATA 0xaf
-0000             77   _CLU0MX         DATA 0x84
-0000             78   _CLU1CF         DATA 0xb3
-0000             79   _CLU1FN         DATA 0xb2
-0000             80   _CLU1MX         DATA 0x85
-0000             81   _CLU2CF         DATA 0xb6
-0000             82   _CLU2FN         DATA 0xb5
-0000             83   _CLU2MX         DATA 0x91
-0000             84   _CLU3CF         DATA 0xbf
-0000             85   _CLU3FN         DATA 0xbe
-0000             86   _CLU3MX         DATA 0xae
-0000             87   _CMP0CN0        DATA 0x9b
-0000             88   _CMP0CN1        DATA 0x99
-0000             89   _CMP0MD         DATA 0x9d
-0000             90   _CMP0MX         DATA 0x9f
-0000             91   _CMP1CN0        DATA 0xbf
-0000             92   _CMP1CN1        DATA 0xac
-0000             93   _CMP1MD         DATA 0xab
-0000             94   _CMP1MX         DATA 0xaa
-0000             95   _CRC0CN0        DATA 0xce
-0000             96   _CRC0CN1        DATA 0x86
-0000             97   _CRC0CNT        DATA 0xd3
-0000             98   _CRC0DAT        DATA 0xcb
-0000             99   _CRC0FLIP       DATA 0xcf
-0000            100   _CRC0IN         DATA 0xca
-0000            101   _CRC0ST         DATA 0xd2
-0000            102   _DAC0CF0        DATA 0x91
-0000            103   _DAC0CF1        DATA 0x92
-0000            104   _DAC0H          DATA 0x85
-0000            105   _DAC0L          DATA 0x84
-0000            106   _DAC1CF0        DATA 0x93
-0000            107   _DAC1CF1        DATA 0x94
-0000            108   _DAC1H          DATA 0x8a
-0000            109   _DAC1L          DATA 0x89
-0000            110   _DAC2CF0        DATA 0x95
-0000            111   _DAC2CF1        DATA 0x96
-0000            112   _DAC2H          DATA 0x8c
-0000            113   _DAC2L          DATA 0x8b
-0000            114   _DAC3CF0        DATA 0x9a
-0000            115   _DAC3CF1        DATA 0x9c
-0000            116   _DAC3H          DATA 0x8e
-0000            117   _DAC3L          DATA 0x8d
-0000            118   _DACGCF0        DATA 0x88
-0000            119   _DACGCF1        DATA 0x98
-0000            120   _DACGCF2        DATA 0xa2
-0000            121   _DERIVID        DATA 0xad
-0000            122   _DEVICEID       DATA 0xb5
-0000            123   _DPH            DATA 0x83
-0000            124   _DPL            DATA 0x82
-0000            125   _EIE1           DATA 0xe6
-0000            126   _EIE2           DATA 0xf3
-0000            127   _EIP1           DATA 0xbb
-0000            128   _EIP1H          DATA 0xee
-0000            129   _EIP2           DATA 0xed
-0000            130   _EIP2H          DATA 0xf6
-0000            131   _EMI0CN         DATA 0xe7
-0000            132   _FLKEY          DATA 0xb7
-0000            133   _HFO0CAL        DATA 0xc7
-0000            134   _HFO1CAL        DATA 0xd6
-0000            135   _HFOCN          DATA 0xef
-0000            136   _I2C0ADM        DATA 0xff
-0000            137   _I2C0CN0        DATA 0xba
-0000            138   _I2C0DIN        DATA 0xbc
-0000            139   _I2C0DOUT       DATA 0xbb
-0000            140   _I2C0FCN0       DATA 0xad
-0000            141   _I2C0FCN1       DATA 0xab
-0000            142   _I2C0FCT        DATA 0xf5
-0000            143   _I2C0SLAD       DATA 0xbd
-0000            144   _I2C0STAT       DATA 0xb9
-0000            145   _IE             DATA 0xa8
-0000            146   _IP             DATA 0xb8
-0000            147   _IPH            DATA 0xf2
-0000            148   _IT01CF         DATA 0xe4
-0000            149   _LFO0CN         DATA 0xb1
-0000            150   _P0             DATA 0x80
-0000            151   _P0MASK         DATA 0xfe
-0000            152   _P0MAT          DATA 0xfd
-0000            153   _P0MDIN         DATA 0xf1
-0000            154   _P0MDOUT        DATA 0xa4
-0000            155   _P0SKIP         DATA 0xd4
-0000            156   _P1             DATA 0x90
-0000            157   _P1MASK         DATA 0xee
-0000            158   _P1MAT          DATA 0xed
-0000            159   _P1MDIN         DATA 0xf2
-0000            160   _P1MDOUT        DATA 0xa5
-0000            161   _P1SKIP         DATA 0xd5
-0000            162   _P2             DATA 0xa0
-0000            163   _P2MASK         DATA 0xfc
-0000            164   _P2MAT          DATA 0xfb
-0000            165   _P2MDIN         DATA 0xf3
-0000            166   _P2MDOUT        DATA 0xa6
-0000            167   _P2SKIP         DATA 0xcc
-0000            168   _P3             DATA 0xb0
-0000            169   _P3MDIN         DATA 0xf4
-0000            170   _P3MDOUT        DATA 0x9c
-0000            171   _PCA0CENT       DATA 0x9e
-0000            172   _PCA0CLR        DATA 0x9c
-0000            173   _PCA0CN0        DATA 0xd8
-0000            174   _PCA0CPH0       DATA 0xfc
-0000            175   _PCA0CPH1       DATA 0xea
-0000            176   _PCA0CPH2       DATA 0xec
-0000            177   _PCA0CPH3       DATA 0xf5
-0000            178   _PCA0CPH4       DATA 0x85
-0000            179   _PCA0CPH5       DATA 0xde
-0000            180   _PCA0CPL0       DATA 0xfb
-0000            181   _PCA0CPL1       DATA 0xe9
-0000            182   _PCA0CPL2       DATA 0xeb
-0000            183   _PCA0CPL3       DATA 0xf4
-0000            184   _PCA0CPL4       DATA 0x84
-0000            185   _PCA0CPL5       DATA 0xdd
-0000            186   _PCA0CPM0       DATA 0xda
-0000            187   _PCA0CPM1       DATA 0xdb
-0000            188   _PCA0CPM2       DATA 0xdc
-0000            189   _PCA0CPM3       DATA 0xae
-0000            190   _PCA0CPM4       DATA 0xaf
-0000            191   _PCA0CPM5       DATA 0xcc
-0000            192   _PCA0H          DATA 0xfa
-0000            193   _PCA0L          DATA 0xf9
-0000            194   _PCA0MD         DATA 0xd9
-0000            195   _PCA0POL        DATA 0x96
-0000            196   _PCA0PWM        DATA 0xf7
-0000            197   _PCON0          DATA 0x87
-0000            198   _PCON1          DATA 0xcd
-0000            199   _PFE0CN         DATA 0xc1
-0000            200   _PRTDRV         DATA 0xf6
-0000            201   _PSCTL          DATA 0x8f
-0000            202   _PSTAT0         DATA 0xaa
-0000            203   _PSW            DATA 0xd0
-0000            204   _REF0CN         DATA 0xd1
-0000            205   _REG0CN         DATA 0xc9
-0000            206   _REVID          DATA 0xb6
-0000            207   _RSTSRC         DATA 0xef
-0000            208   _SBCON1         DATA 0x94
-0000            209   _SBRLH1         DATA 0x96
-0000            210   _SBRLL1         DATA 0x95
-0000            211   _SBUF           DATA 0x99
-0000            212   _SBUF0          DATA 0x99
-0000            213   _SBUF1          DATA 0x92
-0000            214   _SCON           DATA 0x98
-0000            215   _SCON0          DATA 0x98
-0000            216   _SCON1          DATA 0xc8
-0000            217   _SFRPAGE        DATA 0xa7
-0000            218   _SFRPGCN        DATA 0xbc
-0000            219   _SFRSTACK       DATA 0xd7
-0000            220   _SMB0ADM        DATA 0xd6
-0000            221   _SMB0ADR        DATA 0xd7
-0000            222   _SMB0CF         DATA 0xc1
-0000            223   _SMB0CN0        DATA 0xc0
-0000            224   _SMB0DAT        DATA 0xc2
-0000            225   _SMB0FCN0       DATA 0xc3
-0000            226   _SMB0FCN1       DATA 0xc4
-0000            227   _SMB0FCT        DATA 0xef
-0000            228   _SMB0RXLN       DATA 0xc5
-0000            229   _SMB0TC         DATA 0xac
-0000            230   _SMOD1          DATA 0x93
-0000            231   _SP             DATA 0x81
-0000            232   _SPI0CFG        DATA 0xa1
-0000            233   _SPI0CKR        DATA 0xa2
-0000            234   _SPI0CN0        DATA 0xf8
-0000            235   _SPI0DAT        DATA 0xa3
-0000            236   _SPI0FCN0       DATA 0x9a
-0000            237   _SPI0FCN1       DATA 0x9b
-0000            238   _SPI0FCT        DATA 0xf7
-0000            239   _SPI0PCF        DATA 0xdf
-0000            240   _TCON           DATA 0x88
-0000            241   _TH0            DATA 0x8c
-0000            242   _TH1            DATA 0x8d
-0000            243   _TL0            DATA 0x8a
-0000            244   _TL1            DATA 0x8b
-0000            245   _TMOD           DATA 0x89
-0000            246   _TMR2CN0        DATA 0xc8
-0000            247   _TMR2CN1        DATA 0xfd
-0000            248   _TMR2H          DATA 0xcf
-0000            249   _TMR2L          DATA 0xce
-0000            250   _TMR2RLH        DATA 0xcb
-0000            251   _TMR2RLL        DATA 0xca
-0000            252   _TMR3CN0        DATA 0x91
-0000            253   _TMR3CN1        DATA 0xfe
-0000            254   _TMR3H          DATA 0x95
-0000            255   _TMR3L          DATA 0x94
-0000            256   _TMR3RLH        DATA 0x93
-0000            257   _TMR3RLL        DATA 0x92
-0000            258   _TMR4CN0        DATA 0x98
-0000            259   _TMR4CN1        DATA 0xff
-0000            260   _TMR4H          DATA 0xa5
-0000            261   _TMR4L          DATA 0xa4
-0000            262   _TMR4RLH        DATA 0xa3
-0000            263   _TMR4RLL        DATA 0xa2
-0000            264   _TMR5CN0        DATA 0xc0
-0000            265   _TMR5CN1        DATA 0xf1
-0000            266   _TMR5H          DATA 0xd5
-0000            267   _TMR5L          DATA 0xd4
-0000            268   _TMR5RLH        DATA 0xd3
-0000            269   _TMR5RLL        DATA 0xd2
-0000            270   _UART0PCF       DATA 0xd9
-0000            271   _UART1FCN0      DATA 0x9d
-0000            272   _UART1FCN1      DATA 0xd8
-0000            273   _UART1FCT       DATA 0xfa
-0000            274   _UART1LIN       DATA 0x9e
-0000            275   _UART1PCF       DATA 0xda
-0000            276   _VDM0CN         DATA 0xff
-0000            277   _WDTCN          DATA 0x97
-0000            278   _XBR0           DATA 0xe1
-0000            279   _XBR1           DATA 0xe2
-0000            280   _XBR2           DATA 0xe3
-0000            281   _XOSC0CN        DATA 0x86
-0000            282   _DPTR           DATA 0x8382
-0000            283   _TMR2RL         DATA 0xcbca
-0000            284   _TMR3RL         DATA 0x9392
-0000            285   _TMR4RL         DATA 0xa3a2
-0000            286   _TMR5RL         DATA 0xd3d2
-0000            287   _TMR0           DATA 0x8c8a
-0000            288   _TMR1           DATA 0x8d8b
-0000            289   _TMR2           DATA 0xcfce
-0000            290   _TMR3           DATA 0x9594
-0000            291   _TMR4           DATA 0xa5a4
-0000            292   _TMR5           DATA 0xd5d4
-0000            293   _SBRL1          DATA 0x9695
-0000            294   _PCA0           DATA 0xfaf9
-0000            295   _PCA0CP0        DATA 0xfcfb
-0000            296   _PCA0CP1        DATA 0xeae9
-0000            297   _PCA0CP2        DATA 0xeceb
-0000            298   _PCA0CP3        DATA 0xf5f4
-0000            299   _PCA0CP4        DATA 0x8584
-0000            300   _PCA0CP5        DATA 0xdedd
-0000            301   _ADC0ASA        DATA 0xb6b5
-0000            302   _ADC0GT         DATA 0xc4c3
-0000            303   _ADC0           DATA 0xbebd
-0000            304   _ADC0LT         DATA 0xc6c5
-0000            305   _DAC0           DATA 0x8584
-0000            306   _DAC1           DATA 0x8a89
-0000            307   _DAC2           DATA 0x8c8b
-0000            308   _DAC3           DATA 0x8e8d
-0000            309   ;--------------------------------------------------------
-0000            310   ; special function bits
+0000             49   ; Special Function Registers
+0000             50   ;--------------------------------------------------------
+0000             51   _ACC            DATA 0xe0
+0000             52   _ADC0ASAH       DATA 0xb6
+0000             53   _ADC0ASAL       DATA 0xb5
+0000             54   _ADC0ASCF       DATA 0xa1
+0000             55   _ADC0ASCT       DATA 0xc7
+0000             56   _ADC0CF0        DATA 0xbc
+0000             57   _ADC0CF1        DATA 0xb9
+0000             58   _ADC0CF2        DATA 0xdf
+0000             59   _ADC0CN0        DATA 0xe8
+0000             60   _ADC0CN1        DATA 0xb2
+0000             61   _ADC0CN2        DATA 0xb3
+0000             62   _ADC0GTH        DATA 0xc4
+0000             63   _ADC0GTL        DATA 0xc3
+0000             64   _ADC0H          DATA 0xbe
+0000             65   _ADC0L          DATA 0xbd
+0000             66   _ADC0LTH        DATA 0xc6
+0000             67   _ADC0LTL        DATA 0xc5
+0000             68   _ADC0MX         DATA 0xbb
+0000             69   _B              DATA 0xf0
+0000             70   _CKCON0         DATA 0x8e
+0000             71   _CKCON1         DATA 0xa6
+0000             72   _CLEN0          DATA 0xc6
+0000             73   _CLIE0          DATA 0xc7
+0000             74   _CLIF0          DATA 0xe8
+0000             75   _CLKSEL         DATA 0xa9
+0000             76   _CLOUT0         DATA 0xd1
+0000             77   _CLU0CF         DATA 0xb1
+0000             78   _CLU0FN         DATA 0xaf
+0000             79   _CLU0MX         DATA 0x84
+0000             80   _CLU1CF         DATA 0xb3
+0000             81   _CLU1FN         DATA 0xb2
+0000             82   _CLU1MX         DATA 0x85
+0000             83   _CLU2CF         DATA 0xb6
+0000             84   _CLU2FN         DATA 0xb5
+0000             85   _CLU2MX         DATA 0x91
+0000             86   _CLU3CF         DATA 0xbf
+0000             87   _CLU3FN         DATA 0xbe
+0000             88   _CLU3MX         DATA 0xae
+0000             89   _CMP0CN0        DATA 0x9b
+0000             90   _CMP0CN1        DATA 0x99
+0000             91   _CMP0MD         DATA 0x9d
+0000             92   _CMP0MX         DATA 0x9f
+0000             93   _CMP1CN0        DATA 0xbf
+0000             94   _CMP1CN1        DATA 0xac
+0000             95   _CMP1MD         DATA 0xab
+0000             96   _CMP1MX         DATA 0xaa
+0000             97   _CRC0CN0        DATA 0xce
+0000             98   _CRC0CN1        DATA 0x86
+0000             99   _CRC0CNT        DATA 0xd3
+0000            100   _CRC0DAT        DATA 0xcb
+0000            101   _CRC0FLIP       DATA 0xcf
+0000            102   _CRC0IN         DATA 0xca
+0000            103   _CRC0ST         DATA 0xd2
+0000            104   _DAC0CF0        DATA 0x91
+0000            105   _DAC0CF1        DATA 0x92
+0000            106   _DAC0H          DATA 0x85
+0000            107   _DAC0L          DATA 0x84
+0000            108   _DAC1CF0        DATA 0x93
+0000            109   _DAC1CF1        DATA 0x94
+0000            110   _DAC1H          DATA 0x8a
+0000            111   _DAC1L          DATA 0x89
+0000            112   _DAC2CF0        DATA 0x95
+0000            113   _DAC2CF1        DATA 0x96
+0000            114   _DAC2H          DATA 0x8c
+0000            115   _DAC2L          DATA 0x8b
+0000            116   _DAC3CF0        DATA 0x9a
+0000            117   _DAC3CF1        DATA 0x9c
+0000            118   _DAC3H          DATA 0x8e
+0000            119   _DAC3L          DATA 0x8d
+0000            120   _DACGCF0        DATA 0x88
+0000            121   _DACGCF1        DATA 0x98
+0000            122   _DACGCF2        DATA 0xa2
+0000            123   _DERIVID        DATA 0xad
+0000            124   _DEVICEID       DATA 0xb5
+0000            125   _DPH            DATA 0x83
+0000            126   _DPL            DATA 0x82
+0000            127   _EIE1           DATA 0xe6
+0000            128   _EIE2           DATA 0xf3
+0000            129   _EIP1           DATA 0xbb
+0000            130   _EIP1H          DATA 0xee
+0000            131   _EIP2           DATA 0xed
+0000            132   _EIP2H          DATA 0xf6
+0000            133   _EMI0CN         DATA 0xe7
+0000            134   _FLKEY          DATA 0xb7
+0000            135   _HFO0CAL        DATA 0xc7
+0000            136   _HFO1CAL        DATA 0xd6
+0000            137   _HFOCN          DATA 0xef
+0000            138   _I2C0ADM        DATA 0xff
+0000            139   _I2C0CN0        DATA 0xba
+0000            140   _I2C0DIN        DATA 0xbc
+0000            141   _I2C0DOUT       DATA 0xbb
+0000            142   _I2C0FCN0       DATA 0xad
+0000            143   _I2C0FCN1       DATA 0xab
+0000            144   _I2C0FCT        DATA 0xf5
+0000            145   _I2C0SLAD       DATA 0xbd
+0000            146   _I2C0STAT       DATA 0xb9
+0000            147   _IE             DATA 0xa8
+0000            148   _IP             DATA 0xb8
+0000            149   _IPH            DATA 0xf2
+0000            150   _IT01CF         DATA 0xe4
+0000            151   _LFO0CN         DATA 0xb1
+0000            152   _P0             DATA 0x80
+0000            153   _P0MASK         DATA 0xfe
+0000            154   _P0MAT          DATA 0xfd
+0000            155   _P0MDIN         DATA 0xf1
+0000            156   _P0MDOUT        DATA 0xa4
+0000            157   _P0SKIP         DATA 0xd4
+0000            158   _P1             DATA 0x90
+0000            159   _P1MASK         DATA 0xee
+0000            160   _P1MAT          DATA 0xed
+0000            161   _P1MDIN         DATA 0xf2
+0000            162   _P1MDOUT        DATA 0xa5
+0000            163   _P1SKIP         DATA 0xd5
+0000            164   _P2             DATA 0xa0
+0000            165   _P2MASK         DATA 0xfc
+0000            166   _P2MAT          DATA 0xfb
+0000            167   _P2MDIN         DATA 0xf3
+0000            168   _P2MDOUT        DATA 0xa6
+0000            169   _P2SKIP         DATA 0xcc
+0000            170   _P3             DATA 0xb0
+0000            171   _P3MDIN         DATA 0xf4
+0000            172   _P3MDOUT        DATA 0x9c
+0000            173   _PCA0CENT       DATA 0x9e
+0000            174   _PCA0CLR        DATA 0x9c
+0000            175   _PCA0CN0        DATA 0xd8
+0000            176   _PCA0CPH0       DATA 0xfc
+0000            177   _PCA0CPH1       DATA 0xea
+0000            178   _PCA0CPH2       DATA 0xec
+0000            179   _PCA0CPH3       DATA 0xf5
+0000            180   _PCA0CPH4       DATA 0x85
+0000            181   _PCA0CPH5       DATA 0xde
+0000            182   _PCA0CPL0       DATA 0xfb
+0000            183   _PCA0CPL1       DATA 0xe9
+0000            184   _PCA0CPL2       DATA 0xeb
+0000            185   _PCA0CPL3       DATA 0xf4
+0000            186   _PCA0CPL4       DATA 0x84
+0000            187   _PCA0CPL5       DATA 0xdd
+0000            188   _PCA0CPM0       DATA 0xda
+0000            189   _PCA0CPM1       DATA 0xdb
+0000            190   _PCA0CPM2       DATA 0xdc
+0000            191   _PCA0CPM3       DATA 0xae
+0000            192   _PCA0CPM4       DATA 0xaf
+0000            193   _PCA0CPM5       DATA 0xcc
+0000            194   _PCA0H          DATA 0xfa
+0000            195   _PCA0L          DATA 0xf9
+0000            196   _PCA0MD         DATA 0xd9
+0000            197   _PCA0POL        DATA 0x96
+0000            198   _PCA0PWM        DATA 0xf7
+0000            199   _PCON0          DATA 0x87
+0000            200   _PCON1          DATA 0xcd
+0000            201   _PFE0CN         DATA 0xc1
+0000            202   _PRTDRV         DATA 0xf6
+0000            203   _PSCTL          DATA 0x8f
+0000            204   _PSTAT0         DATA 0xaa
+0000            205   _PSW            DATA 0xd0
+0000            206   _REF0CN         DATA 0xd1
+0000            207   _REG0CN         DATA 0xc9
+0000            208   _REVID          DATA 0xb6
+0000            209   _RSTSRC         DATA 0xef
+0000            210   _SBCON1         DATA 0x94
+0000            211   _SBRLH1         DATA 0x96
+0000            212   _SBRLL1         DATA 0x95
+0000            213   _SBUF           DATA 0x99
+0000            214   _SBUF0          DATA 0x99
+0000            215   _SBUF1          DATA 0x92
+0000            216   _SCON           DATA 0x98
+0000            217   _SCON0          DATA 0x98
+0000            218   _SCON1          DATA 0xc8
+0000            219   _SFRPAGE        DATA 0xa7
+0000            220   _SFRPGCN        DATA 0xbc
+0000            221   _SFRSTACK       DATA 0xd7
+0000            222   _SMB0ADM        DATA 0xd6
+0000            223   _SMB0ADR        DATA 0xd7
+0000            224   _SMB0CF         DATA 0xc1
+0000            225   _SMB0CN0        DATA 0xc0
+0000            226   _SMB0DAT        DATA 0xc2
+0000            227   _SMB0FCN0       DATA 0xc3
+0000            228   _SMB0FCN1       DATA 0xc4
+0000            229   _SMB0FCT        DATA 0xef
+0000            230   _SMB0RXLN       DATA 0xc5
+0000            231   _SMB0TC         DATA 0xac
+0000            232   _SMOD1          DATA 0x93
+0000            233   _SP             DATA 0x81
+0000            234   _SPI0CFG        DATA 0xa1
+0000            235   _SPI0CKR        DATA 0xa2
+0000            236   _SPI0CN0        DATA 0xf8
+0000            237   _SPI0DAT        DATA 0xa3
+0000            238   _SPI0FCN0       DATA 0x9a
+0000            239   _SPI0FCN1       DATA 0x9b
+0000            240   _SPI0FCT        DATA 0xf7
+0000            241   _SPI0PCF        DATA 0xdf
+0000            242   _TCON           DATA 0x88
+0000            243   _TH0            DATA 0x8c
+0000            244   _TH1            DATA 0x8d
+0000            245   _TL0            DATA 0x8a
+0000            246   _TL1            DATA 0x8b
+0000            247   _TMOD           DATA 0x89
+0000            248   _TMR2CN0        DATA 0xc8
+0000            249   _TMR2CN1        DATA 0xfd
+0000            250   _TMR2H          DATA 0xcf
+0000            251   _TMR2L          DATA 0xce
+0000            252   _TMR2RLH        DATA 0xcb
+0000            253   _TMR2RLL        DATA 0xca
+0000            254   _TMR3CN0        DATA 0x91
+0000            255   _TMR3CN1        DATA 0xfe
+0000            256   _TMR3H          DATA 0x95
+0000            257   _TMR3L          DATA 0x94
+0000            258   _TMR3RLH        DATA 0x93
+0000            259   _TMR3RLL        DATA 0x92
+0000            260   _TMR4CN0        DATA 0x98
+0000            261   _TMR4CN1        DATA 0xff
+0000            262   _TMR4H          DATA 0xa5
+0000            263   _TMR4L          DATA 0xa4
+0000            264   _TMR4RLH        DATA 0xa3
+0000            265   _TMR4RLL        DATA 0xa2
+0000            266   _TMR5CN0        DATA 0xc0
+0000            267   _TMR5CN1        DATA 0xf1
+0000            268   _TMR5H          DATA 0xd5
+0000            269   _TMR5L          DATA 0xd4
+0000            270   _TMR5RLH        DATA 0xd3
+0000            271   _TMR5RLL        DATA 0xd2
+0000            272   _UART0PCF       DATA 0xd9
+0000            273   _UART1FCN0      DATA 0x9d
+0000            274   _UART1FCN1      DATA 0xd8
+0000            275   _UART1FCT       DATA 0xfa
+0000            276   _UART1LIN       DATA 0x9e
+0000            277   _UART1PCF       DATA 0xda
+0000            278   _VDM0CN         DATA 0xff
+0000            279   _WDTCN          DATA 0x97
+0000            280   _XBR0           DATA 0xe1
+0000            281   _XBR1           DATA 0xe2
+0000            282   _XBR2           DATA 0xe3
+0000            283   _XOSC0CN        DATA 0x86
+0000            284   _DPTR           DATA 0x8382
+0000            285   _TMR2RL         DATA 0xcbca
+0000            286   _TMR3RL         DATA 0x9392
+0000            287   _TMR4RL         DATA 0xa3a2
+0000            288   _TMR5RL         DATA 0xd3d2
+0000            289   _TMR0           DATA 0x8c8a
+0000            290   _TMR1           DATA 0x8d8b
+0000            291   _TMR2           DATA 0xcfce
+0000            292   _TMR3           DATA 0x9594
+0000            293   _TMR4           DATA 0xa5a4
+0000            294   _TMR5           DATA 0xd5d4
+0000            295   _SBRL1          DATA 0x9695
+0000            296   _PCA0           DATA 0xfaf9
+0000            297   _PCA0CP0        DATA 0xfcfb
+0000            298   _PCA0CP1        DATA 0xeae9
+0000            299   _PCA0CP2        DATA 0xeceb
+0000            300   _PCA0CP3        DATA 0xf5f4
+0000            301   _PCA0CP4        DATA 0x8584
+0000            302   _PCA0CP5        DATA 0xdedd
+0000            303   _ADC0ASA        DATA 0xb6b5
+0000            304   _ADC0GT         DATA 0xc4c3
+0000            305   _ADC0           DATA 0xbebd
+0000            306   _ADC0LT         DATA 0xc6c5
+0000            307   _DAC0           DATA 0x8584
+0000            308   _DAC1           DATA 0x8a89
+0000            309   _DAC2           DATA 0x8c8b
+0000            310   _DAC3           DATA 0x8e8d
 0000            311   ;--------------------------------------------------------
-0000            312   _ACC_0          BIT 0xe0
-0000            313   _ACC_1          BIT 0xe1
-0000            314   _ACC_2          BIT 0xe2
-0000            315   _ACC_3          BIT 0xe3
-0000            316   _ACC_4          BIT 0xe4
-0000            317   _ACC_5          BIT 0xe5
-0000            318   _ACC_6          BIT 0xe6
-0000            319   _ACC_7          BIT 0xe7
-0000            320   _TEMPE          BIT 0xe8
-0000            321   _ADGN0          BIT 0xe9
-0000            322   _ADGN1          BIT 0xea
-0000            323   _ADWINT         BIT 0xeb
-0000            324   _ADBUSY         BIT 0xec
-0000            325   _ADINT          BIT 0xed
-0000            326   _IPOEN          BIT 0xee
-0000            327   _ADEN           BIT 0xef
-0000            328   _B_0            BIT 0xf0
-0000            329   _B_1            BIT 0xf1
-0000            330   _B_2            BIT 0xf2
-0000            331   _B_3            BIT 0xf3
-0000            332   _B_4            BIT 0xf4
-0000            333   _B_5            BIT 0xf5
-0000            334   _B_6            BIT 0xf6
-0000            335   _B_7            BIT 0xf7
-0000            336   _C0FIF          BIT 0xe8
-0000            337   _C0RIF          BIT 0xe9
-0000            338   _C1FIF          BIT 0xea
-0000            339   _C1RIF          BIT 0xeb
-0000            340   _C2FIF          BIT 0xec
-0000            341   _C2RIF          BIT 0xed
-0000            342   _C3FIF          BIT 0xee
-0000            343   _C3RIF          BIT 0xef
-0000            344   _D1SRC0         BIT 0x88
-0000            345   _D1SRC1         BIT 0x89
-0000            346   _D1AMEN         BIT 0x8a
-0000            347   _D01REFSL       BIT 0x8b
-0000            348   _D3SRC0         BIT 0x8c
-0000            349   _D3SRC1         BIT 0x8d
-0000            350   _D3AMEN         BIT 0x8e
-0000            351   _D23REFSL       BIT 0x8f
-0000            352   _D0UDIS         BIT 0x98
-0000            353   _D1UDIS         BIT 0x99
-0000            354   _D2UDIS         BIT 0x9a
-0000            355   _D3UDIS         BIT 0x9b
-0000            356   _EX0            BIT 0xa8
-0000            357   _ET0            BIT 0xa9
-0000            358   _EX1            BIT 0xaa
-0000            359   _ET1            BIT 0xab
-0000            360   _ES0            BIT 0xac
-0000            361   _ET2            BIT 0xad
-0000            362   _ESPI0          BIT 0xae
-0000            363   _EA             BIT 0xaf
-0000            364   _PX0            BIT 0xb8
-0000            365   _PT0            BIT 0xb9
-0000            366   _PX1            BIT 0xba
-0000            367   _PT1            BIT 0xbb
-0000            368   _PS0            BIT 0xbc
-0000            369   _PT2            BIT 0xbd
-0000            370   _PSPI0          BIT 0xbe
-0000            371   _P0_0           BIT 0x80
-0000            372   _P0_1           BIT 0x81
-0000            373   _P0_2           BIT 0x82
-0000            374   _P0_3           BIT 0x83
-0000            375   _P0_4           BIT 0x84
-0000            376   _P0_5           BIT 0x85
-0000            377   _P0_6           BIT 0x86
-0000            378   _P0_7           BIT 0x87
-0000            379   _P1_0           BIT 0x90
-0000            380   _P1_1           BIT 0x91
-0000            381   _P1_2           BIT 0x92
-0000            382   _P1_3           BIT 0x93
-0000            383   _P1_4           BIT 0x94
-0000            384   _P1_5           BIT 0x95
-0000            385   _P1_6           BIT 0x96
-0000            386   _P1_7           BIT 0x97
-0000            387   _P2_0           BIT 0xa0
-0000            388   _P2_1           BIT 0xa1
-0000            389   _P2_2           BIT 0xa2
-0000            390   _P2_3           BIT 0xa3
-0000            391   _P2_4           BIT 0xa4
-0000            392   _P2_5           BIT 0xa5
-0000            393   _P2_6           BIT 0xa6
-0000            394   _P3_0           BIT 0xb0
-0000            395   _P3_1           BIT 0xb1
-0000            396   _P3_2           BIT 0xb2
-0000            397   _P3_3           BIT 0xb3
-0000            398   _P3_4           BIT 0xb4
-0000            399   _P3_7           BIT 0xb7
-0000            400   _CCF0           BIT 0xd8
-0000            401   _CCF1           BIT 0xd9
-0000            402   _CCF2           BIT 0xda
-0000            403   _CCF3           BIT 0xdb
-0000            404   _CCF4           BIT 0xdc
-0000            405   _CCF5           BIT 0xdd
-0000            406   _CR             BIT 0xde
-0000            407   _CF             BIT 0xdf
-0000            408   _PARITY         BIT 0xd0
-0000            409   _F1             BIT 0xd1
-0000            410   _OV             BIT 0xd2
-0000            411   _RS0            BIT 0xd3
-0000            412   _RS1            BIT 0xd4
-0000            413   _F0             BIT 0xd5
-0000            414   _AC             BIT 0xd6
-0000            415   _CY             BIT 0xd7
-0000            416   _RI             BIT 0x98
-0000            417   _TI             BIT 0x99
-0000            418   _RB8            BIT 0x9a
-0000            419   _TB8            BIT 0x9b
-0000            420   _REN            BIT 0x9c
-0000            421   _CE             BIT 0x9d
-0000            422   _SMODE          BIT 0x9e
-0000            423   _RI1            BIT 0xc8
-0000            424   _TI1            BIT 0xc9
-0000            425   _RBX1           BIT 0xca
-0000            426   _TBX1           BIT 0xcb
-0000            427   _REN1           BIT 0xcc
-0000            428   _PERR1          BIT 0xcd
-0000            429   _OVR1           BIT 0xce
-0000            430   _SI             BIT 0xc0
-0000            431   _ACK            BIT 0xc1
-0000            432   _ARBLOST        BIT 0xc2
-0000            433   _ACKRQ          BIT 0xc3
-0000            434   _STO            BIT 0xc4
-0000            435   _STA            BIT 0xc5
-0000            436   _TXMODE         BIT 0xc6
-0000            437   _MASTER         BIT 0xc7
-0000            438   _SPIEN          BIT 0xf8
-0000            439   _TXNF           BIT 0xf9
-0000            440   _NSSMD0         BIT 0xfa
-0000            441   _NSSMD1         BIT 0xfb
-0000            442   _RXOVRN         BIT 0xfc
-0000            443   _MODF           BIT 0xfd
-0000            444   _WCOL           BIT 0xfe
-0000            445   _SPIF           BIT 0xff
-0000            446   _IT0            BIT 0x88
-0000            447   _IE0            BIT 0x89
-0000            448   _IT1            BIT 0x8a
-0000            449   _IE1            BIT 0x8b
-0000            450   _TR0            BIT 0x8c
-0000            451   _TF0            BIT 0x8d
-0000            452   _TR1            BIT 0x8e
-0000            453   _TF1            BIT 0x8f
-0000            454   _T2XCLK0        BIT 0xc8
-0000            455   _T2XCLK1        BIT 0xc9
-0000            456   _TR2            BIT 0xca
-0000            457   _T2SPLIT        BIT 0xcb
-0000            458   _TF2CEN         BIT 0xcc
-0000            459   _TF2LEN         BIT 0xcd
-0000            460   _TF2L           BIT 0xce
-0000            461   _TF2H           BIT 0xcf
-0000            462   _T4XCLK0        BIT 0x98
-0000            463   _T4XCLK1        BIT 0x99
-0000            464   _TR4            BIT 0x9a
-0000            465   _T4SPLIT        BIT 0x9b
-0000            466   _TF4CEN         BIT 0x9c
-0000            467   _TF4LEN         BIT 0x9d
-0000            468   _TF4L           BIT 0x9e
-0000            469   _TF4H           BIT 0x9f
-0000            470   _T5XCLK0        BIT 0xc0
-0000            471   _T5XCLK1        BIT 0xc1
-0000            472   _TR5            BIT 0xc2
-0000            473   _T5SPLIT        BIT 0xc3
-0000            474   _TF5CEN         BIT 0xc4
-0000            475   _TF5LEN         BIT 0xc5
-0000            476   _TF5L           BIT 0xc6
-0000            477   _TF5H           BIT 0xc7
-0000            478   _RIE            BIT 0xd8
-0000            479   _RXTO0          BIT 0xd9
-0000            480   _RXTO1          BIT 0xda
-0000            481   _RFRQ           BIT 0xdb
-0000            482   _TIE            BIT 0xdc
-0000            483   _TXHOLD         BIT 0xdd
-0000            484   _TXNF1          BIT 0xde
-0000            485   _TFRQ           BIT 0xdf
-0000            486   ;--------------------------------------------------------
-0000            487   ; overlayable register banks
+0000            312   ; special function bits
+0000            313   ;--------------------------------------------------------
+0000            314   _ACC_0          BIT 0xe0
+0000            315   _ACC_1          BIT 0xe1
+0000            316   _ACC_2          BIT 0xe2
+0000            317   _ACC_3          BIT 0xe3
+0000            318   _ACC_4          BIT 0xe4
+0000            319   _ACC_5          BIT 0xe5
+0000            320   _ACC_6          BIT 0xe6
+0000            321   _ACC_7          BIT 0xe7
+0000            322   _TEMPE          BIT 0xe8
+0000            323   _ADGN0          BIT 0xe9
+0000            324   _ADGN1          BIT 0xea
+0000            325   _ADWINT         BIT 0xeb
+0000            326   _ADBUSY         BIT 0xec
+0000            327   _ADINT          BIT 0xed
+0000            328   _IPOEN          BIT 0xee
+0000            329   _ADEN           BIT 0xef
+0000            330   _B_0            BIT 0xf0
+0000            331   _B_1            BIT 0xf1
+0000            332   _B_2            BIT 0xf2
+0000            333   _B_3            BIT 0xf3
+0000            334   _B_4            BIT 0xf4
+0000            335   _B_5            BIT 0xf5
+0000            336   _B_6            BIT 0xf6
+0000            337   _B_7            BIT 0xf7
+0000            338   _C0FIF          BIT 0xe8
+0000            339   _C0RIF          BIT 0xe9
+0000            340   _C1FIF          BIT 0xea
+0000            341   _C1RIF          BIT 0xeb
+0000            342   _C2FIF          BIT 0xec
+0000            343   _C2RIF          BIT 0xed
+0000            344   _C3FIF          BIT 0xee
+0000            345   _C3RIF          BIT 0xef
+0000            346   _D1SRC0         BIT 0x88
+0000            347   _D1SRC1         BIT 0x89
+0000            348   _D1AMEN         BIT 0x8a
+0000            349   _D01REFSL       BIT 0x8b
+0000            350   _D3SRC0         BIT 0x8c
+0000            351   _D3SRC1         BIT 0x8d
+0000            352   _D3AMEN         BIT 0x8e
+0000            353   _D23REFSL       BIT 0x8f
+0000            354   _D0UDIS         BIT 0x98
+0000            355   _D1UDIS         BIT 0x99
+0000            356   _D2UDIS         BIT 0x9a
+0000            357   _D3UDIS         BIT 0x9b
+0000            358   _EX0            BIT 0xa8
+0000            359   _ET0            BIT 0xa9
+0000            360   _EX1            BIT 0xaa
+0000            361   _ET1            BIT 0xab
+0000            362   _ES0            BIT 0xac
+0000            363   _ET2            BIT 0xad
+0000            364   _ESPI0          BIT 0xae
+0000            365   _EA             BIT 0xaf
+0000            366   _PX0            BIT 0xb8
+0000            367   _PT0            BIT 0xb9
+0000            368   _PX1            BIT 0xba
+0000            369   _PT1            BIT 0xbb
+0000            370   _PS0            BIT 0xbc
+0000            371   _PT2            BIT 0xbd
+0000            372   _PSPI0          BIT 0xbe
+0000            373   _P0_0           BIT 0x80
+0000            374   _P0_1           BIT 0x81
+0000            375   _P0_2           BIT 0x82
+0000            376   _P0_3           BIT 0x83
+0000            377   _P0_4           BIT 0x84
+0000            378   _P0_5           BIT 0x85
+0000            379   _P0_6           BIT 0x86
+0000            380   _P0_7           BIT 0x87
+0000            381   _P1_0           BIT 0x90
+0000            382   _P1_1           BIT 0x91
+0000            383   _P1_2           BIT 0x92
+0000            384   _P1_3           BIT 0x93
+0000            385   _P1_4           BIT 0x94
+0000            386   _P1_5           BIT 0x95
+0000            387   _P1_6           BIT 0x96
+0000            388   _P1_7           BIT 0x97
+0000            389   _P2_0           BIT 0xa0
+0000            390   _P2_1           BIT 0xa1
+0000            391   _P2_2           BIT 0xa2
+0000            392   _P2_3           BIT 0xa3
+0000            393   _P2_4           BIT 0xa4
+0000            394   _P2_5           BIT 0xa5
+0000            395   _P2_6           BIT 0xa6
+0000            396   _P3_0           BIT 0xb0
+0000            397   _P3_1           BIT 0xb1
+0000            398   _P3_2           BIT 0xb2
+0000            399   _P3_3           BIT 0xb3
+0000            400   _P3_4           BIT 0xb4
+0000            401   _P3_7           BIT 0xb7
+0000            402   _CCF0           BIT 0xd8
+0000            403   _CCF1           BIT 0xd9
+0000            404   _CCF2           BIT 0xda
+0000            405   _CCF3           BIT 0xdb
+0000            406   _CCF4           BIT 0xdc
+0000            407   _CCF5           BIT 0xdd
+0000            408   _CR             BIT 0xde
+0000            409   _CF             BIT 0xdf
+0000            410   _PARITY         BIT 0xd0
+0000            411   _F1             BIT 0xd1
+0000            412   _OV             BIT 0xd2
+0000            413   _RS0            BIT 0xd3
+0000            414   _RS1            BIT 0xd4
+0000            415   _F0             BIT 0xd5
+0000            416   _AC             BIT 0xd6
+0000            417   _CY             BIT 0xd7
+0000            418   _RI             BIT 0x98
+0000            419   _TI             BIT 0x99
+0000            420   _RB8            BIT 0x9a
+0000            421   _TB8            BIT 0x9b
+0000            422   _REN            BIT 0x9c
+0000            423   _CE             BIT 0x9d
+0000            424   _SMODE          BIT 0x9e
+0000            425   _RI1            BIT 0xc8
+0000            426   _TI1            BIT 0xc9
+0000            427   _RBX1           BIT 0xca
+0000            428   _TBX1           BIT 0xcb
+0000            429   _REN1           BIT 0xcc
+0000            430   _PERR1          BIT 0xcd
+0000            431   _OVR1           BIT 0xce
+0000            432   _SI             BIT 0xc0
+0000            433   _ACK            BIT 0xc1
+0000            434   _ARBLOST        BIT 0xc2
+0000            435   _ACKRQ          BIT 0xc3
+0000            436   _STO            BIT 0xc4
+0000            437   _STA            BIT 0xc5
+0000            438   _TXMODE         BIT 0xc6
+0000            439   _MASTER         BIT 0xc7
+0000            440   _SPIEN          BIT 0xf8
+0000            441   _TXNF           BIT 0xf9
+0000            442   _NSSMD0         BIT 0xfa
+0000            443   _NSSMD1         BIT 0xfb
+0000            444   _RXOVRN         BIT 0xfc
+0000            445   _MODF           BIT 0xfd
+0000            446   _WCOL           BIT 0xfe
+0000            447   _SPIF           BIT 0xff
+0000            448   _IT0            BIT 0x88
+0000            449   _IE0            BIT 0x89
+0000            450   _IT1            BIT 0x8a
+0000            451   _IE1            BIT 0x8b
+0000            452   _TR0            BIT 0x8c
+0000            453   _TF0            BIT 0x8d
+0000            454   _TR1            BIT 0x8e
+0000            455   _TF1            BIT 0x8f
+0000            456   _T2XCLK0        BIT 0xc8
+0000            457   _T2XCLK1        BIT 0xc9
+0000            458   _TR2            BIT 0xca
+0000            459   _T2SPLIT        BIT 0xcb
+0000            460   _TF2CEN         BIT 0xcc
+0000            461   _TF2LEN         BIT 0xcd
+0000            462   _TF2L           BIT 0xce
+0000            463   _TF2H           BIT 0xcf
+0000            464   _T4XCLK0        BIT 0x98
+0000            465   _T4XCLK1        BIT 0x99
+0000            466   _TR4            BIT 0x9a
+0000            467   _T4SPLIT        BIT 0x9b
+0000            468   _TF4CEN         BIT 0x9c
+0000            469   _TF4LEN         BIT 0x9d
+0000            470   _TF4L           BIT 0x9e
+0000            471   _TF4H           BIT 0x9f
+0000            472   _T5XCLK0        BIT 0xc0
+0000            473   _T5XCLK1        BIT 0xc1
+0000            474   _TR5            BIT 0xc2
+0000            475   _T5SPLIT        BIT 0xc3
+0000            476   _TF5CEN         BIT 0xc4
+0000            477   _TF5LEN         BIT 0xc5
+0000            478   _TF5L           BIT 0xc6
+0000            479   _TF5H           BIT 0xc7
+0000            480   _RIE            BIT 0xd8
+0000            481   _RXTO0          BIT 0xd9
+0000            482   _RXTO1          BIT 0xda
+0000            483   _RFRQ           BIT 0xdb
+0000            484   _TIE            BIT 0xdc
+0000            485   _TXHOLD         BIT 0xdd
+0000            486   _TXNF1          BIT 0xde
+0000            487   _TFRQ           BIT 0xdf
 0000            488   ;--------------------------------------------------------
-0000            489            rbank0 segment data overlay
+0000            489   ; overlayable register banks
 0000            490   ;--------------------------------------------------------
-0000            491   ; overlayable bit register bank
+0000            491            rbank0 segment data overlay
 0000            492   ;--------------------------------------------------------
-0000            493            rseg BIT_BANK
-0000            494   bits:
-0000            495            ds 1
-0001            496            b0 equ  bits.0 
-0001            497            b1 equ  bits.1 
-0001            498            b2 equ  bits.2 
-0001            499            b3 equ  bits.3 
-0001            500            b4 equ  bits.4 
-0001            501            b5 equ  bits.5 
-0001            502            b6 equ  bits.6 
-0001            503            b7 equ  bits.7 
-0001            504   ;--------------------------------------------------------
-0001            505   ; internal ram data
+0000            493   ; overlayable bit register bank
+0000            494   ;--------------------------------------------------------
+0000            495            rseg BIT_BANK
+0000            496   bits:
+0000            497            ds 1
+0001            498            b0 equ  bits.0 
+0001            499            b1 equ  bits.1 
+0001            500            b2 equ  bits.2 
+0001            501            b3 equ  bits.3 
+0001            502            b4 equ  bits.4 
+0001            503            b5 equ  bits.5 
+0001            504            b6 equ  bits.6 
+0001            505            b7 equ  bits.7 
 0001            506   ;--------------------------------------------------------
-0000            507            rseg R_DSEG
-0000            508   _count:
-0000            509            ds 2
-0002            510   _state:
-0002            511            ds 2
-0004            512   _PWM_percent_y:
-0004            513            ds 4
-0008            514   _PWM_percent_x:
-0008            515            ds 4
-000C            516   _prev_PWM_percent_x:
-000C            517            ds 4
-0010            518   _prev_PWM_percent_y:
-0010            519            ds 4
-0014            520   _movement_manager_PARM_2:
-0014            521            ds 4
-0018            522   _movement_manager_PARM_3:
-0018            523            ds 4
-001C            524   _movement_manager_PARM_4:
-001C            525            ds 4
-0020            526   _movement_manager_PARM_5:
-0020            527            ds 1
-0021            528   ;--------------------------------------------------------
-0021            529   ; overlayable items in internal ram 
+0001            507   ; internal ram data
+0001            508   ;--------------------------------------------------------
+0000            509            rseg R_DSEG
+0000            510   _count:
+0000            511            ds 2
+0002            512   _state:
+0002            513            ds 2
+0004            514   _PWM_percent_y:
+0004            515            ds 4
+0008            516   _PWM_percent_x:
+0008            517            ds 4
+000C            518   _prev_PWM_percent_x:
+000C            519            ds 4
+0010            520   _prev_PWM_percent_y:
+0010            521            ds 4
+0014            522   _movement_manager_PARM_2:
+0014            523            ds 4
+0018            524   _movement_manager_PARM_3:
+0018            525            ds 4
+001C            526   _movement_manager_PARM_4:
+001C            527            ds 4
+0020            528   _movement_manager_PARM_5:
+0020            529            ds 1
 0021            530   ;--------------------------------------------------------
-0000            531            rseg R_OSEG
-0000            532   ;--------------------------------------------------------
-0000            533   ; indirectly addressable internal ram data
+0021            531   ; overlayable items in internal ram 
+0021            532   ;--------------------------------------------------------
+0000            533            rseg R_OSEG
 0000            534   ;--------------------------------------------------------
-0000            535            rseg R_ISEG
+0000            535   ; indirectly addressable internal ram data
 0000            536   ;--------------------------------------------------------
-0000            537   ; absolute internal ram data
+0000            537            rseg R_ISEG
 0000            538   ;--------------------------------------------------------
-0000            539            DSEG
+0000            539   ; absolute internal ram data
 0000            540   ;--------------------------------------------------------
-0000            541   ; bit data
+0000            541            DSEG
 0000            542   ;--------------------------------------------------------
-0000            543            rseg R_BSEG
+0000            543   ; bit data
 0000            544   ;--------------------------------------------------------
-0000            545   ; paged external ram data
+0000            545            rseg R_BSEG
 0000            546   ;--------------------------------------------------------
-0000            547            rseg R_PSEG
+0000            547   ; paged external ram data
 0000            548   ;--------------------------------------------------------
-0000            549   ; external ram data
+0000            549            rseg R_PSEG
 0000            550   ;--------------------------------------------------------
-0000            551            rseg R_XSEG
+0000            551   ; external ram data
 0000            552   ;--------------------------------------------------------
-0000            553   ; absolute external ram data
+0000            553            rseg R_XSEG
 0000            554   ;--------------------------------------------------------
-0000            555            XSEG
+0000            555   ; absolute external ram data
 0000            556   ;--------------------------------------------------------
-0000            557   ; external initialized ram data
+0000            557            XSEG
 0000            558   ;--------------------------------------------------------
-0000            559            rseg R_IXSEG
-0000            560            rseg R_HOME
-0000            561            rseg R_GSINIT
-0000            562            rseg R_CSEG
-0000            563   ;--------------------------------------------------------
-0000            564   ; Reset entry point and interrupt vectors
+0000            559   ; external initialized ram data
+0000            560   ;--------------------------------------------------------
+0000            561            rseg R_IXSEG
+0000            562            rseg R_HOME
+0000            563            rseg R_GSINIT
+0000            564            rseg R_CSEG
 0000            565   ;--------------------------------------------------------
-0000            566            CSEG at 0x0000
-0000 020000     567            ljmp    _crt0
-0073            568            CSEG at 0x0073
-0073 020000     569            ljmp    _Timer3_ISR
-0076            570   ;--------------------------------------------------------
-0076            571   ; global & static initialisations
-0076            572   ;--------------------------------------------------------
-0000            573            rseg R_HOME
-0000            574            rseg R_GSINIT
-0000            575            rseg R_GSINIT
-0000            576   ;--------------------------------------------------------
-0000            577   ; data variables initialization
-0000            578   ;--------------------------------------------------------
-0000            579            rseg R_DINIT
-0000            580   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:15: int count = 0;
-0000 E4         581            clr     a
-0001 F518       582            mov     _count,a
-0003 F519       583            mov     (_count + 1),a
-0005            584   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:17: float PWM_percent_y = 0.5;
-0005 759800     585            mov     _PWM_percent_y,#0x00
-0008 759900     586            mov     (_PWM_percent_y + 1),#0x00
-000B 759A00     587            mov     (_PWM_percent_y + 2),#0x00
-000E 759B3F     588            mov     (_PWM_percent_y + 3),#0x3F
-0011            589   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:18: float PWM_percent_x = 0;
-0011 755800     590            mov     _PWM_percent_x,#0x00
-0014 755900     591            mov     (_PWM_percent_x + 1),#0x00
-0017 755A00     592            mov     (_PWM_percent_x + 2),#0x00
-001A 755B00     593            mov     (_PWM_percent_x + 3),#0x00
-001D            594   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:19: float prev_PWM_percent_x = 0;
-001D 751800     595            mov     _prev_PWM_percent_x,#0x00
-0020 751900     596            mov     (_prev_PWM_percent_x + 1),#0x00
-0023 751A00     597            mov     (_prev_PWM_percent_x + 2),#0x00
-0026 751B00     598            mov     (_prev_PWM_percent_x + 3),#0x00
-0029            599   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:20: float prev_PWM_percent_y = 0;
-0029 75C800     600            mov     _prev_PWM_percent_y,#0x00
-002C 75C900     601            mov     (_prev_PWM_percent_y + 1),#0x00
-002F 75CA00     602            mov     (_prev_PWM_percent_y + 2),#0x00
-0032 75CB00     603            mov     (_prev_PWM_percent_y + 3),#0x00
-0035            604            ; The linker places a 'ret' at the end of segment R_DINIT.
-0035            605   ;--------------------------------------------------------
-0035            606   ; code
-0035            607   ;--------------------------------------------------------
-0000            608            rseg R_CSEG
-0000            609   ;------------------------------------------------------------
-0000            610   ;Allocation info for local variables in function '_c51_external_startup'
-0000            611   ;------------------------------------------------------------
-0000            612   ;------------------------------------------------------------
-0000            613   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:22: char _c51_external_startup (void)
-0000            614   ;        -----------------------------------------
-0000            615   ;         function _c51_external_startup
-0000            616   ;        -----------------------------------------
-0000            617   __c51_external_startup:
-0000            618            using   0
-0000            619   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:25: SFRPAGE = 0x00;
-0000 75A700     620            mov     _SFRPAGE,#0x00
-0003            621   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:26: WDTCN = 0xDE; //First key
-0003 7597DE     622            mov     _WDTCN,#0xDE
-0006            623   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:27: WDTCN = 0xAD; //Second key
-0006 7597AD     624            mov     _WDTCN,#0xAD
-0009            625   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:29: VDM0CN=0x80;       // enable VDD monitor
-0009 75FF80     626            mov     _VDM0CN,#0x80
-000C            627   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:30: RSTSRC=0x02|0x04;  // Enable reset on missing clock detector and VDD
-000C 75EF06     628            mov     _RSTSRC,#0x06
-000F            629   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:37: SFRPAGE = 0x10;
-000F 75A710     630            mov     _SFRPAGE,#0x10
-0012            631   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:38: PFE0CN  = 0x20; // SYSCLK < 75 MHz.
-0012 75C120     632            mov     _PFE0CN,#0x20
-0015            633   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:39: SFRPAGE = 0x00;
-0015 75A700     634            mov     _SFRPAGE,#0x00
-0018            635   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:60: CLKSEL = 0x00;
-0018 75A900     636            mov     _CLKSEL,#0x00
-001B            637   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:61: CLKSEL = 0x00;
-001B 75A900     638            mov     _CLKSEL,#0x00
-001E            639   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:62: while ((CLKSEL & 0x80) == 0);
-001E            640   L002001?:
-001E E5A9       641            mov     a,_CLKSEL
-0020 30E758     642            jnb     acc.7,L002001?
-0023            643   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:63: CLKSEL = 0x03;
-0023 75A903     644            mov     _CLKSEL,#0x03
-0026            645   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:64: CLKSEL = 0x03;
-0026 75A903     646            mov     _CLKSEL,#0x03
-0029            647   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:65: while ((CLKSEL & 0x80) == 0);
-0029            648   L002004?:
-0029 E5A9       649            mov     a,_CLKSEL
-002B 30E7D8     650            jnb     acc.7,L002004?
-002E            651   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:70: P0MDOUT|=0b_1100_0010;
-002E 43A4C2     652            orl     _P0MDOUT,#0xC2
-0031            653   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:71: P1MDOUT|=0b_1111_1111;
-0031 E5A5       654            mov     a,_P1MDOUT
-0033 75A5FF     655            mov     _P1MDOUT,#0xFF
-0036            656   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:72: P2MDOUT|=0b_0001_1111;
-0036 43A61F     657            orl     _P2MDOUT,#0x1F
-0039            658   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:74: XBR0     = 0x00;                     
-0039 75E100     659            mov     _XBR0,#0x00
-003C            660   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:75: XBR1     = 0X00;
-003C 75E200     661            mov     _XBR1,#0x00
-003F            662   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:76: XBR2     = 0x40; // Enable crossbar and weak pull-ups
-003F 75E340     663            mov     _XBR2,#0x40
-0042            664   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:77: return 0;
-0042 758200     665            mov     dpl,#0x00
-0045 22         666            ret
-0046            667   ;------------------------------------------------------------
-0046            668   ;Allocation info for local variables in function 'TIMER3Init'
-0046            669   ;------------------------------------------------------------
-0046            670   ;------------------------------------------------------------
-0046            671   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:88: void TIMER3Init(void)
-0046            672   ;        -----------------------------------------
-0046            673   ;         function TIMER3Init
-0046            674   ;        -----------------------------------------
-0046            675   _TIMER3Init:
-0046            676   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:91: TMR3CN0=0x00;   // Stop Timer3; Clear TF3;
-0046 759100     677            mov     _TMR3CN0,#0x00
-0049            678   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:92: CKCON0|=0b_0100_0000; // Timer 3 uses the system clock
-0049 438E40     679            orl     _CKCON0,#0x40
-004C            680   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:93: TMR3RL=(0x10000L-(SYSCLK/(2*TIMER_3_FREQ))); // Initialize reload value
-004C 7592F0     681            mov     _TMR3RL,#0xF0
-004F 7593F1     682            mov     (_TMR3RL >> 8),#0xF1
-0052            683   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:94: TMR3=0xffff;   // Set to reload immediately
-0052 7594FF     684            mov     _TMR3,#0xFF
-0055 7595FF     685            mov     (_TMR3 >> 8),#0xFF
-0058            686   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:95: EIE1|=0b_1000_0000;     // Enable Timer3 interrupts
-0058 43E680     687            orl     _EIE1,#0x80
-005B            688   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:96: TMR3CN0|=0b_0000_0100;  // Start Timer3 (TMR3CN0 is not bit addressable)
-005B 439104     689            orl     _TMR3CN0,#0x04
-005E            690   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:97: EA = 1;
-005E D2AF       691            setb    _EA
-0060 22         692            ret
-0061            693   ;------------------------------------------------------------
-0061            694   ;Allocation info for local variables in function 'Timer3_ISR'
-0061            695   ;------------------------------------------------------------
-0061            696   ;------------------------------------------------------------
-0061            697   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:100: void Timer3_ISR (void) interrupt INTERRUPT_TIMER3
-0061            698   ;        -----------------------------------------
-0061            699   ;         function Timer3_ISR
-0061            700   ;        -----------------------------------------
-0061            701   _Timer3_ISR:
-0061 C018       702            push    bits
-0063 C0E0       703            push    acc
-0065 C0F0       704            push    b
-0067 C082       705            push    dpl
-0069 C083       706            push    dph
-006B C002       707            push    (0+2)
-006D C003       708            push    (0+3)
-006F C004       709            push    (0+4)
-0071 C005       710            push    (0+5)
-0073 C006       711            push    (0+6)
-0075 C007       712            push    (0+7)
-0077 C000       713            push    (0+0)
-0079 C001       714            push    (0+1)
-007B C0D0       715            push    psw
-007D 75D000     716            mov     psw,#0x00
-0080            717   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:102: SFRPAGE=0x0;
-0080 75A700     718            mov     _SFRPAGE,#0x00
-0083            719   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:103: TMR3CN0&=0b_0011_1111; // Clear Timer3 interrupt flags
-0083 53913F     720            anl     _TMR3CN0,#0x3F
-0086            721   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:105: P1_2 = !P1_2;
-0086 B292       722            cpl     _P1_2
-0088            723   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:108: if (state != idle_enum)
-0088 E5D8       724            mov     a,_state
-008A 45D9       725            orl     a,(_state + 1)
-008C 7000       726            jnz     L004029?
-008E 020000     727            ljmp    L004020?
-0091            728   L004029?:
-0091            729   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:110: if (count > 100)
-0091 C3         730            clr     c
-0092 7464       731            mov     a,#0x64
-0094 9518       732            subb    a,_count
-0096 E4         733            clr     a
-0097 6480       734            xrl     a,#0x80
-0099 8519F0     735            mov     b,(_count + 1)
-009C 63F080     736            xrl     b,#0x80
-009F 95F0       737            subb    a,b
-00A1 5000       738            jnc     L004016?
-00A3            739   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:113: if (state == left_enum)
-00A3 7401       740            mov     a,#0x01
-00A5 B5D8D8     741            cjne    a,_state,L004031?
-00A8 E4         742            clr     a
-00A9 B5D9D8     743            cjne    a,(_state + 1),L004031?
-00AC 8000       744            sjmp    L004032?
-00AE            745   L004031?:
-00AE 8000       746            sjmp    L004005?
-00B0            747   L004032?:
-00B0            748   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:115: RIGHT_MOTOR_LHS = 1;
-00B0 D2A2       749            setb    _P2_2
-00B2 8000       750            sjmp    L004006?
-00B4            751   L004005?:
-00B4            752   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:117: else if (state == right_enum)
-00B4 7402       753            mov     a,#0x02
-00B6 B5D8D8     754            cjne    a,_state,L004033?
-00B9 E4         755            clr     a
-00BA B5D9D8     756            cjne    a,(_state + 1),L004033?
-00BD 8000       757            sjmp    L004034?
-00BF            758   L004033?:
-00BF 8000       759            sjmp    L004002?
-00C1            760   L004034?:
-00C1            761   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:119: LEFT_MOTOR_LHS = 1;
-00C1 D2A4       762            setb    _P2_4
-00C3 8000       763            sjmp    L004006?
-00C5            764   L004002?:
-00C5            765   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:123: LEFT_MOTOR_LHS = 1;
-00C5 D2A4       766            setb    _P2_4
-00C7            767   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:124: RIGHT_MOTOR_LHS = 1;
-00C7 D2A2       768            setb    _P2_2
-00C9            769   L004006?:
-00C9            770   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:126: count = 0;
-00C9 E4         771            clr     a
-00CA F518       772            mov     _count,a
-00CC F519       773            mov     (_count + 1),a
-00CE 8000       774            sjmp    L004017?
-00D0            775   L004016?:
-00D0            776   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:128: else if (count > PWM_percent_y*100)
-00D0 C098       777            push    _PWM_percent_y
-00D2 C099       778            push    (_PWM_percent_y + 1)
-00D4 C09A       779            push    (_PWM_percent_y + 2)
-00D6 C09B       780            push    (_PWM_percent_y + 3)
-00D8 900000     781            mov     dptr,#0x0000
-00DB 75F0C8     782            mov     b,#0xC8
-00DE 7442       783            mov     a,#0x42
-00E0 120000     784            lcall   ___fsmul
-00E3 AA82       785            mov     r2,dpl
-00E5 AB83       786            mov     r3,dph
-00E7 ACF0       787            mov     r4,b
-00E9 FD         788            mov     r5,a
-00EA E581       789            mov     a,sp
-00EC 24FC       790            add     a,#0xfc
-00EE F581       791            mov     sp,a
-00F0 851882     792            mov     dpl,_count
-00F3 851983     793            mov     dph,(_count + 1)
-00F6 C002       794            push    ar2
-00F8 C003       795            push    ar3
-00FA C004       796            push    ar4
-00FC C005       797            push    ar5
-00FE 120000     798            lcall   ___sint2fs
-0101 120000     799            lcall   ___fsgt
-0104 AA82       800            mov     r2,dpl
-0106 E581       801            mov     a,sp
-0108 24FC       802            add     a,#0xfc
-010A F581       803            mov     sp,a
-010C EA         804            mov     a,r2
-010D 6000       805            jz      L004017?
-010F            806   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:131: if (state == left_enum)
-010F 7401       807            mov     a,#0x01
-0111 B5D8D8     808            cjne    a,_state,L004036?
-0114 E4         809            clr     a
-0115 B5D9D8     810            cjne    a,(_state + 1),L004036?
-0118 8000       811            sjmp    L004037?
-011A            812   L004036?:
-011A 8000       813            sjmp    L004011?
-011C            814   L004037?:
-011C            815   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:133: RIGHT_MOTOR_LHS = 0;
-011C C2A2       816            clr     _P2_2
-011E 8000       817            sjmp    L004017?
-0120            818   L004011?:
-0120            819   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:135: else if (state == right_enum)
-0120 7402       820            mov     a,#0x02
-0122 B5D898     821            cjne    a,_state,L004038?
-0125 E4         822            clr     a
-0126 B5D998     823            cjne    a,(_state + 1),L004038?
-0129 8000       824            sjmp    L004039?
-012B            825   L004038?:
-012B 8000       826            sjmp    L004008?
-012D            827   L004039?:
-012D            828   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:137: LEFT_MOTOR_LHS = 0;
-012D C2A4       829            clr     _P2_4
-012F 8000       830            sjmp    L004017?
-0131            831   L004008?:
-0131            832   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:141: LEFT_MOTOR_LHS = 0;
-0131 C2A4       833            clr     _P2_4
-0133            834   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:142: RIGHT_MOTOR_LHS = 0;
-0133 C2A2       835            clr     _P2_2
-0135            836   L004017?:
-0135            837   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:145: count++;
-0135 0518       838            inc     _count
-0137 E4         839            clr     a
-0138 B51858     840            cjne    a,_count,L004040?
-013B 0519       841            inc     (_count + 1)
-013D            842   L004040?:
-013D            843   L004020?:
-013D D0D0       844            pop     psw
-013F D001       845            pop     (0+1)
-0141 D000       846            pop     (0+0)
-0143 D007       847            pop     (0+7)
-0145 D006       848            pop     (0+6)
-0147 D005       849            pop     (0+5)
-0149 D004       850            pop     (0+4)
-014B D003       851            pop     (0+3)
-014D D002       852            pop     (0+2)
-014F D083       853            pop     dph
-0151 D082       854            pop     dpl
-0153 D0F0       855            pop     b
-0155 D0E0       856            pop     acc
-0157 D018       857            pop     bits
-0159 32         858            reti
-015A            859   ;------------------------------------------------------------
-015A            860   ;Allocation info for local variables in function 'idle'
-015A            861   ;------------------------------------------------------------
-015A            862   ;------------------------------------------------------------
-015A            863   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:152: void idle(void)
-015A            864   ;        -----------------------------------------
-015A            865   ;         function idle
-015A            866   ;        -----------------------------------------
-015A            867   _idle:
-015A            868   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:154: LEFT_MOTOR_LHS = 0;
-015A C2A4       869            clr     _P2_4
-015C            870   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:155: LEFT_MOTOR_RHS = 0;
-015C C2A3       871            clr     _P2_3
-015E            872   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:156: RIGHT_MOTOR_LHS = 0;
-015E C2A2       873            clr     _P2_2
-0160            874   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:157: RIGHT_MOTOR_RHS = 0;
-0160 C2A1       875            clr     _P2_1
-0162 22         876            ret
-0163            877   ;------------------------------------------------------------
-0163            878   ;Allocation info for local variables in function 'straight'
-0163            879   ;------------------------------------------------------------
-0163            880   ;------------------------------------------------------------
-0163            881   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:160: void straight(void)
-0163            882   ;        -----------------------------------------
-0163            883   ;         function straight
-0163            884   ;        -----------------------------------------
-0163            885   _straight:
-0163            886   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:162: LEFT_MOTOR_LHS = 1;
-0163 D2A4       887            setb    _P2_4
-0165            888   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:163: LEFT_MOTOR_RHS = 0;
-0165 C2A3       889            clr     _P2_3
-0167            890   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:164: RIGHT_MOTOR_LHS = 1;
-0167 D2A2       891            setb    _P2_2
-0169            892   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:165: RIGHT_MOTOR_RHS = 0;
-0169 C2A1       893            clr     _P2_1
-016B 22         894            ret
-016C            895   ;------------------------------------------------------------
-016C            896   ;Allocation info for local variables in function 'backward'
-016C            897   ;------------------------------------------------------------
-016C            898   ;------------------------------------------------------------
-016C            899   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:168: void backward(void)
-016C            900   ;        -----------------------------------------
-016C            901   ;         function backward
-016C            902   ;        -----------------------------------------
-016C            903   _backward:
-016C            904   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:170: LEFT_MOTOR_LHS = 0;
-016C C2A4       905            clr     _P2_4
-016E            906   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:171: LEFT_MOTOR_RHS = 1;
-016E D2A3       907            setb    _P2_3
-0170            908   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:172: RIGHT_MOTOR_LHS = 0;
-0170 C2A2       909            clr     _P2_2
-0172            910   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:173: RIGHT_MOTOR_RHS = 1;
-0172 D2A1       911            setb    _P2_1
-0174 22         912            ret
-0175            913   ;------------------------------------------------------------
-0175            914   ;Allocation info for local variables in function 'left'
-0175            915   ;------------------------------------------------------------
-0175            916   ;PWM_percent_y             Allocated to registers r2 r3 r4 r5 
-0175            917   ;------------------------------------------------------------
-0175            918   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:176: void left(float PWM_percent_y)
-0175            919   ;        -----------------------------------------
-0175            920   ;         function left
-0175            921   ;        -----------------------------------------
-0175            922   _left:
-0175 AA82       923            mov     r2,dpl
-0177 AB83       924            mov     r3,dph
-0179 ACF0       925            mov     r4,b
-017B FD         926            mov     r5,a
-017C            927   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:179: LEFT_MOTOR_LHS = 0;
-017C C2A4       928            clr     _P2_4
-017E            929   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:180: LEFT_MOTOR_RHS = 0;
-017E C2A3       930            clr     _P2_3
-0180            931   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:182: if (PWM_percent_y > 0)
-0180 E4         932            clr     a
-0181 C0E0       933            push    acc
-0183 C0E0       934            push    acc
-0185 C0E0       935            push    acc
-0187 C0E0       936            push    acc
-0189 8A82       937            mov     dpl,r2
-018B 8B83       938            mov     dph,r3
-018D 8CF0       939            mov     b,r4
-018F ED         940            mov     a,r5
-0190 120000     941            lcall   ___fsgt
-0193 AA82       942            mov     r2,dpl
-0195 E581       943            mov     a,sp
-0197 24FC       944            add     a,#0xfc
-0199 F581       945            mov     sp,a
-019B EA         946            mov     a,r2
-019C 6000       947            jz      L008002?
-019E            948   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:184: RIGHT_MOTOR_LHS = 1;
-019E D2A2       949            setb    _P2_2
-01A0            950   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:185: RIGHT_MOTOR_RHS = 0;
-01A0 C2A1       951            clr     _P2_1
-01A2 22         952            ret
-01A3            953   L008002?:
-01A3            954   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:189: RIGHT_MOTOR_LHS = 0;
-01A3 C2A2       955            clr     _P2_2
-01A5            956   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:190: RIGHT_MOTOR_RHS = 1;
-01A5 D2A1       957            setb    _P2_1
-01A7 22         958            ret
-01A8            959   ;------------------------------------------------------------
-01A8            960   ;Allocation info for local variables in function 'right'
-01A8            961   ;------------------------------------------------------------
-01A8            962   ;PWM_percent_y             Allocated to registers r2 r3 r4 r5 
-01A8            963   ;------------------------------------------------------------
-01A8            964   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:195: void right(float PWM_percent_y)
-01A8            965   ;        -----------------------------------------
-01A8            966   ;         function right
-01A8            967   ;        -----------------------------------------
-01A8            968   _right:
-01A8 AA82       969            mov     r2,dpl
-01AA AB83       970            mov     r3,dph
-01AC ACF0       971            mov     r4,b
-01AE FD         972            mov     r5,a
-01AF            973   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:198: RIGHT_MOTOR_LHS = 0;
-01AF C2A2       974            clr     _P2_2
-01B1            975   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:199: RIGHT_MOTOR_RHS = 0;
-01B1 C2A1       976            clr     _P2_1
-01B3            977   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:201: if (PWM_percent_y > 0)
-01B3 E4         978            clr     a
-01B4 C0E0       979            push    acc
-01B6 C0E0       980            push    acc
-01B8 C0E0       981            push    acc
-01BA C0E0       982            push    acc
-01BC 8A82       983            mov     dpl,r2
-01BE 8B83       984            mov     dph,r3
-01C0 8CF0       985            mov     b,r4
-01C2 ED         986            mov     a,r5
-01C3 120000     987            lcall   ___fsgt
-01C6 AA82       988            mov     r2,dpl
-01C8 E581       989            mov     a,sp
-01CA 24FC       990            add     a,#0xfc
-01CC F581       991            mov     sp,a
-01CE EA         992            mov     a,r2
-01CF 6000       993            jz      L009002?
-01D1            994   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:203: LEFT_MOTOR_LHS = 1;
-01D1 D2A4       995            setb    _P2_4
-01D3            996   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:204: LEFT_MOTOR_RHS = 0;
-01D3 C2A3       997            clr     _P2_3
-01D5 22         998            ret
-01D6            999   L009002?:
-01D6           1000   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:208: LEFT_MOTOR_LHS = 0;
-01D6 C2A4      1001            clr     _P2_4
-01D8           1002   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:209: LEFT_MOTOR_RHS = 1;
-01D8 D2A3      1003            setb    _P2_3
-01DA 22        1004            ret
-01DB           1005   ;------------------------------------------------------------
-01DB           1006   ;Allocation info for local variables in function 'movement_manager'
-01DB           1007   ;------------------------------------------------------------
-01DB           1008   ;PWM_percent_y             Allocated with name '_movement_manager_PARM_2'
-01DB           1009   ;prev_PWM_percent_x        Allocated with name '_movement_manager_PARM_3'
-01DB           1010   ;prev_PWM_percent_y        Allocated with name '_movement_manager_PARM_4'
-01DB           1011   ;state                     Allocated with name '_movement_manager_PARM_5'
-01DB           1012   ;PWM_percent_x             Allocated to registers r2 r3 r4 r5 
-01DB           1013   ;------------------------------------------------------------
-01DB           1014   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:214: enum State movement_manager(float PWM_percent_x, float PWM_percent_y, float prev_PWM_percent_x, float prev_PWM_percent_y, enum State state)
-01DB           1015   ;        -----------------------------------------
-01DB           1016   ;         function movement_manager
-01DB           1017   ;        -----------------------------------------
-01DB           1018   _movement_manager:
-01DB AA82      1019            mov     r2,dpl
-01DD AB83      1020            mov     r3,dph
-01DF ACF0      1021            mov     r4,b
-01E1 FD        1022            mov     r5,a
-01E2           1023   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:217: if (prev_PWM_percent_x != PWM_percent_x && prev_PWM_percent_y != PWM_percent_y)
-01E2 C002      1024            push    ar2
-01E4 C003      1025            push    ar3
-01E6 C004      1026            push    ar4
-01E8 C005      1027            push    ar5
-01EA C002      1028            push    ar2
-01EC C003      1029            push    ar3
-01EE C004      1030            push    ar4
-01F0 C005      1031            push    ar5
-01F2 852882    1032            mov     dpl,_movement_manager_PARM_3
-01F5 852983    1033            mov     dph,(_movement_manager_PARM_3 + 1)
-01F8 852AF0    1034            mov     b,(_movement_manager_PARM_3 + 2)
-01FB E52B      1035            mov     a,(_movement_manager_PARM_3 + 3)
-01FD 120000    1036            lcall   ___fseq
-0200 AE82      1037            mov     r6,dpl
-0202 E581      1038            mov     a,sp
-0204 24FC      1039            add     a,#0xfc
-0206 F581      1040            mov     sp,a
-0208 D005      1041            pop     ar5
-020A D004      1042            pop     ar4
-020C D003      1043            pop     ar3
-020E D002      1044            pop     ar2
-0210 EE        1045            mov     a,r6
-0211 6000      1046            jz      L010026?
-0213 020000    1047            ljmp    L010015?
-0216           1048   L010026?:
-0216 C002      1049            push    ar2
-0218 C003      1050            push    ar3
-021A C004      1051            push    ar4
-021C C005      1052            push    ar5
-021E C078      1053            push    _movement_manager_PARM_2
-0220 C079      1054            push    (_movement_manager_PARM_2 + 1)
-0222 C07A      1055            push    (_movement_manager_PARM_2 + 2)
-0224 C07B      1056            push    (_movement_manager_PARM_2 + 3)
-0226 85D882    1057            mov     dpl,_movement_manager_PARM_4
-0229 85D983    1058            mov     dph,(_movement_manager_PARM_4 + 1)
-022C 85DAF0    1059            mov     b,(_movement_manager_PARM_4 + 2)
-022F E5DB      1060            mov     a,(_movement_manager_PARM_4 + 3)
-0231 120000    1061            lcall   ___fseq
-0234 AE82      1062            mov     r6,dpl
-0236 E581      1063            mov     a,sp
-0238 24FC      1064            add     a,#0xfc
-023A F581      1065            mov     sp,a
-023C D005      1066            pop     ar5
-023E D004      1067            pop     ar4
-0240 D003      1068            pop     ar3
-0242 D002      1069            pop     ar2
-0244 EE        1070            mov     a,r6
-0245 6000      1071            jz      L010027?
-0247 020000    1072            ljmp    L010015?
-024A           1073   L010027?:
-024A           1074   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:219: if (PWM_percent_y == 0 && PWM_percent_x == 0)
-024A E578      1075            mov     a,_movement_manager_PARM_2
-024C 4579      1076            orl     a,(_movement_manager_PARM_2 + 1)
-024E 457A      1077            orl     a,(_movement_manager_PARM_2 + 2)
-0250 857BF0    1078            mov     b,(_movement_manager_PARM_2 + 3)
-0253 C2F7      1079            clr     b.7 ; Clear the sign bit
-0255 45F0      1080            orl     a,b
-0257 7000      1081            jnz     L010011?
-0259 EA        1082            mov     a,r2
-025A 4B        1083            orl     a,r3
-025B 4C        1084            orl     a,r4
-025C 8DF0      1085            mov     b,r5
-025E C2F7      1086            clr     b.7 ; Clear the sign bit
-0260 45F0      1087            orl     a,b
-0262           1088   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:221: state = idle_enum;
-0262 7000      1089            jnz     L010011?
-0264 F588      1090            mov     _movement_manager_PARM_5,a
-0266           1091   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:222: idle();
-0266 120000    1092            lcall   _idle
-0269 020000    1093            ljmp    L010015?
-026C           1094   L010011?:
-026C           1095   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:224: else if (PWM_percent_x < 0)
-026C C002      1096            push    ar2
-026E C003      1097            push    ar3
-0270 C004      1098            push    ar4
-0272 C005      1099            push    ar5
-0274 E4        1100            clr     a
-0275 C0E0      1101            push    acc
-0277 C0E0      1102            push    acc
-0279 C0E0      1103            push    acc
-027B C0E0      1104            push    acc
-027D 8A82      1105            mov     dpl,r2
-027F 8B83      1106            mov     dph,r3
-0281 8CF0      1107            mov     b,r4
-0283 ED        1108            mov     a,r5
-0284 120000    1109            lcall   ___fslt
-0287 AE82      1110            mov     r6,dpl
-0289 E581      1111            mov     a,sp
-028B 24FC      1112            add     a,#0xfc
-028D F581      1113            mov     sp,a
-028F D005      1114            pop     ar5
-0291 D004      1115            pop     ar4
-0293 D003      1116            pop     ar3
-0295 D002      1117            pop     ar2
-0297 EE        1118            mov     a,r6
-0298 6000      1119            jz      L010008?
-029A           1120   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:226: state = left_enum;
-029A 758801    1121            mov     _movement_manager_PARM_5,#0x01
-029D           1122   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:227: left(PWM_percent_y);
-029D 857882    1123            mov     dpl,_movement_manager_PARM_2
-02A0 857983    1124            mov     dph,(_movement_manager_PARM_2 + 1)
-02A3 857AF0    1125            mov     b,(_movement_manager_PARM_2 + 2)
-02A6 E57B      1126            mov     a,(_movement_manager_PARM_2 + 3)
-02A8 120000    1127            lcall   _left
-02AB 8000      1128            sjmp    L010015?
-02AD           1129   L010008?:
-02AD           1130   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:229: else if (PWM_percent_x > 0)
-02AD E4        1131            clr     a
-02AE C0E0      1132            push    acc
-02B0 C0E0      1133            push    acc
-02B2 C0E0      1134            push    acc
-02B4 C0E0      1135            push    acc
-02B6 8A82      1136            mov     dpl,r2
-02B8 8B83      1137            mov     dph,r3
-02BA 8CF0      1138            mov     b,r4
-02BC ED        1139            mov     a,r5
-02BD 120000    1140            lcall   ___fsgt
-02C0 AA82      1141            mov     r2,dpl
-02C2 E581      1142            mov     a,sp
-02C4 24FC      1143            add     a,#0xfc
-02C6 F581      1144            mov     sp,a
-02C8 EA        1145            mov     a,r2
-02C9 6000      1146            jz      L010005?
-02CB           1147   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:231: state = right_enum;
-02CB 758802    1148            mov     _movement_manager_PARM_5,#0x02
-02CE           1149   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:232: right(PWM_percent_y);
-02CE 857882    1150            mov     dpl,_movement_manager_PARM_2
-02D1 857983    1151            mov     dph,(_movement_manager_PARM_2 + 1)
-02D4 857AF0    1152            mov     b,(_movement_manager_PARM_2 + 2)
-02D7 E57B      1153            mov     a,(_movement_manager_PARM_2 + 3)
-02D9 120000    1154            lcall   _right
-02DC 8000      1155            sjmp    L010015?
-02DE           1156   L010005?:
-02DE           1157   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:234: else if (PWM_percent_y > 0)
-02DE E4        1158            clr     a
-02DF C0E0      1159            push    acc
-02E1 C0E0      1160            push    acc
-02E3 C0E0      1161            push    acc
-02E5 C0E0      1162            push    acc
-02E7 857882    1163            mov     dpl,_movement_manager_PARM_2
-02EA 857983    1164            mov     dph,(_movement_manager_PARM_2 + 1)
-02ED 857AF0    1165            mov     b,(_movement_manager_PARM_2 + 2)
-02F0 E57B      1166            mov     a,(_movement_manager_PARM_2 + 3)
-02F2 120000    1167            lcall   ___fsgt
-02F5 AA82      1168            mov     r2,dpl
-02F7 E581      1169            mov     a,sp
-02F9 24FC      1170            add     a,#0xfc
-02FB F581      1171            mov     sp,a
-02FD EA        1172            mov     a,r2
-02FE 6000      1173            jz      L010002?
-0300           1174   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:236: state = straight_enum;
-0300 758803    1175            mov     _movement_manager_PARM_5,#0x03
-0303           1176   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:237: straight();
-0303 120000    1177            lcall   _straight
-0306 8000      1178            sjmp    L010015?
-0308           1179   L010002?:
-0308           1180   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:241: state = backward_enum;
-0308 758804    1181            mov     _movement_manager_PARM_5,#0x04
-030B           1182   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:242: backward();
-030B 120000    1183            lcall   _backward
-030E           1184   L010015?:
-030E           1185   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:246: return state;
-030E 858882    1186            mov     dpl,_movement_manager_PARM_5
-0311 22        1187            ret
-0312           1188   ;------------------------------------------------------------
-0312           1189   ;Allocation info for local variables in function 'main'
-0312           1190   ;------------------------------------------------------------
-0312           1191   ;------------------------------------------------------------
-0312           1192   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:250: int main(void)
-0312           1193   ;        -----------------------------------------
-0312           1194   ;         function main
-0312           1195   ;        -----------------------------------------
-0312           1196   _main:
-0312           1197   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:252: TIMER3Init();
-0312 120000    1198            lcall   _TIMER3Init
-0315           1199   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:253: left(0);
-0315 900000    1200            mov     dptr,#(0x00&0x00ff)
-0318 E4        1201            clr     a
-0319 F5F0      1202            mov     b,a
-031B 120000    1203            lcall   _left
-031E           1204   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:254: state = left_enum;
-031E 75D801    1205            mov     _state,#0x01
-0321 E4        1206            clr     a
-0322 F5D9      1207            mov     (_state + 1),a
-0324           1208   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:255: while(1)
-0324           1209   L011002?:
-0324           1210   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:257: state = movement_manager(PWM_percent_x, PWM_percent_y, prev_PWM_percent_x, prev_PWM_percent_y, state);
-0324 85D888    1211            mov     _movement_manager_PARM_5,_state
-0327 859878    1212            mov     _movement_manager_PARM_2,_PWM_percent_y
-032A 859979    1213            mov     (_movement_manager_PARM_2 + 1),(_PWM_percent_y + 1)
-032D 859A7A    1214            mov     (_movement_manager_PARM_2 + 2),(_PWM_percent_y + 2)
-0330 859B7B    1215            mov     (_movement_manager_PARM_2 + 3),(_PWM_percent_y + 3)
-0333 851828    1216            mov     _movement_manager_PARM_3,_prev_PWM_percent_x
-0336 851929    1217            mov     (_movement_manager_PARM_3 + 1),(_prev_PWM_percent_x + 1)
-0339 851A2A    1218            mov     (_movement_manager_PARM_3 + 2),(_prev_PWM_percent_x + 2)
-033C 851B2B    1219            mov     (_movement_manager_PARM_3 + 3),(_prev_PWM_percent_x + 3)
-033F 85C8D8    1220            mov     _movement_manager_PARM_4,_prev_PWM_percent_y
-0342 85C9D9    1221            mov     (_movement_manager_PARM_4 + 1),(_prev_PWM_percent_y + 1)
-0345 85CADA    1222            mov     (_movement_manager_PARM_4 + 2),(_prev_PWM_percent_y + 2)
-0348 85CBDB    1223            mov     (_movement_manager_PARM_4 + 3),(_prev_PWM_percent_y + 3)
-034B 855882    1224            mov     dpl,_PWM_percent_x
-034E 855983    1225            mov     dph,(_PWM_percent_x + 1)
-0351 855AF0    1226            mov     b,(_PWM_percent_x + 2)
-0354 E55B      1227            mov     a,(_PWM_percent_x + 3)
-0356 120000    1228            lcall   _movement_manager
-0359 AA82      1229            mov     r2,dpl
-035B 8AD8      1230            mov     _state,r2
-035D 75D900    1231            mov     (_state + 1),#0x00
-0360           1232   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:258: prev_PWM_percent_x = PWM_percent_x;
-0360 855818    1233            mov     _prev_PWM_percent_x,_PWM_percent_x
-0363 855919    1234            mov     (_prev_PWM_percent_x + 1),(_PWM_percent_x + 1)
-0366 855A1A    1235            mov     (_prev_PWM_percent_x + 2),(_PWM_percent_x + 2)
-0369 855B1B    1236            mov     (_prev_PWM_percent_x + 3),(_PWM_percent_x + 3)
-036C           1237   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:259: prev_PWM_percent_y = PWM_percent_y;
-036C 8598C8    1238            mov     _prev_PWM_percent_y,_PWM_percent_y
-036F 8599C9    1239            mov     (_prev_PWM_percent_y + 1),(_PWM_percent_y + 1)
-0372 859ACA    1240            mov     (_prev_PWM_percent_y + 2),(_PWM_percent_y + 2)
-0375 859BCB    1241            mov     (_prev_PWM_percent_y + 3),(_PWM_percent_y + 3)
-0378 8000      1242            sjmp    L011002?
-037A           1243            rseg R_CSEG
-037A           1244   
-0000           1245            rseg R_XINIT
-0000           1246   
-0000           1247            rseg R_CONST
-0000           1248   
-0076           1249            CSEG
-0076           1250   
-0076           1251   end
+0000            566   ; Reset entry point and interrupt vectors
+0000            567   ;--------------------------------------------------------
+0000            568            CSEG at 0x0000
+0000 020000     569            ljmp    _crt0
+0073            570            CSEG at 0x0073
+0073 020000     571            ljmp    _Timer3_ISR
+008B            572            CSEG at 0x008b
+008B 020000     573            ljmp    _Timer4_ISR
+008E            574   ;--------------------------------------------------------
+008E            575   ; global & static initialisations
+008E            576   ;--------------------------------------------------------
+0000            577            rseg R_HOME
+0000            578            rseg R_GSINIT
+0000            579            rseg R_GSINIT
+0000            580   ;--------------------------------------------------------
+0000            581   ; data variables initialization
+0000            582   ;--------------------------------------------------------
+0000            583            rseg R_DINIT
+0000            584   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:16: int count = 0;
+0000 E4         585            clr     a
+0001 F598       586            mov     _count,a
+0003 F599       587            mov     (_count + 1),a
+0005            588   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:18: float PWM_percent_y = 0.25;
+0005 751800     589            mov     _PWM_percent_y,#0x00
+0008 751900     590            mov     (_PWM_percent_y + 1),#0x00
+000B 751A80     591            mov     (_PWM_percent_y + 2),#0x80
+000E 751B3E     592            mov     (_PWM_percent_y + 3),#0x3E
+0011            593   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:19: float PWM_percent_x = 0;
+0011 75D800     594            mov     _PWM_percent_x,#0x00
+0014 75D900     595            mov     (_PWM_percent_x + 1),#0x00
+0017 75DA00     596            mov     (_PWM_percent_x + 2),#0x00
+001A 75DB00     597            mov     (_PWM_percent_x + 3),#0x00
+001D            598   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:20: float prev_PWM_percent_x = 0;
+001D 759800     599            mov     _prev_PWM_percent_x,#0x00
+0020 759900     600            mov     (_prev_PWM_percent_x + 1),#0x00
+0023 759A00     601            mov     (_prev_PWM_percent_x + 2),#0x00
+0026 759B00     602            mov     (_prev_PWM_percent_x + 3),#0x00
+0029            603   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:21: float prev_PWM_percent_y = 0;
+0029 754800     604            mov     _prev_PWM_percent_y,#0x00
+002C 754900     605            mov     (_prev_PWM_percent_y + 1),#0x00
+002F 754A00     606            mov     (_prev_PWM_percent_y + 2),#0x00
+0032 754B00     607            mov     (_prev_PWM_percent_y + 3),#0x00
+0035            608            ; The linker places a 'ret' at the end of segment R_DINIT.
+0035            609   ;--------------------------------------------------------
+0035            610   ; code
+0035            611   ;--------------------------------------------------------
+0000            612            rseg R_CSEG
+0000            613   ;------------------------------------------------------------
+0000            614   ;Allocation info for local variables in function '_c51_external_startup'
+0000            615   ;------------------------------------------------------------
+0000            616   ;------------------------------------------------------------
+0000            617   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:23: char _c51_external_startup (void)
+0000            618   ;        -----------------------------------------
+0000            619   ;         function _c51_external_startup
+0000            620   ;        -----------------------------------------
+0000            621   __c51_external_startup:
+0000            622            using   0
+0000            623   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:26: SFRPAGE = 0x00;
+0000 75A700     624            mov     _SFRPAGE,#0x00
+0003            625   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:27: WDTCN = 0xDE; //First key
+0003 7597DE     626            mov     _WDTCN,#0xDE
+0006            627   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:28: WDTCN = 0xAD; //Second key
+0006 7597AD     628            mov     _WDTCN,#0xAD
+0009            629   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:30: VDM0CN=0x80;       // enable VDD monitor
+0009 75FF80     630            mov     _VDM0CN,#0x80
+000C            631   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:31: RSTSRC=0x02|0x04;  // Enable reset on missing clock detector and VDD
+000C 75EF06     632            mov     _RSTSRC,#0x06
+000F            633   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:38: SFRPAGE = 0x10;
+000F 75A710     634            mov     _SFRPAGE,#0x10
+0012            635   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:39: PFE0CN  = 0x20; // SYSCLK < 75 MHz.
+0012 75C120     636            mov     _PFE0CN,#0x20
+0015            637   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:40: SFRPAGE = 0x00;
+0015 75A700     638            mov     _SFRPAGE,#0x00
+0018            639   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:61: CLKSEL = 0x00;
+0018 75A900     640            mov     _CLKSEL,#0x00
+001B            641   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:62: CLKSEL = 0x00;
+001B 75A900     642            mov     _CLKSEL,#0x00
+001E            643   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:63: while ((CLKSEL & 0x80) == 0);
+001E            644   L002001?:
+001E E5A9       645            mov     a,_CLKSEL
+0020 30E7D8     646            jnb     acc.7,L002001?
+0023            647   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:64: CLKSEL = 0x03;
+0023 75A903     648            mov     _CLKSEL,#0x03
+0026            649   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:65: CLKSEL = 0x03;
+0026 75A903     650            mov     _CLKSEL,#0x03
+0029            651   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:66: while ((CLKSEL & 0x80) == 0);
+0029            652   L002004?:
+0029 E5A9       653            mov     a,_CLKSEL
+002B 30E758     654            jnb     acc.7,L002004?
+002E            655   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:71: P0MDOUT|=0b_1100_0010;
+002E 43A4C2     656            orl     _P0MDOUT,#0xC2
+0031            657   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:72: P1MDOUT|=0b_1111_1111;
+0031 E5A5       658            mov     a,_P1MDOUT
+0033 75A5FF     659            mov     _P1MDOUT,#0xFF
+0036            660   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:73: P2MDOUT|=0b_0001_1111;
+0036 43A61F     661            orl     _P2MDOUT,#0x1F
+0039            662   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:75: XBR0     = 0x00;                     
+0039 75E100     663            mov     _XBR0,#0x00
+003C            664   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:76: XBR1     = 0X00;
+003C 75E200     665            mov     _XBR1,#0x00
+003F            666   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:77: XBR2     = 0x40; // Enable crossbar and weak pull-ups
+003F 75E340     667            mov     _XBR2,#0x40
+0042            668   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:78: return 0;
+0042 758200     669            mov     dpl,#0x00
+0045 22         670            ret
+0046            671   ;------------------------------------------------------------
+0046            672   ;Allocation info for local variables in function 'TIMER3Init'
+0046            673   ;------------------------------------------------------------
+0046            674   ;------------------------------------------------------------
+0046            675   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:89: void TIMER3Init(void)
+0046            676   ;        -----------------------------------------
+0046            677   ;         function TIMER3Init
+0046            678   ;        -----------------------------------------
+0046            679   _TIMER3Init:
+0046            680   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:92: TMR3CN0=0x00;   // Stop Timer3; Clear TF3;
+0046 759100     681            mov     _TMR3CN0,#0x00
+0049            682   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:93: CKCON0|=0b_0100_0000; // Timer 3 uses the system clock
+0049 438E40     683            orl     _CKCON0,#0x40
+004C            684   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:94: TMR3RL=(0x10000L-(SYSCLK/(2*TIMER_3_FREQ))); // Initialize reload value
+004C 7592F0     685            mov     _TMR3RL,#0xF0
+004F 7593F1     686            mov     (_TMR3RL >> 8),#0xF1
+0052            687   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:95: TMR3=0xffff;   // Set to reload immediately
+0052 7594FF     688            mov     _TMR3,#0xFF
+0055 7595FF     689            mov     (_TMR3 >> 8),#0xFF
+0058            690   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:96: EIE1|=0b_1000_0000;     // Enable Timer3 interrupts
+0058 43E680     691            orl     _EIE1,#0x80
+005B            692   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:97: TMR3CN0|=0b_0000_0100;  // Start Timer3 (TMR3CN0 is not bit addressable)
+005B 439104     693            orl     _TMR3CN0,#0x04
+005E            694   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:98: EA = 1;
+005E D2AF       695            setb    _EA
+0060 22         696            ret
+0061            697   ;------------------------------------------------------------
+0061            698   ;Allocation info for local variables in function 'TIMER4Init'
+0061            699   ;------------------------------------------------------------
+0061            700   ;------------------------------------------------------------
+0061            701   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:100: void TIMER4Init(void)
+0061            702   ;        -----------------------------------------
+0061            703   ;         function TIMER4Init
+0061            704   ;        -----------------------------------------
+0061            705   _TIMER4Init:
+0061            706   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:103: SFRPAGE=0x10;
+0061 75A710     707            mov     _SFRPAGE,#0x10
+0064            708   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:104: TMR4CN0=0x00;   // Stop Timer4; Clear TF4; WARNING: lives in SFR page 0x10
+0064 759800     709            mov     _TMR4CN0,#0x00
+0067            710   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:105: CKCON1|=0b_0000_0001; // Timer 4 uses the system clock
+0067 43A601     711            orl     _CKCON1,#0x01
+006A            712   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:106: TMR4RL=(0x10000L-(SYSCLK/(2*TIMER_4_FREQ))); // Initialize reload value
+006A 75A260     713            mov     _TMR4RL,#0x60
+006D 75A373     714            mov     (_TMR4RL >> 8),#0x73
+0070            715   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:107: TMR4=0xffff;   // Set to reload immediately
+0070 75A4FF     716            mov     _TMR4,#0xFF
+0073 75A5FF     717            mov     (_TMR4 >> 8),#0xFF
+0076            718   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:108: EIE2|=0b_0000_0100;     // Enable Timer4 interrupts
+0076 43F304     719            orl     _EIE2,#0x04
+0079            720   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:109: TR4=1;
+0079 D29A       721            setb    _TR4
+007B 22         722            ret
+007C            723   ;------------------------------------------------------------
+007C            724   ;Allocation info for local variables in function 'Timer3_ISR'
+007C            725   ;------------------------------------------------------------
+007C            726   ;------------------------------------------------------------
+007C            727   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:112: void Timer3_ISR (void) interrupt INTERRUPT_TIMER3
+007C            728   ;        -----------------------------------------
+007C            729   ;         function Timer3_ISR
+007C            730   ;        -----------------------------------------
+007C            731   _Timer3_ISR:
+007C C098       732            push    bits
+007E C0E0       733            push    acc
+0080 C0F0       734            push    b
+0082 C082       735            push    dpl
+0084 C083       736            push    dph
+0086 C002       737            push    (0+2)
+0088 C003       738            push    (0+3)
+008A C004       739            push    (0+4)
+008C C005       740            push    (0+5)
+008E C006       741            push    (0+6)
+0090 C007       742            push    (0+7)
+0092 C000       743            push    (0+0)
+0094 C001       744            push    (0+1)
+0096 C0D0       745            push    psw
+0098 75D000     746            mov     psw,#0x00
+009B            747   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:114: SFRPAGE=0x0;
+009B 75A700     748            mov     _SFRPAGE,#0x00
+009E            749   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:115: TMR3CN0&=0b_0011_1111; // Clear Timer3 interrupt flags
+009E 53913F     750            anl     _TMR3CN0,#0x3F
+00A1            751   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:117: P1_2 = !P1_2;
+00A1 B292       752            cpl     _P1_2
+00A3            753   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:120: if (state != idle_enum)
+00A3 E558       754            mov     a,_state
+00A5 4559       755            orl     a,(_state + 1)
+00A7 7000       756            jnz     L005029?
+00A9 020000     757            ljmp    L005020?
+00AC            758   L005029?:
+00AC            759   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:122: if (count > 100)
+00AC C3         760            clr     c
+00AD 7464       761            mov     a,#0x64
+00AF 9598       762            subb    a,_count
+00B1 E4         763            clr     a
+00B2 6480       764            xrl     a,#0x80
+00B4 8599F0     765            mov     b,(_count + 1)
+00B7 63F080     766            xrl     b,#0x80
+00BA 95F0       767            subb    a,b
+00BC 5000       768            jnc     L005016?
+00BE            769   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:125: if (state == left_enum)
+00BE 7401       770            mov     a,#0x01
+00C0 B55858     771            cjne    a,_state,L005031?
+00C3 E4         772            clr     a
+00C4 B55958     773            cjne    a,(_state + 1),L005031?
+00C7 8000       774            sjmp    L005032?
+00C9            775   L005031?:
+00C9 8000       776            sjmp    L005005?
+00CB            777   L005032?:
+00CB            778   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:127: RIGHT_MOTOR_LHS = 1;
+00CB D2A2       779            setb    _P2_2
+00CD 8000       780            sjmp    L005006?
+00CF            781   L005005?:
+00CF            782   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:129: else if (state == right_enum)
+00CF 7402       783            mov     a,#0x02
+00D1 B55858     784            cjne    a,_state,L005033?
+00D4 E4         785            clr     a
+00D5 B55958     786            cjne    a,(_state + 1),L005033?
+00D8 8000       787            sjmp    L005034?
+00DA            788   L005033?:
+00DA 8000       789            sjmp    L005002?
+00DC            790   L005034?:
+00DC            791   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:131: LEFT_MOTOR_LHS = 1;
+00DC D2A4       792            setb    _P2_4
+00DE 8000       793            sjmp    L005006?
+00E0            794   L005002?:
+00E0            795   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:135: LEFT_MOTOR_LHS = 1;
+00E0 D2A4       796            setb    _P2_4
+00E2            797   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:136: RIGHT_MOTOR_LHS = 1;
+00E2 D2A2       798            setb    _P2_2
+00E4            799   L005006?:
+00E4            800   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:138: count = 0;
+00E4 E4         801            clr     a
+00E5 F598       802            mov     _count,a
+00E7 F599       803            mov     (_count + 1),a
+00E9 8000       804            sjmp    L005017?
+00EB            805   L005016?:
+00EB            806   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:140: else if (count > PWM_percent_y*100)
+00EB C018       807            push    _PWM_percent_y
+00ED C019       808            push    (_PWM_percent_y + 1)
+00EF C01A       809            push    (_PWM_percent_y + 2)
+00F1 C01B       810            push    (_PWM_percent_y + 3)
+00F3 900000     811            mov     dptr,#0x0000
+00F6 75F0C8     812            mov     b,#0xC8
+00F9 7442       813            mov     a,#0x42
+00FB 120000     814            lcall   ___fsmul
+00FE AA82       815            mov     r2,dpl
+0100 AB83       816            mov     r3,dph
+0102 ACF0       817            mov     r4,b
+0104 FD         818            mov     r5,a
+0105 E581       819            mov     a,sp
+0107 24FC       820            add     a,#0xfc
+0109 F581       821            mov     sp,a
+010B 859882     822            mov     dpl,_count
+010E 859983     823            mov     dph,(_count + 1)
+0111 C002       824            push    ar2
+0113 C003       825            push    ar3
+0115 C004       826            push    ar4
+0117 C005       827            push    ar5
+0119 120000     828            lcall   ___sint2fs
+011C 120000     829            lcall   ___fsgt
+011F AA82       830            mov     r2,dpl
+0121 E581       831            mov     a,sp
+0123 24FC       832            add     a,#0xfc
+0125 F581       833            mov     sp,a
+0127 EA         834            mov     a,r2
+0128 6000       835            jz      L005017?
+012A            836   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:143: if (state == left_enum)
+012A 7401       837            mov     a,#0x01
+012C B55858     838            cjne    a,_state,L005036?
+012F E4         839            clr     a
+0130 B55958     840            cjne    a,(_state + 1),L005036?
+0133 8000       841            sjmp    L005037?
+0135            842   L005036?:
+0135 8000       843            sjmp    L005011?
+0137            844   L005037?:
+0137            845   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:145: RIGHT_MOTOR_LHS = 0;
+0137 C2A2       846            clr     _P2_2
+0139 8000       847            sjmp    L005017?
+013B            848   L005011?:
+013B            849   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:147: else if (state == right_enum)
+013B 7402       850            mov     a,#0x02
+013D B55818     851            cjne    a,_state,L005038?
+0140 E4         852            clr     a
+0141 B55918     853            cjne    a,(_state + 1),L005038?
+0144 8000       854            sjmp    L005039?
+0146            855   L005038?:
+0146 8000       856            sjmp    L005008?
+0148            857   L005039?:
+0148            858   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:149: LEFT_MOTOR_LHS = 0;
+0148 C2A4       859            clr     _P2_4
+014A 8000       860            sjmp    L005017?
+014C            861   L005008?:
+014C            862   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:153: LEFT_MOTOR_LHS = 0;
+014C C2A4       863            clr     _P2_4
+014E            864   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:154: RIGHT_MOTOR_LHS = 0;
+014E C2A2       865            clr     _P2_2
+0150            866   L005017?:
+0150            867   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:157: count++;
+0150 0598       868            inc     _count
+0152 E4         869            clr     a
+0153 B598D8     870            cjne    a,_count,L005040?
+0156 0599       871            inc     (_count + 1)
+0158            872   L005040?:
+0158            873   L005020?:
+0158 D0D0       874            pop     psw
+015A D001       875            pop     (0+1)
+015C D000       876            pop     (0+0)
+015E D007       877            pop     (0+7)
+0160 D006       878            pop     (0+6)
+0162 D005       879            pop     (0+5)
+0164 D004       880            pop     (0+4)
+0166 D003       881            pop     (0+3)
+0168 D002       882            pop     (0+2)
+016A D083       883            pop     dph
+016C D082       884            pop     dpl
+016E D0F0       885            pop     b
+0170 D0E0       886            pop     acc
+0172 D098       887            pop     bits
+0174 32         888            reti
+0175            889   ;------------------------------------------------------------
+0175            890   ;Allocation info for local variables in function 'Timer4_ISR'
+0175            891   ;------------------------------------------------------------
+0175            892   ;------------------------------------------------------------
+0175            893   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:164: void Timer4_ISR (void) interrupt INTERRUPT_TIMER4
+0175            894   ;        -----------------------------------------
+0175            895   ;         function Timer4_ISR
+0175            896   ;        -----------------------------------------
+0175            897   _Timer4_ISR:
+0175            898   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:166: SFRPAGE=0x10;
+0175 75A710     899            mov     _SFRPAGE,#0x10
+0178            900   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:167: TF4H = 0; // Clear Timer4 interrupt flag
+0178 C29F       901            clr     _TF4H
+017A            902   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:168: P1_3 = !P1_3;
+017A B293       903            cpl     _P1_3
+017C 32         904            reti
+017D            905   ;        eliminated unneeded push/pop psw
+017D            906   ;        eliminated unneeded push/pop dpl
+017D            907   ;        eliminated unneeded push/pop dph
+017D            908   ;        eliminated unneeded push/pop b
+017D            909   ;        eliminated unneeded push/pop acc
+017D            910   ;------------------------------------------------------------
+017D            911   ;Allocation info for local variables in function 'idle'
+017D            912   ;------------------------------------------------------------
+017D            913   ;------------------------------------------------------------
+017D            914   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:171: void idle(void)
+017D            915   ;        -----------------------------------------
+017D            916   ;         function idle
+017D            917   ;        -----------------------------------------
+017D            918   _idle:
+017D            919   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:173: LEFT_MOTOR_LHS = 0;
+017D C2A4       920            clr     _P2_4
+017F            921   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:174: LEFT_MOTOR_RHS = 0;
+017F C2A3       922            clr     _P2_3
+0181            923   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:175: RIGHT_MOTOR_LHS = 0;
+0181 C2A2       924            clr     _P2_2
+0183            925   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:176: RIGHT_MOTOR_RHS = 0;
+0183 C2A1       926            clr     _P2_1
+0185 22         927            ret
+0186            928   ;------------------------------------------------------------
+0186            929   ;Allocation info for local variables in function 'straight'
+0186            930   ;------------------------------------------------------------
+0186            931   ;------------------------------------------------------------
+0186            932   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:179: void straight(void)
+0186            933   ;        -----------------------------------------
+0186            934   ;         function straight
+0186            935   ;        -----------------------------------------
+0186            936   _straight:
+0186            937   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:181: LEFT_MOTOR_LHS = 1;
+0186 D2A4       938            setb    _P2_4
+0188            939   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:182: LEFT_MOTOR_RHS = 0;
+0188 C2A3       940            clr     _P2_3
+018A            941   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:183: RIGHT_MOTOR_LHS = 1;
+018A D2A2       942            setb    _P2_2
+018C            943   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:184: RIGHT_MOTOR_RHS = 0;
+018C C2A1       944            clr     _P2_1
+018E 22         945            ret
+018F            946   ;------------------------------------------------------------
+018F            947   ;Allocation info for local variables in function 'backward'
+018F            948   ;------------------------------------------------------------
+018F            949   ;------------------------------------------------------------
+018F            950   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:187: void backward(void)
+018F            951   ;        -----------------------------------------
+018F            952   ;         function backward
+018F            953   ;        -----------------------------------------
+018F            954   _backward:
+018F            955   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:189: LEFT_MOTOR_LHS = 0;
+018F C2A4       956            clr     _P2_4
+0191            957   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:190: LEFT_MOTOR_RHS = 1;
+0191 D2A3       958            setb    _P2_3
+0193            959   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:191: RIGHT_MOTOR_LHS = 0;
+0193 C2A2       960            clr     _P2_2
+0195            961   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:192: RIGHT_MOTOR_RHS = 1;
+0195 D2A1       962            setb    _P2_1
+0197 22         963            ret
+0198            964   ;------------------------------------------------------------
+0198            965   ;Allocation info for local variables in function 'left'
+0198            966   ;------------------------------------------------------------
+0198            967   ;PWM_percent_y             Allocated to registers r2 r3 r4 r5 
+0198            968   ;------------------------------------------------------------
+0198            969   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:195: void left(float PWM_percent_y)
+0198            970   ;        -----------------------------------------
+0198            971   ;         function left
+0198            972   ;        -----------------------------------------
+0198            973   _left:
+0198 AA82       974            mov     r2,dpl
+019A AB83       975            mov     r3,dph
+019C ACF0       976            mov     r4,b
+019E FD         977            mov     r5,a
+019F            978   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:203: LEFT_MOTOR_LHS = 0;
+019F C2A4       979            clr     _P2_4
+01A1            980   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:204: LEFT_MOTOR_RHS = 0;
+01A1 C2A3       981            clr     _P2_3
+01A3            982   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:206: if (PWM_percent_y > 0)
+01A3 E4         983            clr     a
+01A4 C0E0       984            push    acc
+01A6 C0E0       985            push    acc
+01A8 C0E0       986            push    acc
+01AA C0E0       987            push    acc
+01AC 8A82       988            mov     dpl,r2
+01AE 8B83       989            mov     dph,r3
+01B0 8CF0       990            mov     b,r4
+01B2 ED         991            mov     a,r5
+01B3 120000     992            lcall   ___fsgt
+01B6 AA82       993            mov     r2,dpl
+01B8 E581       994            mov     a,sp
+01BA 24FC       995            add     a,#0xfc
+01BC F581       996            mov     sp,a
+01BE EA         997            mov     a,r2
+01BF 6000       998            jz      L010002?
+01C1            999   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:208: RIGHT_MOTOR_LHS = 1;
+01C1 D2A2      1000            setb    _P2_2
+01C3           1001   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:209: RIGHT_MOTOR_RHS = 0;
+01C3 C2A1      1002            clr     _P2_1
+01C5 22        1003            ret
+01C6           1004   L010002?:
+01C6           1005   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:213: RIGHT_MOTOR_LHS = 0;
+01C6 C2A2      1006            clr     _P2_2
+01C8           1007   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:214: RIGHT_MOTOR_RHS = 1;
+01C8 D2A1      1008            setb    _P2_1
+01CA 22        1009            ret
+01CB           1010   ;------------------------------------------------------------
+01CB           1011   ;Allocation info for local variables in function 'right'
+01CB           1012   ;------------------------------------------------------------
+01CB           1013   ;PWM_percent_y             Allocated to registers r2 r3 r4 r5 
+01CB           1014   ;------------------------------------------------------------
+01CB           1015   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:219: void right(float PWM_percent_y)
+01CB           1016   ;        -----------------------------------------
+01CB           1017   ;         function right
+01CB           1018   ;        -----------------------------------------
+01CB           1019   _right:
+01CB AA82      1020            mov     r2,dpl
+01CD AB83      1021            mov     r3,dph
+01CF ACF0      1022            mov     r4,b
+01D1 FD        1023            mov     r5,a
+01D2           1024   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:222: RIGHT_MOTOR_LHS = 0;
+01D2 C2A2      1025            clr     _P2_2
+01D4           1026   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:223: RIGHT_MOTOR_RHS = 0;
+01D4 C2A1      1027            clr     _P2_1
+01D6           1028   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:225: if (PWM_percent_y > 0)
+01D6 E4        1029            clr     a
+01D7 C0E0      1030            push    acc
+01D9 C0E0      1031            push    acc
+01DB C0E0      1032            push    acc
+01DD C0E0      1033            push    acc
+01DF 8A82      1034            mov     dpl,r2
+01E1 8B83      1035            mov     dph,r3
+01E3 8CF0      1036            mov     b,r4
+01E5 ED        1037            mov     a,r5
+01E6 120000    1038            lcall   ___fsgt
+01E9 AA82      1039            mov     r2,dpl
+01EB E581      1040            mov     a,sp
+01ED 24FC      1041            add     a,#0xfc
+01EF F581      1042            mov     sp,a
+01F1 EA        1043            mov     a,r2
+01F2 6000      1044            jz      L011002?
+01F4           1045   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:227: LEFT_MOTOR_LHS = 1;
+01F4 D2A4      1046            setb    _P2_4
+01F6           1047   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:228: LEFT_MOTOR_RHS = 0;
+01F6 C2A3      1048            clr     _P2_3
+01F8 22        1049            ret
+01F9           1050   L011002?:
+01F9           1051   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:232: LEFT_MOTOR_LHS = 0;
+01F9 C2A4      1052            clr     _P2_4
+01FB           1053   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:233: LEFT_MOTOR_RHS = 1;
+01FB D2A3      1054            setb    _P2_3
+01FD 22        1055            ret
+01FE           1056   ;------------------------------------------------------------
+01FE           1057   ;Allocation info for local variables in function 'movement_manager'
+01FE           1058   ;------------------------------------------------------------
+01FE           1059   ;PWM_percent_y             Allocated with name '_movement_manager_PARM_2'
+01FE           1060   ;prev_PWM_percent_x        Allocated with name '_movement_manager_PARM_3'
+01FE           1061   ;prev_PWM_percent_y        Allocated with name '_movement_manager_PARM_4'
+01FE           1062   ;state                     Allocated with name '_movement_manager_PARM_5'
+01FE           1063   ;PWM_percent_x             Allocated to registers r2 r3 r4 r5 
+01FE           1064   ;------------------------------------------------------------
+01FE           1065   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:238: enum State movement_manager(float PWM_percent_x, float PWM_percent_y, float prev_PWM_percent_x, float prev_PWM_percent_y, enum State state)
+01FE           1066   ;        -----------------------------------------
+01FE           1067   ;         function movement_manager
+01FE           1068   ;        -----------------------------------------
+01FE           1069   _movement_manager:
+01FE AA82      1070            mov     r2,dpl
+0200 AB83      1071            mov     r3,dph
+0202 ACF0      1072            mov     r4,b
+0204 FD        1073            mov     r5,a
+0205           1074   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:241: if (prev_PWM_percent_x != PWM_percent_x || prev_PWM_percent_y != PWM_percent_y)
+0205 C002      1075            push    ar2
+0207 C003      1076            push    ar3
+0209 C004      1077            push    ar4
+020B C005      1078            push    ar5
+020D C002      1079            push    ar2
+020F C003      1080            push    ar3
+0211 C004      1081            push    ar4
+0213 C005      1082            push    ar5
+0215 85A882    1083            mov     dpl,_movement_manager_PARM_3
+0218 85A983    1084            mov     dph,(_movement_manager_PARM_3 + 1)
+021B 85AAF0    1085            mov     b,(_movement_manager_PARM_3 + 2)
+021E E5AB      1086            mov     a,(_movement_manager_PARM_3 + 3)
+0220 120000    1087            lcall   ___fseq
+0223 AE82      1088            mov     r6,dpl
+0225 E581      1089            mov     a,sp
+0227 24FC      1090            add     a,#0xfc
+0229 F581      1091            mov     sp,a
+022B D005      1092            pop     ar5
+022D D004      1093            pop     ar4
+022F D003      1094            pop     ar3
+0231 D002      1095            pop     ar2
+0233 EE        1096            mov     a,r6
+0234 6000      1097            jz      L012014?
+0236 C002      1098            push    ar2
+0238 C003      1099            push    ar3
+023A C004      1100            push    ar4
+023C C005      1101            push    ar5
+023E C0F8      1102            push    _movement_manager_PARM_2
+0240 C0F9      1103            push    (_movement_manager_PARM_2 + 1)
+0242 C0FA      1104            push    (_movement_manager_PARM_2 + 2)
+0244 C0FB      1105            push    (_movement_manager_PARM_2 + 3)
+0246 855882    1106            mov     dpl,_movement_manager_PARM_4
+0249 855983    1107            mov     dph,(_movement_manager_PARM_4 + 1)
+024C 855AF0    1108            mov     b,(_movement_manager_PARM_4 + 2)
+024F E55B      1109            mov     a,(_movement_manager_PARM_4 + 3)
+0251 120000    1110            lcall   ___fseq
+0254 AE82      1111            mov     r6,dpl
+0256 E581      1112            mov     a,sp
+0258 24FC      1113            add     a,#0xfc
+025A F581      1114            mov     sp,a
+025C D005      1115            pop     ar5
+025E D004      1116            pop     ar4
+0260 D003      1117            pop     ar3
+0262 D002      1118            pop     ar2
+0264 EE        1119            mov     a,r6
+0265 6000      1120            jz      L012026?
+0267 020000    1121            ljmp    L012015?
+026A           1122   L012026?:
+026A           1123   L012014?:
+026A           1124   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:243: if (PWM_percent_y == 0 && PWM_percent_x == 0)
+026A E5F8      1125            mov     a,_movement_manager_PARM_2
+026C 45F9      1126            orl     a,(_movement_manager_PARM_2 + 1)
+026E 45FA      1127            orl     a,(_movement_manager_PARM_2 + 2)
+0270 85FBF0    1128            mov     b,(_movement_manager_PARM_2 + 3)
+0273 C2F7      1129            clr     b.7 ; Clear the sign bit
+0275 45F0      1130            orl     a,b
+0277 7000      1131            jnz     L012011?
+0279 EA        1132            mov     a,r2
+027A 4B        1133            orl     a,r3
+027B 4C        1134            orl     a,r4
+027C 8DF0      1135            mov     b,r5
+027E C2F7      1136            clr     b.7 ; Clear the sign bit
+0280 45F0      1137            orl     a,b
+0282           1138   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:245: state = idle_enum;
+0282 7000      1139            jnz     L012011?
+0284 F508      1140            mov     _movement_manager_PARM_5,a
+0286           1141   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:246: idle();
+0286 120000    1142            lcall   _idle
+0289 020000    1143            ljmp    L012015?
+028C           1144   L012011?:
+028C           1145   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:248: else if (PWM_percent_x < 0)
+028C C002      1146            push    ar2
+028E C003      1147            push    ar3
+0290 C004      1148            push    ar4
+0292 C005      1149            push    ar5
+0294 E4        1150            clr     a
+0295 C0E0      1151            push    acc
+0297 C0E0      1152            push    acc
+0299 C0E0      1153            push    acc
+029B C0E0      1154            push    acc
+029D 8A82      1155            mov     dpl,r2
+029F 8B83      1156            mov     dph,r3
+02A1 8CF0      1157            mov     b,r4
+02A3 ED        1158            mov     a,r5
+02A4 120000    1159            lcall   ___fslt
+02A7 AE82      1160            mov     r6,dpl
+02A9 E581      1161            mov     a,sp
+02AB 24FC      1162            add     a,#0xfc
+02AD F581      1163            mov     sp,a
+02AF D005      1164            pop     ar5
+02B1 D004      1165            pop     ar4
+02B3 D003      1166            pop     ar3
+02B5 D002      1167            pop     ar2
+02B7 EE        1168            mov     a,r6
+02B8 6000      1169            jz      L012008?
+02BA           1170   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:250: state = left_enum;
+02BA 750801    1171            mov     _movement_manager_PARM_5,#0x01
+02BD           1172   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:251: left(PWM_percent_y);
+02BD 85F882    1173            mov     dpl,_movement_manager_PARM_2
+02C0 85F983    1174            mov     dph,(_movement_manager_PARM_2 + 1)
+02C3 85FAF0    1175            mov     b,(_movement_manager_PARM_2 + 2)
+02C6 E5FB      1176            mov     a,(_movement_manager_PARM_2 + 3)
+02C8 120000    1177            lcall   _left
+02CB 8000      1178            sjmp    L012015?
+02CD           1179   L012008?:
+02CD           1180   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:253: else if (PWM_percent_x > 0)
+02CD E4        1181            clr     a
+02CE C0E0      1182            push    acc
+02D0 C0E0      1183            push    acc
+02D2 C0E0      1184            push    acc
+02D4 C0E0      1185            push    acc
+02D6 8A82      1186            mov     dpl,r2
+02D8 8B83      1187            mov     dph,r3
+02DA 8CF0      1188            mov     b,r4
+02DC ED        1189            mov     a,r5
+02DD 120000    1190            lcall   ___fsgt
+02E0 AA82      1191            mov     r2,dpl
+02E2 E581      1192            mov     a,sp
+02E4 24FC      1193            add     a,#0xfc
+02E6 F581      1194            mov     sp,a
+02E8 EA        1195            mov     a,r2
+02E9 6000      1196            jz      L012005?
+02EB           1197   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:255: state = right_enum;
+02EB 750802    1198            mov     _movement_manager_PARM_5,#0x02
+02EE           1199   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:256: right(PWM_percent_y);
+02EE 85F882    1200            mov     dpl,_movement_manager_PARM_2
+02F1 85F983    1201            mov     dph,(_movement_manager_PARM_2 + 1)
+02F4 85FAF0    1202            mov     b,(_movement_manager_PARM_2 + 2)
+02F7 E5FB      1203            mov     a,(_movement_manager_PARM_2 + 3)
+02F9 120000    1204            lcall   _right
+02FC 8000      1205            sjmp    L012015?
+02FE           1206   L012005?:
+02FE           1207   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:258: else if (PWM_percent_y > 0)
+02FE E4        1208            clr     a
+02FF C0E0      1209            push    acc
+0301 C0E0      1210            push    acc
+0303 C0E0      1211            push    acc
+0305 C0E0      1212            push    acc
+0307 85F882    1213            mov     dpl,_movement_manager_PARM_2
+030A 85F983    1214            mov     dph,(_movement_manager_PARM_2 + 1)
+030D 85FAF0    1215            mov     b,(_movement_manager_PARM_2 + 2)
+0310 E5FB      1216            mov     a,(_movement_manager_PARM_2 + 3)
+0312 120000    1217            lcall   ___fsgt
+0315 AA82      1218            mov     r2,dpl
+0317 E581      1219            mov     a,sp
+0319 24FC      1220            add     a,#0xfc
+031B F581      1221            mov     sp,a
+031D EA        1222            mov     a,r2
+031E 6000      1223            jz      L012002?
+0320           1224   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:260: state = straight_enum;
+0320 750803    1225            mov     _movement_manager_PARM_5,#0x03
+0323           1226   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:261: straight();
+0323 120000    1227            lcall   _straight
+0326 8000      1228            sjmp    L012015?
+0328           1229   L012002?:
+0328           1230   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:265: state = backward_enum;
+0328 750804    1231            mov     _movement_manager_PARM_5,#0x04
+032B           1232   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:266: backward();
+032B 120000    1233            lcall   _backward
+032E           1234   L012015?:
+032E           1235   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:270: return state;
+032E 850882    1236            mov     dpl,_movement_manager_PARM_5
+0331 22        1237            ret
+0332           1238   ;------------------------------------------------------------
+0332           1239   ;Allocation info for local variables in function 'main'
+0332           1240   ;------------------------------------------------------------
+0332           1241   ;------------------------------------------------------------
+0332           1242   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:274: int main(void)
+0332           1243   ;        -----------------------------------------
+0332           1244   ;         function main
+0332           1245   ;        -----------------------------------------
+0332           1246   _main:
+0332           1247   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:276: TIMER3Init();
+0332 120000    1248            lcall   _TIMER3Init
+0335           1249   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:277: TIMER4Init();
+0335 120000    1250            lcall   _TIMER4Init
+0338           1251   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:278: left(0.5);
+0338 900000    1252            mov     dptr,#(0x00&0x00ff)
+033B E4        1253            clr     a
+033C F5F0      1254            mov     b,a
+033E 743F      1255            mov     a,#0x3F
+0340 120000    1256            lcall   _left
+0343           1257   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:279: state = left_enum;
+0343 755801    1258            mov     _state,#0x01
+0346 E4        1259            clr     a
+0347 F559      1260            mov     (_state + 1),a
+0349           1261   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:280: while(1)
+0349           1262   L013002?:
+0349           1263   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:282: state = movement_manager(PWM_percent_x, PWM_percent_y, prev_PWM_percent_x, prev_PWM_percent_y, state);
+0349 855808    1264            mov     _movement_manager_PARM_5,_state
+034C 8518F8    1265            mov     _movement_manager_PARM_2,_PWM_percent_y
+034F 8519F9    1266            mov     (_movement_manager_PARM_2 + 1),(_PWM_percent_y + 1)
+0352 851AFA    1267            mov     (_movement_manager_PARM_2 + 2),(_PWM_percent_y + 2)
+0355 851BFB    1268            mov     (_movement_manager_PARM_2 + 3),(_PWM_percent_y + 3)
+0358 8598A8    1269            mov     _movement_manager_PARM_3,_prev_PWM_percent_x
+035B 8599A9    1270            mov     (_movement_manager_PARM_3 + 1),(_prev_PWM_percent_x + 1)
+035E 859AAA    1271            mov     (_movement_manager_PARM_3 + 2),(_prev_PWM_percent_x + 2)
+0361 859BAB    1272            mov     (_movement_manager_PARM_3 + 3),(_prev_PWM_percent_x + 3)
+0364 854858    1273            mov     _movement_manager_PARM_4,_prev_PWM_percent_y
+0367 854959    1274            mov     (_movement_manager_PARM_4 + 1),(_prev_PWM_percent_y + 1)
+036A 854A5A    1275            mov     (_movement_manager_PARM_4 + 2),(_prev_PWM_percent_y + 2)
+036D 854B5B    1276            mov     (_movement_manager_PARM_4 + 3),(_prev_PWM_percent_y + 3)
+0370 85D882    1277            mov     dpl,_PWM_percent_x
+0373 85D983    1278            mov     dph,(_PWM_percent_x + 1)
+0376 85DAF0    1279            mov     b,(_PWM_percent_x + 2)
+0379 E5DB      1280            mov     a,(_PWM_percent_x + 3)
+037B 120000    1281            lcall   _movement_manager
+037E AA82      1282            mov     r2,dpl
+0380 8A58      1283            mov     _state,r2
+0382 755900    1284            mov     (_state + 1),#0x00
+0385           1285   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:283: prev_PWM_percent_x = PWM_percent_x;
+0385 85D898    1286            mov     _prev_PWM_percent_x,_PWM_percent_x
+0388 85D999    1287            mov     (_prev_PWM_percent_x + 1),(_PWM_percent_x + 1)
+038B 85DA9A    1288            mov     (_prev_PWM_percent_x + 2),(_PWM_percent_x + 2)
+038E 85DB9B    1289            mov     (_prev_PWM_percent_x + 3),(_PWM_percent_x + 3)
+0391           1290   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:284: prev_PWM_percent_y = PWM_percent_y;
+0391 851848    1291            mov     _prev_PWM_percent_y,_PWM_percent_y
+0394 851949    1292            mov     (_prev_PWM_percent_y + 1),(_PWM_percent_y + 1)
+0397 851A4A    1293            mov     (_prev_PWM_percent_y + 2),(_PWM_percent_y + 2)
+039A 851B4B    1294            mov     (_prev_PWM_percent_y + 3),(_PWM_percent_y + 3)
+039D 8000      1295            sjmp    L013002?
+039F           1296            rseg R_CSEG
+039F           1297   
+0000           1298            rseg R_XINIT
+0000           1299   
+0000           1300            rseg R_CONST
+0000           1301   
+008E           1302            CSEG
+008E           1303   
+008E           1304   end

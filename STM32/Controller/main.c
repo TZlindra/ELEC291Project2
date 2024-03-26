@@ -44,8 +44,11 @@
 char LCD_BUFF[CHARS_PER_LINE]; // Buffer for LCD Display
 
 volatile int Timer2Count = 0;
-volatile int Timer21Count = 0;
+volatile int TX21Count = 0;
+volatile int RX21Count = 0;
 volatile float Timer2Ratio = 5;
+
+volatile int inductance = 0;
 
 float x = 0, y = 0;
 float standardized_x = 0, standardized_y = 0;
@@ -81,11 +84,18 @@ void TIM2_Handler(void) {
 
 void TIM21_Handler(void) {
 	TIM21->SR &= ~BIT0; // Clear Update Interrupt Flag
-	Timer21Count++;
+	TX21Count++;
+	RX21Count++;
 	// TogglePin();
-	if (Timer21Count > 1000) {
-		Timer21Count = 0;
+
+	if (TX21Count > 1000) {
+		TX21Count = 0;
 		Send_X_Y(standardized_x, standardized_y);
+	}
+
+	if (RX21Count > 5000) {
+		RX21Count = 0;
+		inductance = ReceiveInductance(inductance);
 	}
 }
 
@@ -169,10 +179,7 @@ int IsButtonPressed(void) {
 }
 
 void display_x_y(float x, float y) {
-	sprintf(LCD_BUFF, "X DIR: %.2f", x);
-	LCDprint(LCD_BUFF, 1, 1);
-
-	sprintf(LCD_BUFF, "Y DIR: %.2f", y);
+	sprintf(LCD_BUFF, "(%.1f, %.1f)", x, y);
 	LCDprint(LCD_BUFF, 2, 1);
 }
 
@@ -187,7 +194,7 @@ void display_adc(float x, float standardized_x, float y, float standardized_y) {
 }
 
 void display_inductance(float inductance) {
-	sprintf(LCD_BUFF, "Inductance: %d", (int) inductance);
+	sprintf(LCD_BUFF, "I: %d", (int) inductance);
 	LCDprint(LCD_BUFF, 1, 1);
 }
 
@@ -218,17 +225,12 @@ void main(void) {
 		standardized_x = standardize_x(x);
 		standardized_y = standardize_y(y);
 
-		// while (!(IsButtonPressed()))
-		// {
-		// 	TIM2->CR1 &= !BIT0; // enable counter enable
-		// }
+		printf("I: %d\r\n", inductance);
 
-		// TIM2->CR1 |= BIT0;
-
-		ReceiveCommand();
 		if (IsButtonPressed()) Timer2Ratio = ChangeSpeakerRatio(Timer2Ratio);
 
 		// Display the ADC values on the LCD
+		display_inductance(inductance);
 		display_x_y(standardized_x, standardized_y);
 
 		// display_x_y(x, y);

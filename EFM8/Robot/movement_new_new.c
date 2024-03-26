@@ -117,46 +117,44 @@ void Timer3_ISR (void) interrupt INTERRUPT_TIMER3
     P1_2 = !P1_2;
     //P2_1 = !P2_1;
 
-    if (state != idle_enum)
-    {
-        if (count > 100)
-        {
-            // turn on
-            if (state == left_enum)
-            {
-                RIGHT_MOTOR_LHS = 1;
-            }
-            else if (state == right_enum)
-            {
-                LEFT_MOTOR_LHS = 1;
-            }
-            else
-            {
-                LEFT_MOTOR_LHS = 1;
-                RIGHT_MOTOR_LHS = 1;
-            }
-            count = 0;
-        }
-        else if (count > PWM_percent_y*100)
-        {
-            //turn off
-            if (state == left_enum)
-            {
-                RIGHT_MOTOR_LHS = 0;
-            }
-            else if (state == right_enum)
-            {
-                LEFT_MOTOR_LHS = 0;
-            }
-            else
-            {
-                LEFT_MOTOR_LHS = 0;
-                RIGHT_MOTOR_LHS = 0;
-            }
-        }
-        count++;
 
+    if (count > 100)
+    {
+        // turn on
+        if (state == left_enum)
+        {
+            RIGHT_MOTOR_LHS = 1;
+        }
+        else if (state == right_enum)
+        {
+            LEFT_MOTOR_LHS = 1;
+        }
+        else
+        {
+            LEFT_MOTOR_LHS = 1;
+            RIGHT_MOTOR_LHS = 1;
+        }
+        count = 0;
     }
+    else if (count > PWM_percent_y*100)
+    {
+        //turn off
+        if (state == left_enum)
+        {
+            RIGHT_MOTOR_LHS = 0;
+        }
+        else if (state == right_enum)
+        {
+            LEFT_MOTOR_LHS = 0;
+        }
+        else
+        {
+            LEFT_MOTOR_LHS = 0;
+            RIGHT_MOTOR_LHS = 0;
+        }
+    }
+    count++;
+
 
 
 }
@@ -195,7 +193,7 @@ void backward(void)
     RIGHT_MOTOR_RHS = 1;
 }
 
-void left(float PWM_percent_x)
+void left(float PWM_percent_x, float PWM_percent_y)
 {
     // to change later
     /*
@@ -209,37 +207,40 @@ void left(float PWM_percent_x)
     
     */
 
-    LEFT_MOTOR_LHS = 0;
-    LEFT_MOTOR_RHS = 0;
-
+    
     if (PWM_percent_x > 0)
     {
         RIGHT_MOTOR_LHS = 1;
         RIGHT_MOTOR_RHS = 0;
+        LEFT_MOTOR_LHS = 1;
+        LEFT_MOTOR_RHS = 0;
     }
     else
-    {
+    {   
         RIGHT_MOTOR_LHS = 0;
         RIGHT_MOTOR_RHS = 1;
+        LEFT_MOTOR_LHS = 0;
+        LEFT_MOTOR_RHS = 1;
     }
 
 }
 
-void right(float PWM_percent_y)
+void right(float PWM_percent_x, float PWM_percent_y)
 {
-    // to change later
-    RIGHT_MOTOR_LHS = 0;
-    RIGHT_MOTOR_RHS = 0;
 
     if (PWM_percent_y > 0)
     {
         LEFT_MOTOR_LHS = 1;
         LEFT_MOTOR_RHS = 0;
+        RIGHT_MOTOR_LHS = 1;
+        RIGHT_MOTOR_RHS = 0;
     }
     else
     {
         LEFT_MOTOR_LHS = 0;
         LEFT_MOTOR_RHS = 1;
+         RIGHT_MOTOR_LHS = 0;
+        RIGHT_MOTOR_RHS = 1;
     }
 
 }
@@ -257,12 +258,12 @@ enum State movement_manager(float PWM_percent_x, float PWM_percent_y, float prev
         else if (PWM_percent_x < 0)
         {
             state = left_enum;
-            left(PWM_percent_y);
+            left(PWM_percent_x, PWM_percent_y);
         }
         else if (PWM_percent_x > 0)
         {
             state = right_enum;
-            right(PWM_percent_y);
+            right(PWM_percent_x, PWM_percent_y);
         }
         else if (PWM_percent_y > 0)
         {
@@ -280,10 +281,13 @@ enum State movement_manager(float PWM_percent_x, float PWM_percent_y, float prev
 
 }
 
-void x_value_PWM_manager(void)
+float PWM_manager(float x_value, float y_value, float array[])
 {
+    if ()
+    array[0] = ;
     
 }
+
 
 int main(void)
 {

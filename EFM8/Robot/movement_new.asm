@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
 ; File Created by C51
 ; Version 1.0.0 #1170 (Feb 16 2022) (MSVC)
-; This file was generated Tue Mar 26 12:48:45 2024
+; This file was generated Tue Mar 26 13:20:23 2024
 ;--------------------------------------------------------
 $name movement_new
 $optc51 --model-small
@@ -30,7 +30,9 @@ $optc51 --model-small
 	public _backward
 	public _straight
 	public _idle
+	public _Timer4_ISR
 	public _Timer3_ISR
+	public _TIMER4Init
 	public _TIMER3Init
 	public __c51_external_startup
 	public _movement_manager_PARM_5
@@ -567,6 +569,8 @@ _movement_manager_PARM_5:
 	ljmp	_crt0
 	CSEG at 0x0073
 	ljmp	_Timer3_ISR
+	CSEG at 0x008b
+	ljmp	_Timer4_ISR
 ;--------------------------------------------------------
 ; global & static initialisations
 ;--------------------------------------------------------
@@ -577,26 +581,26 @@ _movement_manager_PARM_5:
 ; data variables initialization
 ;--------------------------------------------------------
 	rseg R_DINIT
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:15: int count = 0;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:16: int count = 0;
 	clr	a
 	mov	_count,a
 	mov	(_count + 1),a
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:17: float PWM_percent_y = 0.5;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:18: float PWM_percent_y = 0.25;
 	mov	_PWM_percent_y,#0x00
 	mov	(_PWM_percent_y + 1),#0x00
-	mov	(_PWM_percent_y + 2),#0x00
-	mov	(_PWM_percent_y + 3),#0x3F
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:18: float PWM_percent_x = 0;
+	mov	(_PWM_percent_y + 2),#0x80
+	mov	(_PWM_percent_y + 3),#0x3E
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:19: float PWM_percent_x = 0;
 	mov	_PWM_percent_x,#0x00
 	mov	(_PWM_percent_x + 1),#0x00
 	mov	(_PWM_percent_x + 2),#0x00
 	mov	(_PWM_percent_x + 3),#0x00
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:19: float prev_PWM_percent_x = 0;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:20: float prev_PWM_percent_x = 0;
 	mov	_prev_PWM_percent_x,#0x00
 	mov	(_prev_PWM_percent_x + 1),#0x00
 	mov	(_prev_PWM_percent_x + 2),#0x00
 	mov	(_prev_PWM_percent_x + 3),#0x00
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:20: float prev_PWM_percent_y = 0;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:21: float prev_PWM_percent_y = 0;
 	mov	_prev_PWM_percent_y,#0x00
 	mov	(_prev_PWM_percent_y + 1),#0x00
 	mov	(_prev_PWM_percent_y + 2),#0x00
@@ -610,91 +614,117 @@ _movement_manager_PARM_5:
 ;Allocation info for local variables in function '_c51_external_startup'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:22: char _c51_external_startup (void)
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:23: char _c51_external_startup (void)
 ;	-----------------------------------------
 ;	 function _c51_external_startup
 ;	-----------------------------------------
 __c51_external_startup:
 	using	0
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:25: SFRPAGE = 0x00;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:26: SFRPAGE = 0x00;
 	mov	_SFRPAGE,#0x00
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:26: WDTCN = 0xDE; //First key
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:27: WDTCN = 0xDE; //First key
 	mov	_WDTCN,#0xDE
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:27: WDTCN = 0xAD; //Second key
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:28: WDTCN = 0xAD; //Second key
 	mov	_WDTCN,#0xAD
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:29: VDM0CN=0x80;       // enable VDD monitor
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:30: VDM0CN=0x80;       // enable VDD monitor
 	mov	_VDM0CN,#0x80
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:30: RSTSRC=0x02|0x04;  // Enable reset on missing clock detector and VDD
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:31: RSTSRC=0x02|0x04;  // Enable reset on missing clock detector and VDD
 	mov	_RSTSRC,#0x06
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:37: SFRPAGE = 0x10;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:38: SFRPAGE = 0x10;
 	mov	_SFRPAGE,#0x10
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:38: PFE0CN  = 0x20; // SYSCLK < 75 MHz.
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:39: PFE0CN  = 0x20; // SYSCLK < 75 MHz.
 	mov	_PFE0CN,#0x20
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:39: SFRPAGE = 0x00;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:40: SFRPAGE = 0x00;
 	mov	_SFRPAGE,#0x00
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:60: CLKSEL = 0x00;
-	mov	_CLKSEL,#0x00
 ;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:61: CLKSEL = 0x00;
 	mov	_CLKSEL,#0x00
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:62: while ((CLKSEL & 0x80) == 0);
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:62: CLKSEL = 0x00;
+	mov	_CLKSEL,#0x00
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:63: while ((CLKSEL & 0x80) == 0);
 L002001?:
 	mov	a,_CLKSEL
 	jnb	acc.7,L002001?
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:63: CLKSEL = 0x03;
-	mov	_CLKSEL,#0x03
 ;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:64: CLKSEL = 0x03;
 	mov	_CLKSEL,#0x03
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:65: while ((CLKSEL & 0x80) == 0);
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:65: CLKSEL = 0x03;
+	mov	_CLKSEL,#0x03
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:66: while ((CLKSEL & 0x80) == 0);
 L002004?:
 	mov	a,_CLKSEL
 	jnb	acc.7,L002004?
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:70: P0MDOUT|=0b_1100_0010;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:71: P0MDOUT|=0b_1100_0010;
 	orl	_P0MDOUT,#0xC2
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:71: P1MDOUT|=0b_1111_1111;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:72: P1MDOUT|=0b_1111_1111;
 	mov	a,_P1MDOUT
 	mov	_P1MDOUT,#0xFF
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:72: P2MDOUT|=0b_0001_1111;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:73: P2MDOUT|=0b_0001_1111;
 	orl	_P2MDOUT,#0x1F
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:74: XBR0     = 0x00;                     
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:75: XBR0     = 0x00;                     
 	mov	_XBR0,#0x00
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:75: XBR1     = 0X00;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:76: XBR1     = 0X00;
 	mov	_XBR1,#0x00
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:76: XBR2     = 0x40; // Enable crossbar and weak pull-ups
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:77: XBR2     = 0x40; // Enable crossbar and weak pull-ups
 	mov	_XBR2,#0x40
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:77: return 0;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:78: return 0;
 	mov	dpl,#0x00
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'TIMER3Init'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:88: void TIMER3Init(void)
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:89: void TIMER3Init(void)
 ;	-----------------------------------------
 ;	 function TIMER3Init
 ;	-----------------------------------------
 _TIMER3Init:
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:91: TMR3CN0=0x00;   // Stop Timer3; Clear TF3;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:92: TMR3CN0=0x00;   // Stop Timer3; Clear TF3;
 	mov	_TMR3CN0,#0x00
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:92: CKCON0|=0b_0100_0000; // Timer 3 uses the system clock
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:93: CKCON0|=0b_0100_0000; // Timer 3 uses the system clock
 	orl	_CKCON0,#0x40
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:93: TMR3RL=(0x10000L-(SYSCLK/(2*TIMER_3_FREQ))); // Initialize reload value
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:94: TMR3RL=(0x10000L-(SYSCLK/(2*TIMER_3_FREQ))); // Initialize reload value
 	mov	_TMR3RL,#0xF0
 	mov	(_TMR3RL >> 8),#0xF1
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:94: TMR3=0xffff;   // Set to reload immediately
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:95: TMR3=0xffff;   // Set to reload immediately
 	mov	_TMR3,#0xFF
 	mov	(_TMR3 >> 8),#0xFF
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:95: EIE1|=0b_1000_0000;     // Enable Timer3 interrupts
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:96: EIE1|=0b_1000_0000;     // Enable Timer3 interrupts
 	orl	_EIE1,#0x80
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:96: TMR3CN0|=0b_0000_0100;  // Start Timer3 (TMR3CN0 is not bit addressable)
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:97: TMR3CN0|=0b_0000_0100;  // Start Timer3 (TMR3CN0 is not bit addressable)
 	orl	_TMR3CN0,#0x04
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:97: EA = 1;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:98: EA = 1;
 	setb	_EA
+	ret
+;------------------------------------------------------------
+;Allocation info for local variables in function 'TIMER4Init'
+;------------------------------------------------------------
+;------------------------------------------------------------
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:100: void TIMER4Init(void)
+;	-----------------------------------------
+;	 function TIMER4Init
+;	-----------------------------------------
+_TIMER4Init:
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:103: SFRPAGE=0x10;
+	mov	_SFRPAGE,#0x10
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:104: TMR4CN0=0x00;   // Stop Timer4; Clear TF4; WARNING: lives in SFR page 0x10
+	mov	_TMR4CN0,#0x00
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:105: CKCON1|=0b_0000_0001; // Timer 4 uses the system clock
+	orl	_CKCON1,#0x01
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:106: TMR4RL=(0x10000L-(SYSCLK/(2*TIMER_4_FREQ))); // Initialize reload value
+	mov	_TMR4RL,#0x60
+	mov	(_TMR4RL >> 8),#0x73
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:107: TMR4=0xffff;   // Set to reload immediately
+	mov	_TMR4,#0xFF
+	mov	(_TMR4 >> 8),#0xFF
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:108: EIE2|=0b_0000_0100;     // Enable Timer4 interrupts
+	orl	_EIE2,#0x04
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:109: TR4=1;
+	setb	_TR4
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'Timer3_ISR'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:100: void Timer3_ISR (void) interrupt INTERRUPT_TIMER3
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:112: void Timer3_ISR (void) interrupt INTERRUPT_TIMER3
 ;	-----------------------------------------
 ;	 function Timer3_ISR
 ;	-----------------------------------------
@@ -714,19 +744,19 @@ _Timer3_ISR:
 	push	(0+1)
 	push	psw
 	mov	psw,#0x00
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:102: SFRPAGE=0x0;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:114: SFRPAGE=0x0;
 	mov	_SFRPAGE,#0x00
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:103: TMR3CN0&=0b_0011_1111; // Clear Timer3 interrupt flags
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:115: TMR3CN0&=0b_0011_1111; // Clear Timer3 interrupt flags
 	anl	_TMR3CN0,#0x3F
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:105: P1_2 = !P1_2;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:117: P1_2 = !P1_2;
 	cpl	_P1_2
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:108: if (state != idle_enum)
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:120: if (state != idle_enum)
 	mov	a,_state
 	orl	a,(_state + 1)
-	jnz	L004029?
-	ljmp	L004020?
-L004029?:
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:110: if (count > 100)
+	jnz	L005029?
+	ljmp	L005020?
+L005029?:
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:122: if (count > 100)
 	clr	c
 	mov	a,#0x64
 	subb	a,_count
@@ -735,45 +765,45 @@ L004029?:
 	mov	b,(_count + 1)
 	xrl	b,#0x80
 	subb	a,b
-	jnc	L004016?
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:113: if (state == left_enum)
+	jnc	L005016?
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:125: if (state == left_enum)
 	mov	a,#0x01
-	cjne	a,_state,L004031?
+	cjne	a,_state,L005031?
 	clr	a
-	cjne	a,(_state + 1),L004031?
-	sjmp	L004032?
-L004031?:
-	sjmp	L004005?
-L004032?:
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:115: RIGHT_MOTOR_LHS = 1;
+	cjne	a,(_state + 1),L005031?
+	sjmp	L005032?
+L005031?:
+	sjmp	L005005?
+L005032?:
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:127: RIGHT_MOTOR_LHS = 1;
 	setb	_P2_2
-	sjmp	L004006?
-L004005?:
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:117: else if (state == right_enum)
+	sjmp	L005006?
+L005005?:
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:129: else if (state == right_enum)
 	mov	a,#0x02
-	cjne	a,_state,L004033?
+	cjne	a,_state,L005033?
 	clr	a
-	cjne	a,(_state + 1),L004033?
-	sjmp	L004034?
-L004033?:
-	sjmp	L004002?
-L004034?:
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:119: LEFT_MOTOR_LHS = 1;
+	cjne	a,(_state + 1),L005033?
+	sjmp	L005034?
+L005033?:
+	sjmp	L005002?
+L005034?:
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:131: LEFT_MOTOR_LHS = 1;
 	setb	_P2_4
-	sjmp	L004006?
-L004002?:
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:123: LEFT_MOTOR_LHS = 1;
+	sjmp	L005006?
+L005002?:
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:135: LEFT_MOTOR_LHS = 1;
 	setb	_P2_4
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:124: RIGHT_MOTOR_LHS = 1;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:136: RIGHT_MOTOR_LHS = 1;
 	setb	_P2_2
-L004006?:
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:126: count = 0;
+L005006?:
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:138: count = 0;
 	clr	a
 	mov	_count,a
 	mov	(_count + 1),a
-	sjmp	L004017?
-L004016?:
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:128: else if (count > PWM_percent_y*100)
+	sjmp	L005017?
+L005016?:
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:140: else if (count > PWM_percent_y*100)
 	push	_PWM_percent_y
 	push	(_PWM_percent_y + 1)
 	push	(_PWM_percent_y + 2)
@@ -802,45 +832,45 @@ L004016?:
 	add	a,#0xfc
 	mov	sp,a
 	mov	a,r2
-	jz	L004017?
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:131: if (state == left_enum)
+	jz	L005017?
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:143: if (state == left_enum)
 	mov	a,#0x01
-	cjne	a,_state,L004036?
+	cjne	a,_state,L005036?
 	clr	a
-	cjne	a,(_state + 1),L004036?
-	sjmp	L004037?
-L004036?:
-	sjmp	L004011?
-L004037?:
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:133: RIGHT_MOTOR_LHS = 0;
+	cjne	a,(_state + 1),L005036?
+	sjmp	L005037?
+L005036?:
+	sjmp	L005011?
+L005037?:
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:145: RIGHT_MOTOR_LHS = 0;
 	clr	_P2_2
-	sjmp	L004017?
-L004011?:
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:135: else if (state == right_enum)
+	sjmp	L005017?
+L005011?:
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:147: else if (state == right_enum)
 	mov	a,#0x02
-	cjne	a,_state,L004038?
+	cjne	a,_state,L005038?
 	clr	a
-	cjne	a,(_state + 1),L004038?
-	sjmp	L004039?
-L004038?:
-	sjmp	L004008?
-L004039?:
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:137: LEFT_MOTOR_LHS = 0;
+	cjne	a,(_state + 1),L005038?
+	sjmp	L005039?
+L005038?:
+	sjmp	L005008?
+L005039?:
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:149: LEFT_MOTOR_LHS = 0;
 	clr	_P2_4
-	sjmp	L004017?
-L004008?:
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:141: LEFT_MOTOR_LHS = 0;
+	sjmp	L005017?
+L005008?:
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:153: LEFT_MOTOR_LHS = 0;
 	clr	_P2_4
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:142: RIGHT_MOTOR_LHS = 0;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:154: RIGHT_MOTOR_LHS = 0;
 	clr	_P2_2
-L004017?:
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:145: count++;
+L005017?:
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:157: count++;
 	inc	_count
 	clr	a
-	cjne	a,_count,L004040?
+	cjne	a,_count,L005040?
 	inc	(_count + 1)
-L004040?:
-L004020?:
+L005040?:
+L005020?:
 	pop	psw
 	pop	(0+1)
 	pop	(0+0)
@@ -857,57 +887,78 @@ L004020?:
 	pop	bits
 	reti
 ;------------------------------------------------------------
+;Allocation info for local variables in function 'Timer4_ISR'
+;------------------------------------------------------------
+;------------------------------------------------------------
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:164: void Timer4_ISR (void) interrupt INTERRUPT_TIMER4
+;	-----------------------------------------
+;	 function Timer4_ISR
+;	-----------------------------------------
+_Timer4_ISR:
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:166: SFRPAGE=0x10;
+	mov	_SFRPAGE,#0x10
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:167: TF4H = 0; // Clear Timer4 interrupt flag
+	clr	_TF4H
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:168: P1_3 = !P1_3;
+	cpl	_P1_3
+	reti
+;	eliminated unneeded push/pop psw
+;	eliminated unneeded push/pop dpl
+;	eliminated unneeded push/pop dph
+;	eliminated unneeded push/pop b
+;	eliminated unneeded push/pop acc
+;------------------------------------------------------------
 ;Allocation info for local variables in function 'idle'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:152: void idle(void)
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:171: void idle(void)
 ;	-----------------------------------------
 ;	 function idle
 ;	-----------------------------------------
 _idle:
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:154: LEFT_MOTOR_LHS = 0;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:173: LEFT_MOTOR_LHS = 0;
 	clr	_P2_4
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:155: LEFT_MOTOR_RHS = 0;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:174: LEFT_MOTOR_RHS = 0;
 	clr	_P2_3
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:156: RIGHT_MOTOR_LHS = 0;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:175: RIGHT_MOTOR_LHS = 0;
 	clr	_P2_2
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:157: RIGHT_MOTOR_RHS = 0;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:176: RIGHT_MOTOR_RHS = 0;
 	clr	_P2_1
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'straight'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:160: void straight(void)
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:179: void straight(void)
 ;	-----------------------------------------
 ;	 function straight
 ;	-----------------------------------------
 _straight:
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:162: LEFT_MOTOR_LHS = 1;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:181: LEFT_MOTOR_LHS = 1;
 	setb	_P2_4
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:163: LEFT_MOTOR_RHS = 0;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:182: LEFT_MOTOR_RHS = 0;
 	clr	_P2_3
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:164: RIGHT_MOTOR_LHS = 1;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:183: RIGHT_MOTOR_LHS = 1;
 	setb	_P2_2
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:165: RIGHT_MOTOR_RHS = 0;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:184: RIGHT_MOTOR_RHS = 0;
 	clr	_P2_1
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'backward'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:168: void backward(void)
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:187: void backward(void)
 ;	-----------------------------------------
 ;	 function backward
 ;	-----------------------------------------
 _backward:
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:170: LEFT_MOTOR_LHS = 0;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:189: LEFT_MOTOR_LHS = 0;
 	clr	_P2_4
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:171: LEFT_MOTOR_RHS = 1;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:190: LEFT_MOTOR_RHS = 1;
 	setb	_P2_3
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:172: RIGHT_MOTOR_LHS = 0;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:191: RIGHT_MOTOR_LHS = 0;
 	clr	_P2_2
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:173: RIGHT_MOTOR_RHS = 1;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:192: RIGHT_MOTOR_RHS = 1;
 	setb	_P2_1
 	ret
 ;------------------------------------------------------------
@@ -915,7 +966,7 @@ _backward:
 ;------------------------------------------------------------
 ;PWM_percent_y             Allocated to registers r2 r3 r4 r5 
 ;------------------------------------------------------------
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:176: void left(float PWM_percent_y)
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:195: void left(float PWM_percent_y)
 ;	-----------------------------------------
 ;	 function left
 ;	-----------------------------------------
@@ -924,11 +975,11 @@ _left:
 	mov	r3,dph
 	mov	r4,b
 	mov	r5,a
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:179: LEFT_MOTOR_LHS = 0;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:203: LEFT_MOTOR_LHS = 0;
 	clr	_P2_4
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:180: LEFT_MOTOR_RHS = 0;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:204: LEFT_MOTOR_RHS = 0;
 	clr	_P2_3
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:182: if (PWM_percent_y > 0)
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:206: if (PWM_percent_y > 0)
 	clr	a
 	push	acc
 	push	acc
@@ -944,16 +995,16 @@ _left:
 	add	a,#0xfc
 	mov	sp,a
 	mov	a,r2
-	jz	L008002?
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:184: RIGHT_MOTOR_LHS = 1;
+	jz	L010002?
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:208: RIGHT_MOTOR_LHS = 1;
 	setb	_P2_2
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:185: RIGHT_MOTOR_RHS = 0;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:209: RIGHT_MOTOR_RHS = 0;
 	clr	_P2_1
 	ret
-L008002?:
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:189: RIGHT_MOTOR_LHS = 0;
+L010002?:
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:213: RIGHT_MOTOR_LHS = 0;
 	clr	_P2_2
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:190: RIGHT_MOTOR_RHS = 1;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:214: RIGHT_MOTOR_RHS = 1;
 	setb	_P2_1
 	ret
 ;------------------------------------------------------------
@@ -961,7 +1012,7 @@ L008002?:
 ;------------------------------------------------------------
 ;PWM_percent_y             Allocated to registers r2 r3 r4 r5 
 ;------------------------------------------------------------
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:195: void right(float PWM_percent_y)
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:219: void right(float PWM_percent_y)
 ;	-----------------------------------------
 ;	 function right
 ;	-----------------------------------------
@@ -970,11 +1021,11 @@ _right:
 	mov	r3,dph
 	mov	r4,b
 	mov	r5,a
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:198: RIGHT_MOTOR_LHS = 0;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:222: RIGHT_MOTOR_LHS = 0;
 	clr	_P2_2
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:199: RIGHT_MOTOR_RHS = 0;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:223: RIGHT_MOTOR_RHS = 0;
 	clr	_P2_1
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:201: if (PWM_percent_y > 0)
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:225: if (PWM_percent_y > 0)
 	clr	a
 	push	acc
 	push	acc
@@ -990,16 +1041,16 @@ _right:
 	add	a,#0xfc
 	mov	sp,a
 	mov	a,r2
-	jz	L009002?
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:203: LEFT_MOTOR_LHS = 1;
+	jz	L011002?
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:227: LEFT_MOTOR_LHS = 1;
 	setb	_P2_4
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:204: LEFT_MOTOR_RHS = 0;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:228: LEFT_MOTOR_RHS = 0;
 	clr	_P2_3
 	ret
-L009002?:
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:208: LEFT_MOTOR_LHS = 0;
+L011002?:
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:232: LEFT_MOTOR_LHS = 0;
 	clr	_P2_4
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:209: LEFT_MOTOR_RHS = 1;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:233: LEFT_MOTOR_RHS = 1;
 	setb	_P2_3
 	ret
 ;------------------------------------------------------------
@@ -1011,7 +1062,7 @@ L009002?:
 ;state                     Allocated with name '_movement_manager_PARM_5'
 ;PWM_percent_x             Allocated to registers r2 r3 r4 r5 
 ;------------------------------------------------------------
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:214: enum State movement_manager(float PWM_percent_x, float PWM_percent_y, float prev_PWM_percent_x, float prev_PWM_percent_y, enum State state)
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:238: enum State movement_manager(float PWM_percent_x, float PWM_percent_y, float prev_PWM_percent_x, float prev_PWM_percent_y, enum State state)
 ;	-----------------------------------------
 ;	 function movement_manager
 ;	-----------------------------------------
@@ -1020,7 +1071,7 @@ _movement_manager:
 	mov	r3,dph
 	mov	r4,b
 	mov	r5,a
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:217: if (prev_PWM_percent_x != PWM_percent_x && prev_PWM_percent_y != PWM_percent_y)
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:241: if (prev_PWM_percent_x != PWM_percent_x || prev_PWM_percent_y != PWM_percent_y)
 	push	ar2
 	push	ar3
 	push	ar4
@@ -1043,9 +1094,7 @@ _movement_manager:
 	pop	ar3
 	pop	ar2
 	mov	a,r6
-	jz	L010026?
-	ljmp	L010015?
-L010026?:
+	jz	L012014?
 	push	ar2
 	push	ar3
 	push	ar4
@@ -1068,31 +1117,32 @@ L010026?:
 	pop	ar3
 	pop	ar2
 	mov	a,r6
-	jz	L010027?
-	ljmp	L010015?
-L010027?:
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:219: if (PWM_percent_y == 0 && PWM_percent_x == 0)
+	jz	L012026?
+	ljmp	L012015?
+L012026?:
+L012014?:
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:243: if (PWM_percent_y == 0 && PWM_percent_x == 0)
 	mov	a,_movement_manager_PARM_2
 	orl	a,(_movement_manager_PARM_2 + 1)
 	orl	a,(_movement_manager_PARM_2 + 2)
 	mov	b,(_movement_manager_PARM_2 + 3)
 	clr	b.7 ; Clear the sign bit
 	orl	a,b
-	jnz	L010011?
+	jnz	L012011?
 	mov	a,r2
 	orl	a,r3
 	orl	a,r4
 	mov	b,r5
 	clr	b.7 ; Clear the sign bit
 	orl	a,b
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:221: state = idle_enum;
-	jnz	L010011?
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:245: state = idle_enum;
+	jnz	L012011?
 	mov	_movement_manager_PARM_5,a
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:222: idle();
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:246: idle();
 	lcall	_idle
-	ljmp	L010015?
-L010011?:
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:224: else if (PWM_percent_x < 0)
+	ljmp	L012015?
+L012011?:
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:248: else if (PWM_percent_x < 0)
 	push	ar2
 	push	ar3
 	push	ar4
@@ -1116,18 +1166,18 @@ L010011?:
 	pop	ar3
 	pop	ar2
 	mov	a,r6
-	jz	L010008?
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:226: state = left_enum;
+	jz	L012008?
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:250: state = left_enum;
 	mov	_movement_manager_PARM_5,#0x01
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:227: left(PWM_percent_y);
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:251: left(PWM_percent_y);
 	mov	dpl,_movement_manager_PARM_2
 	mov	dph,(_movement_manager_PARM_2 + 1)
 	mov	b,(_movement_manager_PARM_2 + 2)
 	mov	a,(_movement_manager_PARM_2 + 3)
 	lcall	_left
-	sjmp	L010015?
-L010008?:
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:229: else if (PWM_percent_x > 0)
+	sjmp	L012015?
+L012008?:
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:253: else if (PWM_percent_x > 0)
 	clr	a
 	push	acc
 	push	acc
@@ -1143,18 +1193,18 @@ L010008?:
 	add	a,#0xfc
 	mov	sp,a
 	mov	a,r2
-	jz	L010005?
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:231: state = right_enum;
+	jz	L012005?
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:255: state = right_enum;
 	mov	_movement_manager_PARM_5,#0x02
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:232: right(PWM_percent_y);
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:256: right(PWM_percent_y);
 	mov	dpl,_movement_manager_PARM_2
 	mov	dph,(_movement_manager_PARM_2 + 1)
 	mov	b,(_movement_manager_PARM_2 + 2)
 	mov	a,(_movement_manager_PARM_2 + 3)
 	lcall	_right
-	sjmp	L010015?
-L010005?:
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:234: else if (PWM_percent_y > 0)
+	sjmp	L012015?
+L012005?:
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:258: else if (PWM_percent_y > 0)
 	clr	a
 	push	acc
 	push	acc
@@ -1170,44 +1220,47 @@ L010005?:
 	add	a,#0xfc
 	mov	sp,a
 	mov	a,r2
-	jz	L010002?
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:236: state = straight_enum;
+	jz	L012002?
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:260: state = straight_enum;
 	mov	_movement_manager_PARM_5,#0x03
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:237: straight();
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:261: straight();
 	lcall	_straight
-	sjmp	L010015?
-L010002?:
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:241: state = backward_enum;
+	sjmp	L012015?
+L012002?:
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:265: state = backward_enum;
 	mov	_movement_manager_PARM_5,#0x04
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:242: backward();
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:266: backward();
 	lcall	_backward
-L010015?:
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:246: return state;
+L012015?:
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:270: return state;
 	mov	dpl,_movement_manager_PARM_5
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'main'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:250: int main(void)
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:274: int main(void)
 ;	-----------------------------------------
 ;	 function main
 ;	-----------------------------------------
 _main:
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:252: TIMER3Init();
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:276: TIMER3Init();
 	lcall	_TIMER3Init
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:253: left(0);
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:277: TIMER4Init();
+	lcall	_TIMER4Init
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:278: left(0.5);
 	mov	dptr,#(0x00&0x00ff)
 	clr	a
 	mov	b,a
+	mov	a,#0x3F
 	lcall	_left
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:254: state = left_enum;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:279: state = left_enum;
 	mov	_state,#0x01
 	clr	a
 	mov	(_state + 1),a
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:255: while(1)
-L011002?:
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:257: state = movement_manager(PWM_percent_x, PWM_percent_y, prev_PWM_percent_x, prev_PWM_percent_y, state);
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:280: while(1)
+L013002?:
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:282: state = movement_manager(PWM_percent_x, PWM_percent_y, prev_PWM_percent_x, prev_PWM_percent_y, state);
 	mov	_movement_manager_PARM_5,_state
 	mov	_movement_manager_PARM_2,_PWM_percent_y
 	mov	(_movement_manager_PARM_2 + 1),(_PWM_percent_y + 1)
@@ -1229,17 +1282,17 @@ L011002?:
 	mov	r2,dpl
 	mov	_state,r2
 	mov	(_state + 1),#0x00
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:258: prev_PWM_percent_x = PWM_percent_x;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:283: prev_PWM_percent_x = PWM_percent_x;
 	mov	_prev_PWM_percent_x,_PWM_percent_x
 	mov	(_prev_PWM_percent_x + 1),(_PWM_percent_x + 1)
 	mov	(_prev_PWM_percent_x + 2),(_PWM_percent_x + 2)
 	mov	(_prev_PWM_percent_x + 3),(_PWM_percent_x + 3)
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:259: prev_PWM_percent_y = PWM_percent_y;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new.c:284: prev_PWM_percent_y = PWM_percent_y;
 	mov	_prev_PWM_percent_y,_PWM_percent_y
 	mov	(_prev_PWM_percent_y + 1),(_PWM_percent_y + 1)
 	mov	(_prev_PWM_percent_y + 2),(_PWM_percent_y + 2)
 	mov	(_prev_PWM_percent_y + 3),(_PWM_percent_y + 3)
-	sjmp	L011002?
+	sjmp	L013002?
 	rseg R_CSEG
 
 	rseg R_XINIT

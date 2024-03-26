@@ -13,7 +13,7 @@ Modules linked:
    'slong2fs' from 'C:\CrossIDE\Call51\Bin\..\lib\small\libfloat.lib'
 
 Memory use per module linked:
-C:00943 D:034 I:000 B:000 X:00000 - movement_new
+C:00980 D:034 I:000 B:000 X:00000 - movement_new
 C:00048 D:000 I:000 B:000 X:00000 - fsgt
 C:00017 D:000 I:000 B:000 X:00000 - fseq
 C:00048 D:000 I:000 B:000 X:00000 - fslt
@@ -25,9 +25,9 @@ C:00079 D:000 I:000 B:000 X:00000 - fsreturnval
 C:00051 D:000 I:000 B:000 X:00000 - fsnormalize
 C:00046 D:000 I:000 B:000 X:00000 - fsget2args
 C:00045 D:000 I:000 B:000 X:00000 - slong2fs
-C:00007 D:000 I:000 B:000 X:00000 - ABSOLUTE
+C:00010 D:000 I:000 B:000 X:00000 - ABSOLUTE
 ------------------------------------------------------
-C:01646 D:034 I:000 B:000 X:00000 - Totals
+C:01686 D:034 I:000 B:000 X:00000 - Totals
 
 INTERMAL RAM map (see legend below):
 00: 0 0 0 0 0 0 0 0 . . . . . . . . 
@@ -67,7 +67,7 @@ BIT map:
 70: . . . . . . . . . . . . . . . . 
 
 CODE usage map:
-0000: 198 256 256 256 256 256 168 000 000 000 000 000 000 000 000 000 
+0000: 177 256 256 256 256 256 229 000 000 000 000 000 000 000 000 000 
 1000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
 2000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
 3000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
@@ -83,7 +83,7 @@ C000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000
 D000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
 E000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
 F000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
-Total: 1646 bytes
+Total: 1686 bytes
 
 XDATA usage map:
 0000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
@@ -108,10 +108,10 @@ Base Segments:
    BIT_BANK=D:0020, size=0001
    R_BSEG=B:0000, size=0000
    R_CONST=C:0000, size=0000
-   R_CSEG=C:00E7, size=05C1
+   R_CSEG=C:00FF, size=05E6
    R_DINIT=C:0003, size=0035
    R_DSEG=D:0000, size=0021
-   R_GSINIT=C:0076, size=0071
+   R_GSINIT=C:008E, size=0071
    R_HOME=C:0000, size=0000
    R_ISEG=I:0000, size=0000
    R_IXSEG=X:0000, size=0000
@@ -122,22 +122,22 @@ Base Segments:
    rbank0=D:0000, size=0008
 
 Module Segments:
-   CSEG=C:0000, size=0007
-   crt0:R_GSINIT=C:0076, size=0071
-   fscmp:R_CSEG=C:0582, size=0049
-   fseq:R_CSEG=C:0491, size=0011
-   fsget2args:R_CSEG=C:064D, size=002E
-   fsgt:R_CSEG=C:0461, size=0030
-   fslt:R_CSEG=C:04A2, size=0030
-   fsmul:R_CSEG=C:04D2, size=00A3
-   fsnormalize:R_CSEG=C:061A, size=0033
-   fsreturnval:R_CSEG=C:05CB, size=004F
+   CSEG=C:0000, size=000A
+   crt0:R_GSINIT=C:008E, size=0071
+   fscmp:R_CSEG=C:05BF, size=0049
+   fseq:R_CSEG=C:04CE, size=0011
+   fsget2args:R_CSEG=C:068A, size=002E
+   fsgt:R_CSEG=C:049E, size=0030
+   fslt:R_CSEG=C:04DF, size=0030
+   fsmul:R_CSEG=C:050F, size=00A3
+   fsnormalize:R_CSEG=C:0657, size=0033
+   fsreturnval:R_CSEG=C:0608, size=004F
    movement_new:BIT_BANK=D:0020, size=0001
-   movement_new:R_CSEG=C:00E7, size=037A
+   movement_new:R_CSEG=C:00FF, size=039F
    movement_new:R_DINIT=C:0003, size=0035
    movement_new:R_DSEG=D:0021, size=0021
-   sint2fs:R_CSEG=C:0575, size=000D
-   slong2fs:R_CSEG=C:067B, size=002D
+   sint2fs:R_CSEG=C:05B2, size=000D
+   slong2fs:R_CSEG=C:06B8, size=002D
 
 Public symbols:
    _PWM_percent_x=D:0029
@@ -146,12 +146,12 @@ Public symbols:
    _R_BSEG_start=L:0000
    _R_CONST_size=L:0000
    _R_CONST_start=L:0000
-   _R_CSEG_size=L:05C1
-   _R_CSEG_start=L:00E7
+   _R_CSEG_size=L:05E6
+   _R_CSEG_start=L:00FF
    _R_DINIT_size=L:0035
    _R_DINIT_start=L:0003
    _R_GSINIT_size=L:0071
-   _R_GSINIT_start=L:0076
+   _R_GSINIT_start=L:008E
    _R_HOME_size=L:0000
    _R_HOME_start=L:0000
    _R_ISEG_size=L:0000
@@ -166,23 +166,25 @@ Public symbols:
    _R_XINIT_start=L:0000
    _R_XSEG_size=L:0000
    _R_XSEG_start=L:0000
-   _TIMER3Init=C:012D
-   _Timer3_ISR=C:0148
-   ___fseq=C:0491
-   ___fsgt=C:0461
-   ___fslt=C:04A2
-   ___fsmul=C:04D2
-   ___sint2fs=C:0575
-   ___slong2fs=C:067B
-   __c51_external_startup=C:00E7
-   _backward=C:0253
+   _TIMER3Init=C:0145
+   _TIMER4Init=C:0160
+   _Timer3_ISR=C:017B
+   _Timer4_ISR=C:0274
+   ___fseq=C:04CE
+   ___fsgt=C:049E
+   ___fslt=C:04DF
+   ___fsmul=C:050F
+   ___sint2fs=C:05B2
+   ___slong2fs=C:06B8
+   __c51_external_startup=C:00FF
+   _backward=C:028E
    _count=D:0021
-   _crt0=C:0076
-   _dummy_name_crt0=C:0575
-   _idle=C:0241
-   _left=C:025C
-   _main=C:03F9
-   _movement_manager=C:02C2
+   _crt0=C:008E
+   _dummy_name_crt0=C:05B2
+   _idle=C:027C
+   _left=C:0297
+   _main=C:0431
+   _movement_manager=C:02FD
    _movement_manager_PARM_2=D:0035
    _movement_manager_PARM_3=D:0039
    _movement_manager_PARM_4=D:003D
@@ -191,108 +193,108 @@ Public symbols:
    _movement_new_R_DSEG_start=L:0021
    _prev_PWM_percent_x=D:002D
    _prev_PWM_percent_y=D:0031
-   _right=C:028F
+   _right=C:02CA
    _stack_start=L:0042
    _state=D:0023
-   _straight=C:024A
-   fs_check_negative_zeros=C:05A0
-   fs_compare_uint32=C:0582
-   fs_direct_return=C:05F4
-   fs_normalize_a=C:061A
-   fs_return_inf=C:0602
-   fs_return_nan=C:060F
-   fs_return_zero=C:05EC
-   fs_round_and_return=C:05CB
-   fs_zerocheck_return=C:05E3
-   fsgetargs=C:064D
-   slong2fs_doit=C:0684
+   _straight=C:0285
+   fs_check_negative_zeros=C:05DD
+   fs_compare_uint32=C:05BF
+   fs_direct_return=C:0631
+   fs_normalize_a=C:0657
+   fs_return_inf=C:063F
+   fs_return_nan=C:064C
+   fs_return_zero=C:0629
+   fs_round_and_return=C:0608
+   fs_zerocheck_return=C:0620
+   fsgetargs=C:068A
+   slong2fs_doit=C:06C1
 
 Local symbols:
-   crt0:PClearLoop?done?=C:00DF
-   crt0:PClearLoop?repeat?=C:00D1
-   crt0:XClearLoop?done?=C:00C7
-   crt0:XClearLoop?repeat?=C:00B9
-   crt0:XInitLoop?done?=C:00AF
-   crt0:XInitLoop?repeat?=C:008F
-   crt0:__c51_init_data=C:0083
-   crt0:__c51_program_startup=C:00E2
-   crt0:forever?home?=C:00E5
-   fscmp:_dummy=C:0582
-   fscmp:a_check=C:05A0
-   fscmp:a_not_neg_zero=C:05B2
-   fscmp:a_not_neg_zero_cleanup=C:05B1
-   fscmp:b_check=C:05B2
-   fscmp:b_not_neg_zero=C:05CA
-   fscmp:b_not_neg_zero_cleanup_1=C:05C9
-   fscmp:b_not_neg_zero_cleanup_2=C:05C8
-   fscmp:b_not_neg_zero_cleanup_3=C:05C7
-   fscmp:compare32_done=C:059F
-   fseq:_dummy=C:0491
-   fsget2args:L00001?=C:065A
-   fsget2args:L00002?=C:0676
-   fsget2args:_dummy=C:064D
-   fsgt:_dummy=C:0461
-   fsgt:a_negative=C:0476
-   fsgt:a_positive=C:046F
-   fsgt:ab_different=C:0488
-   fsgt:ab_negative=C:047F
-   fsgt:ab_positive=C:047D
-   fsgt:skip_invert=C:048C
-   fslt:_dummy=C:04A2
-   fslt:a_negative=C:04B7
-   fslt:a_positive=C:04B0
-   fslt:ab_different=C:04C9
-   fslt:ab_negative=C:04C0
-   fslt:ab_positive=C:04BE
-   fslt:skip_invert=C:04CD
-   fsmul:L00001?=C:04D8
-   fsmul:L00002?=C:04DB
-   fsmul:L00003?=C:04E3
-   fsmul:L00004?=C:04EB
-   fsmul:L00005?=C:04F3
-   fsmul:L00006?=C:04FE
-   fsmul:L00007?=C:0506
-   fsmul:L00010?=C:0572
-   fsmul:_dummy=C:04D2
-   fsnormalize:L00001?=C:061D
-   fsnormalize:L00002?=C:062F
-   fsnormalize:L00003?=C:0630
-   fsnormalize:L00004?=C:0634
-   fsnormalize:L00005?=C:063B
-   fsnormalize:L00006?=C:064A
-   fsnormalize:_dummy=C:061A
-   fsreturnval:L00001?=C:05D1
-   fsreturnval:_dummy=C:05CB
-   movement_new:L002001?=C:0105
-   movement_new:L002004?=C:0110
-   movement_new:L004002?=C:01AC
-   movement_new:L004005?=C:019B
-   movement_new:L004006?=C:01B0
-   movement_new:L004008?=C:0218
-   movement_new:L004011?=C:0207
-   movement_new:L004016?=C:01B7
-   movement_new:L004017?=C:021C
-   movement_new:L004020?=C:0224
-   movement_new:L004029?=C:0178
-   movement_new:L004031?=C:0195
-   movement_new:L004032?=C:0197
-   movement_new:L004033?=C:01A6
-   movement_new:L004034?=C:01A8
-   movement_new:L004036?=C:0201
-   movement_new:L004037?=C:0203
-   movement_new:L004038?=C:0212
-   movement_new:L004039?=C:0214
-   movement_new:L004040?=C:0224
-   movement_new:L008002?=C:028A
-   movement_new:L009002?=C:02BD
-   movement_new:L010002?=C:03EF
-   movement_new:L010005?=C:03C5
-   movement_new:L010008?=C:0394
-   movement_new:L010011?=C:0353
-   movement_new:L010015?=C:03F5
-   movement_new:L010026?=C:02FD
-   movement_new:L010027?=C:0331
-   movement_new:L011002?=C:040B
+   crt0:PClearLoop?done?=C:00F7
+   crt0:PClearLoop?repeat?=C:00E9
+   crt0:XClearLoop?done?=C:00DF
+   crt0:XClearLoop?repeat?=C:00D1
+   crt0:XInitLoop?done?=C:00C7
+   crt0:XInitLoop?repeat?=C:00A7
+   crt0:__c51_init_data=C:009B
+   crt0:__c51_program_startup=C:00FA
+   crt0:forever?home?=C:00FD
+   fscmp:_dummy=C:05BF
+   fscmp:a_check=C:05DD
+   fscmp:a_not_neg_zero=C:05EF
+   fscmp:a_not_neg_zero_cleanup=C:05EE
+   fscmp:b_check=C:05EF
+   fscmp:b_not_neg_zero=C:0607
+   fscmp:b_not_neg_zero_cleanup_1=C:0606
+   fscmp:b_not_neg_zero_cleanup_2=C:0605
+   fscmp:b_not_neg_zero_cleanup_3=C:0604
+   fscmp:compare32_done=C:05DC
+   fseq:_dummy=C:04CE
+   fsget2args:L00001?=C:0697
+   fsget2args:L00002?=C:06B3
+   fsget2args:_dummy=C:068A
+   fsgt:_dummy=C:049E
+   fsgt:a_negative=C:04B3
+   fsgt:a_positive=C:04AC
+   fsgt:ab_different=C:04C5
+   fsgt:ab_negative=C:04BC
+   fsgt:ab_positive=C:04BA
+   fsgt:skip_invert=C:04C9
+   fslt:_dummy=C:04DF
+   fslt:a_negative=C:04F4
+   fslt:a_positive=C:04ED
+   fslt:ab_different=C:0506
+   fslt:ab_negative=C:04FD
+   fslt:ab_positive=C:04FB
+   fslt:skip_invert=C:050A
+   fsmul:L00001?=C:0515
+   fsmul:L00002?=C:0518
+   fsmul:L00003?=C:0520
+   fsmul:L00004?=C:0528
+   fsmul:L00005?=C:0530
+   fsmul:L00006?=C:053B
+   fsmul:L00007?=C:0543
+   fsmul:L00010?=C:05AF
+   fsmul:_dummy=C:050F
+   fsnormalize:L00001?=C:065A
+   fsnormalize:L00002?=C:066C
+   fsnormalize:L00003?=C:066D
+   fsnormalize:L00004?=C:0671
+   fsnormalize:L00005?=C:0678
+   fsnormalize:L00006?=C:0687
+   fsnormalize:_dummy=C:0657
+   fsreturnval:L00001?=C:060E
+   fsreturnval:_dummy=C:0608
+   movement_new:L002001?=C:011D
+   movement_new:L002004?=C:0128
+   movement_new:L005002?=C:01DF
+   movement_new:L005005?=C:01CE
+   movement_new:L005006?=C:01E3
+   movement_new:L005008?=C:024B
+   movement_new:L005011?=C:023A
+   movement_new:L005016?=C:01EA
+   movement_new:L005017?=C:024F
+   movement_new:L005020?=C:0257
+   movement_new:L005029?=C:01AB
+   movement_new:L005031?=C:01C8
+   movement_new:L005032?=C:01CA
+   movement_new:L005033?=C:01D9
+   movement_new:L005034?=C:01DB
+   movement_new:L005036?=C:0234
+   movement_new:L005037?=C:0236
+   movement_new:L005038?=C:0245
+   movement_new:L005039?=C:0247
+   movement_new:L005040?=C:0257
+   movement_new:L010002?=C:02C5
+   movement_new:L011002?=C:02F8
+   movement_new:L012002?=C:0427
+   movement_new:L012005?=C:03FD
+   movement_new:L012008?=C:03CC
+   movement_new:L012011?=C:038B
+   movement_new:L012014?=C:0369
+   movement_new:L012015?=C:042D
+   movement_new:L012026?=C:0369
+   movement_new:L013002?=C:0448
    movement_new:b0=D:0020
    movement_new:b1=D:0020
    movement_new:b2=D:0020
@@ -302,6 +304,6 @@ Local symbols:
    movement_new:b6=D:0020
    movement_new:b7=D:0020
    movement_new:bits=D:0020
-   sint2fs:_dummy=C:0575
-   slong2fs:_dummy=C:067B
-   slong2fs:slong2fs_positive=C:06A2
+   sint2fs:_dummy=C:05B2
+   slong2fs:_dummy=C:06B8
+   slong2fs:slong2fs_positive=C:06DF

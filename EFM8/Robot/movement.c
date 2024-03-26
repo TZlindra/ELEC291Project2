@@ -23,7 +23,7 @@ It will recieve 4 movement signals from the EMF8, 2 for each wheel.
 #define SYSCLK      72000000L  // SYSCLK frequency in Hz
 #define BAUDRATE      115200L  // Baud rate of UART in bps
 
-/*
+
 char _c51_external_startup (void)
 {
 	// Disable Watchdog with key sequence
@@ -92,7 +92,7 @@ char _c51_external_startup (void)
 
 	return 0;
 }
-*/
+
 
 void TIMER0_Init(void)
 {
@@ -113,7 +113,7 @@ void main (void) {
     */
     //int PWM;
     //int input;  //array or int? TBD
-
+	/*
     int test_input;
 
     int test_PWMx;
@@ -123,36 +123,49 @@ void main (void) {
     int periody;
     threethreevolt = 1; //constantly output 3.3 V to Pin 3.2
 
-    test_input = 1;  //test forward movement
     test_PWMx = 0;   //test 50% strength forward
     test_PWMy = 50;  //only y movement at 50% hence 0% for x, and 50% for y
 
     // ISSUE: how to time pwm length?
     periodx = 0;      //test PWMx period
     periody = 0;      //test PWMy period
-e
+    */
+    test_input = 1;  //test forward movement
+
+
 
 
     switch (test_input) {
         case 1:
-            straight(period);
+            straightnew();
+            //straight(period);
             break;
         case 2:
-            back(period);
+            //back(period);
             break;
         case 3:
-            left(period);
+            //left(period);
             break;
         case 4:
-            right(period);
+            //right(period);
             break;
-        else
+        default:
+            straightnew();
     }
 
 }
 
+void straightnew(void)
+{
+    LEFT_MOTOR_LHS = 1;
+    LEFT_MOTOR_RHS = 0;
+    RIGHT_MOTOR_LHS = 0;
+    RIGHT_MOTOR_RHS = 1
+}
+
 //LEFT_MOTOR goes CCW
 //RIGHT_MOTOR goes CW
+/*
 void straight(int time_on) {
     int overflow_time;
     int time_off;
@@ -168,13 +181,13 @@ void straight(int time_on) {
         //start_timer
         // ON STATE
         LEFT_MOTOR_LHS = 1;
-        LEFT_MOTOR_LHS = 0;
+        LEFT_MOTOR_RHS = 0;
         RIGHT_MOTOR_LHS = 0;
         RIGHT_MOTOR_RHS = 1;
         if (time_off)  //limit being the 30% of the set timer overflow value
         {
             LEFT_MOTOR_LHS = 0;
-            LEFT_MOTOR_LHS = 0;
+            LEFT_MOTOR_RHS = 0;
             RIGHT_MOTOR_LHS = 0;
             RIGHT_MOTOR_RHS = 0;
         }
@@ -189,24 +202,24 @@ void straight(int time_on) {
     }
     return;
 }
-
+*/
 void back(int period) {
     LEFT_MOTOR_LHS = 0;
-    LEFT_MOTOR_LHS = 1;
+    LEFT_MOTOR_RHS = 1;
     RIGHT_MOTOR_LHS = 1;
     RIGHT_MOTOR_RHS = 0;
 }
 
 void left(int period) {
     LEFT_MOTOR_LHS = 0;
-    LEFT_MOTOR_LHS = 0;
+    LEFT_MOTOR_RHS = 0;
     RIGHT_MOTOR_LHS = 1;
     RIGHT_MOTOR_RHS = 0;
 }
 
 void right(int period) {
     LEFT_MOTOR_LHS = 1;
-    LEFT_MOTOR_LHS = 0;
+    LEFT_MOTOR_RHS = 0;
     RIGHT_MOTOR_LHS = 0;
     RIGHT_MOTOR_RHS = 0;
 }

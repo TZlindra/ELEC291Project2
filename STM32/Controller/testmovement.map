@@ -1,0 +1,307 @@
+Modules linked:
+   'testmovement' from 'testmovement.obj'
+   'fsgt' from 'C:\CrossIDE\Call51\Bin\..\lib\small\libfloat.lib'
+   'fseq' from 'C:\CrossIDE\Call51\Bin\..\lib\small\libfloat.lib'
+   'fslt' from 'C:\CrossIDE\Call51\Bin\..\lib\small\libfloat.lib'
+   'fsmul' from 'C:\CrossIDE\Call51\Bin\..\lib\small\libfloat.lib'
+   'crt0' from 'C:\CrossIDE\Call51\Bin\..\lib\small\libc51.lib'
+   'sint2fs' from 'C:\CrossIDE\Call51\Bin\..\lib\small\libfloat.lib'
+   'fscmp' from 'C:\CrossIDE\Call51\Bin\..\lib\small\libfloat.lib'
+   'fsreturnval' from 'C:\CrossIDE\Call51\Bin\..\lib\small\libfloat.lib'
+   'fsnormalize' from 'C:\CrossIDE\Call51\Bin\..\lib\small\libfloat.lib'
+   'fsget2args' from 'C:\CrossIDE\Call51\Bin\..\lib\small\libfloat.lib'
+   'slong2fs' from 'C:\CrossIDE\Call51\Bin\..\lib\small\libfloat.lib'
+
+Memory use per module linked:
+C:00888 D:034 I:000 B:000 X:00000 - testmovement
+C:00048 D:000 I:000 B:000 X:00000 - fsgt
+C:00017 D:000 I:000 B:000 X:00000 - fseq
+C:00048 D:000 I:000 B:000 X:00000 - fslt
+C:00163 D:000 I:000 B:000 X:00000 - fsmul
+C:00113 D:000 I:000 B:000 X:00000 - crt0
+C:00013 D:000 I:000 B:000 X:00000 - sint2fs
+C:00073 D:000 I:000 B:000 X:00000 - fscmp
+C:00079 D:000 I:000 B:000 X:00000 - fsreturnval
+C:00051 D:000 I:000 B:000 X:00000 - fsnormalize
+C:00046 D:000 I:000 B:000 X:00000 - fsget2args
+C:00045 D:000 I:000 B:000 X:00000 - slong2fs
+C:00007 D:000 I:000 B:000 X:00000 - ABSOLUTE
+------------------------------------------------------
+C:01591 D:034 I:000 B:000 X:00000 - Totals
+
+INTERMAL RAM map (see legend below):
+00: 0 0 0 0 0 0 0 0 . . . . . . . . 
+10: . . . . . . . . . . . . . . . . 
+20: K a a a a a a a a a a a a a a a 
+30: a a a a a a a a a a a a a a a a 
+40: a a . . . . . . . . . . . . . . 
+50: . . . . . . . . . . . . . . . . 
+60: . . . . . . . . . . . . . . . . 
+70: . . . . . . . . . . . . . . . . 
+80: . . . . . . . . . . . . . . . . 
+90: . . . . . . . . . . . . . . . . 
+A0: . . . . . . . . . . . . . . . . 
+B0: . . . . . . . . . . . . . . . . 
+C0: . . . . . . . . . . . . . . . . 
+D0: . . . . . . . . . . . . . . . . 
+E0: . . . . . . . . . . . . . . . . 
+F0: . . . . . . . . . . . . . . . . 
+
+Legend:
+	0: Register bank 0
+	1: Register bank 1
+	2: Register bank 2
+	3: Register bank 3
+	B: bits (see 'BIT map' below)
+	K: BIT_BANK
+	a: testmovement:R_DSEG
+
+BIT map:
+00: U U U U U U U U . . . . . . . . 
+10: . . . . . . . . . . . . . . . . 
+20: . . . . . . . . . . . . . . . . 
+30: . . . . . . . . . . . . . . . . 
+40: . . . . . . . . . . . . . . . . 
+50: . . . . . . . . . . . . . . . . 
+60: . . . . . . . . . . . . . . . . 
+70: . . . . . . . . . . . . . . . . 
+
+CODE usage map:
+0000: 248 256 256 256 256 256 063 000 000 000 000 000 000 000 000 000 
+1000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+2000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+3000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+4000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+5000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+6000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+7000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+8000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+9000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+A000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+B000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+C000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+D000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+E000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+F000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+Total: 1591 bytes
+
+XDATA usage map:
+0000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+1000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+2000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+3000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+4000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+5000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+6000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+7000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+8000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+9000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+A000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+B000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+C000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+D000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+E000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+F000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+Total: 0 bytes
+
+Base Segments:
+   BIT_BANK=D:0020, size=0001
+   R_BSEG=B:0000, size=0000
+   R_CONST=C:0000, size=0000
+   R_CSEG=C:009D, size=05A2
+   R_DINIT=C:007F, size=001D
+   R_DSEG=D:0000, size=0021
+   R_GSINIT=C:000E, size=0071
+   R_HOME=C:0000, size=0000
+   R_ISEG=I:0000, size=0000
+   R_IXSEG=X:0000, size=0000
+   R_OSEG=D:0000, size=0000
+   R_PSEG=X:0000, size=0000
+   R_XINIT=C:0000, size=0000
+   R_XSEG=X:0000, size=0000
+   rbank0=D:0000, size=0008
+
+Module Segments:
+   CSEG=C:0000, size=0007
+   crt0:R_GSINIT=C:000E, size=0071
+   fscmp:R_CSEG=C:0519, size=0049
+   fseq:R_CSEG=C:0428, size=0011
+   fsget2args:R_CSEG=C:05E4, size=002E
+   fsgt:R_CSEG=C:03F8, size=0030
+   fslt:R_CSEG=C:0439, size=0030
+   fsmul:R_CSEG=C:0469, size=00A3
+   fsnormalize:R_CSEG=C:05B1, size=0033
+   fsreturnval:R_CSEG=C:0562, size=004F
+   sint2fs:R_CSEG=C:050C, size=000D
+   slong2fs:R_CSEG=C:0612, size=002D
+   testmovement:BIT_BANK=D:0020, size=0001
+   testmovement:R_CSEG=C:009D, size=035B
+   testmovement:R_DINIT=C:007F, size=001D
+   testmovement:R_DSEG=D:0021, size=0021
+
+Public symbols:
+   _PWM_percent_x=D:0029
+   _PWM_percent_y=D:0025
+   _R_BSEG_size=L:0000
+   _R_BSEG_start=L:0000
+   _R_CONST_size=L:0000
+   _R_CONST_start=L:0000
+   _R_CSEG_size=L:05A2
+   _R_CSEG_start=L:009D
+   _R_DINIT_size=L:001D
+   _R_DINIT_start=L:007F
+   _R_GSINIT_size=L:0071
+   _R_GSINIT_start=L:000E
+   _R_HOME_size=L:0000
+   _R_HOME_start=L:0000
+   _R_ISEG_size=L:0000
+   _R_ISEG_start=L:0000
+   _R_IXSEG_size=L:0000
+   _R_IXSEG_start=L:0000
+   _R_OSEG_size=L:0000
+   _R_OSEG_start=L:0000
+   _R_PSEG_size=L:0000
+   _R_PSEG_start=L:0000
+   _R_XINIT_size=L:0000
+   _R_XINIT_start=L:0000
+   _R_XSEG_size=L:0000
+   _R_XSEG_start=L:0000
+   _TIMER0_Init=C:00CF
+   _Timer0_ISR=C:00E7
+   ___fseq=C:0428
+   ___fsgt=C:03F8
+   ___fslt=C:0439
+   ___fsmul=C:0469
+   ___sint2fs=C:050C
+   ___slong2fs=C:0612
+   __c51_external_startup=C:009D
+   _backward=C:01F9
+   _count=D:0021
+   _crt0=C:000E
+   _dummy_name_crt0=C:050C
+   _idle=C:01E7
+   _left=C:0202
+   _main=C:039F
+   _movement_manager=C:0268
+   _movement_manager_PARM_2=D:0035
+   _movement_manager_PARM_3=D:0039
+   _movement_manager_PARM_4=D:003D
+   _movement_manager_PARM_5=D:0041
+   _prev_PWM_percent_x=D:002D
+   _prev_PWM_percent_y=D:0031
+   _right=C:0235
+   _stack_start=L:0042
+   _state=D:0023
+   _straight=C:01F0
+   _testmovement_R_DSEG_size=L:0021
+   _testmovement_R_DSEG_start=L:0021
+   fs_check_negative_zeros=C:0537
+   fs_compare_uint32=C:0519
+   fs_direct_return=C:058B
+   fs_normalize_a=C:05B1
+   fs_return_inf=C:0599
+   fs_return_nan=C:05A6
+   fs_return_zero=C:0583
+   fs_round_and_return=C:0562
+   fs_zerocheck_return=C:057A
+   fsgetargs=C:05E4
+   slong2fs_doit=C:061B
+
+Local symbols:
+   crt0:PClearLoop?done?=C:0077
+   crt0:PClearLoop?repeat?=C:0069
+   crt0:XClearLoop?done?=C:005F
+   crt0:XClearLoop?repeat?=C:0051
+   crt0:XInitLoop?done?=C:0047
+   crt0:XInitLoop?repeat?=C:0027
+   crt0:__c51_init_data=C:001B
+   crt0:__c51_program_startup=C:007A
+   crt0:forever?home?=C:007D
+   fscmp:_dummy=C:0519
+   fscmp:a_check=C:0537
+   fscmp:a_not_neg_zero=C:0549
+   fscmp:a_not_neg_zero_cleanup=C:0548
+   fscmp:b_check=C:0549
+   fscmp:b_not_neg_zero=C:0561
+   fscmp:b_not_neg_zero_cleanup_1=C:0560
+   fscmp:b_not_neg_zero_cleanup_2=C:055F
+   fscmp:b_not_neg_zero_cleanup_3=C:055E
+   fscmp:compare32_done=C:0536
+   fseq:_dummy=C:0428
+   fsget2args:L00001?=C:05F1
+   fsget2args:L00002?=C:060D
+   fsget2args:_dummy=C:05E4
+   fsgt:_dummy=C:03F8
+   fsgt:a_negative=C:040D
+   fsgt:a_positive=C:0406
+   fsgt:ab_different=C:041F
+   fsgt:ab_negative=C:0416
+   fsgt:ab_positive=C:0414
+   fsgt:skip_invert=C:0423
+   fslt:_dummy=C:0439
+   fslt:a_negative=C:044E
+   fslt:a_positive=C:0447
+   fslt:ab_different=C:0460
+   fslt:ab_negative=C:0457
+   fslt:ab_positive=C:0455
+   fslt:skip_invert=C:0464
+   fsmul:L00001?=C:046F
+   fsmul:L00002?=C:0472
+   fsmul:L00003?=C:047A
+   fsmul:L00004?=C:0482
+   fsmul:L00005?=C:048A
+   fsmul:L00006?=C:0495
+   fsmul:L00007?=C:049D
+   fsmul:L00010?=C:0509
+   fsmul:_dummy=C:0469
+   fsnormalize:L00001?=C:05B4
+   fsnormalize:L00002?=C:05C6
+   fsnormalize:L00003?=C:05C7
+   fsnormalize:L00004?=C:05CB
+   fsnormalize:L00005?=C:05D2
+   fsnormalize:L00006?=C:05E1
+   fsnormalize:_dummy=C:05B1
+   fsreturnval:L00001?=C:0568
+   fsreturnval:_dummy=C:0562
+   sint2fs:_dummy=C:050C
+   slong2fs:_dummy=C:0612
+   slong2fs:slong2fs_positive=C:0639
+   testmovement:L002001?=C:00BB
+   testmovement:L002004?=C:00C6
+   testmovement:L004002?=C:0150
+   testmovement:L004005?=C:013F
+   testmovement:L004006?=C:0154
+   testmovement:L004008?=C:01BC
+   testmovement:L004011?=C:01AB
+   testmovement:L004016?=C:015B
+   testmovement:L004017?=C:01C0
+   testmovement:L004019?=C:01C8
+   testmovement:L004029?=C:011C
+   testmovement:L004031?=C:0139
+   testmovement:L004032?=C:013B
+   testmovement:L004033?=C:014A
+   testmovement:L004034?=C:014C
+   testmovement:L004036?=C:01A5
+   testmovement:L004037?=C:01A7
+   testmovement:L004038?=C:01B6
+   testmovement:L004039?=C:01B8
+   testmovement:L004040?=C:01C8
+   testmovement:L008002?=C:0230
+   testmovement:L009002?=C:0263
+   testmovement:L010002?=C:0395
+   testmovement:L010005?=C:036B
+   testmovement:L010008?=C:033A
+   testmovement:L010011?=C:02F9
+   testmovement:L010015?=C:039B
+   testmovement:L010026?=C:02A3
+   testmovement:L010027?=C:02D7
+   testmovement:L011002?=C:03A2
+   testmovement:b0=D:0020
+   testmovement:b1=D:0020
+   testmovement:b2=D:0020
+   testmovement:b3=D:0020
+   testmovement:b4=D:0020
+   testmovement:b5=D:0020
+   testmovement:b6=D:0020
+   testmovement:b7=D:0020
+   testmovement:bits=D:0020

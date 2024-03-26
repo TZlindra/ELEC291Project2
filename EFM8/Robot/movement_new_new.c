@@ -1,5 +1,6 @@
 #include <EFM8LB1.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <math.h>
 
@@ -9,18 +10,18 @@
 #define RIGHT_MOTOR_RHS P2_1
 
 #define SYSCLK    72000000L // SYSCLK Frequency in Hz
+#define BAUDRATE  115200L
 
 #define TIMER_3_FREQ 10000L
 //#define TIMER_4_FREQ 10000L
 
-volatile int count = 0;
-volatile unsigned char array[2];
+int count = 0;
 
 enum State state;
 int PWM_percent_y = 100;
-int PWM_percent_x = 50;
-int left_PWM = 0;
-int right_PWM = 0;
+int PWM_percent_x = 20;
+int left_wheel = 0;
+int right_wheel = 0;
 int prev_PWM_percent_x = 0;
 int prev_PWM_percent_y = 0;
 
@@ -79,6 +80,39 @@ char _c51_external_startup (void)
 	XBR0     = 0x00;
 	XBR1     = 0X00;
 	XBR2     = 0x40; // Enable crossbar and weak pull-ups
+
+
+	P0MDOUT |= 0x10; // Enable UART0 TX as push-pull output
+	XBR0     = 0x01; // Enable UART0 on P0.4(TX) and P0.5(RX)
+	XBR1     = 0X00;
+	XBR2     = 0x41; // Enable crossbar and uart 1
+
+	// Configure Uart 0
+	#if (((SYSCLK/BAUDRATE)/(2L*12L))>0xFFL)
+		#error Timer 0 reload value is incorrect because (SYSCLK/BAUDRATE)/(2L*12L) > 0xFF
+	#endif
+	SCON0 = 0x10;
+	TH1 = 0x100-((SYSCLK/BAUDRATE)/(2L*12L));
+	TL1 = TH1;      // Init Timer1
+	TMOD &= ~0xf0;  // TMOD: timer 1 in 8-bit auto-reload
+	TMOD |=  0x20;
+	TR1 = 1; // START Timer1
+	TI = 1;  // Indicate TX0 ready
+
+
+    /*
+    // Configure Uart 0
+	#if (((SYSCLK/BAUDRATE)/(2L*12L))>0xFFL)
+		#error Timer 0 reload value is incorrect because (SYSCLK/BAUDRATE)/(2L*12L) > 0xFF
+	#endif
+	SCON0 = 0x10;
+	TH1 = 0x100-((SYSCLK/BAUDRATE)/(2L*12L));
+	TL1 = TH1;      // Init Timer1
+	TMOD &= ~0xf0;  // TMOD: timer 1 in 8-bit auto-reload
+	TMOD |=  0x20;
+	TR1 = 1; // START Timer1
+	TI = 1;  // Indicate TX0 ready
+    */
     return 0;
 }
 
@@ -90,6 +124,7 @@ enum State
     straight_enum,
     backward_enum
 };
+
 void TIMER3Init(void)
 {
 	// Initialize timer 3 for periodic interrupts
@@ -120,19 +155,28 @@ void Timer3_ISR (void) interrupt INTERRUPT_TIMER3
 	SFRPAGE=0x0;
 	TMR3CN0&=0b_0011_1111; // Clear Timer3 interrupt flags
 
-    P1_2 = !P1_2;
+    //P1_2 = !P1_2;
     P1_3 = !P1_3;
     //P2_1 = !P2_1;
 
-    count++;
+
 
     if (count > 100)
     {
         count = 0;
     }
-    LEFT_MOTOR_LHS = (count > array[0]) ? 0:1;
-    RIGHT_MOTOR_LHS = (count > array[1]) ? 0:1;
- }
+    LEFT_MOTOR_LHS = (count > left_wheel) ? 0:1;
+    RIGHT_MOTOR_LHS = (count > right_wheel) ? 0:1;
+
+    count++;
+    /*
+    if (count > array[1])
+    {
+        P1_2=!P1_2;
+    }
+
+    */
+}
 /*
 void Timer4_ISR (void) interrupt INTERRUPT_TIMER4
 {
@@ -251,8 +295,8 @@ enum State movement_manager(float PWM_percent_x, float PWM_percent_y, float prev
     return state;
 
 }
-
-void PWM_manager(float x_value, float y_value, volatile unsigned char array[])
+/*
+void PWM_manager(float x_value, float y_value, volatile unsigned int array[])
 {
     // array[0] LEFT WHEEL
     // array[1] RIGHT WHEEL
@@ -266,18 +310,71 @@ void PWM_manager(float x_value, float y_value, volatile unsigned char array[])
         array[0] = (100 + x_value) * y_value / 100;
         array[1] = y_value;
     }
+
+
+}
+*/
+void PWM_manager(float x_value, float y_value)
+{
+
+    if (x_value >= 0) // RIGHT TURN
+    {
+        left_wheel = abs(y_value);
+        right_wheel = (100 - abs(x_value)) * abs(y_value) / 100;
+    }
+    else if (x_value < 0) // LEFT TURN
+    {
+        left_wheel = (100 - abs(x_value)) * abs(y_value) / 100;
+        right_wheel = abs(y_value);
+    }
+
+
+}
+/*
+void Timer3us(unsigned char us)
+{
+	unsigned char i;               // usec counter
+
+	// The input for Timer 3 is selected as SYSCLK by setting T3ML (bit 6) of CKCON0:
+	CKCON0|=0b_0100_0000;
+
+	TMR3RL = (-(SYSCLK)/1000000L); // Set Timer3 to overflow in 1us.
+	TMR3 = TMR3RL;                 // Initialize Timer3 for first overflow
+
+	TMR3CN0 = 0x04;                 // Sart Timer3 and clear overflow flag
+	for (i = 0; i < us; i++)       // Count <us> overflows
+	{
+		while (!(TMR3CN0 & 0x80));  // Wait for overflow
+		TMR3CN0 &= ~(0x80);         // Clear overflow indicator
+	}
+	TMR3CN0 = 0 ;                   // Stop Timer3 and clear overflow flag
 }
 
+void waitms (unsigned int ms)
+{
+	unsigned int j;
+	unsigned char k;
+	for(j=0; j<ms; j++)
+		for (k=0; k<4; k++) Timer3us(250);
+}
 
+void Serial_Init(void) {
+	waitms(500); // Give Putty a chance to start.
+	printf("\x1b[2J"); // Clear screen using ANSI escape sequence.
+}
+*/
 int main(void)
 {
+    PWM_manager(PWM_percent_x, PWM_percent_x);
+	//Serial_Init();
     TIMER3Init();
     //TIMER4Init();
-    straight();
-    state = straight_enum;
-    PWM_manager(PWM_percent_x, PWM_percent_x, array);
+    //straight();
+    //state = straight_enum;
+
     while(1)
     {
+        PWM_manager(PWM_percent_x, PWM_percent_x);
         //state = movement_manager(PWM_percent_x, PWM_percent_y, prev_PWM_percent_x, prev_PWM_percent_y, state);
 
 

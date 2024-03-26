@@ -8,8 +8,8 @@
 #define SYSCLK 32000000L
 #define DEF_F 15000L
 
-char TX_BUFF[80];
-char RX_BUFF[80];
+char TX_BUFF[20];
+char RX_BUFF[20];
 
 // LQFP32 pinout
 //             ----------
@@ -77,8 +77,8 @@ void ReceiveCommand(void)
 	if(ReceivedBytes2()>0) // Something has arrived
 	{
 		egets2(RX_BUFF, sizeof(RX_BUFF)-1);
-		printf("RX: %s", RX_BUFF);
-		printf("Length: %d\r\n", strlen(RX_BUFF));
+		printf("RX: %s\r\n", RX_BUFF);
+		// printf("Length: %d\r\n", strlen(RX_BUFF));
 	}
 }
 
@@ -127,11 +127,19 @@ int main(void)
 	cnt=0;
 	while(1)
 	{
-		if((GPIOA->IDR&BIT11)==0)
-		{
-			SendCommand("F:", cnt);
-			cnt++;
-		}
+		// if((GPIOA->IDR&BIT11)==0)
+		// {
+		// 	SendCommand("F:", cnt);
+		// 	cnt++;
+		// }
+
+		waitms(1000);
+		waitms(1000);
+		waitms(1000);
+		waitms(1000);
+		waitms(1000);
+		SendCommand("F:", cnt);
+		cnt++;
 		ReceiveCommand();
 	}
 

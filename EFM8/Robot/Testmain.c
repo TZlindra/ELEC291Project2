@@ -1,3 +1,4 @@
+// C1 = 10nF C2 = 100nF
 #include <EFM8LB1.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -8,6 +9,7 @@
 
 #define MAX_16_BIT 65536.0 // 16-Bit Maximum Value
 #define MAX_8_BIT 256.0 // 8-Bit Maximum Value
+#define TIMER_5_FREQ 1000L
 
 /* Clock Frequency and Baud Rate */
 // Baudrate of UART in BPS
@@ -15,11 +17,39 @@
 
 /* Define Pins */
 #define EFM8_SIGNAL P1_0 // Signal to Measure
+#define TOGGLE P1_4
 
 #define VSS 5 // The measured value of VSS in volts
 #define VDD 3.3035 // The measured value of VDD in volts
 
-idata char buff[80];
+idata char TX_BUFF[20];
+idata char RX_BUFF[20];
+
+volatile int TX5Count = 0;
+volatile int RX5Count = 0;
+volatile int freq = 300;
+
+/* Function Prototypes */
+void TIMER0_Init(void);
+void TIMER5_Init(void);
+void Timer3us(unsigned char us);
+void waitms (unsigned int ms);
+void Serial_Init(void);
+void UART1_Init (unsigned long baudrate);
+void putchar1 (char c);
+void sendstr1 (char * s);
+char getchar1 (void);
+char getchar1_with_timeout (void);
+void getstr1 (char * s);
+bit RXU1 (void);
+void waitms_or_RI1 (unsigned int ms);
+void SendATCommand (char * s);
+void JDYInit (void);
+float calculate_period_s(int overflow_count, int TH0, int TL0);
+float calculate_freq_Hz(float period_s);
+float GetFreq(void);
+void SendFreq(int freq);
+void GetData(void);
 
 char _c51_external_startup (void)
 {
@@ -95,11 +125,33 @@ void TIMER0_Init(void) {
 	TR0 = 0; // Stop Timer/Counter 0
 }
 
+void TIMER5_Init(void) {
+	SFRPAGE=0x10;
+	TMR5CN0=0x00;   // Stop Timer5; Clear TF5; WARNING: lives in SFR page 0x10
+	CKCON1|=0b_0000_0100; // Timer 5 uses the system clock
+	TMR5RL=(0x10000L-(SYSCLK/(2*TIMER_5_FREQ))); // Initialize reload value
+	TMR5=0xffff;   // Set to reload immediately
+	EIE2|=0b_0000_1000; // Enable Timer5 interrupts
+	TR5=1;         // Start Timer5 (TMR5CN0 is bit addressable)
+	EA = 1;
+}
 
-/*void TIMER1_Init(void {
+void Timer5_ISR (void) interrupt INTERRUPT_TIMER5
+{
+	SFRPAGE=0x10;
+	TF5H = 0; // Clear Timer5 interrupt flag
 
-)\
-*/
+	TX5Count++;
+
+	if (TX5Count >= 1000) {
+		TX5Count = 0;
+		// SendFreq(freq);
+		// freq += 5;
+		GetData();
+	}
+
+}
+
 // Uses Timer3 to delay <us> micro-seconds.
 void Timer3us(unsigned char us)
 {
@@ -249,10 +301,10 @@ void SendATCommand (char * s)
 	P2_0=0; // 'set' pin to 0 is 'AT' mode.
 	waitms(5);
 	sendstr1(s);
-	getstr1(buff);
+	getstr1(TX_BUFF);
 	waitms(10);
 	P2_0=1; // 'set' pin to 1 is normal operation mode.
-	printf("Response: %s\r\n", buff);
+	printf("Response: %s\r\n", TX_BUFF);
 }
 
 void JDYInit (void){
@@ -308,34 +360,49 @@ float GetFreq(void){
 		return freq_Hz;
 }
 
-void SendFreq(float freq){
-	sprintf(buff,"%.3f",freq);
-	sendstr1(buff);
+void SendFreq(int freq){
+	sprintf(TX_BUFF,"%d\r\n",freq);
+	sendstr1(TX_BUFF);
+//	printf("%s \r\n", TX_BUFF);
 	waitms_or_RI1(500);
 }
 
 void GetData(void){
+	TOGGLE = !TOGGLE;
 	if (RXU1()){
-		getstr1(buff);
-		printf("%s \r\n",buff);
+		getstr1(RX_BUFF);
+		SBUF1 = 0;
 	}
+
 }
 
 void main (void)
 {
-	float freq;
 	TIMER0_Init();
 	Serial_Init();
 	UART1_Init(9600);
 	JDYInit();
+	TOGGLE = 0;
+	TIMER5_Init();
 
 	while(1){
-		freq = GetFreq();
-		SendFreq(freq);
-		waitms(200);
-		GetData();
-		waitms(200);
+	/*
+		if (RX_BUFF[0] == 'I'){
+			SBUF1 = 0;
+			SendFreq(freq);
+			freq += 5;
+			printf("%s \r\n", RX_BUFF);
+		}
+	*/
+
+		// GetData();
+		if (RX_BUFF[0] == 'I') {
+			SBUF1 = 0;
+			SendFreq(freq);
+			freq += 5;
+			printf("%s \r\n", RX_BUFF);
+		} else {
+			printf("%s \r\n", RX_BUFF);
+		}
 	}
-
-
 }

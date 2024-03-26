@@ -89,7 +89,10 @@ int ReceiveInductance(int inductance) {
 		if (ReceivedBytes2() > 0) {
 			egets2(RX_BUFF, sizeof(RX_BUFF)-1);
 
-			if (strlen(RX_BUFF) < 5) {
+			// printf("Length of RX_BUFF: %d\r\n", strlen(RX_BUFF));
+			printf("RX_BUFF: %.*s\r\n", strlen(RX_BUFF)-1, RX_BUFF); // Print String Up to Last Character
+
+			if (strlen(RX_BUFF) == 3) {
 				rx = atoi(RX_BUFF);
 				// printf("Inductance: %d\r\n", rx);
 				break;

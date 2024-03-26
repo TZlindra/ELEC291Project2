@@ -51,7 +51,7 @@ volatile float SpeakerRatio = 5;
 volatile int inductance = 0;
 
 float x = 0, y = 0;
-float standardized_x = 0, standardized_y = 0;
+int standardized_x = 0, standardized_y = 0;
 
 void delay(int dly);
 
@@ -63,8 +63,8 @@ void ConfigPinSpeaker(void);
 
 void TogglePin(void);
 
-void display_x_y(float x, float y);
-void display_adc(float x, float standardized_x, float y, float standardized_y);
+void display_x_y(int x, int y);
+void display_adc(float x, int standardized_x, float y, int standardized_y);
 void display_inductance(float inductance);
 
 // Interrupt service routines are the same as normal
@@ -178,17 +178,17 @@ int IsButtonPressed(void) {
 	return !(GPIOA->IDR & BIT12);
 }
 
-void display_x_y(float x, float y) {
-	sprintf(LCD_BUFF, "MOV(%.1f, %.1f)", x, y);
+void display_x_y(int x, int y) {
+	sprintf(LCD_BUFF, "MOV(%d, %d)", x, y);
 	LCDprint(LCD_BUFF, 2, 1);
 }
 
-void display_adc(float x, float standardized_x, float y, float standardized_y) {
-	sprintf(LCD_BUFF, "X:%.1f = %.1f", x, standardized_x);
+void display_adc(float x, int standardized_x, float y, int standardized_y) {
+	sprintf(LCD_BUFF, "X:%.1f = %d", x, standardized_x);
 	printf("%s\r\n", LCD_BUFF);
 	LCDprint(LCD_BUFF, 1, 1);
 
-	sprintf(LCD_BUFF, "Y:%.1f = %.1f", y, standardized_y);
+	sprintf(LCD_BUFF, "Y:%.1f = %d", y, standardized_y);
 	printf("%s\r\n", LCD_BUFF);
 	LCDprint(LCD_BUFF, 2, 1);
 }

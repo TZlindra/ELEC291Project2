@@ -11,17 +11,18 @@
 #define SYSCLK    72000000L // SYSCLK Frequency in Hz
 
 #define TIMER_3_FREQ 10000L
-#define TIMER_4_FREQ 1000L
+//#define TIMER_4_FREQ 10000L
 
-int count = 0;
+volatile int count = 0;
+volatile unsigned char array[2];
+
 enum State state;
-float PWM_percent_y = 0.25;
-float PWM_percent_x = 0;
-float left_PWM = 0;
-float right_PWM = 0;
-float prev_PWM_percent_x = 0;
-float prev_PWM_percent_y = 0;
-float array[2];
+int PWM_percent_y = 100;
+int PWM_percent_x = 50;
+int left_PWM = 0;
+int right_PWM = 0;
+int prev_PWM_percent_x = 0;
+int prev_PWM_percent_y = 0;
 
 char _c51_external_startup (void)
 {
@@ -29,11 +30,11 @@ char _c51_external_startup (void)
 	SFRPAGE = 0x00;
 	WDTCN = 0xDE; //First key
 	WDTCN = 0xAD; //Second key
-  
+
 	VDM0CN=0x80;       // enable VDD monitor
 	RSTSRC=0x02|0x04;  // Enable reset on missing clock detector and VDD
 
-	#if (SYSCLK == 48000000L)	
+	#if (SYSCLK == 48000000L)
 		SFRPAGE = 0x10;
 		PFE0CN  = 0x10; // SYSCLK < 50 MHz.
 		SFRPAGE = 0x00;
@@ -42,7 +43,7 @@ char _c51_external_startup (void)
 		PFE0CN  = 0x20; // SYSCLK < 75 MHz.
 		SFRPAGE = 0x00;
 	#endif
-	
+
 	#if (SYSCLK == 12250000L)
 		CLKSEL = 0x10;
 		CLKSEL = 0x10;
@@ -51,7 +52,7 @@ char _c51_external_startup (void)
 		CLKSEL = 0x00;
 		CLKSEL = 0x00;
 		while ((CLKSEL & 0x80) == 0);
-	#elif (SYSCLK == 48000000L)	
+	#elif (SYSCLK == 48000000L)
 		// Before setting clock to 48 MHz, must transition to 24.5 MHz first
 		CLKSEL = 0x00;
 		CLKSEL = 0x00;
@@ -74,8 +75,8 @@ char _c51_external_startup (void)
 	P0MDOUT|=0b_1100_0010;
 	P1MDOUT|=0b_1111_1111;
 	P2MDOUT|=0b_0001_1111;
-	
-	XBR0     = 0x00;                     
+
+	XBR0     = 0x00;
 	XBR1     = 0X00;
 	XBR2     = 0x40; // Enable crossbar and weak pull-ups
     return 0;
@@ -100,6 +101,7 @@ void TIMER3Init(void)
 	TMR3CN0|=0b_0000_0100;  // Start Timer3 (TMR3CN0 is not bit addressable)
     EA = 1;
 }
+/*
 void TIMER4Init(void)
 {
 // Initialize timer 4 for periodic interrupts
@@ -111,6 +113,7 @@ void TIMER4Init(void)
 	EIE2|=0b_0000_0100;     // Enable Timer4 interrupts
 	TR4=1;
 }
+*/
 
 void Timer3_ISR (void) interrupt INTERRUPT_TIMER3
 {
@@ -118,22 +121,19 @@ void Timer3_ISR (void) interrupt INTERRUPT_TIMER3
 	TMR3CN0&=0b_0011_1111; // Clear Timer3 interrupt flags
 
     P1_2 = !P1_2;
+    P1_3 = !P1_3;
     //P2_1 = !P2_1;
 
+    count++;
 
     if (count > 100)
     {
-        LEFT_MOTOR_LHS = 1;
-
         count = 0;
     }
-    else if (count > array[0]*100)
-    {
-        LEFT_MOTOR_LHS = 0;
-    }
-    count++;
-}
-
+    LEFT_MOTOR_LHS = (count > array[0]) ? 0:1;
+    RIGHT_MOTOR_LHS = (count > array[1]) ? 0:1;
+ }
+/*
 void Timer4_ISR (void) interrupt INTERRUPT_TIMER4
 {
 	SFRPAGE=0x10;
@@ -147,11 +147,12 @@ void Timer4_ISR (void) interrupt INTERRUPT_TIMER4
         count = 0;
     }
     else if (count > array[1]*100)
-    {   
+    {
         RIGHT_MOTOR_LHS = 0;
     }
     count++;
 }
+*/
 
 void idle(void)
 {
@@ -178,7 +179,7 @@ void backward(void)
 }
 
 void left(float PWM_percent_y)
-{    
+{
     if (PWM_percent_y > 0)
     {
         RIGHT_MOTOR_LHS = 1;
@@ -187,7 +188,7 @@ void left(float PWM_percent_y)
         LEFT_MOTOR_RHS = 0;
     }
     else
-    {   
+    {
         RIGHT_MOTOR_LHS = 0;
         RIGHT_MOTOR_RHS = 1;
         LEFT_MOTOR_LHS = 0;
@@ -217,7 +218,7 @@ void right(float PWM_percent_y)
 
 enum State movement_manager(float PWM_percent_x, float PWM_percent_y, float prev_PWM_percent_x, float prev_PWM_percent_y, enum State state)
 {
-    
+
     if (prev_PWM_percent_x != PWM_percent_x || prev_PWM_percent_y != PWM_percent_y)
     {
         if (PWM_percent_y == 0 && PWM_percent_x == 0)
@@ -246,24 +247,23 @@ enum State movement_manager(float PWM_percent_x, float PWM_percent_y, float prev
             backward();
         }
     }
-    
+
     return state;
 
 }
 
-void PWM_manager(float x_value, float y_value, float array[])
+void PWM_manager(float x_value, float y_value, volatile unsigned char array[])
 {
     // array[0] LEFT WHEEL
     // array[1] RIGHT WHEEL
-    
     if (x_value >= 0) // RIGHT TURN
     {
         array[0] = y_value;
-        array[1] = (1 - x_value) * y_value;
+        array[1] = (100 - x_value) * y_value / 100;
     }
     else if (x_value < 0) // LEFT TURN
     {
-        array[0] = (1 + x_value) * y_value;
+        array[0] = (100 + x_value) * y_value / 100;
         array[1] = y_value;
     }
 }
@@ -272,16 +272,17 @@ void PWM_manager(float x_value, float y_value, float array[])
 int main(void)
 {
     TIMER3Init();
-    TIMER4Init();
-    left(0.5);
-    state = left_enum;
+    //TIMER4Init();
+    straight();
+    state = straight_enum;
+    PWM_manager(PWM_percent_x, PWM_percent_x, array);
     while(1)
     {
-        state = movement_manager(PWM_percent_x, PWM_percent_y, prev_PWM_percent_x, prev_PWM_percent_y, state);
-        PWM_manager(PWM_percent_x, PWM_percent_x, array);
+        //state = movement_manager(PWM_percent_x, PWM_percent_y, prev_PWM_percent_x, prev_PWM_percent_y, state);
 
-        prev_PWM_percent_x = PWM_percent_x;
-        prev_PWM_percent_y = PWM_percent_y;
+
+        //prev_PWM_percent_x = PWM_percent_x;
+        //prev_PWM_percent_y = PWM_percent_y;
     }
-    
+
 }

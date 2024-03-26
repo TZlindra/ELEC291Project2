@@ -8,6 +8,7 @@
 
 #define MAX_16_BIT 65536.0 // 16-Bit Maximum Value
 #define MAX_8_BIT 256.0 // 8-Bit Maximum Value
+#define TTIMER_5_FREQ
 
 /* Clock Frequency and Baud Rate */
 // Baudrate of UART in BPS
@@ -19,7 +20,7 @@
 #define VSS 5 // The measured value of VSS in volts
 #define VDD 3.3035 // The measured value of VDD in volts
 
-idata char buff[80];
+idata char buff[20];
 
 char _c51_external_startup (void)
 {
@@ -96,10 +97,16 @@ void TIMER0_Init(void) {
 }
 
 
-/*void TIMER1_Init(void {
-	
-)\
-*/
+void TIMER5_Init(void) {
+	SFRPAGE=0x10;
+	TMR5CN0=0x00;   // Stop Timer5; Clear TF5; WARNING: lives in SFR page 0x10
+	CKCON1|=0b_0000_0100; // Timer 5 uses the system clock
+	TMR5RL=(0x10000L-(SYSCLK/(2*TIMER_5_FREQ))); // Initialize reload value
+	TMR5=0xffff;   // Set to reload immediately
+	EIE2|=0b_0000_1000; // Enable Timer5 interrupts
+	TR5=1;         // Start Timer5 (TMR5CN0 is bit addressable)
+}
+
 // Uses Timer3 to delay <us> micro-seconds. 
 void Timer3us(unsigned char us)
 {
@@ -309,32 +316,40 @@ float GetFreq(void){
 }
 
 void SendFreq(float freq){
-	sprintf(buff,"%.3f",freq);
+	sprintf(buff,"%.3f\r\n",freq);
 	sendstr1(buff);
+	printf("%s \r\n", buff); 
 	waitms_or_RI1(500);
 }
 
 void GetData(void){
 	if (RXU1()){
+		
 		getstr1(buff); 	
-		printf("%s \r\n",buff); 
+		SBUF1 = 0; 
+		//printf("%s \r\n", buff); 
 	}
 }
 
+
+
 void main (void)
 {
-	float freq;
+	int freq = 300;
 	TIMER0_Init();
 	Serial_Init(); 
 	UART1_Init(9600);
 	JDYInit(); 
 
 	while(1){
-		freq = GetFreq(); 
-		SendFreq(freq); 
-		waitms(200);
-		GetData();
-		waitms(200);  
+		
+		GetData(); 
+		if (buff[0] == 'I'){
+			SBUF1 = 0; 	
+			SendFreq(freq);
+			freq += 5;  
+		}	
+		
 	}	
 
 

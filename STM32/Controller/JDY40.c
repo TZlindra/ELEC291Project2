@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "../Common/Include/stm32l051xx.h"
 #include "../Common/Include/serial.h"
@@ -26,8 +27,8 @@
 //             VSS -|16      17|- VDD
 //                    ----------
 
-char TX_BUFF[80];
-char RX_BUFF[80];
+char TX_BUFF[20];
+char RX_BUFF[20];
 
 void InitTimer21(void) {
 	RCC->APB2ENR |= RCC_APB2ENR_TIM21EN;  // turn on clock for timer21 (UM: page 188)
@@ -87,9 +88,12 @@ int ReceiveInductance(int inductance) {
 
 		if (ReceivedBytes2() > 0) {
 			egets2(RX_BUFF, sizeof(RX_BUFF)-1);
-			rx = atoi(RX_BUFF);
-			// printf("Inductance: %d\r\n", rx);
-			break;
+
+			if (strlen(RX_BUFF) < 5) {
+				rx = atoi(RX_BUFF);
+				// printf("Inductance: %d\r\n", rx);
+				break;
+			}
 		}
 
 		if (timeout_count > 1000) break;
@@ -114,7 +118,7 @@ void ConfigJDY40(void) {
 }
 
 void Send_X_Y(float x_value, float y_value) {
-	sprintf(TX_BUFF, "X: %f Y: %f\r\n", x_value, y_value);
+	sprintf(TX_BUFF, "X: %.2f Y: %.2f\r\n", x_value, y_value);
 	// printf("%s", TX_BUFF);
 	eputs2(TX_BUFF);
 }

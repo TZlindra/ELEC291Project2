@@ -46,7 +46,7 @@ char LCD_BUFF[CHARS_PER_LINE]; // Buffer for LCD Display
 volatile int Timer2Count = 0;
 volatile int TX21Count = 0;
 volatile int RX21Count = 0;
-volatile float Timer2Ratio = 5;
+volatile float SpeakerRatio = 5;
 
 volatile int inductance = 0;
 
@@ -75,7 +75,7 @@ void display_inductance(float inductance);
 void TIM2_Handler(void) {
 	TIM2->SR &= ~BIT0; // Clear Update Interrupt Flag
 	Timer2Count++;
-	if (Timer2Count >= Timer2Ratio) {
+	if (Timer2Count >= SpeakerRatio) {
 		TIM2->CCR1 = (TIM2->CCR1+16)&0xFF;
 		Timer2Count = 0;
 		ToggleSpeaker(); // Toggle Speaker
@@ -179,7 +179,7 @@ int IsButtonPressed(void) {
 }
 
 void display_x_y(float x, float y) {
-	sprintf(LCD_BUFF, "(%.1f, %.1f)", x, y);
+	sprintf(LCD_BUFF, "MOV(%.1f, %.1f)", x, y);
 	LCDprint(LCD_BUFF, 2, 1);
 }
 
@@ -227,7 +227,8 @@ void main(void) {
 
 		printf("I: %d\r\n", inductance);
 
-		if (IsButtonPressed()) Timer2Ratio = ChangeSpeakerRatio(Timer2Ratio);
+		// if (IsButtonPressed()) SpeakerRatio = SetSpeakerFreq(SpeakerRatio);
+		SpeakerRatio = SetSpeakerFreq(inductance, SpeakerRatio);
 
 		// Display the ADC values on the LCD
 		display_inductance(inductance);

@@ -43,14 +43,21 @@ void ToggleSpeaker(void) {
 	GPIOA->ODR ^= BIT8;
 }
 
-float ChangeSpeakerRatio(float current_ratio) {
+float SetSpeakerFreq(int inductance, float current_ratio) {
     float new_ratio, new_freq;
 
-    if (current_ratio >= 5) new_ratio = 1;
-    else new_ratio = current_ratio + 1;
+    // if (current_ratio >= 5) new_ratio = 1;
+    // else new_ratio = current_ratio + 1;
+
+    // Inductance Thresholds for Speaker Frequency
+    if (inductance >= 350) new_ratio = 5;
+    else if (inductance >= 340) new_ratio = 4;
+    else if (inductance >= 330) new_ratio = 3;
+    else if (inductance >= 320) new_ratio = 2;
+    else new_ratio = 1;
 
     new_freq = TICK_FREQ_TIM2 / new_ratio;
-    printf("Current Frequency: %f\r\n", new_freq);
+    // printf("Current Frequency: %f\r\n", new_freq);
 
     return new_ratio;
 }

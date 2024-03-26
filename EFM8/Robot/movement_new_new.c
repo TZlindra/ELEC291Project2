@@ -17,8 +17,11 @@ int count = 0;
 enum State state;
 float PWM_percent_y = 0.25;
 float PWM_percent_x = 0;
+float left_PWM = 0;
+float right_PWM = 0;
 float prev_PWM_percent_x = 0;
 float prev_PWM_percent_y = 0;
+float array[2];
 
 char _c51_external_startup (void)
 {
@@ -120,43 +123,15 @@ void Timer3_ISR (void) interrupt INTERRUPT_TIMER3
 
     if (count > 100)
     {
-        // turn on
-        if (state == left_enum)
-        {
-            RIGHT_MOTOR_LHS = 1;
-        }
-        else if (state == right_enum)
-        {
-            LEFT_MOTOR_LHS = 1;
-        }
-        else
-        {
-            LEFT_MOTOR_LHS = 1;
-            RIGHT_MOTOR_LHS = 1;
-        }
+        LEFT_MOTOR_LHS = 1;
+
         count = 0;
     }
-    else if (count > PWM_percent_y*100)
+    else if (count > array[0]*100)
     {
-        //turn off
-        if (state == left_enum)
-        {
-            RIGHT_MOTOR_LHS = 0;
-        }
-        else if (state == right_enum)
-        {
-            LEFT_MOTOR_LHS = 0;
-        }
-        else
-        {
-            LEFT_MOTOR_LHS = 0;
-            RIGHT_MOTOR_LHS = 0;
-        }
+        LEFT_MOTOR_LHS = 0;
     }
     count++;
-
-
-
 }
 
 void Timer4_ISR (void) interrupt INTERRUPT_TIMER4
@@ -165,8 +140,17 @@ void Timer4_ISR (void) interrupt INTERRUPT_TIMER4
 	TF4H = 0; // Clear Timer4 interrupt flag
 	P1_3 = !P1_3;
 
+    if (count > 100)
+    {
+        RIGHT_MOTOR_LHS = 1;
 
-
+        count = 0;
+    }
+    else if (count > array[1]*100)
+    {   
+        RIGHT_MOTOR_LHS = 0;
+    }
+    count++;
 }
 
 void idle(void)
@@ -193,22 +177,9 @@ void backward(void)
     RIGHT_MOTOR_RHS = 1;
 }
 
-void left(float PWM_percent_x, float PWM_percent_y)
-{
-    // to change later
-    /*
-    now: left side OFF, RIGHT side ON
-    goal: left side ON PARTIALLY (using PWM), RIGHT side ON
-    
-    if (x_PWM < -0.10 && x_PWM > -0.25)
-        LEFT WHEEL 75% PWM, RIGHT WHEEL 100% PWM
-    if 50% PWM difference i.e. y = 1 & x = -0.5
-        LEFT WHEEL 50% PWM, RIGHT WHEEL 100% PWM
-    
-    */
-
-    
-    if (PWM_percent_x > 0)
+void left(float PWM_percent_y)
+{    
+    if (PWM_percent_y > 0)
     {
         RIGHT_MOTOR_LHS = 1;
         RIGHT_MOTOR_RHS = 0;
@@ -225,7 +196,7 @@ void left(float PWM_percent_x, float PWM_percent_y)
 
 }
 
-void right(float PWM_percent_x, float PWM_percent_y)
+void right(float PWM_percent_y)
 {
 
     if (PWM_percent_y > 0)
@@ -239,10 +210,9 @@ void right(float PWM_percent_x, float PWM_percent_y)
     {
         LEFT_MOTOR_LHS = 0;
         LEFT_MOTOR_RHS = 1;
-         RIGHT_MOTOR_LHS = 0;
+        RIGHT_MOTOR_LHS = 0;
         RIGHT_MOTOR_RHS = 1;
     }
-
 }
 
 enum State movement_manager(float PWM_percent_x, float PWM_percent_y, float prev_PWM_percent_x, float prev_PWM_percent_y, enum State state)
@@ -258,12 +228,12 @@ enum State movement_manager(float PWM_percent_x, float PWM_percent_y, float prev
         else if (PWM_percent_x < 0)
         {
             state = left_enum;
-            left(PWM_percent_x, PWM_percent_y);
+            left(PWM_percent_y);
         }
         else if (PWM_percent_x > 0)
         {
             state = right_enum;
-            right(PWM_percent_x, PWM_percent_y);
+            right(PWM_percent_y);
         }
         else if (PWM_percent_y > 0)
         {
@@ -281,11 +251,21 @@ enum State movement_manager(float PWM_percent_x, float PWM_percent_y, float prev
 
 }
 
-float PWM_manager(float x_value, float y_value, float array[])
+void PWM_manager(float x_value, float y_value, float array[])
 {
-    if ()
-    array[0] = ;
+    // array[0] LEFT WHEEL
+    // array[1] RIGHT WHEEL
     
+    if (x_value >= 0) // RIGHT TURN
+    {
+        array[0] = y_value;
+        array[1] = (1 - x_value) * y_value;
+    }
+    else if (x_value < 0) // LEFT TURN
+    {
+        array[0] = (1 + x_value) * y_value;
+        array[1] = y_value;
+    }
 }
 
 
@@ -298,6 +278,8 @@ int main(void)
     while(1)
     {
         state = movement_manager(PWM_percent_x, PWM_percent_y, prev_PWM_percent_x, prev_PWM_percent_y, state);
+        PWM_manager(PWM_percent_x, PWM_percent_x, array);
+
         prev_PWM_percent_x = PWM_percent_x;
         prev_PWM_percent_y = PWM_percent_y;
     }

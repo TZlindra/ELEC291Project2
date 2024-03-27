@@ -29,6 +29,7 @@
 
 char TX_BUFF[80];
 char RX_BUFF[80];
+char *const RX_CMD = " I\r\n";
 
 void InitTimer21(void) {
 	RCC->APB2ENR |= RCC_APB2ENR_TIM21EN;  // turn on clock for timer21 (UM: page 188)
@@ -81,7 +82,7 @@ void ReceiveCommand(void) {
 int ReceiveInductance(int inductance) {
 	int timeout_count = 0;
 	int rx = -1;
-	eputs2(REQUEST);
+	eputs2(RX_CMD);
 
 	while (1) {
 		timeout_count++;

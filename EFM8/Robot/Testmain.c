@@ -50,6 +50,10 @@ float calculate_freq_Hz(float period_s);
 float GetFreq(void);
 void SendFreq(int freq);
 void GetData(void);
+void RXData(void);
+void TXInductance(void);
+
+
 
 char _c51_external_startup (void)
 {
@@ -137,8 +141,8 @@ void TIMER5_Init(void) {
 
 void Timer5_ISR (void) interrupt INTERRUPT_TIMER5
 {
-	TR5 = 0;
 	SFRPAGE=0x10;
+	TR5 = 0;
 	TF5H = 0; // Clear Timer5 interrupt flag
 
 	TX5Count++;
@@ -364,7 +368,6 @@ float GetFreq(void){
 void SendFreq(int freq){
 	sprintf(TX_BUFF,"%d\r\n",freq);
 	sendstr1(TX_BUFF);
-//	printf("%s \r\n", TX_BUFF);
 	waitms_or_RI1(500);
 }
 
@@ -375,6 +378,21 @@ void GetData(void){
 		SBUF1 = 0;
 	}
 
+}
+
+void TXInductance(void){
+	sprintf(TX_BUFF,"%d",inductance);
+	sendstr1(TX_BUFF);
+	waitms_or_RI1(500);
+}
+
+void RXData(void){
+	if (RXU1()){
+		getstr1(RX_BUFF);
+		printf("%s\r\n",RX_BUFF);
+		// if (RX_BUFF[0] == 'I') TXInductance();
+		// else printf("%s \r\n",RX_BUFF);
+	}
 }
 
 void main (void)

@@ -2,8 +2,6 @@
 #define DEF_F 15000L
 #define TICK_FREQ_TIM21 1000L
 
-#define REQUEST " I\r\n"
-
 void InitTimer21(void);
 
 void JDS_Delay_us(unsigned char us);

@@ -76,11 +76,11 @@ char _c51_external_startup (void)
 	P0MDOUT|=0b_1100_0010;
 	P1MDOUT|=0b_1111_1111;
 	P2MDOUT|=0b_0001_1111;
-    
+
 	XBR0     = 0x00;
 	XBR1     = 0X00;
 	XBR2     = 0x40; // Enable crossbar and weak pull-ups
-    
+
 
     /*
     // Configure Uart 0
@@ -151,8 +151,8 @@ void Timer3_ISR (void) interrupt INTERRUPT_TIMER3
     RIGHT_MOTOR_LHS = (count > right_wheel) ? 0:1;
 
     count++;
-    
-    
+
+
 }
 /*
 void Timer3_ISR (void) interrupt INTERRUPT_TIMER3
@@ -294,6 +294,9 @@ enum State movement_manager(float PWM_percent_x, float PWM_percent_y, float prev
 */
 void PWM_manager(float x_value, float y_value)
 {
+    printf ("x_PWM = %d\n"
+	        "Y_PWM: %d\n",
+            x_value, y_value);
 
     if (x_value >= 0) // RIGHT TURN
     {

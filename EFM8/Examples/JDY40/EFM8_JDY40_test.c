@@ -6,7 +6,9 @@
 #define SYSCLK 72000000
 #define BAUDRATE 115200L
 
-idata char buff[20];
+idata char RX_BUFF[20];
+idata char TX_BUFF[20];
+char *const TX_CMD = "I\r\n";
 
 char _c51_external_startup (void)
 {
@@ -221,14 +223,13 @@ void SendATCommand (char * s)
 	P2_0=0; // 'set' pin to 0 is 'AT' mode.
 	waitms(5);
 	sendstr1(s);
-	getstr1(buff);
+	getstr1(RX_BUFF);
 	waitms(10);
 	P2_0=1; // 'set' pin to 1 is normal operation mode.
-	printf("Response: %s\r\n", buff);
+	printf("Response: %s\r\n", RX_BUFF);
 }
 
-void main (void)
-{
+void main (void) {
 	unsigned int cnt;
 
 	waitms(500);
@@ -239,13 +240,6 @@ void main (void)
 	// For some changes to take effect, the JDY-40 needs to be power cycled.
 	// Communication can only happen between devices with the
 	// same RFID and DVID in the same channel.
-
-	//SendATCommand("AT+BAUD4\r\n");
-	//SendATCommand("AT+RFID8899\r\n");
-	//SendATCommand("AT+DVID1122\r\n"); // Default device ID.
-	//SendATCommand("AT+RFC001\r\n");
-	//SendATCommand("AT+POWE9\r\n");
-	//SendATCommand("AT+CLSSA0\r\n");
 
 	// We should select an unique device ID.  The device ID can be a hex
 	// number from 0x0000 to 0xFFFF.  In this case is set to 0xABBA
@@ -260,22 +254,19 @@ void main (void)
 	SendATCommand("AT+POWE\r\n");
 	SendATCommand("AT+CLSS\r\n");
 
-	printf("\r\Press and hold the BOOT button to transmit.\r\n");
+	cnt = 0;
+	while (1) {
+		sprintf(TX_BUFF, " %d\r\n", cnt++);
 
-	cnt=0;
-	while(1)
-	{
-		if(P3_7==0)
-		{
-			sprintf(buff, "JDY40 test %d\r\n", cnt++);
-			sendstr1(buff);
+		if(RXU1()) {
+			getstr1(RX_BUFF);
+			printf("RX: %s\r\n", RX_BUFF);
+		}
+
+		if (strchr(RX_BUFF, 'I') != NULL) {
+			sendstr1(TX_BUFF);
 			putchar('.');
 			waitms_or_RI1(200);
-		}
-		if(RXU1())
-		{
-			getstr1(buff);
-			printf("RX: %s\r\n", buff);
 		}
 	}
 }

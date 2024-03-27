@@ -24,6 +24,7 @@
 
 idata char TX_BUFF[20];
 idata char RX_BUFF[20];
+idata char hold[20];
 
 volatile int TX5Count = 0;
 volatile int RX5Count = 0;
@@ -147,12 +148,13 @@ void Timer5_ISR (void) interrupt INTERRUPT_TIMER5
 
 	TX5Count++;
 
-	if (TX5Count >= 1000) {
+	if (TX5Count >= 500) {
 		TX5Count = 0;
 		//SendFreq(freq);
 	    //freq += 5;
 		RXData();
 	}
+	strcpy(hold, RXBUFF);
 	TR5 = 1;
 
 }
@@ -402,8 +404,19 @@ int searchI(char* array) {
     return 1; // Did not find 'I'
 }
 
+void GetMovement (char * s, int com)
+{
+	if (com == 0){
+		return;
+	}
+
+
+}
+
 void main (void)
 {
+	int com;
+
 	TIMER0_Init();
 	Serial_Init();
 	UART1_Init(9600);
@@ -422,13 +435,16 @@ void main (void)
 	*/
 
 		// GetData();
-		if (searchI(RX_BUFF)) {
-			TR5 = 0;
-			SendFreq(freq);
+		if (1) {
+
+			//SendFreq(freq);
 			printf("%s \r\n", RX_BUFF);
 			freq += 5;
-			TR5 = 1;
+
 		}
 		// insert logic to get commands for pwm
+
+
+
 	}
 }

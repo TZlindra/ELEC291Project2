@@ -1,3 +1,5 @@
+#include <ctype.h>
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -79,34 +81,42 @@ void ReceiveCommand(void) {
 	if (ReceivedBytes2() > 0) egets2(RX_BUFF, sizeof(RX_BUFF)-1);
 }
 
-int ReceiveInductance(int inductance) {
+void stripSpaces(char* str) {
+    char *p1 = str;
+    while (*p1 != '\0' && isspace((unsigned char)*p1)) {
+        p1++; // Skip leading spaces
+    }
+
+    if (p1 != str) {
+        char *p2 = str;
+        while (*p1 != '\0') {
+            *p2++ = *p1++; // Shift characters forward
+        }
+        *p2 = '\0'; // Null-terminate the modified string
+    }
+}
+
+void TX_XY(void) {
+	// No Printing in ISRs
+	// printf("TX_BUFF: %s\r\n", TX_BUFF);
+	eputs2(TX_BUFF);
+}
+
+void RX_I(void) {
 	int timeout_count = 0;
-	int rx = -1;
 	eputs2(RX_CMD);
 
-	while (1) {
+	while (timeout_count <= 200) {
 		timeout_count++;
+		JDY_Delay_ms(1); // Delay For Response
 
 		if (ReceivedBytes2() > 0) {
 			egets2(RX_BUFF, sizeof(RX_BUFF)-1);
-
-			// No Printing in ISRs
-			// printf("Length of RX_BUFF: %d\r\n", strlen(RX_BUFF));
-			// printf("RX_BUFF: %.*s\r\n", strlen(RX_BUFF)-1, RX_BUFF); // Print String Up to Last Character
-
-			if (strlen(RX_BUFF) == 3) {
-				rx = atoi(RX_BUFF);
-				// No Printing in ISRs
-				// printf("Inductance: %d\r\n", rx);
-				break;
-			}
+			break;
 		}
-
-		if (timeout_count > 1000) break;
 	}
 
-	if (rx != -1) return rx;
-	else return inductance;
+	return;
 }
 
 void ConfigJDY40(void) {
@@ -123,13 +133,14 @@ void ConfigJDY40(void) {
 	SendATCommand("AT+CLSS\r\n");
 }
 
-void Update_X_Y(int x_value, int y_value) {
+void Update_XY(int x_value, int y_value) {
 	sprintf(TX_BUFF, " X:%d Y:%d\r\n", x_value, y_value);
 	printf("%s", TX_BUFF);
 }
 
-void Send_X_Y(void) {
-	// No Printing in ISRs
-	// printf("TX_BUFF: %s\r\n", TX_BUFF);
-	eputs2(TX_BUFF);
+int Update_I(int inductance) {
+	stripSpaces(RX_BUFF);
+	int parsed = atoi(RX_BUFF);
+
+	return (parsed != 0) ? parsed : inductance;
 }

@@ -90,13 +90,13 @@ void TIM21_Handler(void) {
 
 	if (TX21Count > 1000) {
 		TX21Count = 0;
-		Send_X_Y();
+		TX_XY();
 	}
 
-	if (RX21Count > 5000) {
-		RX21Count = 0;
-		inductance = ReceiveInductance(inductance);
-	}
+	// if (RX21Count > 5000) {
+	// 	RX21Count = 0;
+	// 	RX_I();
+	// }
 }
 
 void delay(int dly) {
@@ -224,14 +224,16 @@ void main(void) {
 
 		standardized_x = standardize_x(x);
 		standardized_y = standardize_y(y);
-		Update_X_Y(standardized_x, standardized_y);
+		Update_XY(standardized_x, standardized_y);
 
+		inductance = Update_I(inductance);
 		printf("I: %d\r\n", inductance);
 
 		// if (IsButtonPressed()) SpeakerRatio = SetSpeakerFreq(SpeakerRatio);
 		SpeakerRatio = SetSpeakerFreq(inductance, SpeakerRatio);
 
 		// Display the ADC values on the LCD
+
 		display_inductance(inductance);
 		display_x_y(standardized_x, standardized_y);
 

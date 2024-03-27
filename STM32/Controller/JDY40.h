@@ -13,6 +13,8 @@ void SendCommand(char * s, int value);
 void ReceiveCommand(void);
 void ConfigJDY40(void);
 
-void Update_X_Y(int x_value, int y_value);
-void Send_X_Y(void);
-int ReceiveInductance(int inductance);
+void TX_XY(void);
+void RX_I(void);
+
+void Update_XY(int x_value, int y_value);
+int Update_I(int inductance);

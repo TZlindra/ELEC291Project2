@@ -315,7 +315,7 @@ float GetFreq(void) {
 void SendFreq(float freq){
 	sprintf(TX_BUFF,"%.3f",freq);
 	sendstr1(TX_BUFF);
-	waitms_or_RI1(500);
+	waitms_or_RI1(100);
 }
 
 void GetData(void){

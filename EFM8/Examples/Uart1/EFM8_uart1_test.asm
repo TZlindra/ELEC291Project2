@@ -1,9 +1,9 @@
 ;--------------------------------------------------------
 ; File Created by C51
 ; Version 1.0.0 #1170 (Feb 16 2022) (MSVC)
-; This file was generated Tue Mar 26 17:01:22 2024
+; This file was generated Tue Mar 26 16:52:17 2024
 ;--------------------------------------------------------
-$name movement_new_new
+$name EFM8_uart1_test
 $optc51 --model-small
 	R_DSEG    segment data
 	R_CSEG    segment code
@@ -26,7 +26,6 @@ $optc51 --model-small
 	public _main
 	public _PWM_manager
 	public _Timer4_ISR
-	public _Timer3_ISR
 	public _TIMER4Init
 	public _TIMER3Init
 	public __c51_external_startup
@@ -561,8 +560,6 @@ _PWM_manager_sloc0_1_0:
 ;--------------------------------------------------------
 	CSEG at 0x0000
 	ljmp	_crt0
-	CSEG at 0x0073
-	ljmp	_Timer3_ISR
 	CSEG at 0x008b
 	ljmp	_Timer4_ISR
 ;--------------------------------------------------------
@@ -575,33 +572,33 @@ _PWM_manager_sloc0_1_0:
 ; data variables initialization
 ;--------------------------------------------------------
 	rseg R_DINIT
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:18: int count = 0;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:18: int count = 0;
 	clr	a
 	mov	_count,a
 	mov	(_count + 1),a
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:21: int PWM_percent_y = 100;
-	mov	_PWM_percent_y,#0x64
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:21: int PWM_percent_y = 00;
 	clr	a
+	mov	_PWM_percent_y,a
 	mov	(_PWM_percent_y + 1),a
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:22: int PWM_percent_x = 20;
-	mov	_PWM_percent_x,#0x14
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:22: int PWM_percent_x = 80;
+	mov	_PWM_percent_x,#0x50
 	clr	a
 	mov	(_PWM_percent_x + 1),a
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:23: float left_wheel = 0;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:23: float left_wheel = 0;
 	mov	_left_wheel,#0x00
 	mov	(_left_wheel + 1),#0x00
 	mov	(_left_wheel + 2),#0x00
 	mov	(_left_wheel + 3),#0x00
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:24: float right_wheel = 0;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:24: float right_wheel = 0;
 	mov	_right_wheel,#0x00
 	mov	(_right_wheel + 1),#0x00
 	mov	(_right_wheel + 2),#0x00
 	mov	(_right_wheel + 3),#0x00
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:25: int prev_PWM_percent_x = 0;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:25: int prev_PWM_percent_x = 0;
 	clr	a
 	mov	_prev_PWM_percent_x,a
 	mov	(_prev_PWM_percent_x + 1),a
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:26: int prev_PWM_percent_y = 0;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:26: int prev_PWM_percent_y = 0;
 	clr	a
 	mov	_prev_PWM_percent_y,a
 	mov	(_prev_PWM_percent_y + 1),a
@@ -614,212 +611,117 @@ _PWM_manager_sloc0_1_0:
 ;Allocation info for local variables in function '_c51_external_startup'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:28: char _c51_external_startup (void)
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:28: char _c51_external_startup (void)
 ;	-----------------------------------------
 ;	 function _c51_external_startup
 ;	-----------------------------------------
 __c51_external_startup:
 	using	0
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:31: SFRPAGE = 0x00;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:31: SFRPAGE = 0x00;
 	mov	_SFRPAGE,#0x00
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:32: WDTCN = 0xDE; //First key
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:32: WDTCN = 0xDE; //First key
 	mov	_WDTCN,#0xDE
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:33: WDTCN = 0xAD; //Second key
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:33: WDTCN = 0xAD; //Second key
 	mov	_WDTCN,#0xAD
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:35: VDM0CN=0x80;       // enable VDD monitor
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:35: VDM0CN=0x80;       // enable VDD monitor
 	mov	_VDM0CN,#0x80
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:36: RSTSRC=0x02|0x04;  // Enable reset on missing clock detector and VDD
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:36: RSTSRC=0x02|0x04;  // Enable reset on missing clock detector and VDD
 	mov	_RSTSRC,#0x06
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:43: SFRPAGE = 0x10;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:43: SFRPAGE = 0x10;
 	mov	_SFRPAGE,#0x10
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:44: PFE0CN  = 0x20; // SYSCLK < 75 MHz.
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:44: PFE0CN  = 0x20; // SYSCLK < 75 MHz.
 	mov	_PFE0CN,#0x20
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:45: SFRPAGE = 0x00;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:45: SFRPAGE = 0x00;
 	mov	_SFRPAGE,#0x00
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:66: CLKSEL = 0x00;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:66: CLKSEL = 0x00;
 	mov	_CLKSEL,#0x00
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:67: CLKSEL = 0x00;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:67: CLKSEL = 0x00;
 	mov	_CLKSEL,#0x00
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:68: while ((CLKSEL & 0x80) == 0);
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:68: while ((CLKSEL & 0x80) == 0);
 L002001?:
 	mov	a,_CLKSEL
 	jnb	acc.7,L002001?
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:69: CLKSEL = 0x03;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:69: CLKSEL = 0x03;
 	mov	_CLKSEL,#0x03
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:70: CLKSEL = 0x03;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:70: CLKSEL = 0x03;
 	mov	_CLKSEL,#0x03
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:71: while ((CLKSEL & 0x80) == 0);
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:71: while ((CLKSEL & 0x80) == 0);
 L002004?:
 	mov	a,_CLKSEL
 	jnb	acc.7,L002004?
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:76: P0MDOUT|=0b_1100_0010;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:76: P0MDOUT|=0b_1100_0010;
 	orl	_P0MDOUT,#0xC2
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:77: P1MDOUT|=0b_1111_1111;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:77: P1MDOUT|=0b_1111_1111;
 	mov	a,_P1MDOUT
 	mov	_P1MDOUT,#0xFF
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:78: P2MDOUT|=0b_0001_1111;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:78: P2MDOUT|=0b_0001_1111;
 	orl	_P2MDOUT,#0x1F
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:80: XBR0     = 0x00;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:80: XBR0     = 0x00;
 	mov	_XBR0,#0x00
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:81: XBR1     = 0X00;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:81: XBR1     = 0X00;
 	mov	_XBR1,#0x00
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:82: XBR2     = 0x40; // Enable crossbar and weak pull-ups
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:82: XBR2     = 0x40; // Enable crossbar and weak pull-ups
 	mov	_XBR2,#0x40
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:98: return 0;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:98: return 0;
 	mov	dpl,#0x00
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'TIMER3Init'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:110: void TIMER3Init(void)
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:110: void TIMER3Init(void)
 ;	-----------------------------------------
 ;	 function TIMER3Init
 ;	-----------------------------------------
 _TIMER3Init:
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:113: TMR3CN0=0x00;   // Stop Timer3; Clear TF3;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:113: TMR3CN0=0x00;   // Stop Timer3; Clear TF3;
 	mov	_TMR3CN0,#0x00
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:114: CKCON0|=0b_0100_0000; // Timer 3 uses the system clock
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:114: CKCON0|=0b_0100_0000; // Timer 3 uses the system clock
 	orl	_CKCON0,#0x40
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:115: TMR3RL=(0x10000L-(SYSCLK/(2*TIMER_3_FREQ))); // Initialize reload value
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:115: TMR3RL=(0x10000L-(SYSCLK/(2*TIMER_3_FREQ))); // Initialize reload value
 	mov	_TMR3RL,#0xF0
 	mov	(_TMR3RL >> 8),#0xF1
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:116: TMR3=0xffff;   // Set to reload immediately
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:116: TMR3=0xffff;   // Set to reload immediately
 	mov	_TMR3,#0xFF
 	mov	(_TMR3 >> 8),#0xFF
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:117: EIE1|=0b_1000_0000;     // Enable Timer3 interrupts
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:117: EIE1|=0b_1000_0000;     // Enable Timer3 interrupts
 	orl	_EIE1,#0x80
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:118: TMR3CN0|=0b_0000_0100;  // Start Timer3 (TMR3CN0 is not bit addressable)
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:118: TMR3CN0|=0b_0000_0100;  // Start Timer3 (TMR3CN0 is not bit addressable)
 	orl	_TMR3CN0,#0x04
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:119: EA = 1;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:119: EA = 1;
 	setb	_EA
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'TIMER4Init'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:122: void TIMER4Init(void)
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:122: void TIMER4Init(void)
 ;	-----------------------------------------
 ;	 function TIMER4Init
 ;	-----------------------------------------
 _TIMER4Init:
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:125: SFRPAGE=0x10;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:125: SFRPAGE=0x10;
 	mov	_SFRPAGE,#0x10
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:126: TMR4CN0=0x00;   // Stop Timer4; Clear TF4; WARNING: lives in SFR page 0x10
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:126: TMR4CN0=0x00;   // Stop Timer4; Clear TF4; WARNING: lives in SFR page 0x10
 	mov	_TMR4CN0,#0x00
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:127: CKCON1|=0b_0000_0001; // Timer 4 uses the system clock
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:127: CKCON1|=0b_0000_0001; // Timer 4 uses the system clock
 	orl	_CKCON1,#0x01
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:128: TMR4RL=(0x10000L-(SYSCLK/(2*TIMER_4_FREQ))); // Initialize reload value
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:128: TMR4RL=(0x10000L-(SYSCLK/(2*TIMER_4_FREQ))); // Initialize reload value
 	mov	_TMR4RL,#0xF0
 	mov	(_TMR4RL >> 8),#0xF1
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:129: TMR4=0xffff;   // Set to reload immediately
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:129: TMR4=0xffff;   // Set to reload immediately
 	mov	_TMR4,#0xFF
 	mov	(_TMR4 >> 8),#0xFF
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:130: EIE2|=0b_0000_0100;     // Enable Timer4 interrupts
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:130: EIE2|=0b_0000_0100;     // Enable Timer4 interrupts
 	orl	_EIE2,#0x04
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:131: TR4=1;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:131: TR4=1;
 	setb	_TR4
 	ret
-;------------------------------------------------------------
-;Allocation info for local variables in function 'Timer3_ISR'
-;------------------------------------------------------------
-;------------------------------------------------------------
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:163: void Timer3_ISR (void) interrupt INTERRUPT_TIMER3
-;	-----------------------------------------
-;	 function Timer3_ISR
-;	-----------------------------------------
-_Timer3_ISR:
-	push	bits
-	push	acc
-	push	b
-	push	dpl
-	push	dph
-	push	(0+2)
-	push	(0+3)
-	push	(0+4)
-	push	(0+5)
-	push	(0+6)
-	push	(0+7)
-	push	(0+0)
-	push	(0+1)
-	push	psw
-	mov	psw,#0x00
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:165: SFRPAGE=0x0;
-	mov	_SFRPAGE,#0x00
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:166: TMR3CN0&=0b_0011_1111; // Clear Timer3 interrupt flags
-	anl	_TMR3CN0,#0x3F
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:167: P1_2 = !P1_2;
-	cpl	_P1_2
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:169: if (count > 100)
-	clr	c
-	mov	a,#0x64
-	subb	a,_count
-	clr	a
-	xrl	a,#0x80
-	mov	b,(_count + 1)
-	xrl	b,#0x80
-	subb	a,b
-	jnc	L005004?
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:171: LEFT_MOTOR_LHS = 1;
-	setb	_P2_4
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:173: count = 0;
-	clr	a
-	mov	_count,a
-	mov	(_count + 1),a
-	sjmp	L005005?
-L005004?:
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:175: else if (count > left_wheel)
-	mov	dpl,_count
-	mov	dph,(_count + 1)
-	lcall	___sint2fs
-	mov	r2,dpl
-	mov	r3,dph
-	mov	r4,b
-	mov	r5,a
-	push	_left_wheel
-	push	(_left_wheel + 1)
-	push	(_left_wheel + 2)
-	push	(_left_wheel + 3)
-	mov	dpl,r2
-	mov	dph,r3
-	mov	b,r4
-	mov	a,r5
-	lcall	___fsgt
-	mov	r2,dpl
-	mov	a,sp
-	add	a,#0xfc
-	mov	sp,a
-	mov	a,r2
-	jz	L005005?
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:177: LEFT_MOTOR_LHS = 0;
-	clr	_P2_4
-L005005?:
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:179: count++;
-	inc	_count
-	clr	a
-	cjne	a,_count,L005012?
-	inc	(_count + 1)
-L005012?:
-	pop	psw
-	pop	(0+1)
-	pop	(0+0)
-	pop	(0+7)
-	pop	(0+6)
-	pop	(0+5)
-	pop	(0+4)
-	pop	(0+3)
-	pop	(0+2)
-	pop	dph
-	pop	dpl
-	pop	b
-	pop	acc
-	pop	bits
-	reti
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'Timer4_ISR'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:182: void Timer4_ISR (void) interrupt INTERRUPT_TIMER4
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:193: void Timer4_ISR (void) interrupt INTERRUPT_TIMER4
 ;	-----------------------------------------
 ;	 function Timer4_ISR
 ;	-----------------------------------------
@@ -839,13 +741,13 @@ _Timer4_ISR:
 	push	(0+1)
 	push	psw
 	mov	psw,#0x00
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:184: SFRPAGE=0x10;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:195: SFRPAGE=0x10;
 	mov	_SFRPAGE,#0x10
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:185: TF4H = 0; // Clear Timer4 interrupt flag
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:196: TF4H = 0; // Clear Timer4 interrupt flag
 	clr	_TF4H
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:186: P1_3 = !P1_3;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:197: P1_3 = !P1_3;
 	cpl	_P1_3
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:188: if (count > 100)
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:199: if (count > 100)
 	clr	c
 	mov	a,#0x64
 	subb	a,_count
@@ -854,16 +756,16 @@ _Timer4_ISR:
 	mov	b,(_count + 1)
 	xrl	b,#0x80
 	subb	a,b
-	jnc	L006004?
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:190: RIGHT_MOTOR_LHS = 1;
+	jnc	L005004?
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:201: RIGHT_MOTOR_LHS = 1;
 	setb	_P2_2
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:192: count = 0;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:203: count = 0;
 	clr	a
 	mov	_count,a
 	mov	(_count + 1),a
-	sjmp	L006005?
-L006004?:
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:194: else if (count > right_wheel)
+	sjmp	L005005?
+L005004?:
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:205: else if (count > right_wheel)
 	mov	dpl,_count
 	mov	dph,(_count + 1)
 	lcall	___sint2fs
@@ -885,16 +787,16 @@ L006004?:
 	add	a,#0xfc
 	mov	sp,a
 	mov	a,r2
-	jz	L006005?
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:196: RIGHT_MOTOR_LHS = 0;
+	jz	L005005?
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:207: RIGHT_MOTOR_LHS = 0;
 	clr	_P2_2
-L006005?:
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:198: count++;
+L005005?:
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:209: count++;
 	inc	_count
 	clr	a
-	cjne	a,_count,L006012?
+	cjne	a,_count,L005012?
 	inc	(_count + 1)
-L006012?:
+L005012?:
 	pop	psw
 	pop	(0+1)
 	pop	(0+0)
@@ -917,7 +819,7 @@ L006012?:
 ;x_value                   Allocated to registers r2 r3 r4 r5 
 ;sloc0                     Allocated with name '_PWM_manager_sloc0_1_0'
 ;------------------------------------------------------------
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:300: void PWM_manager(float x_value, float y_value)
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:311: void PWM_manager(float x_value, float y_value)
 ;	-----------------------------------------
 ;	 function PWM_manager
 ;	-----------------------------------------
@@ -926,7 +828,7 @@ _PWM_manager:
 	mov	r3,dph
 	mov	r4,b
 	mov	r5,a
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:303: if (x_value >= 0) // RIGHT TURN
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:314: if (x_value >= 0) // RIGHT TURN
 	push	ar2
 	push	ar3
 	push	ar4
@@ -950,10 +852,10 @@ _PWM_manager:
 	pop	ar3
 	pop	ar2
 	mov	a,r6
-	jz	L007010?
-	ljmp	L007004?
-L007010?:
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:305: left_wheel = abs(y_value);
+	jz	L006010?
+	ljmp	L006004?
+L006010?:
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:316: left_wheel = abs(y_value);
 	mov	dpl,_PWM_manager_PARM_2
 	mov	dph,(_PWM_manager_PARM_2 + 1)
 	mov	b,(_PWM_manager_PARM_2 + 2)
@@ -975,7 +877,7 @@ L007010?:
 	pop	ar4
 	pop	ar3
 	pop	ar2
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:306: right_wheel = (100 - abs(x_value)) * abs(y_value) / 100;
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:317: right_wheel = (100 - abs(x_value)) * abs(y_value) / 100;
 	mov	dpl,r2
 	mov	dph,r3
 	mov	b,r4
@@ -1017,13 +919,13 @@ L007010?:
 	mov	(_right_wheel + 2),b
 	mov	(_right_wheel + 3),a
 	ret
-L007004?:
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:308: else if (x_value < 0) // LEFT TURN
+L006004?:
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:319: else if (x_value < 0) // LEFT TURN
 	mov	a,r6
-	jnz	L007011?
+	jnz	L006011?
 	ret
-L007011?:
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:310: left_wheel = (100 - abs(x_value)) * abs(y_value) / 100;
+L006011?:
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:321: left_wheel = (100 - abs(x_value)) * abs(y_value) / 100;
 	mov	dpl,r2
 	mov	dph,r3
 	mov	b,r4
@@ -1077,7 +979,7 @@ L007011?:
 	mov	(_left_wheel + 3),a
 	pop	ar5
 	pop	ar4
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:311: right_wheel = abs(y_value);
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:322: right_wheel = abs(y_value);
 	mov	dpl,r4
 	mov	dph,r5
 	lcall	_abs
@@ -1091,12 +993,12 @@ L007011?:
 ;Allocation info for local variables in function 'main'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:367: int main(void)
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:378: int main(void)
 ;	-----------------------------------------
 ;	 function main
 ;	-----------------------------------------
 _main:
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:369: PWM_manager(PWM_percent_x, PWM_percent_x);
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:380: PWM_manager(PWM_percent_x, PWM_percent_x);
 	mov	dpl,_PWM_percent_x
 	mov	dph,(_PWM_percent_x + 1)
 	lcall	___sint2fs
@@ -1109,11 +1011,11 @@ _main:
 	mov	(_PWM_manager_PARM_2 + 2),r4
 	mov	(_PWM_manager_PARM_2 + 3),r5
 	lcall	_PWM_manager
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:371: TIMER3Init();
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:382: TIMER3Init();
 	lcall	_TIMER3Init
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:372: TIMER4Init();
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:383: TIMER4Init();
 	lcall	_TIMER4Init
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:376: printf("\r\nUart 1 test\r\n");
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:387: printf("\r\nUart 1 test\r\n");
 	mov	a,#__str_0
 	push	acc
 	mov	a,#(__str_0 >> 8)
@@ -1124,9 +1026,9 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:381: while(1)
-L008002?:
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Robot\movement_new_new.c:383: PWM_manager(PWM_percent_x, PWM_percent_x);
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:392: while(1)
+L007002?:
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:394: PWM_manager(PWM_percent_x, PWM_percent_x);
 	mov	dpl,_PWM_percent_x
 	mov	dph,(_PWM_percent_x + 1)
 	lcall	___sint2fs
@@ -1139,7 +1041,7 @@ L008002?:
 	mov	(_PWM_manager_PARM_2 + 2),r4
 	mov	(_PWM_manager_PARM_2 + 3),r5
 	lcall	_PWM_manager
-	sjmp	L008002?
+	sjmp	L007002?
 	rseg R_CSEG
 
 	rseg R_XINIT

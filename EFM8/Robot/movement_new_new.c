@@ -13,15 +13,15 @@
 #define BAUDRATE  115200L
 
 #define TIMER_3_FREQ 10000L
-//#define TIMER_4_FREQ 10000L
+#define TIMER_4_FREQ 10000L
 
 int count = 0;
 
 enum State state;
 int PWM_percent_y = 100;
 int PWM_percent_x = 20;
-int left_wheel = 0;
-int right_wheel = 0;
+float left_wheel = 0;
+float right_wheel = 0;
 int prev_PWM_percent_x = 0;
 int prev_PWM_percent_y = 0;
 
@@ -76,29 +76,11 @@ char _c51_external_startup (void)
 	P0MDOUT|=0b_1100_0010;
 	P1MDOUT|=0b_1111_1111;
 	P2MDOUT|=0b_0001_1111;
-    /*
+    
 	XBR0     = 0x00;
 	XBR1     = 0X00;
 	XBR2     = 0x40; // Enable crossbar and weak pull-ups
-    */
-
-	P0MDOUT |= 0x10; // Enable UART0 TX as push-pull output
-	XBR0     = 0x01; // Enable UART0 on P0.4(TX) and P0.5(RX)
-	XBR1     = 0X00;
-	XBR2     = 0x41; // Enable crossbar and uart 1
-
-	// Configure Uart 0
-	#if (((SYSCLK/BAUDRATE)/(2L*12L))>0xFFL)
-		#error Timer 0 reload value is incorrect because (SYSCLK/BAUDRATE)/(2L*12L) > 0xFF
-	#endif
-	SCON0 = 0x10;
-	TH1 = 0x100-((SYSCLK/BAUDRATE)/(2L*12L));
-	TL1 = TH1;      // Init Timer1
-	TMOD &= ~0xf0;  // TMOD: timer 1 in 8-bit auto-reload
-	TMOD |=  0x20;
-	TR1 = 1; // START Timer1
-	TI = 1;  // Indicate TX0 ready
-
+    
 
     /*
     // Configure Uart 0
@@ -136,10 +118,10 @@ void TIMER3Init(void)
 	TMR3CN0|=0b_0000_0100;  // Start Timer3 (TMR3CN0 is not bit addressable)
     EA = 1;
 }
-/*
+
 void TIMER4Init(void)
 {
-// Initialize timer 4 for periodic interrupts
+//Initialize timer 4 for periodic interrupts
 	SFRPAGE=0x10;
 	TMR4CN0=0x00;   // Stop Timer4; Clear TF4; WARNING: lives in SFR page 0x10
 	CKCON1|=0b_0000_0001; // Timer 4 uses the system clock
@@ -148,15 +130,15 @@ void TIMER4Init(void)
 	EIE2|=0b_0000_0100;     // Enable Timer4 interrupts
 	TR4=1;
 }
-*/
+
 
 void Timer3_ISR (void) interrupt INTERRUPT_TIMER3
 {
 	SFRPAGE=0x0;
 	TMR3CN0&=0b_0011_1111; // Clear Timer3 interrupt flags
 
-    //P1_2 = !P1_2;
-    P1_3 = !P1_3;
+    P1_2 = !P1_2;
+    //P1_3 = !P1_3;
     //P2_1 = !P2_1;
 
 
@@ -169,15 +151,29 @@ void Timer3_ISR (void) interrupt INTERRUPT_TIMER3
     RIGHT_MOTOR_LHS = (count > right_wheel) ? 0:1;
 
     count++;
-    /*
-    if (count > array[1])
-    {
-        P1_2=!P1_2;
-    }
-
-    */
+    
+    
 }
 /*
+void Timer3_ISR (void) interrupt INTERRUPT_TIMER3
+{
+	SFRPAGE=0x0;
+	TMR3CN0&=0b_0011_1111; // Clear Timer3 interrupt flags
+	P1_2 = !P1_2;
+
+    if (count > 100)
+    {
+        LEFT_MOTOR_LHS = 1;
+
+        count = 0;
+    }
+    else if (count > left_wheel)
+    {
+        LEFT_MOTOR_LHS = 0;
+    }
+    count++;
+}
+
 void Timer4_ISR (void) interrupt INTERRUPT_TIMER4
 {
 	SFRPAGE=0x10;
@@ -190,14 +186,14 @@ void Timer4_ISR (void) interrupt INTERRUPT_TIMER4
 
         count = 0;
     }
-    else if (count > array[1]*100)
+    else if (count > right_wheel)
     {
         RIGHT_MOTOR_LHS = 0;
     }
     count++;
 }
 */
-
+/*
 void idle(void)
 {
     LEFT_MOTOR_LHS = 0;
@@ -295,6 +291,7 @@ enum State movement_manager(float PWM_percent_x, float PWM_percent_y, float prev
     return state;
 
 }
+*/
 void PWM_manager(float x_value, float y_value)
 {
 
@@ -311,57 +308,7 @@ void PWM_manager(float x_value, float y_value)
 
 
 }
-/*
-void UART1_Init (unsigned long baudrate)
-{
-    SFRPAGE = 0x20;
-	SMOD1 = 0x0C; // no parity, 8 data bits, 1 stop bit
-	SCON1 = 0x10;
-	SBCON1 =0x00;   // disable baud rate generator
-	SBRL1 = 0x10000L-((SYSCLK/baudrate)/(12L*2L));
-	TI1 = 1; // indicate ready for TX
-	SBCON1 |= 0x40;   // enable baud rate generator
-	SFRPAGE = 0x00;
-}
 
-void putchar1 (char c)
-{
-    SFRPAGE = 0x20;
-	if (c == '\n')
-	{
-		while (!TI1);
-		TI1=0;
-		SBUF1 = '\r';
-	}
-	while (!TI1);
-	TI1=0;
-	SBUF1 = c;
-	SFRPAGE = 0x00;
-}
-
-char getchar1 (void)
-{
-	char c;
-    SFRPAGE = 0x20;
-	while (!RI1);
-	RI1=0;
-	// Clear Overrun and Parity error flags
-	SCON1&=0b_0011_1111;
-	c = SBUF1;
-	SFRPAGE = 0x00;
-	return (c);
-}
-
-// RXU1 returns '1' if there is a byte available in the receive buffer of UART1
-bit RXU1 (void)
-{
-	bit mybit;
-    SFRPAGE = 0x20;
-	mybit=RI1;
-	SFRPAGE = 0x00;
-	return mybit;
-}
-*/
 int main(void)
 {
     PWM_manager(PWM_percent_x, PWM_percent_x);
@@ -371,16 +318,12 @@ int main(void)
     //straight();
     //state = straight_enum;
 
-    printf("\r\nUart 1 test\r\n");
-
-	//UART1_Init(9600);
 
 
     while(1)
     {
         PWM_manager(PWM_percent_x, PWM_percent_x);
         //state = movement_manager(PWM_percent_x, PWM_percent_y, prev_PWM_percent_x, prev_PWM_percent_y, state);
-        putchar1('A');
 
 
         //prev_PWM_percent_x = PWM_percent_x;

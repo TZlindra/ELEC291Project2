@@ -1,4 +1,3 @@
-// C1 = 10nF C2 = 100nF
 #include <EFM8LB1.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -9,7 +8,6 @@
 
 #define MAX_16_BIT 65536.0 // 16-Bit Maximum Value
 #define MAX_8_BIT 256.0 // 8-Bit Maximum Value
-#define TIMER_5_FREQ 1000L
 
 /* Clock Frequency and Baud Rate */
 // Baudrate of UART in BPS
@@ -17,46 +15,21 @@
 
 /* Define Pins */
 #define EFM8_SIGNAL P1_0 // Signal to Measure
-#define TOGGLE P1_4
 
 #define VSS 5 // The measured value of VSS in volts
 #define VDD 3.3035 // The measured value of VDD in volts
 
-idata char TX_BUFF[20];
-idata char RX_BUFF[20];
+idata char RX_BUFF[60];
+idata char X_Y_BUFF[60];
+idata char TX_BUFF[60];
 
-volatile int TX5Count = 0;
-volatile int RX5Count = 0;
-volatile int freq = 300;
+volatile int inductance = 0;
 
-/* Function Prototypes */
-void TIMER0_Init(void);
-void TIMER5_Init(void);
-void Timer3us(unsigned char us);
-void waitms (unsigned int ms);
-void Serial_Init(void);
-void UART1_Init (unsigned long baudrate);
-void putchar1 (char c);
-void sendstr1 (char * s);
-char getchar1 (void);
-char getchar1_with_timeout (void);
-void getstr1 (char * s);
-bit RXU1 (void);
-void waitms_or_RI1 (unsigned int ms);
-void SendATCommand (char * s);
-void JDYInit (void);
-float calculate_period_s(int overflow_count, int TH0, int TL0);
-float calculate_freq_Hz(float period_s);
-float GetFreq(void);
-void SendFreq(int freq);
-void GetData(void);
-void RXData(void);
 void TXInductance(void);
+void copyString(char* dest, const char* src);
 int searchI(const char* array);
 
-
-char _c51_external_startup (void)
-{
+char _c51_external_startup (void) {
 	// Disable Watchdog with key sequence
 	SFRPAGE = 0x00;
 	WDTCN = 0xDE; //First key
@@ -129,34 +102,11 @@ void TIMER0_Init(void) {
 	TR0 = 0; // Stop Timer/Counter 0
 }
 
-void TIMER5_Init(void) {
-	SFRPAGE=0x10;
-	TMR5CN0=0x00;   // Stop Timer5; Clear TF5; WARNING: lives in SFR page 0x10
-	CKCON1|=0b_0000_0100; // Timer 5 uses the system clock
-	TMR5RL=(0x10000L-(SYSCLK/(2*TIMER_5_FREQ))); // Initialize reload value
-	TMR5=0xffff;   // Set to reload immediately
-	EIE2|=0b_0000_1000; // Enable Timer5 interrupts
-	TR5=1;         // Start Timer5 (TMR5CN0 is bit addressable)
-}
 
-void Timer5_ISR (void) interrupt INTERRUPT_TIMER5
-{
-	SFRPAGE=0x10;
-	TR5 = 0;
-	TF5H = 0; // Clear Timer5 interrupt flag
+/*void TIMER1_Init(void {
 
-	TX5Count++;
-
-	if (TX5Count >= 1000) {
-		TX5Count = 0;
-		//SendFreq(freq);
-	    //freq += 5;
-		RXData();
-	}
-	TR5 = 1;
-
-}
-
+)\
+*/
 // Uses Timer3 to delay <us> micro-seconds.
 void Timer3us(unsigned char us)
 {
@@ -333,7 +283,7 @@ float calculate_freq_Hz(float period_s) {
 	return (1.0 / period_s);
 }
 
-float GetFreq(void){
+float GetFreq(void) {
 		float period_s, freq_Hz;
 		int overflow_count = 0;
 		TL0 = 0;
@@ -365,8 +315,8 @@ float GetFreq(void){
 		return freq_Hz;
 }
 
-void SendFreq(int freq){
-	sprintf(TX_BUFF,"%d\r\n",freq);
+void SendFreq(float freq){
+	sprintf(TX_BUFF,"%.3f",freq);
 	sendstr1(TX_BUFF);
 	waitms_or_RI1(500);
 }
@@ -374,27 +324,31 @@ void SendFreq(int freq){
 void GetData(void){
 	if (RXU1()){
 		getstr1(RX_BUFF);
-		SBUF1 = 0;
+		printf("%s \r\n",RX_BUFF);
 	}
+}
 
+void RXData(void){
+	if (RXU1()) getstr1(RX_BUFF);
+
+	// No Printing in ISRs
+	// printf("%s\r\n",RX_BUFF);
+	if (searchI(RX_BUFF) == 1) TXInductance();
+	// else copyString(X_Y_BUFF, RX_BUFF);
+
+	// SBUF1 = 0;
 }
 
 void TXInductance(void){
-	sprintf(TX_BUFF,"%d",inductance);
 	sendstr1(TX_BUFF);
 	waitms_or_RI1(500);
 }
 
-void RXData(void){
-	if (RXU1()){
-		getstr1(RX_BUFF);
-		//printf("%s\r\n",RX_BUFF);
-		// if (RX_BUFF[0] == 'I') TXInductance();
-		// else printf("%s \r\n",RX_BUFF);
-	}
+void copyString(char* dest, const char* src) {
+    while ((*dest++ = *src++));
 }
 
-int searchI(char* array) {
+int searchI(const char* array) {
     while (*array) {
         if (*array == 'I') return 0;
         array++;
@@ -404,31 +358,29 @@ int searchI(char* array) {
 
 void main (void)
 {
+	// float freq;
 	TIMER0_Init();
 	Serial_Init();
 	UART1_Init(9600);
 	JDYInit();
-	TOGGLE = 0;
-	TIMER5_Init();
-	EA = 1;
-	while(1){
-	/*
-		if (RX_BUFF[0] == 'I'){
-			SBUF1 = 0;
-			SendFreq(freq);
-			freq += 5;
-			printf("%s \r\n", RX_BUFF);
-		}
-	*/
 
-		// GetData();
-		if (searchI(RX_BUFF)) {
-			TR5 = 0;
-			SendFreq(freq);
-			printf("%s \r\n", RX_BUFF);
-			freq += 5;
-			TR5 = 1;
-		}
-		// insert logic to get commands for pwm
+	// while(1){
+	// 	freq = GetFreq();
+	// 	SendFreq(freq);
+	// 	waitms(200);
+	// 	GetData();
+	// 	waitms(200);
+	// }
+
+	while(1){
+		// freq = GetFreq();
+		RXData();
+		SBUF1 = 0;
+		//waitms(200);
+
+		inductance++;
+		sprintf(TX_BUFF,"%d",inductance);
+		printf("X and Y: %s\r\n", RX_BUFF);
+		// printf("Inductance: %d\r\n",inductance);
 	}
 }

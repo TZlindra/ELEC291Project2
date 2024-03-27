@@ -125,19 +125,8 @@ int main(void)
 	printf("\r\nPress and hold a push-button attached to PA8 (pin 18) to transmit.\r\n");
 
 	cnt=0;
-	while(1)
-	{
-		// if((GPIOA->IDR&BIT11)==0)
-		// {
-		// 	SendCommand("F:", cnt);
-		// 	cnt++;
-		// }
-
-		waitms(1000);
-		waitms(1000);
-		waitms(1000);
-		waitms(1000);
-		waitms(1000);
+	while (1) {
+		waitms(5000);
 		SendCommand("F:", cnt);
 		cnt++;
 		ReceiveCommand();

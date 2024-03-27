@@ -90,7 +90,7 @@ void TIM21_Handler(void) {
 
 	if (TX21Count > 1000) {
 		TX21Count = 0;
-		Send_X_Y(standardized_x, standardized_y);
+		Send_X_Y();
 	}
 
 	if (RX21Count > 5000) {
@@ -224,6 +224,7 @@ void main(void) {
 
 		standardized_x = standardize_x(x);
 		standardized_y = standardize_y(y);
+		Update_X_Y(standardized_x, standardized_y);
 
 		printf("I: %d\r\n", inductance);
 

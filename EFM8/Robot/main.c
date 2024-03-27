@@ -19,10 +19,14 @@
 #define VSS 5 // The measured value of VSS in volts
 #define VDD 3.3035 // The measured value of VDD in volts
 
-idata char buff[80];
+idata char RX_BUFF[80];
+idata char TX_BUFF[80];
 
-char _c51_external_startup (void)
-{
+volatile int inductance = 0;
+
+void TXInductance(void);
+
+char _c51_external_startup (void) {
 	// Disable Watchdog with key sequence
 	SFRPAGE = 0x00;
 	WDTCN = 0xDE; //First key
@@ -249,10 +253,10 @@ void SendATCommand (char * s)
 	P2_0=0; // 'set' pin to 0 is 'AT' mode.
 	waitms(5);
 	sendstr1(s);
-	getstr1(buff);
+	getstr1(TX_BUFF);
 	waitms(10);
 	P2_0=1; // 'set' pin to 1 is normal operation mode.
-	printf("Response: %s\r\n", buff);
+	printf("Response: %s\r\n", TX_BUFF);
 }
 
 void JDYInit (void){
@@ -276,7 +280,7 @@ float calculate_freq_Hz(float period_s) {
 	return (1.0 / period_s);
 }
 
-float GetFreq(void){
+float GetFreq(void) {
 		float period_s, freq_Hz;
 		int overflow_count = 0;
 		TL0 = 0;
@@ -309,16 +313,31 @@ float GetFreq(void){
 }
 
 void SendFreq(float freq){
-	sprintf(buff,"%.3f",freq);
-	sendstr1(buff);
+	sprintf(TX_BUFF,"%.3f",freq);
+	sendstr1(TX_BUFF);
 	waitms_or_RI1(500);
 }
 
 void GetData(void){
 	if (RXU1()){
-		getstr1(buff);
-		printf("%s \r\n",buff);
+		getstr1(RX_BUFF);
+		printf("%s \r\n",RX_BUFF);
 	}
+}
+
+void RXData(void){
+	if (RXU1()){
+		getstr1(RX_BUFF);
+		printf("%s\r\n",RX_BUFF);
+		// if (RX_BUFF[0] == 'I') TXInductance();
+		// else printf("%s \r\n",RX_BUFF);
+	}
+}
+
+void TXInductance(void){
+	sprintf(TX_BUFF,"%d",inductance);
+	sendstr1(TX_BUFF);
+	waitms_or_RI1(500);
 }
 
 void main (void)
@@ -329,13 +348,20 @@ void main (void)
 	UART1_Init(9600);
 	JDYInit();
 
+	// while(1){
+	// 	freq = GetFreq();
+	// 	SendFreq(freq);
+	// 	waitms(200);
+	// 	GetData();
+	// 	waitms(200);
+	// }
+
 	while(1){
-		freq = GetFreq();
-		SendFreq(freq);
-		waitms(200);
-		GetData();
-		waitms(200);
+		// freq = GetFreq();
+		RXData();
+		SBUF1 = 0;
+		//waitms(200);
+		inductance++;
+		// printf("Inductance: %d\r\n",inductance);
 	}
-
-
 }

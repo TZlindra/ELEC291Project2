@@ -27,8 +27,8 @@
 //             VSS -|16      17|- VDD
 //                    ----------
 
-char TX_BUFF[20];
-char RX_BUFF[20];
+char TX_BUFF[80];
+char RX_BUFF[80];
 
 void InitTimer21(void) {
 	RCC->APB2ENR |= RCC_APB2ENR_TIM21EN;  // turn on clock for timer21 (UM: page 188)
@@ -71,7 +71,7 @@ void SendATCommand(char * s) {
 void SendCommand(char * s, int value) {
 	sprintf(TX_BUFF, "%s %d\r\n", s, value);
 	eputs2(TX_BUFF);
-	// JDY_Delay_ms(200); // Delay For Response
+	JDY_Delay_ms(200); // Delay For Response
 }
 
 void ReceiveCommand(void) {
@@ -89,11 +89,13 @@ int ReceiveInductance(int inductance) {
 		if (ReceivedBytes2() > 0) {
 			egets2(RX_BUFF, sizeof(RX_BUFF)-1);
 
+			// No Printing in ISRs
 			// printf("Length of RX_BUFF: %d\r\n", strlen(RX_BUFF));
-			printf("RX_BUFF: %.*s\r\n", strlen(RX_BUFF)-1, RX_BUFF); // Print String Up to Last Character
+			// printf("RX_BUFF: %.*s\r\n", strlen(RX_BUFF)-1, RX_BUFF); // Print String Up to Last Character
 
 			if (strlen(RX_BUFF) == 3) {
 				rx = atoi(RX_BUFF);
+				// No Printing in ISRs
 				// printf("Inductance: %d\r\n", rx);
 				break;
 			}
@@ -120,8 +122,13 @@ void ConfigJDY40(void) {
 	SendATCommand("AT+CLSS\r\n");
 }
 
-void Send_X_Y(float x_value, float y_value) {
-	sprintf(TX_BUFF, "X: %.2f Y: %.2f\r\n", x_value, y_value);
-	// printf("%s", TX_BUFF);
+void Update_X_Y(int x_value, int y_value) {
+	sprintf(TX_BUFF, " X:%d Y:%d\r\n", x_value, y_value);
+	printf("%s", TX_BUFF);
+}
+
+void Send_X_Y(void) {
+	// No Printing in ISRs
+	// printf("TX_BUFF: %s\r\n", TX_BUFF);
 	eputs2(TX_BUFF);
 }

@@ -1,15 +1,15 @@
 Modules linked:
    'EFM8_JDY40_test' from 'EFM8_JDY40_test.obj'
-   'gptrget' from 'C:\call51\Bin\..\lib\small\libc51.lib'
-   'divulong' from 'C:\call51\Bin\..\lib\small\liblong.lib'
-   'vprintf' from 'C:\call51\Bin\..\lib\small\libc51.lib'
-   'gptrput' from 'C:\call51\Bin\..\lib\small\libc51.lib'
-   'sprintf' from 'C:\call51\Bin\..\lib\small\libc51.lib'
-   'crt0' from 'C:\call51\Bin\..\lib\small\libc51.lib'
-   'putchar' from 'C:\call51\Bin\..\lib\small\libc51.lib'
-   'print_format' from 'C:\call51\Bin\..\lib\small\libc51.lib'
-   'bp' from 'C:\call51\Bin\..\lib\small\libc51.lib'
-   'strlen' from 'C:\call51\Bin\..\lib\small\libc51.lib'
+   'gptrget' from 'C:\CrossIDE\Call51\Bin\..\lib\small\libc51.lib'
+   'divulong' from 'C:\CrossIDE\Call51\Bin\..\lib\small\liblong.lib'
+   'vprintf' from 'C:\CrossIDE\Call51\Bin\..\lib\small\libc51.lib'
+   'gptrput' from 'C:\CrossIDE\Call51\Bin\..\lib\small\libc51.lib'
+   'sprintf' from 'C:\CrossIDE\Call51\Bin\..\lib\small\libc51.lib'
+   'crt0' from 'C:\CrossIDE\Call51\Bin\..\lib\small\libc51.lib'
+   'putchar' from 'C:\CrossIDE\Call51\Bin\..\lib\small\libc51.lib'
+   'print_format' from 'C:\CrossIDE\Call51\Bin\..\lib\small\libc51.lib'
+   'bp' from 'C:\CrossIDE\Call51\Bin\..\lib\small\libc51.lib'
+   'strlen' from 'C:\CrossIDE\Call51\Bin\..\lib\small\libc51.lib'
 
 Memory use per module linked:
 C:01180 D:000 I:020 B:000 X:00000 - EFM8_JDY40_test

@@ -2,7 +2,7 @@
 #define DEF_F 15000L
 #define TICK_FREQ_TIM21 1000L
 
-#define REQUEST "I"
+#define REQUEST " I\r\n"
 
 void InitTimer21(void);
 
@@ -15,5 +15,6 @@ void SendCommand(char * s, int value);
 void ReceiveCommand(void);
 void ConfigJDY40(void);
 
-void Send_X_Y(float x_value, float y_value);
+void Update_X_Y(int x_value, int y_value);
+void Send_X_Y(void);
 int ReceiveInductance(int inductance);

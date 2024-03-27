@@ -133,11 +133,11 @@ void TIMER5_Init(void) {
 	TMR5=0xffff;   // Set to reload immediately
 	EIE2|=0b_0000_1000; // Enable Timer5 interrupts
 	TR5=1;         // Start Timer5 (TMR5CN0 is bit addressable)
-	EA = 1;
 }
 
 void Timer5_ISR (void) interrupt INTERRUPT_TIMER5
 {
+	TR5 = 0;
 	SFRPAGE=0x10;
 	TF5H = 0; // Clear Timer5 interrupt flag
 
@@ -149,6 +149,7 @@ void Timer5_ISR (void) interrupt INTERRUPT_TIMER5
 		// freq += 5;
 		GetData();
 	}
+	TR5 = 1;
 
 }
 
@@ -384,7 +385,7 @@ void main (void)
 	JDYInit();
 	TOGGLE = 0;
 	TIMER5_Init();
-
+	EA = 1;
 	while(1){
 	/*
 		if (RX_BUFF[0] == 'I'){

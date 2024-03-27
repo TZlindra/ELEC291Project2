@@ -1,7 +1,7 @@
 0000              1   ;--------------------------------------------------------
 0000              2   ; File Created by C51
 0000              3   ; Version 1.0.0 #1170 (Feb 16 2022) (MSVC)
-0000              4   ; This file was generated Mon Mar 18 16:35:52 2024
+0000              4   ; This file was generated Wed Mar 27 12:59:44 2024
 0000              5   ;--------------------------------------------------------
                   5   $name EFM8_JDY40_test
                   6   $optc51 --model-small
@@ -19,7 +19,7 @@
 0000             19            R_CONST   segment code
 0000             20            R_XINIT   segment code
 0000             21            R_DINIT   segment code
-0000             22
+0000             22   
 0000             23   ;--------------------------------------------------------
 0000             24   ; Public variables in this module
 0000             25   ;--------------------------------------------------------
@@ -486,7 +486,7 @@
 0000            486   ;--------------------------------------------------------
 0000            487            rseg R_DSEG
 0000            488   ;--------------------------------------------------------
-0000            489   ; overlayable items in internal ram
+0000            489   ; overlayable items in internal ram 
 0000            490   ;--------------------------------------------------------
 0000            491            rseg    R_OSEG
 0000            492            rseg    R_OSEG
@@ -548,128 +548,128 @@
 0000            548   ;Allocation info for local variables in function '_c51_external_startup'
 0000            549   ;------------------------------------------------------------
 0000            550   ;------------------------------------------------------------
-0000            551   ;        EFM8_JDY40_test.c:11: char _c51_external_startup (void)
+0000            551   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:11: char _c51_external_startup (void)
 0000            552   ;        -----------------------------------------
 0000            553   ;         function _c51_external_startup
 0000            554   ;        -----------------------------------------
 0000            555   __c51_external_startup:
 0000            556            using   0
-0000            557   ;        EFM8_JDY40_test.c:14: SFRPAGE = 0x00;
+0000            557   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:14: SFRPAGE = 0x00;
 0000 75A700     558            mov     _SFRPAGE,#0x00
-0003            559   ;        EFM8_JDY40_test.c:15: WDTCN = 0xDE; //First key
+0003            559   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:15: WDTCN = 0xDE; //First key
 0003 7597DE     560            mov     _WDTCN,#0xDE
-0006            561   ;        EFM8_JDY40_test.c:16: WDTCN = 0xAD; //Second key
+0006            561   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:16: WDTCN = 0xAD; //Second key
 0006 7597AD     562            mov     _WDTCN,#0xAD
-0009            563   ;        EFM8_JDY40_test.c:18: VDM0CN=0x80;       // enable VDD monitor
+0009            563   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:18: VDM0CN=0x80;       // enable VDD monitor
 0009 75FF80     564            mov     _VDM0CN,#0x80
-000C            565   ;        EFM8_JDY40_test.c:19: RSTSRC=0x02|0x04;  // Enable reset on missing clock detector and VDD
+000C            565   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:19: RSTSRC=0x02|0x04;  // Enable reset on missing clock detector and VDD
 000C 75EF06     566            mov     _RSTSRC,#0x06
-000F            567   ;        EFM8_JDY40_test.c:26: SFRPAGE = 0x10;
+000F            567   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:26: SFRPAGE = 0x10;
 000F 75A710     568            mov     _SFRPAGE,#0x10
-0012            569   ;        EFM8_JDY40_test.c:27: PFE0CN  = 0x20; // SYSCLK < 75 MHz.
+0012            569   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:27: PFE0CN  = 0x20; // SYSCLK < 75 MHz.
 0012 75C120     570            mov     _PFE0CN,#0x20
-0015            571   ;        EFM8_JDY40_test.c:28: SFRPAGE = 0x00;
+0015            571   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:28: SFRPAGE = 0x00;
 0015 75A700     572            mov     _SFRPAGE,#0x00
-0018            573   ;        EFM8_JDY40_test.c:49: CLKSEL = 0x00;
+0018            573   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:49: CLKSEL = 0x00;
 0018 75A900     574            mov     _CLKSEL,#0x00
-001B            575   ;        EFM8_JDY40_test.c:50: CLKSEL = 0x00;
+001B            575   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:50: CLKSEL = 0x00;
 001B 75A900     576            mov     _CLKSEL,#0x00
-001E            577   ;        EFM8_JDY40_test.c:51: while ((CLKSEL & 0x80) == 0);
+001E            577   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:51: while ((CLKSEL & 0x80) == 0);
 001E            578   L002001?:
 001E E5A9       579            mov     a,_CLKSEL
-0020 30E700     580            jnb     acc.7,L002001?
-0023            581   ;        EFM8_JDY40_test.c:52: CLKSEL = 0x03;
+0020 30E7C0     580            jnb     acc.7,L002001?
+0023            581   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:52: CLKSEL = 0x03;
 0023 75A903     582            mov     _CLKSEL,#0x03
-0026            583   ;        EFM8_JDY40_test.c:53: CLKSEL = 0x03;
+0026            583   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:53: CLKSEL = 0x03;
 0026 75A903     584            mov     _CLKSEL,#0x03
-0029            585   ;        EFM8_JDY40_test.c:54: while ((CLKSEL & 0x80) == 0);
+0029            585   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:54: while ((CLKSEL & 0x80) == 0);
 0029            586   L002004?:
 0029 E5A9       587            mov     a,_CLKSEL
-002B 30E780     588            jnb     acc.7,L002004?
-002E            589   ;        EFM8_JDY40_test.c:59: P0MDOUT |= 0x11; // Enable UART0 TX (P0.4) and UART1 TX (P0.0) as push-pull outputs
+002B 30E740     588            jnb     acc.7,L002004?
+002E            589   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:59: P0MDOUT |= 0x11; // Enable UART0 TX (P0.4) and UART1 TX (P0.0) as push-pull outputs
 002E 43A411     590            orl     _P0MDOUT,#0x11
-0031            591   ;        EFM8_JDY40_test.c:60: P2MDOUT |= 0x01; // P2.0 in push-pull mode
+0031            591   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:60: P2MDOUT |= 0x01; // P2.0 in push-pull mode
 0031 43A601     592            orl     _P2MDOUT,#0x01
-0034            593   ;        EFM8_JDY40_test.c:61: XBR0     = 0x01; // Enable UART0 on P0.4(TX) and P0.5(RX)
+0034            593   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:61: XBR0     = 0x01; // Enable UART0 on P0.4(TX) and P0.5(RX)
 0034 75E101     594            mov     _XBR0,#0x01
-0037            595   ;        EFM8_JDY40_test.c:62: XBR1     = 0X00;
+0037            595   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:62: XBR1     = 0X00;
 0037 75E200     596            mov     _XBR1,#0x00
-003A            597   ;        EFM8_JDY40_test.c:63: XBR2     = 0x41; // Enable crossbar and uart 1
+003A            597   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:63: XBR2     = 0x41; // Enable crossbar and uart 1
 003A 75E341     598            mov     _XBR2,#0x41
-003D            599   ;        EFM8_JDY40_test.c:69: SCON0 = 0x10;
+003D            599   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:69: SCON0 = 0x10;
 003D 759810     600            mov     _SCON0,#0x10
-0040            601   ;        EFM8_JDY40_test.c:70: TH1 = 0x100-((SYSCLK/BAUDRATE)/(2L*12L));
+0040            601   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:70: TH1 = 0x100-((SYSCLK/BAUDRATE)/(2L*12L));
 0040 758DE6     602            mov     _TH1,#0xE6
-0043            603   ;        EFM8_JDY40_test.c:71: TL1 = TH1;      // Init Timer1
+0043            603   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:71: TL1 = TH1;      // Init Timer1
 0043 858D8B     604            mov     _TL1,_TH1
-0046            605   ;        EFM8_JDY40_test.c:72: TMOD &= ~0xf0;  // TMOD: timer 1 in 8-bit auto-reload
+0046            605   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:72: TMOD &= ~0xf0;  // TMOD: timer 1 in 8-bit auto-reload
 0046 53890F     606            anl     _TMOD,#0x0F
-0049            607   ;        EFM8_JDY40_test.c:73: TMOD |=  0x20;
+0049            607   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:73: TMOD |=  0x20;
 0049 438920     608            orl     _TMOD,#0x20
-004C            609   ;        EFM8_JDY40_test.c:74: TR1 = 1; // START Timer1
+004C            609   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:74: TR1 = 1; // START Timer1
 004C D28E       610            setb    _TR1
-004E            611   ;        EFM8_JDY40_test.c:75: TI = 1;  // Indicate TX0 ready
+004E            611   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:75: TI = 1;  // Indicate TX0 ready
 004E D299       612            setb    _TI
-0050            613   ;        EFM8_JDY40_test.c:77: return 0;
+0050            613   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:77: return 0;
 0050 758200     614            mov     dpl,#0x00
 0053 22         615            ret
 0054            616   ;------------------------------------------------------------
 0054            617   ;Allocation info for local variables in function 'Timer3us'
 0054            618   ;------------------------------------------------------------
-0054            619   ;us                        Allocated to registers r2
-0054            620   ;i                         Allocated to registers r3
+0054            619   ;us                        Allocated to registers r2 
+0054            620   ;i                         Allocated to registers r3 
 0054            621   ;------------------------------------------------------------
-0054            622   ;        EFM8_JDY40_test.c:81: void Timer3us(unsigned char us)
+0054            622   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:81: void Timer3us(unsigned char us)
 0054            623   ;        -----------------------------------------
 0054            624   ;         function Timer3us
 0054            625   ;        -----------------------------------------
 0054            626   _Timer3us:
 0054 AA82       627            mov     r2,dpl
-0056            628   ;        EFM8_JDY40_test.c:86: CKCON0|=0b_0100_0000;
+0056            628   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:86: CKCON0|=0b_0100_0000;
 0056 438E40     629            orl     _CKCON0,#0x40
-0059            630   ;        EFM8_JDY40_test.c:88: TMR3RL = (-(SYSCLK)/1000000L); // Set Timer3 to overflow in 1us.
+0059            630   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:88: TMR3RL = (-(SYSCLK)/1000000L); // Set Timer3 to overflow in 1us.
 0059 7592B8     631            mov     _TMR3RL,#0xB8
 005C 7593FF     632            mov     (_TMR3RL >> 8),#0xFF
-005F            633   ;        EFM8_JDY40_test.c:89: TMR3 = TMR3RL;                 // Initialize Timer3 for first overflow
+005F            633   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:89: TMR3 = TMR3RL;                 // Initialize Timer3 for first overflow
 005F 859294     634            mov     _TMR3,_TMR3RL
 0062 859395     635            mov     (_TMR3 >> 8),(_TMR3RL >> 8)
-0065            636   ;        EFM8_JDY40_test.c:91: TMR3CN0 = 0x04;                 // Sart Timer3 and clear overflow flag
+0065            636   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:91: TMR3CN0 = 0x04;                 // Sart Timer3 and clear overflow flag
 0065 759104     637            mov     _TMR3CN0,#0x04
-0068            638   ;        EFM8_JDY40_test.c:92: for (i = 0; i < us; i++)       // Count <us> overflows
+0068            638   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:92: for (i = 0; i < us; i++)       // Count <us> overflows
 0068 7B00       639            mov     r3,#0x00
 006A            640   L003004?:
 006A C3         641            clr     c
 006B EB         642            mov     a,r3
 006C 9A         643            subb    a,r2
 006D 5000       644            jnc     L003007?
-006F            645   ;        EFM8_JDY40_test.c:94: while (!(TMR3CN0 & 0x80));  // Wait for overflow
+006F            645   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:94: while (!(TMR3CN0 & 0x80));  // Wait for overflow
 006F            646   L003001?:
 006F E591       647            mov     a,_TMR3CN0
-0071 30E780     648            jnb     acc.7,L003001?
-0074            649   ;        EFM8_JDY40_test.c:95: TMR3CN0 &= ~(0x80);         // Clear overflow indicator
+0071 30E740     648            jnb     acc.7,L003001?
+0074            649   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:95: TMR3CN0 &= ~(0x80);         // Clear overflow indicator
 0074 53917F     650            anl     _TMR3CN0,#0x7F
-0077            651   ;        EFM8_JDY40_test.c:92: for (i = 0; i < us; i++)       // Count <us> overflows
+0077            651   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:92: for (i = 0; i < us; i++)       // Count <us> overflows
 0077 0B         652            inc     r3
 0078 8000       653            sjmp    L003004?
 007A            654   L003007?:
-007A            655   ;        EFM8_JDY40_test.c:97: TMR3CN0 = 0 ;                   // Stop Timer3 and clear overflow flag
+007A            655   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:97: TMR3CN0 = 0 ;                   // Stop Timer3 and clear overflow flag
 007A 759100     656            mov     _TMR3CN0,#0x00
 007D 22         657            ret
 007E            658   ;------------------------------------------------------------
 007E            659   ;Allocation info for local variables in function 'waitms'
 007E            660   ;------------------------------------------------------------
-007E            661   ;ms                        Allocated to registers r2 r3
-007E            662   ;j                         Allocated to registers r4 r5
-007E            663   ;k                         Allocated to registers r6
+007E            661   ;ms                        Allocated to registers r2 r3 
+007E            662   ;j                         Allocated to registers r4 r5 
+007E            663   ;k                         Allocated to registers r6 
 007E            664   ;------------------------------------------------------------
-007E            665   ;        EFM8_JDY40_test.c:100: void waitms (unsigned int ms)
+007E            665   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:100: void waitms (unsigned int ms)
 007E            666   ;        -----------------------------------------
 007E            667   ;         function waitms
 007E            668   ;        -----------------------------------------
 007E            669   _waitms:
 007E AA82       670            mov     r2,dpl
 0080 AB83       671            mov     r3,dph
-0082            672   ;        EFM8_JDY40_test.c:104: for(j=0; j<ms; j++)
+0082            672   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:104: for(j=0; j<ms; j++)
 0082 7C00       673            mov     r4,#0x00
 0084 7D00       674            mov     r5,#0x00
 0086            675   L004005?:
@@ -679,10 +679,10 @@
 0089 ED         679            mov     a,r5
 008A 9B         680            subb    a,r3
 008B 5000       681            jnc     L004009?
-008D            682   ;        EFM8_JDY40_test.c:105: for (k=0; k<4; k++) Timer3us(250);
+008D            682   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:105: for (k=0; k<4; k++) Timer3us(250);
 008D 7E00       683            mov     r6,#0x00
 008F            684   L004001?:
-008F BE04C0     685            cjne    r6,#0x04,L004018?
+008F BE0480     685            cjne    r6,#0x04,L004018?
 0092            686   L004018?:
 0092 5000       687            jnc     L004007?
 0094 7582FA     688            mov     dpl,#0xFA
@@ -700,9 +700,9 @@
 00AE 0E         700            inc     r6
 00AF 8000       701            sjmp    L004001?
 00B1            702   L004007?:
-00B1            703   ;        EFM8_JDY40_test.c:104: for(j=0; j<ms; j++)
+00B1            703   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:104: for(j=0; j<ms; j++)
 00B1 0C         704            inc     r4
-00B2 BC0000     705            cjne    r4,#0x00,L004005?
+00B2 BC00C0     705            cjne    r4,#0x00,L004005?
 00B5 0D         706            inc     r5
 00B6 8000       707            sjmp    L004005?
 00B8            708   L004009?:
@@ -710,9 +710,9 @@
 00B9            710   ;------------------------------------------------------------
 00B9            711   ;Allocation info for local variables in function 'UART1_Init'
 00B9            712   ;------------------------------------------------------------
-00B9            713   ;baudrate                  Allocated to registers r2 r3 r4 r5
+00B9            713   ;baudrate                  Allocated to registers r2 r3 r4 r5 
 00B9            714   ;------------------------------------------------------------
-00B9            715   ;        EFM8_JDY40_test.c:108: void UART1_Init (unsigned long baudrate)
+00B9            715   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:108: void UART1_Init (unsigned long baudrate)
 00B9            716   ;        -----------------------------------------
 00B9            717   ;         function UART1_Init
 00B9            718   ;        -----------------------------------------
@@ -721,15 +721,15 @@
 00BB AB83       721            mov     r3,dph
 00BD ACF0       722            mov     r4,b
 00BF FD         723            mov     r5,a
-00C0            724   ;        EFM8_JDY40_test.c:110: SFRPAGE = 0x20;
+00C0            724   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:110: SFRPAGE = 0x20;
 00C0 75A720     725            mov     _SFRPAGE,#0x20
-00C3            726   ;        EFM8_JDY40_test.c:111: SMOD1 = 0x0C; // no parity, 8 data bits, 1 stop bit
+00C3            726   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:111: SMOD1 = 0x0C; // no parity, 8 data bits, 1 stop bit
 00C3 75930C     727            mov     _SMOD1,#0x0C
-00C6            728   ;        EFM8_JDY40_test.c:112: SCON1 = 0x10;
+00C6            728   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:112: SCON1 = 0x10;
 00C6 75C810     729            mov     _SCON1,#0x10
-00C9            730   ;        EFM8_JDY40_test.c:113: SBCON1 =0x00;   // disable baud rate generator
+00C9            730   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:113: SBCON1 =0x00;   // disable baud rate generator
 00C9 759400     731            mov     _SBCON1,#0x00
-00CC            732   ;        EFM8_JDY40_test.c:114: SBRL1 = 0x10000L-((SYSCLK/baudrate)/(12L*2L));
+00CC            732   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:114: SBRL1 = 0x10000L-((SYSCLK/baudrate)/(12L*2L));
 00CC 8A00       733            mov     __divulong_PARM_2,r2
 00CE 8B01       734            mov     (__divulong_PARM_2 + 1),r3
 00D0 8C02       735            mov     (__divulong_PARM_2 + 2),r4
@@ -769,43 +769,43 @@
 010C 9D         769            subb    a,r5
 010D 8A95       770            mov     _SBRL1,r2
 010F 8B96       771            mov     (_SBRL1 >> 8),r3
-0111            772   ;        EFM8_JDY40_test.c:115: TI1 = 1; // indicate ready for TX
+0111            772   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:115: TI1 = 1; // indicate ready for TX
 0111 D2C9       773            setb    _TI1
-0113            774   ;        EFM8_JDY40_test.c:116: SBCON1 |= 0x40;   // enable baud rate generator
+0113            774   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:116: SBCON1 |= 0x40;   // enable baud rate generator
 0113 439440     775            orl     _SBCON1,#0x40
-0116            776   ;        EFM8_JDY40_test.c:117: SFRPAGE = 0x00;
+0116            776   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:117: SFRPAGE = 0x00;
 0116 75A700     777            mov     _SFRPAGE,#0x00
 0119 22         778            ret
 011A            779   ;------------------------------------------------------------
 011A            780   ;Allocation info for local variables in function 'putchar1'
 011A            781   ;------------------------------------------------------------
-011A            782   ;c                         Allocated to registers r2
+011A            782   ;c                         Allocated to registers r2 
 011A            783   ;------------------------------------------------------------
-011A            784   ;        EFM8_JDY40_test.c:120: void putchar1 (char c)
+011A            784   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:120: void putchar1 (char c)
 011A            785   ;        -----------------------------------------
 011A            786   ;         function putchar1
 011A            787   ;        -----------------------------------------
 011A            788   _putchar1:
 011A AA82       789            mov     r2,dpl
-011C            790   ;        EFM8_JDY40_test.c:122: SFRPAGE = 0x20;
+011C            790   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:122: SFRPAGE = 0x20;
 011C 75A720     791            mov     _SFRPAGE,#0x20
-011F            792   ;        EFM8_JDY40_test.c:123: while (!TI1);
+011F            792   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:123: while (!TI1);
 011F            793   L006001?:
-011F            794   ;        EFM8_JDY40_test.c:124: TI1=0;
-011F 10C950     795            jbc     _TI1,L006008?
+011F            794   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:124: TI1=0;
+011F 10C910     795            jbc     _TI1,L006008?
 0122 8000       796            sjmp    L006001?
 0124            797   L006008?:
-0124            798   ;        EFM8_JDY40_test.c:125: SBUF1 = c;
+0124            798   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:125: SBUF1 = c;
 0124 8A92       799            mov     _SBUF1,r2
-0126            800   ;        EFM8_JDY40_test.c:126: SFRPAGE = 0x00;
+0126            800   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:126: SFRPAGE = 0x00;
 0126 75A700     801            mov     _SFRPAGE,#0x00
 0129 22         802            ret
 012A            803   ;------------------------------------------------------------
 012A            804   ;Allocation info for local variables in function 'sendstr1'
 012A            805   ;------------------------------------------------------------
-012A            806   ;s                         Allocated to registers r2 r3 r4
+012A            806   ;s                         Allocated to registers r2 r3 r4 
 012A            807   ;------------------------------------------------------------
-012A            808   ;        EFM8_JDY40_test.c:129: void sendstr1 (char * s)
+012A            808   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:129: void sendstr1 (char * s)
 012A            809   ;        -----------------------------------------
 012A            810   ;         function sendstr1
 012A            811   ;        -----------------------------------------
@@ -813,7 +813,7 @@
 012A AA82       813            mov     r2,dpl
 012C AB83       814            mov     r3,dph
 012E ACF0       815            mov     r4,b
-0130            816   ;        EFM8_JDY40_test.c:131: while(*s)
+0130            816   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:131: while(*s)
 0130            817   L007001?:
 0130 8A82       818            mov     dpl,r2
 0132 8B83       819            mov     dph,r3
@@ -821,7 +821,7 @@
 0136 120000     821            lcall   __gptrget
 0139 FD         822            mov     r5,a
 013A 6000       823            jz      L007004?
-013C            824   ;        EFM8_JDY40_test.c:133: putchar1(*s);
+013C            824   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:133: putchar1(*s);
 013C 8D82       825            mov     dpl,r5
 013E C002       826            push    ar2
 0140 C003       827            push    ar3
@@ -830,9 +830,9 @@
 0147 D004       830            pop     ar4
 0149 D003       831            pop     ar3
 014B D002       832            pop     ar2
-014D            833   ;        EFM8_JDY40_test.c:134: s++;
+014D            833   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:134: s++;
 014D 0A         834            inc     r2
-014E BA0090     835            cjne    r2,#0x00,L007001?
+014E BA0050     835            cjne    r2,#0x00,L007001?
 0151 0B         836            inc     r3
 0152 8000       837            sjmp    L007001?
 0154            838   L007004?:
@@ -840,89 +840,89 @@
 0155            840   ;------------------------------------------------------------
 0155            841   ;Allocation info for local variables in function 'getchar1'
 0155            842   ;------------------------------------------------------------
-0155            843   ;c                         Allocated to registers
+0155            843   ;c                         Allocated to registers 
 0155            844   ;------------------------------------------------------------
-0155            845   ;        EFM8_JDY40_test.c:138: char getchar1 (void)
+0155            845   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:138: char getchar1 (void)
 0155            846   ;        -----------------------------------------
 0155            847   ;         function getchar1
 0155            848   ;        -----------------------------------------
 0155            849   _getchar1:
-0155            850   ;        EFM8_JDY40_test.c:141: SFRPAGE = 0x20;
+0155            850   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:141: SFRPAGE = 0x20;
 0155 75A720     851            mov     _SFRPAGE,#0x20
-0158            852   ;        EFM8_JDY40_test.c:142: while (!RI1);
+0158            852   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:142: while (!RI1);
 0158            853   L008001?:
-0158            854   ;        EFM8_JDY40_test.c:143: RI1=0;
-0158 10C890     855            jbc     _RI1,L008008?
+0158            854   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:143: RI1=0;
+0158 10C850     855            jbc     _RI1,L008008?
 015B 8000       856            sjmp    L008001?
 015D            857   L008008?:
-015D            858   ;        EFM8_JDY40_test.c:145: SCON1&=0b_0011_1111;
+015D            858   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:145: SCON1&=0b_0011_1111;
 015D 53C83F     859            anl     _SCON1,#0x3F
-0160            860   ;        EFM8_JDY40_test.c:146: c = SBUF1;
+0160            860   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:146: c = SBUF1;
 0160 859282     861            mov     dpl,_SBUF1
-0163            862   ;        EFM8_JDY40_test.c:147: SFRPAGE = 0x00;
+0163            862   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:147: SFRPAGE = 0x00;
 0163 75A700     863            mov     _SFRPAGE,#0x00
-0166            864   ;        EFM8_JDY40_test.c:148: return (c);
+0166            864   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:148: return (c);
 0166 22         865            ret
 0167            866   ;------------------------------------------------------------
 0167            867   ;Allocation info for local variables in function 'getchar1_with_timeout'
 0167            868   ;------------------------------------------------------------
-0167            869   ;c                         Allocated to registers
-0167            870   ;timeout                   Allocated to registers r2 r3
+0167            869   ;c                         Allocated to registers 
+0167            870   ;timeout                   Allocated to registers r2 r3 
 0167            871   ;------------------------------------------------------------
-0167            872   ;        EFM8_JDY40_test.c:151: char getchar1_with_timeout (void)
+0167            872   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:151: char getchar1_with_timeout (void)
 0167            873   ;        -----------------------------------------
 0167            874   ;         function getchar1_with_timeout
 0167            875   ;        -----------------------------------------
 0167            876   _getchar1_with_timeout:
-0167            877   ;        EFM8_JDY40_test.c:155: SFRPAGE = 0x20;
+0167            877   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:155: SFRPAGE = 0x20;
 0167 75A720     878            mov     _SFRPAGE,#0x20
-016A            879   ;        EFM8_JDY40_test.c:157: while (!RI1)
+016A            879   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:157: while (!RI1)
 016A 7A00       880            mov     r2,#0x00
 016C 7B00       881            mov     r3,#0x00
 016E            882   L009003?:
-016E 20C810     883            jb      _RI1,L009005?
-0171            884   ;        EFM8_JDY40_test.c:159: SFRPAGE = 0x00;
+016E 20C8D0     883            jb      _RI1,L009005?
+0171            884   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:159: SFRPAGE = 0x00;
 0171 75A700     885            mov     _SFRPAGE,#0x00
-0174            886   ;        EFM8_JDY40_test.c:160: Timer3us(20);
+0174            886   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:160: Timer3us(20);
 0174 758214     887            mov     dpl,#0x14
 0177 C002       888            push    ar2
 0179 C003       889            push    ar3
 017B 120000     890            lcall   _Timer3us
 017E D003       891            pop     ar3
 0180 D002       892            pop     ar2
-0182            893   ;        EFM8_JDY40_test.c:161: SFRPAGE = 0x20;
+0182            893   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:161: SFRPAGE = 0x20;
 0182 75A720     894            mov     _SFRPAGE,#0x20
-0185            895   ;        EFM8_JDY40_test.c:162: timeout++;
+0185            895   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:162: timeout++;
 0185 0A         896            inc     r2
-0186 BA0050     897            cjne    r2,#0x00,L009012?
+0186 BA0010     897            cjne    r2,#0x00,L009012?
 0189 0B         898            inc     r3
 018A            899   L009012?:
-018A            900   ;        EFM8_JDY40_test.c:163: if(timeout==25000)
-018A BAA8D0     901            cjne    r2,#0xA8,L009003?
-018D BB61D0     902            cjne    r3,#0x61,L009003?
-0190            903   ;        EFM8_JDY40_test.c:165: SFRPAGE = 0x00;
+018A            900   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:163: if(timeout==25000)
+018A BAA890     901            cjne    r2,#0xA8,L009003?
+018D BB6190     902            cjne    r3,#0x61,L009003?
+0190            903   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:165: SFRPAGE = 0x00;
 0190 75A700     904            mov     _SFRPAGE,#0x00
-0193            905   ;        EFM8_JDY40_test.c:166: return ('\n'); // Timeout after half second
+0193            905   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:166: return ('\n'); // Timeout after half second
 0193 75820A     906            mov     dpl,#0x0A
 0196 22         907            ret
 0197            908   L009005?:
-0197            909   ;        EFM8_JDY40_test.c:169: RI1=0;
+0197            909   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:169: RI1=0;
 0197 C2C8       910            clr     _RI1
-0199            911   ;        EFM8_JDY40_test.c:171: SCON1&=0b_0011_1111;
+0199            911   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:171: SCON1&=0b_0011_1111;
 0199 53C83F     912            anl     _SCON1,#0x3F
-019C            913   ;        EFM8_JDY40_test.c:172: c = SBUF1;
+019C            913   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:172: c = SBUF1;
 019C 859282     914            mov     dpl,_SBUF1
-019F            915   ;        EFM8_JDY40_test.c:173: SFRPAGE = 0x00;
+019F            915   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:173: SFRPAGE = 0x00;
 019F 75A700     916            mov     _SFRPAGE,#0x00
-01A2            917   ;        EFM8_JDY40_test.c:174: return (c);
+01A2            917   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:174: return (c);
 01A2 22         918            ret
 01A3            919   ;------------------------------------------------------------
 01A3            920   ;Allocation info for local variables in function 'getstr1'
 01A3            921   ;------------------------------------------------------------
-01A3            922   ;s                         Allocated to registers r2 r3 r4
-01A3            923   ;c                         Allocated to registers r5
+01A3            922   ;s                         Allocated to registers r2 r3 r4 
+01A3            923   ;c                         Allocated to registers r5 
 01A3            924   ;------------------------------------------------------------
-01A3            925   ;        EFM8_JDY40_test.c:177: void getstr1 (char * s)
+01A3            925   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:177: void getstr1 (char * s)
 01A3            926   ;        -----------------------------------------
 01A3            927   ;         function getstr1
 01A3            928   ;        -----------------------------------------
@@ -930,9 +930,9 @@
 01A3 AA82       930            mov     r2,dpl
 01A5 AB83       931            mov     r3,dph
 01A7 ACF0       932            mov     r4,b
-01A9            933   ;        EFM8_JDY40_test.c:181: while(1)
+01A9            933   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:181: while(1)
 01A9            934   L010004?:
-01A9            935   ;        EFM8_JDY40_test.c:183: c=getchar1_with_timeout();
+01A9            935   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:183: c=getchar1_with_timeout();
 01A9 C002       936            push    ar2
 01AB C003       937            push    ar3
 01AD C004       938            push    ar4
@@ -941,17 +941,17 @@
 01B4 D004       941            pop     ar4
 01B6 D003       942            pop     ar3
 01B8 D002       943            pop     ar2
-01BA            944   ;        EFM8_JDY40_test.c:184: if(c=='\n')
-01BA BD0AD0     945            cjne    r5,#0x0A,L010002?
-01BD            946   ;        EFM8_JDY40_test.c:186: *s=0;
+01BA            944   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:184: if(c=='\n')
+01BA BD0A90     945            cjne    r5,#0x0A,L010002?
+01BD            946   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:186: *s=0;
 01BD 8A82       947            mov     dpl,r2
 01BF 8B83       948            mov     dph,r3
 01C1 8CF0       949            mov     b,r4
 01C3 E4         950            clr     a
-01C4            951   ;        EFM8_JDY40_test.c:187: return;
+01C4            951   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:187: return;
 01C4 020000     952            ljmp    __gptrput
 01C7            953   L010002?:
-01C7            954   ;        EFM8_JDY40_test.c:189: *s=c;
+01C7            954   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:189: *s=c;
 01C7 8A82       955            mov     dpl,r2
 01C9 8B83       956            mov     dph,r3
 01CB 8CF0       957            mov     b,r4
@@ -960,40 +960,40 @@
 01D1 A3         960            inc     dptr
 01D2 AA82       961            mov     r2,dpl
 01D4 AB83       962            mov     r3,dph
-01D6            963   ;        EFM8_JDY40_test.c:190: s++;
+01D6            963   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:190: s++;
 01D6 8000       964            sjmp    L010004?
 01D8            965   ;------------------------------------------------------------
 01D8            966   ;Allocation info for local variables in function 'RXU1'
 01D8            967   ;------------------------------------------------------------
 01D8            968   ;------------------------------------------------------------
-01D8            969   ;        EFM8_JDY40_test.c:195: bit RXU1 (void)
+01D8            969   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:195: bit RXU1 (void)
 01D8            970   ;        -----------------------------------------
 01D8            971   ;         function RXU1
 01D8            972   ;        -----------------------------------------
 01D8            973   _RXU1:
-01D8            974   ;        EFM8_JDY40_test.c:198: SFRPAGE = 0x20;
+01D8            974   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:198: SFRPAGE = 0x20;
 01D8 75A720     975            mov     _SFRPAGE,#0x20
-01DB            976   ;        EFM8_JDY40_test.c:199: mybit=RI1;
+01DB            976   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:199: mybit=RI1;
 01DB A2C8       977            mov     c,_RI1
-01DD            978   ;        EFM8_JDY40_test.c:200: SFRPAGE = 0x00;
+01DD            978   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:200: SFRPAGE = 0x00;
 01DD 75A700     979            mov     _SFRPAGE,#0x00
-01E0            980   ;        EFM8_JDY40_test.c:201: return mybit;
+01E0            980   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:201: return mybit;
 01E0 22         981            ret
 01E1            982   ;------------------------------------------------------------
 01E1            983   ;Allocation info for local variables in function 'waitms_or_RI1'
 01E1            984   ;------------------------------------------------------------
-01E1            985   ;ms                        Allocated to registers r2 r3
-01E1            986   ;j                         Allocated to registers r4 r5
-01E1            987   ;k                         Allocated to registers r6
+01E1            985   ;ms                        Allocated to registers r2 r3 
+01E1            986   ;j                         Allocated to registers r4 r5 
+01E1            987   ;k                         Allocated to registers r6 
 01E1            988   ;------------------------------------------------------------
-01E1            989   ;        EFM8_JDY40_test.c:204: void waitms_or_RI1 (unsigned int ms)
+01E1            989   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:204: void waitms_or_RI1 (unsigned int ms)
 01E1            990   ;        -----------------------------------------
 01E1            991   ;         function waitms_or_RI1
 01E1            992   ;        -----------------------------------------
 01E1            993   _waitms_or_RI1:
 01E1 AA82       994            mov     r2,dpl
 01E3 AB83       995            mov     r3,dph
-01E5            996   ;        EFM8_JDY40_test.c:208: for(j=0; j<ms; j++)
+01E5            996   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:208: for(j=0; j<ms; j++)
 01E5 7C00       997            mov     r4,#0x00
 01E7 7D00       998            mov     r5,#0x00
 01E9            999   L012007?:
@@ -1003,13 +1003,13 @@
 01EC ED        1003            mov     a,r5
 01ED 9B        1004            subb    a,r3
 01EE 5000      1005            jnc     L012011?
-01F0           1006   ;        EFM8_JDY40_test.c:210: for (k=0; k<4; k++)
+01F0           1006   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:210: for (k=0; k<4; k++)
 01F0 7E00      1007            mov     r6,#0x00
 01F2           1008   L012003?:
-01F2 BE0410    1009            cjne    r6,#0x04,L012019?
+01F2 BE04D0    1009            cjne    r6,#0x04,L012019?
 01F5           1010   L012019?:
 01F5 5000      1011            jnc     L012009?
-01F7           1012   ;        EFM8_JDY40_test.c:212: if(RXU1()) return;
+01F7           1012   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:212: if(RXU1()) return;
 01F7 C002      1013            push    ar2
 01F9 C003      1014            push    ar3
 01FB C004      1015            push    ar4
@@ -1026,7 +1026,7 @@
 0210 6000      1026            jz      L012002?
 0212 22        1027            ret
 0213           1028   L012002?:
-0213           1029   ;        EFM8_JDY40_test.c:213: Timer3us(250);
+0213           1029   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:213: Timer3us(250);
 0213 7582FA    1030            mov     dpl,#0xFA
 0216 C002      1031            push    ar2
 0218 C003      1032            push    ar3
@@ -1039,13 +1039,13 @@
 0227 D004      1039            pop     ar4
 0229 D003      1040            pop     ar3
 022B D002      1041            pop     ar2
-022D           1042   ;        EFM8_JDY40_test.c:210: for (k=0; k<4; k++)
+022D           1042   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:210: for (k=0; k<4; k++)
 022D 0E        1043            inc     r6
 022E 8000      1044            sjmp    L012003?
 0230           1045   L012009?:
-0230           1046   ;        EFM8_JDY40_test.c:208: for(j=0; j<ms; j++)
+0230           1046   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:208: for(j=0; j<ms; j++)
 0230 0C        1047            inc     r4
-0231 BC0050    1048            cjne    r4,#0x00,L012007?
+0231 BC0010    1048            cjne    r4,#0x00,L012007?
 0234 0D        1049            inc     r5
 0235 8000      1050            sjmp    L012007?
 0237           1051   L012011?:
@@ -1053,9 +1053,9 @@
 0238           1053   ;------------------------------------------------------------
 0238           1054   ;Allocation info for local variables in function 'SendATCommand'
 0238           1055   ;------------------------------------------------------------
-0238           1056   ;s                         Allocated to registers r2 r3 r4
+0238           1056   ;s                         Allocated to registers r2 r3 r4 
 0238           1057   ;------------------------------------------------------------
-0238           1058   ;        EFM8_JDY40_test.c:218: void SendATCommand (char * s)
+0238           1058   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:218: void SendATCommand (char * s)
 0238           1059   ;        -----------------------------------------
 0238           1060   ;         function SendATCommand
 0238           1061   ;        -----------------------------------------
@@ -1063,16 +1063,16 @@
 0238 AA82      1063            mov     r2,dpl
 023A AB83      1064            mov     r3,dph
 023C ACF0      1065            mov     r4,b
-023E           1066   ;        EFM8_JDY40_test.c:220: printf("Command: %s", s);
+023E           1066   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:220: printf("Command: %s", s);
 023E C002      1067            push    ar2
 0240 C003      1068            push    ar3
 0242 C004      1069            push    ar4
 0244 C002      1070            push    ar2
 0246 C003      1071            push    ar3
 0248 C004      1072            push    ar4
-024A 74D0      1073            mov     a,#__str_0
+024A 7490      1073            mov     a,#__str_0
 024C C0E0      1074            push    acc
-024E 74B8      1075            mov     a,#(__str_0 >> 8)
+024E 74BC      1075            mov     a,#(__str_0 >> 8)
 0250 C0E0      1076            push    acc
 0252 7480      1077            mov     a,#0x80
 0254 C0E0      1078            push    acc
@@ -1080,38 +1080,38 @@
 0259 E581      1080            mov     a,sp
 025B 24FA      1081            add     a,#0xfa
 025D F581      1082            mov     sp,a
-025F           1083   ;        EFM8_JDY40_test.c:221: P2_0=0; // 'set' pin to 0 is 'AT' mode.
+025F           1083   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:221: P2_0=0; // 'set' pin to 0 is 'AT' mode.
 025F C2A0      1084            clr     _P2_0
-0261           1085   ;        EFM8_JDY40_test.c:222: waitms(5);
+0261           1085   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:222: waitms(5);
 0261 900005    1086            mov     dptr,#0x0005
 0264 120000    1087            lcall   _waitms
 0267 D004      1088            pop     ar4
 0269 D003      1089            pop     ar3
 026B D002      1090            pop     ar2
-026D           1091   ;        EFM8_JDY40_test.c:223: sendstr1(s);
+026D           1091   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:223: sendstr1(s);
 026D 8A82      1092            mov     dpl,r2
 026F 8B83      1093            mov     dph,r3
 0271 8CF0      1094            mov     b,r4
 0273 120000    1095            lcall   _sendstr1
-0276           1096   ;        EFM8_JDY40_test.c:224: getstr1(buff);
-0276 9042C0    1097            mov     dptr,#_buff
+0276           1096   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:224: getstr1(buff);
+0276 9014B0    1097            mov     dptr,#_buff
 0279 75F040    1098            mov     b,#0x40
 027C 120000    1099            lcall   _getstr1
-027F           1100   ;        EFM8_JDY40_test.c:225: waitms(10);
+027F           1100   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:225: waitms(10);
 027F 90000A    1101            mov     dptr,#0x000A
 0282 120000    1102            lcall   _waitms
-0285           1103   ;        EFM8_JDY40_test.c:226: P2_0=1; // 'set' pin to 1 is normal operation mode.
+0285           1103   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:226: P2_0=1; // 'set' pin to 1 is normal operation mode.
 0285 D2A0      1104            setb    _P2_0
-0287           1105   ;        EFM8_JDY40_test.c:227: printf("Response: %s\r\n", buff);
-0287 74C0      1106            mov     a,#_buff
+0287           1105   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:227: printf("Response: %s\r\n", buff);
+0287 74B0      1106            mov     a,#_buff
 0289 C0E0      1107            push    acc
-028B 7442      1108            mov     a,#(_buff >> 8)
+028B 7414      1108            mov     a,#(_buff >> 8)
 028D C0E0      1109            push    acc
 028F 7440      1110            mov     a,#0x40
 0291 C0E0      1111            push    acc
-0293 7490      1112            mov     a,#__str_1
+0293 7450      1112            mov     a,#__str_1
 0295 C0E0      1113            push    acc
-0297 74B9      1114            mov     a,#(__str_1 >> 8)
+0297 74BD      1114            mov     a,#(__str_1 >> 8)
 0299 C0E0      1115            push    acc
 029B 7480      1116            mov     a,#0x80
 029D C0E0      1117            push    acc
@@ -1123,20 +1123,20 @@
 02A9           1123   ;------------------------------------------------------------
 02A9           1124   ;Allocation info for local variables in function 'main'
 02A9           1125   ;------------------------------------------------------------
-02A9           1126   ;cnt                       Allocated to registers
+02A9           1126   ;cnt                       Allocated to registers 
 02A9           1127   ;------------------------------------------------------------
-02A9           1128   ;        EFM8_JDY40_test.c:230: void main (void)
+02A9           1128   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:230: void main (void)
 02A9           1129   ;        -----------------------------------------
 02A9           1130   ;         function main
 02A9           1131   ;        -----------------------------------------
 02A9           1132   _main:
-02A9           1133   ;        EFM8_JDY40_test.c:234: waitms(500);
+02A9           1133   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:234: waitms(500);
 02A9 9001F4    1134            mov     dptr,#0x01F4
 02AC 120000    1135            lcall   _waitms
-02AF           1136   ;        EFM8_JDY40_test.c:235: printf("\r\nJDY-40 test\r\n");
-02AF 74D0      1137            mov     a,#__str_2
+02AF           1136   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:235: printf("\r\nJDY-40 test\r\n");
+02AF 7490      1137            mov     a,#__str_2
 02B1 C0E0      1138            push    acc
-02B3 74B9      1139            mov     a,#(__str_2 >> 8)
+02B3 74BD      1139            mov     a,#(__str_2 >> 8)
 02B5 C0E0      1140            push    acc
 02B7 7480      1141            mov     a,#0x80
 02B9 C0E0      1142            push    acc
@@ -1144,51 +1144,51 @@
 02BE 1581      1144            dec     sp
 02C0 1581      1145            dec     sp
 02C2 1581      1146            dec     sp
-02C4           1147   ;        EFM8_JDY40_test.c:236: UART1_Init(9600);
+02C4           1147   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:236: UART1_Init(9600);
 02C4 902580    1148            mov     dptr,#0x2580
 02C7 E4        1149            clr     a
 02C8 F5F0      1150            mov     b,a
 02CA 120000    1151            lcall   _UART1_Init
-02CD           1152   ;        EFM8_JDY40_test.c:252: SendATCommand("AT+DVIDAFAF\r\n");
-02CD 90BA10    1153            mov     dptr,#__str_3
+02CD           1152   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:252: SendATCommand("AT+DVIDAFAF\r\n");
+02CD 90BDD0    1153            mov     dptr,#__str_3
 02D0 75F080    1154            mov     b,#0x80
 02D3 120000    1155            lcall   _SendATCommand
-02D6           1156   ;        EFM8_JDY40_test.c:253: SendATCommand("AT+RFIDFFBB\r\n");
-02D6 90BA50    1157            mov     dptr,#__str_4
+02D6           1156   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:253: SendATCommand("AT+RFIDFFBB\r\n");
+02D6 90BE10    1157            mov     dptr,#__str_4
 02D9 75F080    1158            mov     b,#0x80
 02DC 120000    1159            lcall   _SendATCommand
-02DF           1160   ;        EFM8_JDY40_test.c:255: SendATCommand("AT+VER\r\n");
-02DF 90BA90    1161            mov     dptr,#__str_5
+02DF           1160   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:255: SendATCommand("AT+VER\r\n");
+02DF 90BE50    1161            mov     dptr,#__str_5
 02E2 75F080    1162            mov     b,#0x80
 02E5 120000    1163            lcall   _SendATCommand
-02E8           1164   ;        EFM8_JDY40_test.c:256: SendATCommand("AT+BAUD\r\n");
-02E8 90BAD0    1165            mov     dptr,#__str_6
+02E8           1164   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:256: SendATCommand("AT+BAUD\r\n");
+02E8 90BE90    1165            mov     dptr,#__str_6
 02EB 75F080    1166            mov     b,#0x80
 02EE 120000    1167            lcall   _SendATCommand
-02F1           1168   ;        EFM8_JDY40_test.c:257: SendATCommand("AT+RFID\r\n");
-02F1 90BB10    1169            mov     dptr,#__str_7
+02F1           1168   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:257: SendATCommand("AT+RFID\r\n");
+02F1 90BED0    1169            mov     dptr,#__str_7
 02F4 75F080    1170            mov     b,#0x80
 02F7 120000    1171            lcall   _SendATCommand
-02FA           1172   ;        EFM8_JDY40_test.c:258: SendATCommand("AT+DVID\r\n");
-02FA 90BB50    1173            mov     dptr,#__str_8
+02FA           1172   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:258: SendATCommand("AT+DVID\r\n");
+02FA 90BF10    1173            mov     dptr,#__str_8
 02FD 75F080    1174            mov     b,#0x80
 0300 120000    1175            lcall   _SendATCommand
-0303           1176   ;        EFM8_JDY40_test.c:259: SendATCommand("AT+RFC\r\n");
-0303 90BB90    1177            mov     dptr,#__str_9
+0303           1176   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:259: SendATCommand("AT+RFC\r\n");
+0303 90BF50    1177            mov     dptr,#__str_9
 0306 75F080    1178            mov     b,#0x80
 0309 120000    1179            lcall   _SendATCommand
-030C           1180   ;        EFM8_JDY40_test.c:260: SendATCommand("AT+POWE\r\n");
-030C 90BBD0    1181            mov     dptr,#__str_10
+030C           1180   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:260: SendATCommand("AT+POWE\r\n");
+030C 90BF90    1181            mov     dptr,#__str_10
 030F 75F080    1182            mov     b,#0x80
 0312 120000    1183            lcall   _SendATCommand
-0315           1184   ;        EFM8_JDY40_test.c:261: SendATCommand("AT+CLSS\r\n");
-0315 90BC10    1185            mov     dptr,#__str_11
+0315           1184   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:261: SendATCommand("AT+CLSS\r\n");
+0315 90BFD0    1185            mov     dptr,#__str_11
 0318 75F080    1186            mov     b,#0x80
 031B 120000    1187            lcall   _SendATCommand
-031E           1188   ;        EFM8_JDY40_test.c:263: printf("\r\Press and hold the BOOT button to transmit.\r\n");
-031E 7450      1189            mov     a,#__str_12
+031E           1188   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:263: printf("\r\Press and hold the BOOT button to transmit.\r\n");
+031E 7410      1189            mov     a,#__str_12
 0320 C0E0      1190            push    acc
-0322 74BC      1191            mov     a,#(__str_12 >> 8)
+0322 74C0      1191            mov     a,#(__str_12 >> 8)
 0324 C0E0      1192            push    acc
 0326 7480      1193            mov     a,#0x80
 0328 C0E0      1194            push    acc
@@ -1196,32 +1196,32 @@
 032D 1581      1196            dec     sp
 032F 1581      1197            dec     sp
 0331 1581      1198            dec     sp
-0333           1199   ;        EFM8_JDY40_test.c:266: while(1)
+0333           1199   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:266: while(1)
 0333 7A00      1200            mov     r2,#0x00
 0335 7B00      1201            mov     r3,#0x00
 0337           1202   L014006?:
-0337           1203   ;        EFM8_JDY40_test.c:268: if(P3_7==0)
-0337 20B7D0    1204            jb      _P3_7,L014002?
-033A           1205   ;        EFM8_JDY40_test.c:270: sprintf(buff, "JDY40 test %d\r\n", cnt++);
+0337           1203   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:268: if(P3_7==0)
+0337 20B790    1204            jb      _P3_7,L014002?
+033A           1205   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:270: sprintf(buff, "JDY40 test %d\r\n", cnt++);
 033A 8A04      1206            mov     ar4,r2
 033C 8B05      1207            mov     ar5,r3
 033E 0A        1208            inc     r2
-033F BA0010    1209            cjne    r2,#0x00,L014014?
+033F BA00D0    1209            cjne    r2,#0x00,L014014?
 0342 0B        1210            inc     r3
 0343           1211   L014014?:
 0343 C002      1212            push    ar2
 0345 C003      1213            push    ar3
 0347 C004      1214            push    ar4
 0349 C005      1215            push    ar5
-034B 7450      1216            mov     a,#__str_13
+034B 7410      1216            mov     a,#__str_13
 034D C0E0      1217            push    acc
-034F 74BD      1218            mov     a,#(__str_13 >> 8)
+034F 74C1      1218            mov     a,#(__str_13 >> 8)
 0351 C0E0      1219            push    acc
 0353 7480      1220            mov     a,#0x80
 0355 C0E0      1221            push    acc
-0357 74C0      1222            mov     a,#_buff
+0357 74B0      1222            mov     a,#_buff
 0359 C0E0      1223            push    acc
-035B 7442      1224            mov     a,#(_buff >> 8)
+035B 7414      1224            mov     a,#(_buff >> 8)
 035D C0E0      1225            push    acc
 035F 7440      1226            mov     a,#0x40
 0361 C0E0      1227            push    acc
@@ -1229,20 +1229,20 @@
 0366 E581      1229            mov     a,sp
 0368 24F8      1230            add     a,#0xf8
 036A F581      1231            mov     sp,a
-036C           1232   ;        EFM8_JDY40_test.c:271: sendstr1(buff);
-036C 9042C0    1233            mov     dptr,#_buff
+036C           1232   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:271: sendstr1(buff);
+036C 9014B0    1233            mov     dptr,#_buff
 036F 75F040    1234            mov     b,#0x40
 0372 120000    1235            lcall   _sendstr1
-0375           1236   ;        EFM8_JDY40_test.c:272: putchar('.');
+0375           1236   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:272: putchar('.');
 0375 75822E    1237            mov     dpl,#0x2E
 0378 120000    1238            lcall   _putchar
-037B           1239   ;        EFM8_JDY40_test.c:273: waitms_or_RI1(200);
+037B           1239   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:273: waitms_or_RI1(200);
 037B 9000C8    1240            mov     dptr,#0x00C8
 037E 120000    1241            lcall   _waitms_or_RI1
 0381 D003      1242            pop     ar3
 0383 D002      1243            pop     ar2
 0385           1244   L014002?:
-0385           1245   ;        EFM8_JDY40_test.c:275: if(RXU1())
+0385           1245   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:275: if(RXU1())
 0385 C002      1246            push    ar2
 0387 C003      1247            push    ar3
 0389 120000    1248            lcall   _RXU1
@@ -1251,22 +1251,22 @@
 038E D003      1251            pop     ar3
 0390 D002      1252            pop     ar2
 0392 6000      1253            jz      L014006?
-0394           1254   ;        EFM8_JDY40_test.c:277: getstr1(buff);
-0394 9042C0    1255            mov     dptr,#_buff
+0394           1254   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:277: getstr1(buff);
+0394 9014B0    1255            mov     dptr,#_buff
 0397 75F040    1256            mov     b,#0x40
 039A C002      1257            push    ar2
 039C C003      1258            push    ar3
 039E 120000    1259            lcall   _getstr1
-03A1           1260   ;        EFM8_JDY40_test.c:278: printf("RX: %s\r\n", buff);
-03A1 74C0      1261            mov     a,#_buff
+03A1           1260   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:278: printf("RX: %s\r\n", buff);
+03A1 74B0      1261            mov     a,#_buff
 03A3 C0E0      1262            push    acc
-03A5 7442      1263            mov     a,#(_buff >> 8)
+03A5 7414      1263            mov     a,#(_buff >> 8)
 03A7 C0E0      1264            push    acc
 03A9 7440      1265            mov     a,#0x40
 03AB C0E0      1266            push    acc
-03AD 7410      1267            mov     a,#__str_14
+03AD 74D0      1267            mov     a,#__str_14
 03AF C0E0      1268            push    acc
-03B1 74BE      1269            mov     a,#(__str_14 >> 8)
+03B1 74C1      1269            mov     a,#(__str_14 >> 8)
 03B3 C0E0      1270            push    acc
 03B5 7480      1271            mov     a,#0x80
 03B7 C0E0      1272            push    acc
@@ -1278,9 +1278,9 @@
 03C4 D002      1278            pop     ar2
 03C6 020000    1279            ljmp    L014006?
 03C9           1280            rseg R_CSEG
-03C9           1281
+03C9           1281   
 0000           1282            rseg R_XINIT
-0000           1283
+0000           1283   
 0000           1284            rseg R_CONST
 0000           1285   __str_0:
 0000 436F6D6D  1286            db 'Command: %s'
@@ -1389,7 +1389,7 @@
 00D0 0D        1358            db 0x0D
 00D1 0A        1359            db 0x0A
 00D2 00        1360            db 0x00
-00D3           1361
+00D3           1361   
 0003           1362            CSEG
-0003           1363
+0003           1363   
 0003           1364   end

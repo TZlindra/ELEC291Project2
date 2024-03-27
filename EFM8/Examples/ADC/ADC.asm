@@ -1,10 +1,11 @@
 ;--------------------------------------------------------
 ; File Created by C51
 ; Version 1.0.0 #1170 (Feb 16 2022) (MSVC)
-; This file was generated Mon Mar 18 17:07:02 2024
+; This file was generated Wed Mar 27 11:59:01 2024
 ;--------------------------------------------------------
-$name main
+$name ADC
 $optc51 --model-small
+$printf_float
 	R_DSEG    segment data
 	R_CSEG    segment code
 	R_BSEG    segment bit
@@ -23,17 +24,15 @@ $optc51 --model-small
 ;--------------------------------------------------------
 ; Public variables in this module
 ;--------------------------------------------------------
+	public _InitPinADC_PARM_2
 	public _main
-	public _calculate_freq_Hz
-	public _calculate_period_s
-	public _TIMER0_Init
-	public _Serial_Init
+	public _Volts_at_Pin
+	public _ADC_at_Pin
+	public _InitPinADC
 	public _waitms
 	public _Timer3us
+	public _InitADC
 	public __c51_external_startup
-	public _calculate_period_s_PARM_3
-	public _calculate_period_s_PARM_2
-	public _overflow_count
 ;--------------------------------------------------------
 ; Special Function Registers
 ;--------------------------------------------------------
@@ -482,15 +481,15 @@ _TFRQ           BIT 0xdf
 ; internal ram data
 ;--------------------------------------------------------
 	rseg R_DSEG
-_overflow_count:
-	ds 2
-_calculate_period_s_PARM_2:
-	ds 2
-_calculate_period_s_PARM_3:
-	ds 2
+_main_v_1_59:
+	ds 16
 ;--------------------------------------------------------
-; overlayable items in internal ram
+; overlayable items in internal ram 
 ;--------------------------------------------------------
+	rseg	R_OSEG
+	rseg	R_OSEG
+_InitPinADC_PARM_2:
+	ds 1
 	rseg	R_OSEG
 ;--------------------------------------------------------
 ; indirectly addressable internal ram data
@@ -538,10 +537,6 @@ _calculate_period_s_PARM_3:
 ; data variables initialization
 ;--------------------------------------------------------
 	rseg R_DINIT
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:24: int overflow_count = 0; // Timer 0 Overflow Counter
-	clr	a
-	mov	_overflow_count,a
-	mov	(_overflow_count + 1),a
 	; The linker places a 'ret' at the end of segment R_DINIT.
 ;--------------------------------------------------------
 ; code
@@ -551,143 +546,169 @@ _calculate_period_s_PARM_3:
 ;Allocation info for local variables in function '_c51_external_startup'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:29: char _c51_external_startup(void) {
+;	ADC.c:17: char _c51_external_startup (void)
 ;	-----------------------------------------
 ;	 function _c51_external_startup
 ;	-----------------------------------------
 __c51_external_startup:
 	using	0
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:31: SFRPAGE = 0x00;
+;	ADC.c:20: SFRPAGE = 0x00;
 	mov	_SFRPAGE,#0x00
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:32: WDTCN = 0xDE; // First Key
+;	ADC.c:21: WDTCN = 0xDE; //First key
 	mov	_WDTCN,#0xDE
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:33: WDTCN = 0xAD; // Second Key
+;	ADC.c:22: WDTCN = 0xAD; //Second key
 	mov	_WDTCN,#0xAD
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:35: VDM0CN |= 0x80;
-	orl	_VDM0CN,#0x80
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:36: RSTSRC=0x02|0x04;  // Enable Reset on Missing Clock Detector and VDD
+;	ADC.c:24: VDM0CN=0x80;       // enable VDD monitor
+	mov	_VDM0CN,#0x80
+;	ADC.c:25: RSTSRC=0x02|0x04;  // Enable reset on missing clock detector and VDD
 	mov	_RSTSRC,#0x06
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:44: SFRPAGE = 0x10;
+;	ADC.c:32: SFRPAGE = 0x10;
 	mov	_SFRPAGE,#0x10
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:45: PFE0CN  = 0x20; // SYSCLK < 75 MHz.
+;	ADC.c:33: PFE0CN  = 0x20; // SYSCLK < 75 MHz.
 	mov	_PFE0CN,#0x20
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:46: SFRPAGE = 0x00;
+;	ADC.c:34: SFRPAGE = 0x00;
 	mov	_SFRPAGE,#0x00
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:68: CLKSEL = 0x00;
+;	ADC.c:55: CLKSEL = 0x00;
 	mov	_CLKSEL,#0x00
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:69: CLKSEL = 0x00;
+;	ADC.c:56: CLKSEL = 0x00;
 	mov	_CLKSEL,#0x00
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:70: while ((CLKSEL & 0x80) == 0);
+;	ADC.c:57: while ((CLKSEL & 0x80) == 0);
 L002001?:
 	mov	a,_CLKSEL
 	jnb	acc.7,L002001?
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:71: CLKSEL = 0x03;
+;	ADC.c:58: CLKSEL = 0x03;
 	mov	_CLKSEL,#0x03
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:72: CLKSEL = 0x03;
+;	ADC.c:59: CLKSEL = 0x03;
 	mov	_CLKSEL,#0x03
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:73: while ((CLKSEL & 0x80) == 0);
+;	ADC.c:60: while ((CLKSEL & 0x80) == 0);
 L002004?:
 	mov	a,_CLKSEL
 	jnb	acc.7,L002004?
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:78: P0MDOUT |= 0x10; // Enable UART0 TX As Push-Pull Output
+;	ADC.c:65: P0MDOUT |= 0x10; // Enable UART0 TX as push-pull output
 	orl	_P0MDOUT,#0x10
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:79: XBR0     = 0x01; // Enable UART0 on P0.4 (TX) and P0.5 (RX)
+;	ADC.c:66: XBR0     = 0x01; // Enable UART0 on P0.4(TX) and P0.5(RX)
 	mov	_XBR0,#0x01
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:80: XBR1     = 0X00; // Enable T0 on P0.0
+;	ADC.c:67: XBR1     = 0X00;
 	mov	_XBR1,#0x00
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:81: XBR2     = 0x40; // Enable Crossbar and Weak Pull-Ups
+;	ADC.c:68: XBR2     = 0x40; // Enable crossbar and weak pull-ups
 	mov	_XBR2,#0x40
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:88: SCON0 = 0x10;
+;	ADC.c:74: SCON0 = 0x10;
 	mov	_SCON0,#0x10
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:89: CKCON0 |= 0b_0000_0000 ; // Timer 1 Uses SYSCLK / 12
-	mov	_CKCON0,_CKCON0
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:90: TH1 = 0x100-((SYSCLK/BAUDRATE)/(2L*12L)); // Set Timer1 Reload Value, Initial Value
+;	ADC.c:75: TH1 = 0x100-((SYSCLK/BAUDRATE)/(2L*12L));
 	mov	_TH1,#0xE6
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:91: TL1 = TH1; 	// Init Timer1
+;	ADC.c:76: TL1 = TH1;      // Init Timer1
 	mov	_TL1,_TH1
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:92: TMOD &= ~0xf0;  // TMOD: Timer 1 in 8-bit auto-reload
+;	ADC.c:77: TMOD &= ~0xf0;  // TMOD: timer 1 in 8-bit auto-reload
 	anl	_TMOD,#0x0F
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:93: TMOD |=  0x20;
+;	ADC.c:78: TMOD |=  0x20;
 	orl	_TMOD,#0x20
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:94: TR1 = 1; // Start Timer1
+;	ADC.c:79: TR1 = 1; // START Timer1
 	setb	_TR1
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:95: TI = 1;  // Indicate TX0 Ready
+;	ADC.c:80: TI = 1;  // Indicate TX0 ready
 	setb	_TI
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:97: return 0;
+;	ADC.c:82: return 0;
 	mov	dpl,#0x00
+	ret
+;------------------------------------------------------------
+;Allocation info for local variables in function 'InitADC'
+;------------------------------------------------------------
+;------------------------------------------------------------
+;	ADC.c:85: void InitADC (void)
+;	-----------------------------------------
+;	 function InitADC
+;	-----------------------------------------
+_InitADC:
+;	ADC.c:87: SFRPAGE = 0x00;
+	mov	_SFRPAGE,#0x00
+;	ADC.c:88: ADEN=0; // Disable ADC
+	clr	_ADEN
+;	ADC.c:93: (0x0 << 0) ; // Accumulate n conversions: 0x0: 1, 0x1:4, 0x2:8, 0x3:16, 0x4:32
+	mov	_ADC0CN1,#0x80
+;	ADC.c:97: (0x0 << 2); // 0:SYSCLK ADCCLK = SYSCLK. 1:HFOSC0 ADCCLK = HFOSC0.
+	mov	_ADC0CF0,#0x20
+;	ADC.c:101: (0x1E << 0); // Conversion Tracking Time. Tadtk = ADTK / (Fsarclk)
+	mov	_ADC0CF1,#0x1E
+;	ADC.c:110: (0x0 << 0) ; // TEMPE. 0: Disable the Temperature Sensor. 1: Enable the Temperature Sensor.
+	mov	_ADC0CN0,#0x00
+;	ADC.c:115: (0x1F << 0); // ADPWR. Power Up Delay Time. Tpwrtime = ((4 * (ADPWR + 1)) + 2) / (Fadcclk)
+	mov	_ADC0CF2,#0x3F
+;	ADC.c:119: (0x0 << 0) ; // ADCM. 0x0: ADBUSY, 0x1: TIMER0, 0x2: TIMER2, 0x3: TIMER3, 0x4: CNVSTR, 0x5: CEX5, 0x6: TIMER4, 0x7: TIMER5, 0x8: CLU0, 0x9: CLU1, 0xA: CLU2, 0xB: CLU3
+	mov	_ADC0CN2,#0x00
+;	ADC.c:121: ADEN=1; // Enable ADC
+	setb	_ADEN
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'Timer3us'
 ;------------------------------------------------------------
-;us                        Allocated to registers r2
-;i                         Allocated to registers r3
+;us                        Allocated to registers r2 
+;i                         Allocated to registers r3 
 ;------------------------------------------------------------
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:103: void Timer3us(unsigned char us) {
+;	ADC.c:125: void Timer3us(unsigned char us)
 ;	-----------------------------------------
 ;	 function Timer3us
 ;	-----------------------------------------
 _Timer3us:
 	mov	r2,dpl
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:107: CKCON0 |= 0b_0100_0000;
+;	ADC.c:130: CKCON0|=0b_0100_0000;
 	orl	_CKCON0,#0x40
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:109: TMR3RL = (-(SYSCLK)/1000000L); // Set Timer3 to Overflow in 1us
+;	ADC.c:132: TMR3RL = (-(SYSCLK)/1000000L); // Set Timer3 to overflow in 1us.
 	mov	_TMR3RL,#0xB8
 	mov	(_TMR3RL >> 8),#0xFF
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:110: TMR3 = TMR3RL;                 // Initialize Timer3 for First Overflow
+;	ADC.c:133: TMR3 = TMR3RL;                 // Initialize Timer3 for first overflow
 	mov	_TMR3,_TMR3RL
 	mov	(_TMR3 >> 8),(_TMR3RL >> 8)
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:112: TMR3CN0 = 0x04;                 // Start Timer3 and Clear Overflow Flag
+;	ADC.c:135: TMR3CN0 = 0x04;                 // Sart Timer3 and clear overflow flag
 	mov	_TMR3CN0,#0x04
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:113: for (i = 0; i < us; i++) {      // Count Overflows (#Microseconds)
+;	ADC.c:136: for (i = 0; i < us; i++)       // Count <us> overflows
 	mov	r3,#0x00
-L003004?:
+L004004?:
 	clr	c
 	mov	a,r3
 	subb	a,r2
-	jnc	L003007?
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:114: while (!(TMR3CN0 & 0x80));  // Wait for Overflow
-L003001?:
+	jnc	L004007?
+;	ADC.c:138: while (!(TMR3CN0 & 0x80));  // Wait for overflow
+L004001?:
 	mov	a,_TMR3CN0
-	jnb	acc.7,L003001?
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:115: TMR3CN0 &= ~(0x80);         // Clear Overflow Indicator
+	jnb	acc.7,L004001?
+;	ADC.c:139: TMR3CN0 &= ~(0x80);         // Clear overflow indicator
 	anl	_TMR3CN0,#0x7F
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:113: for (i = 0; i < us; i++) {      // Count Overflows (#Microseconds)
+;	ADC.c:136: for (i = 0; i < us; i++)       // Count <us> overflows
 	inc	r3
-	sjmp	L003004?
-L003007?:
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:117: TMR3CN0 = 0 ;                   // Stop Timer3 and Clear Overflow Flag
+	sjmp	L004004?
+L004007?:
+;	ADC.c:141: TMR3CN0 = 0 ;                   // Stop Timer3 and clear overflow flag
 	mov	_TMR3CN0,#0x00
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'waitms'
 ;------------------------------------------------------------
-;ms                        Allocated to registers r2 r3
-;j                         Allocated to registers r4 r5
-;k                         Allocated to registers r6
+;ms                        Allocated to registers r2 r3 
+;j                         Allocated to registers r4 r5 
+;k                         Allocated to registers r6 
 ;------------------------------------------------------------
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:120: void waitms(unsigned int ms) {
+;	ADC.c:144: void waitms (unsigned int ms)
 ;	-----------------------------------------
 ;	 function waitms
 ;	-----------------------------------------
 _waitms:
 	mov	r2,dpl
 	mov	r3,dph
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:123: for (j=0; j<ms; j++)
+;	ADC.c:148: for(j=0; j<ms; j++)
 	mov	r4,#0x00
 	mov	r5,#0x00
-L004005?:
+L005005?:
 	clr	c
 	mov	a,r4
 	subb	a,r2
 	mov	a,r5
 	subb	a,r3
-	jnc	L004009?
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:124: for (k=0; k<4; k++) Timer3us(250);
+	jnc	L005009?
+;	ADC.c:149: for (k=0; k<4; k++) Timer3us(250);
 	mov	r6,#0x00
-L004001?:
-	cjne	r6,#0x04,L004018?
-L004018?:
-	jnc	L004007?
+L005001?:
+	cjne	r6,#0x04,L005018?
+L005018?:
+	jnc	L005007?
 	mov	dpl,#0xFA
 	push	ar2
 	push	ar3
@@ -701,69 +722,123 @@ L004018?:
 	pop	ar3
 	pop	ar2
 	inc	r6
-	sjmp	L004001?
-L004007?:
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:123: for (j=0; j<ms; j++)
+	sjmp	L005001?
+L005007?:
+;	ADC.c:148: for(j=0; j<ms; j++)
 	inc	r4
-	cjne	r4,#0x00,L004005?
+	cjne	r4,#0x00,L005005?
 	inc	r5
-	sjmp	L004005?
-L004009?:
+	sjmp	L005005?
+L005009?:
 	ret
 ;------------------------------------------------------------
-;Allocation info for local variables in function 'Serial_Init'
+;Allocation info for local variables in function 'InitPinADC'
 ;------------------------------------------------------------
+;pin_num                   Allocated with name '_InitPinADC_PARM_2'
+;portno                    Allocated to registers r2 
+;mask                      Allocated to registers r3 
 ;------------------------------------------------------------
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:127: void Serial_Init(void) {
+;	ADC.c:154: void InitPinADC (unsigned char portno, unsigned char pin_num)
 ;	-----------------------------------------
-;	 function Serial_Init
+;	 function InitPinADC
 ;	-----------------------------------------
-_Serial_Init:
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:128: waitms(500); // Give Putty a chance to start.
-	mov	dptr,#0x01F4
-	lcall	_waitms
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:129: printf("\x1b[2J"); // Clear screen using ANSI escape sequence.
-	mov	a,#__str_0
-	push	acc
-	mov	a,#(__str_0 >> 8)
-	push	acc
-	mov	a,#0x80
-	push	acc
-	lcall	_printf
-	dec	sp
-	dec	sp
-	dec	sp
+_InitPinADC:
+	mov	r2,dpl
+;	ADC.c:158: mask=1<<pin_num;
+	mov	b,_InitPinADC_PARM_2
+	inc	b
+	mov	a,#0x01
+	sjmp	L006013?
+L006011?:
+	add	a,acc
+L006013?:
+	djnz	b,L006011?
+	mov	r3,a
+;	ADC.c:160: SFRPAGE = 0x20;
+	mov	_SFRPAGE,#0x20
+;	ADC.c:161: switch (portno)
+	cjne	r2,#0x00,L006014?
+	sjmp	L006001?
+L006014?:
+	cjne	r2,#0x01,L006015?
+	sjmp	L006002?
+L006015?:
+;	ADC.c:163: case 0:
+	cjne	r2,#0x02,L006005?
+	sjmp	L006003?
+L006001?:
+;	ADC.c:164: P0MDIN &= (~mask); // Set pin as analog input
+	mov	a,r3
+	cpl	a
+	mov	r2,a
+	anl	_P0MDIN,a
+;	ADC.c:165: P0SKIP |= mask; // Skip Crossbar decoding for this pin
+	mov	a,r3
+	orl	_P0SKIP,a
+;	ADC.c:166: break;
+;	ADC.c:167: case 1:
+	sjmp	L006005?
+L006002?:
+;	ADC.c:168: P1MDIN &= (~mask); // Set pin as analog input
+	mov	a,r3
+	cpl	a
+	mov	r2,a
+	anl	_P1MDIN,a
+;	ADC.c:169: P1SKIP |= mask; // Skip Crossbar decoding for this pin
+	mov	a,r3
+	orl	_P1SKIP,a
+;	ADC.c:170: break;
+;	ADC.c:171: case 2:
+	sjmp	L006005?
+L006003?:
+;	ADC.c:172: P2MDIN &= (~mask); // Set pin as analog input
+	mov	a,r3
+	cpl	a
+	mov	r2,a
+	anl	_P2MDIN,a
+;	ADC.c:173: P2SKIP |= mask; // Skip Crossbar decoding for this pin
+	mov	a,r3
+	orl	_P2SKIP,a
+;	ADC.c:177: }
+L006005?:
+;	ADC.c:178: SFRPAGE = 0x00;
+	mov	_SFRPAGE,#0x00
 	ret
 ;------------------------------------------------------------
-;Allocation info for local variables in function 'TIMER0_Init'
+;Allocation info for local variables in function 'ADC_at_Pin'
 ;------------------------------------------------------------
+;pin                       Allocated to registers 
 ;------------------------------------------------------------
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:132: void TIMER0_Init(void) {
+;	ADC.c:181: unsigned int ADC_at_Pin(unsigned char pin)
 ;	-----------------------------------------
-;	 function TIMER0_Init
+;	 function ADC_at_Pin
 ;	-----------------------------------------
-_TIMER0_Init:
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:133: TMOD &= 0b_1111_0000; // Set the Bits of Timer/Counter 0 to 0
-	anl	_TMOD,#0xF0
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:134: TMOD |= 0b_0000_0001; // Timer/Counter 0 Used As 16-Bit Timer
-	orl	_TMOD,#0x01
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:135: TR0 = 0; // Stop Timer/Counter 0
-	clr	_TR0
+_ADC_at_Pin:
+	mov	_ADC0MX,dpl
+;	ADC.c:184: ADINT = 0;
+	clr	_ADINT
+;	ADC.c:185: ADBUSY = 1;     // Convert voltage at the pin
+	setb	_ADBUSY
+;	ADC.c:186: while (!ADINT); // Wait for conversion to complete
+L007001?:
+	jnb	_ADINT,L007001?
+;	ADC.c:187: return (ADC0);
+	mov	dpl,_ADC0
+	mov	dph,(_ADC0 >> 8)
 	ret
 ;------------------------------------------------------------
-;Allocation info for local variables in function 'calculate_period_s'
+;Allocation info for local variables in function 'Volts_at_Pin'
 ;------------------------------------------------------------
-;TH0                       Allocated with name '_calculate_period_s_PARM_2'
-;TL0                       Allocated with name '_calculate_period_s_PARM_3'
-;overflow_count            Allocated to registers r2 r3
+;pin                       Allocated to registers r2 
 ;------------------------------------------------------------
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:138: float calculate_period_s(int overflow_count, int TH0, int TL0) {
+;	ADC.c:190: float Volts_at_Pin(unsigned char pin)
 ;	-----------------------------------------
-;	 function calculate_period_s
+;	 function Volts_at_Pin
 ;	-----------------------------------------
-_calculate_period_s:
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:139: return ((overflow_count * MAX_16_BIT)  + (TH0 * MAX_8_BIT) + TL0) * (12.0 / SYSCLK);
-	lcall	___sint2fs
+_Volts_at_Pin:
+;	ADC.c:192: return ((ADC_at_Pin(pin)*VDD)/16383.0);
+	lcall	_ADC_at_Pin
+	lcall	___uint2fs
 	mov	r2,dpl
 	mov	r3,dph
 	mov	r4,b
@@ -772,9 +847,9 @@ _calculate_period_s:
 	push	ar3
 	push	ar4
 	push	ar5
-	mov	dptr,#0x0000
-	mov	b,#0x80
-	mov	a,#0x47
+	mov	dptr,#0x6C8B
+	mov	b,#0x53
+	mov	a,#0x40
 	lcall	___fsmul
 	mov	r2,dpl
 	mov	r3,dph
@@ -783,125 +858,18 @@ _calculate_period_s:
 	mov	a,sp
 	add	a,#0xfc
 	mov	sp,a
-	mov	dpl,_calculate_period_s_PARM_2
-	mov	dph,(_calculate_period_s_PARM_2 + 1)
-	push	ar2
-	push	ar3
-	push	ar4
-	push	ar5
-	lcall	___sint2fs
-	mov	r6,dpl
-	mov	r7,dph
-	mov	r0,b
-	mov	r1,a
-	push	ar6
-	push	ar7
-	push	ar0
-	push	ar1
-	mov	dptr,#0x0000
-	mov	b,#0x80
-	mov	a,#0x43
-	lcall	___fsmul
-	mov	r6,dpl
-	mov	r7,dph
-	mov	r0,b
-	mov	r1,a
-	mov	a,sp
-	add	a,#0xfc
-	mov	sp,a
-	pop	ar5
-	pop	ar4
-	pop	ar3
-	pop	ar2
-	push	ar6
-	push	ar7
-	push	ar0
-	push	ar1
+	clr	a
+	push	acc
+	mov	a,#0xFC
+	push	acc
+	mov	a,#0x7F
+	push	acc
+	mov	a,#0x46
+	push	acc
 	mov	dpl,r2
 	mov	dph,r3
 	mov	b,r4
 	mov	a,r5
-	lcall	___fsadd
-	mov	r2,dpl
-	mov	r3,dph
-	mov	r4,b
-	mov	r5,a
-	mov	a,sp
-	add	a,#0xfc
-	mov	sp,a
-	mov	dpl,_calculate_period_s_PARM_3
-	mov	dph,(_calculate_period_s_PARM_3 + 1)
-	push	ar2
-	push	ar3
-	push	ar4
-	push	ar5
-	lcall	___sint2fs
-	mov	r6,dpl
-	mov	r7,dph
-	mov	r0,b
-	mov	r1,a
-	pop	ar5
-	pop	ar4
-	pop	ar3
-	pop	ar2
-	push	ar6
-	push	ar7
-	push	ar0
-	push	ar1
-	mov	dpl,r2
-	mov	dph,r3
-	mov	b,r4
-	mov	a,r5
-	lcall	___fsadd
-	mov	r2,dpl
-	mov	r3,dph
-	mov	r4,b
-	mov	r5,a
-	mov	a,sp
-	add	a,#0xfc
-	mov	sp,a
-	push	ar2
-	push	ar3
-	push	ar4
-	push	ar5
-	mov	dptr,#0xF4FC
-	mov	b,#0x32
-	mov	a,#0x34
-	lcall	___fsmul
-	mov	r2,dpl
-	mov	r3,dph
-	mov	r4,b
-	mov	r5,a
-	mov	a,sp
-	add	a,#0xfc
-	mov	sp,a
-	mov	dpl,r2
-	mov	dph,r3
-	mov	b,r4
-	mov	a,r5
-	ret
-;------------------------------------------------------------
-;Allocation info for local variables in function 'calculate_freq_Hz'
-;------------------------------------------------------------
-;period_s                  Allocated to registers r2 r3 r4 r5
-;------------------------------------------------------------
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:142: float calculate_freq_Hz(float period_s) {
-;	-----------------------------------------
-;	 function calculate_freq_Hz
-;	-----------------------------------------
-_calculate_freq_Hz:
-	mov	r2,dpl
-	mov	r3,dph
-	mov	r4,b
-	mov	r5,a
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:143: return (1.0 / period_s);
-	push	ar2
-	push	ar3
-	push	ar4
-	push	ar5
-	mov	dptr,#0x0000
-	mov	b,#0x80
-	mov	a,#0x3F
 	lcall	___fsdiv
 	mov	r2,dpl
 	mov	r3,dph
@@ -918,81 +886,152 @@ _calculate_freq_Hz:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'main'
 ;------------------------------------------------------------
-;period_s                  Allocated to registers r2 r3 r4 r5
-;freq_Hz                   Allocated to registers
-;capacitance_nF            Allocated with name '_main_capacitance_nF_1_39'
+;v                         Allocated with name '_main_v_1_59'
 ;------------------------------------------------------------
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:146: void main(void) {
+;	ADC.c:195: void main (void)
 ;	-----------------------------------------
 ;	 function main
 ;	-----------------------------------------
 _main:
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:149: TIMER0_Init(); // Initialize Timer 0
-	lcall	_TIMER0_Init
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:150: Serial_Init(); // Initialize Serial Port
-	lcall	_Serial_Init
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:152: while(1) {
-L009018?:
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:154: TL0 = 0;
-	mov	_TL0,#0x00
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:155: TH0 = 0;
-	mov	_TH0,#0x00
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:156: TF0 = 0;
-	clr	_TF0
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:157: overflow_count = 0;
-	clr	a
-	mov	_overflow_count,a
-	mov	(_overflow_count + 1),a
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:159: while (EFM8_SIGNAL != 0); // Wait for Signal == 0
-L009001?:
-	jb	_P0_1,L009001?
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:160: while (EFM8_SIGNAL != 1); // Wait for Signal == 1
-L009004?:
-	jnb	_P0_1,L009004?
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:162: TR0 = 1; // Start Timer
-	setb	_TR0
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:164: while (EFM8_SIGNAL != 0) { // Wait for Signal == 0
-L009009?:
-	jnb	_P0_1,L009014?
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:165: if (TF0 == 1) { // Did 16-Bit Timer Overflow?
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:166: TF0 = 0;
-	jbc	_TF0,L009035?
-	sjmp	L009009?
-L009035?:
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:167: overflow_count++;
-	inc	_overflow_count
-	clr	a
-	cjne	a,_overflow_count,L009009?
-	inc	(_overflow_count + 1)
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:170: while (EFM8_SIGNAL != 1) { // Wait for Signal == 1
-	sjmp	L009009?
-L009014?:
-	jb	_P0_1,L009016?
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:171: if (TF0 == 1) { // Did 16-Bit Timer Overflow?
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:172: TF0 = 0;
-	jbc	_TF0,L009037?
-	sjmp	L009014?
-L009037?:
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:173: overflow_count++;
-	inc	_overflow_count
-	clr	a
-	cjne	a,_overflow_count,L009014?
-	inc	(_overflow_count + 1)
-	sjmp	L009014?
-L009016?:
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:177: TR0 = 0; // Stop Timer 0. The 24-bit number [overflow_count-TH0-TL0] has the period!
-	clr	_TR0
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:178: period_s = calculate_period_s(overflow_count, TH0, TL0);
-	mov	_calculate_period_s_PARM_2,_TH0
-	mov	(_calculate_period_s_PARM_2 + 1),#0x00
-	mov	_calculate_period_s_PARM_3,_TL0
-	mov	(_calculate_period_s_PARM_3 + 1),#0x00
-	mov	dpl,_overflow_count
-	mov	dph,(_overflow_count + 1)
-	lcall	_calculate_period_s
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Robot\main.c:179: freq_Hz = calculate_freq_Hz(period_s);
-	lcall	_calculate_freq_Hz
-	sjmp	L009018?
+;	ADC.c:199: waitms(500); // Give PuTTy a chance to start before sending
+	mov	dptr,#0x01F4
+	lcall	_waitms
+;	ADC.c:200: printf("\x1b[2J"); // Clear screen using ANSI escape sequence.
+	mov	a,#__str_0
+	push	acc
+	mov	a,#(__str_0 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	ADC.c:205: __FILE__, __DATE__, __TIME__);
+;	ADC.c:204: "Compiled: %s, %s\n\n",
+	mov	a,#__str_4
+	push	acc
+	mov	a,#(__str_4 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	mov	a,#__str_3
+	push	acc
+	mov	a,#(__str_3 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	mov	a,#__str_2
+	push	acc
+	mov	a,#(__str_2 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	mov	a,#__str_1
+	push	acc
+	mov	a,#(__str_1 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	mov	a,sp
+	add	a,#0xf4
+	mov	sp,a
+;	ADC.c:207: InitPinADC(2, 2); // Configure P2.2 as analog input
+	mov	_InitPinADC_PARM_2,#0x02
+	mov	dpl,#0x02
+	lcall	_InitPinADC
+;	ADC.c:208: InitPinADC(2, 3); // Configure P2.3 as analog input
+	mov	_InitPinADC_PARM_2,#0x03
+	mov	dpl,#0x02
+	lcall	_InitPinADC
+;	ADC.c:209: InitPinADC(2, 4); // Configure P2.4 as analog input
+	mov	_InitPinADC_PARM_2,#0x04
+	mov	dpl,#0x02
+	lcall	_InitPinADC
+;	ADC.c:210: InitPinADC(2, 5); // Configure P2.5 as analog input
+	mov	_InitPinADC_PARM_2,#0x05
+	mov	dpl,#0x02
+	lcall	_InitPinADC
+;	ADC.c:211: InitADC();
+	lcall	_InitADC
+;	ADC.c:213: while(1)
+L009002?:
+;	ADC.c:216: v[0] = Volts_at_Pin(QFP32_MUX_P2_2);
+	mov	dpl,#0x0F
+	lcall	_Volts_at_Pin
+	mov	r2,dpl
+	mov	r3,dph
+	mov	r4,b
+	mov	r5,a
+	mov	_main_v_1_59,r2
+	mov	(_main_v_1_59 + 1),r3
+	mov	(_main_v_1_59 + 2),r4
+	mov	(_main_v_1_59 + 3),r5
+;	ADC.c:217: v[1] = Volts_at_Pin(QFP32_MUX_P2_3);
+	mov	dpl,#0x10
+	lcall	_Volts_at_Pin
+	mov	r2,dpl
+	mov	r3,dph
+	mov	r4,b
+	mov	r5,a
+	mov	(_main_v_1_59 + 0x0004),r2
+	mov	((_main_v_1_59 + 0x0004) + 1),r3
+	mov	((_main_v_1_59 + 0x0004) + 2),r4
+	mov	((_main_v_1_59 + 0x0004) + 3),r5
+;	ADC.c:218: v[2] = Volts_at_Pin(QFP32_MUX_P2_4);
+	mov	dpl,#0x11
+	lcall	_Volts_at_Pin
+	mov	r2,dpl
+	mov	r3,dph
+	mov	r4,b
+	mov	r5,a
+	mov	(_main_v_1_59 + 0x0008),r2
+	mov	((_main_v_1_59 + 0x0008) + 1),r3
+	mov	((_main_v_1_59 + 0x0008) + 2),r4
+	mov	((_main_v_1_59 + 0x0008) + 3),r5
+;	ADC.c:219: v[3] = Volts_at_Pin(QFP32_MUX_P2_5);
+	mov	dpl,#0x12
+	lcall	_Volts_at_Pin
+	mov	r2,dpl
+	mov	r3,dph
+	mov	r4,b
+	mov	r5,a
+	mov	(_main_v_1_59 + 0x000c),r2
+	mov	((_main_v_1_59 + 0x000c) + 1),r3
+	mov	((_main_v_1_59 + 0x000c) + 2),r4
+	mov	((_main_v_1_59 + 0x000c) + 3),r5
+;	ADC.c:220: printf ("V@P2.2=%7.5fV, V@P2.3=%7.5fV, V@P2.4=%7.5fV, V@P2.5=%7.5fV\r", v[0], v[1], v[2], v[3]);
+	push	ar2
+	push	ar3
+	push	ar4
+	push	ar5
+	push	(_main_v_1_59 + 0x0008)
+	push	((_main_v_1_59 + 0x0008) + 1)
+	push	((_main_v_1_59 + 0x0008) + 2)
+	push	((_main_v_1_59 + 0x0008) + 3)
+	push	(_main_v_1_59 + 0x0004)
+	push	((_main_v_1_59 + 0x0004) + 1)
+	push	((_main_v_1_59 + 0x0004) + 2)
+	push	((_main_v_1_59 + 0x0004) + 3)
+	push	_main_v_1_59
+	push	(_main_v_1_59 + 1)
+	push	(_main_v_1_59 + 2)
+	push	(_main_v_1_59 + 3)
+	mov	a,#__str_5
+	push	acc
+	mov	a,#(__str_5 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	mov	a,sp
+	add	a,#0xed
+	mov	sp,a
+;	ADC.c:221: waitms(500);
+	mov	dptr,#0x01F4
+	lcall	_waitms
+	ljmp	L009002?
 	rseg R_CSEG
 
 	rseg R_XINIT
@@ -1001,6 +1040,28 @@ L009016?:
 __str_0:
 	db 0x1B
 	db '[2J'
+	db 0x00
+__str_1:
+	db 'ADC test program'
+	db 0x0A
+	db 'File: %s'
+	db 0x0A
+	db 'Compiled: %s, %s'
+	db 0x0A
+	db 0x0A
+	db 0x00
+__str_2:
+	db 'ADC.c'
+	db 0x00
+__str_3:
+	db 'Mar 27 2024'
+	db 0x00
+__str_4:
+	db '11:59:01'
+	db 0x00
+__str_5:
+	db 'V@P2.2=%7.5fV, V@P2.3=%7.5fV, V@P2.4=%7.5fV, V@P2.5=%7.5fV'
+	db 0x0D
 	db 0x00
 
 	CSEG

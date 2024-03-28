@@ -32,7 +32,7 @@ volatile int inductance = 0;
 int count = 0;
 
 enum State state;
-int PWM_percent_y = 0;
+int PWM_percent_y = 100;
 int PWM_percent_x = 0;
 float left_wheel = 0;
 float right_wheel = 0;
@@ -243,6 +243,8 @@ void PWM_manager(float x_value, float y_value)
         left_wheel = (100 - abs(x_value)) * abs(y_value) / 100;
         right_wheel = abs(y_value);
     }
+
+
 
 
 }

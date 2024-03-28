@@ -3,30 +3,6 @@
 idata char TX_BUFF[20];
 idata char RX_BUFF[20];
 
-void UART1_Init(unsigned long baudrate) {
-    SFRPAGE = 0x20;
-	SMOD1 = 0x0C; // no parity, 8 data bits, 1 stop bit
-	SCON1 = 0x10;
-	SBCON1 =0x00;   // disable baud rate generator
-	SBRL1 = 0x10000L-((SYSCLK/baudrate)/(12L*2L));
-	TI1 = 1; // indicate ready for TX
-	SBCON1 |= 0x40;   // enable baud rate generator
-	SFRPAGE = 0x00;
-}
-
-void JDYInit(void) {
-	SendATCommand("AT+DVIDAFAF\r\n");
-	SendATCommand("AT+RFIDFFBB\r\n");
-	// To check configuration
-	SendATCommand("AT+VER\r\n");
-	SendATCommand("AT+BAUD\r\n");
-	SendATCommand("AT+RFID\r\n");
-	SendATCommand("AT+DVID\r\n");
-	SendATCommand("AT+RFC\r\n");
-	SendATCommand("AT+POWE\r\n");
-	SendATCommand("AT+CLSS\r\n");
-}
-
 void putchar1(char c) {
     SFRPAGE = 0x20;
 	while (!TI1);

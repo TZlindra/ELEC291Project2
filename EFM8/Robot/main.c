@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <string.h>
 
+// #include "JDY40.h"
+
 #define SYSCLK 72000000
 #define BAUDRATE 115200L
 
@@ -34,24 +36,25 @@ volatile int inductance = 0;
 void Timer3us(unsigned char us);
 void waitms (unsigned int ms);
 
+float calculate_period_s(int overflow_count, int TH0, int TL0);
+float calculate_freq_Hz(float period_s);
+float get_freq(void);
+
 void putchar1 (char c);
 void sendstr1 (char * s);
 char getchar1 (void);
 char getchar1_with_timeout (void);
 void getstr1 (char * s);
 bit RXU1 (void);
+
 void waitms_or_RI1 (unsigned int ms);
 void SendATCommand (char * s);
 
-void JDYInit (void);
+void TX_Freq(int freq);
 
-float calculate_period_s(int overflow_count, int TH0, int TL0);
-float calculate_freq_Hz(float period_s);
-float GetFreq(void);
-void SendFreq(int freq);
-void GetData(void);
-void RXData(void);
-void TXInductance(void);
+void RX_Data(void);
+void TX_I(void);
+
 int searchI(const char* array);
 
 char _c51_external_startup(void) {
@@ -131,9 +134,9 @@ void Timer5_ISR(void) interrupt INTERRUPT_TIMER5 {
 
 	if (TX5Count >= 500) {
 		TX5Count = 0;
-		//SendFreq(freq);
+		//TX_Freq(freq);
 	    //freq += 5;
-		RXData();
+		RX_Data();
 	}
 	strcpy(hold, RX_BUFF);
 	TR5 = 1;
@@ -319,7 +322,7 @@ float calculate_freq_Hz(float period_s) {
 	return (1.0 / period_s);
 }
 
-float GetFreq(void) {
+float get_freq(void) {
 	float period_s, freq_Hz;
 	int overflow_count = 0;
 	TL0 = 0;
@@ -351,30 +354,24 @@ float GetFreq(void) {
 	return freq_Hz;
 }
 
-void SendFreq(int freq) {
+void TX_Freq(int freq) {
 	sprintf(TX_BUFF,"%d\r\n",freq);
 	sendstr1(TX_BUFF);
 	waitms_or_RI1(500);
 }
 
-void GetData(void) {
-	if (RXU1()){
-		getstr1(RX_BUFF);
-		SBUF1 = 0;
-	}
-}
-
-void TXInductance(void) {
+void TX_I(void) {
 	sprintf(TX_BUFF,"%d",inductance);
 	sendstr1(TX_BUFF);
 	waitms_or_RI1(500);
 }
 
-void RXData(void) {
+void RX_Data(void) {
 	if (RXU1()){
 		getstr1(RX_BUFF);
+		SBUF1 = 0;
 		//printf("%s\r\n",RX_BUFF);
-		// if (RX_BUFF[0] == 'I') TXInductance();
+		// if (RX_BUFF[0] == 'I') TX_I();
 		// else printf("%s \r\n",RX_BUFF);
 	}
 }
@@ -408,7 +405,7 @@ void main (void) {
 	/*
 		if (RX_BUFF[0] == 'I'){
 			SBUF1 = 0;
-			SendFreq(freq);
+			TX_Freq(freq);
 			freq += 5;
 			printf("%s \r\n", RX_BUFF);
 		}
@@ -417,7 +414,7 @@ void main (void) {
 		// GetData();
 		if (1) {
 
-			//SendFreq(freq);
+			//TX_Freq(freq);
 			printf("%s \r\n", RX_BUFF);
 			freq += 5;
 

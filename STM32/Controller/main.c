@@ -49,6 +49,7 @@ volatile int RX21Count = 0;
 volatile float SpeakerRatio = 5;
 
 volatile int inductance = 0;
+volatile int SpeakerEnabled = 0;
 
 float x = 0, y = 0;
 int standardized_x = 0, standardized_y = 0;
@@ -75,7 +76,7 @@ void display_inductance(float inductance);
 void TIM2_Handler(void) {
 	TIM2->SR &= ~BIT0; // Clear Update Interrupt Flag
 	Timer2Count++;
-	if (Timer2Count >= SpeakerRatio) {
+	if ((Timer2Count >= SpeakerRatio) && (SpeakerEnabled == 1)) {
 		TIM2->CCR1 = (TIM2->CCR1+16)&0xFF;
 		Timer2Count = 0;
 		ToggleSpeaker(); // Toggle Speaker
@@ -85,18 +86,10 @@ void TIM2_Handler(void) {
 void TIM21_Handler(void) {
 	TIM21->SR &= ~BIT0; // Clear Update Interrupt Flag
 	TX21Count++;
-	RX21Count++;
-	// TogglePin();
-
 	if (TX21Count > 1000) {
 		TX21Count = 0;
 		TX_XY();
 	}
-
-	// if (RX21Count > 5000) {
-	// 	RX21Count = 0;
-	// 	RX_I();
-	// }
 }
 
 void delay(int dly) {
@@ -124,11 +117,6 @@ void ConfigPinsLCD(void) {
 
     GPIOA->MODER = (GPIOA->MODER & ~(BIT10|BIT11)) | BIT10; // PA5
 	GPIOA->OTYPER &= ~BIT5; // Push-pull
-}
-
-void ConfigPinToggle(void) {
-	RCC->IOPENR |= RCC_IOPENR_GPIOBEN; // Enable clock for GPIOB
-	GPIOB->MODER = (GPIOB->MODER & ~(BIT6|BIT7)) | BIT6; // PB3
 }
 
 void ConfigPinButton() {
@@ -170,10 +158,6 @@ void ConfigPinSpeaker(void) {
     GPIOA->MODER = (GPIOA->MODER & ~(BIT17|BIT16)) | BIT16; // PA8
 }
 
-void TogglePin(void) {
-	GPIOB->ODR ^= BIT3;
-}
-
 int IsButtonPressed(void) {
 	return !(GPIOA->IDR & BIT12);
 }
@@ -208,7 +192,6 @@ void main(void) {
 	ConfigPinButton();
 	ConfigPinADC();
 	ConfigPinSpeaker();
-	// ConfigPinToggle();
 
 	InitTimer2();
 	InitTimer21();
@@ -226,11 +209,23 @@ void main(void) {
 		standardized_y = standardize_y(y);
 		Update_XY(standardized_x, standardized_y);
 
+		RX21Count++;
+		if (RX21Count > 5500) {
+			RX21Count = 0;
+			RX_I();
+		}
+
 		inductance = Update_I(inductance);
 		printf("I: %d\r\n", inductance);
 
 		// if (IsButtonPressed()) SpeakerRatio = SetSpeakerFreq(SpeakerRatio);
-		SpeakerRatio = SetSpeakerFreq(inductance, SpeakerRatio);
+
+		if (inductance >= 500) {
+			SpeakerEnabled = 1;
+			SpeakerRatio = SetSpeakerFreq(inductance, SpeakerRatio);
+		} else {
+			SpeakerEnabled = 0;
+		}
 
 		// Display the ADC values on the LCD
 

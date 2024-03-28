@@ -7,7 +7,7 @@
 // Similar to puts and gets in standard C however egets checks the size
 // of the input buffer.  This could be extended to include a timeout quite easily.
 // Written by Frank Duignan and modified by Jesus Calvino-Fraga
-// 
+//
 
 // define the size of the communications buffer (adjust to suit)
 #define MAXBUFFER   64
@@ -17,7 +17,7 @@ typedef struct tagComBuffer{
     unsigned Count;
 } ComBuffer2;
 
-ComBuffer2 ComRXBuffer2, ComTXBuffer2;
+ComBuffer2 ComRX_BUFFer2, ComTXBuffer2;
 
 int PutBuf2(ComBuffer2  *Buf,unsigned char Data);
 unsigned char GetBuf2(ComBuffer2  *Buf);
@@ -39,8 +39,8 @@ int ReadCom2(int Max,unsigned char *Buffer)
   	if (!ComOpen2)
     	return (-1);
 	i=0;
-	while ((i < Max-1) && (GetBufCount2(&ComRXBuffer2)))
-		Buffer[i++] = GetBuf2(&ComRXBuffer2);
+	while ((i < Max-1) && (GetBufCount2(&ComRX_BUFFer2)))
+		Buffer[i++] = GetBuf2(&ComRX_BUFFer2);
 	if (i>0)
 	{
 		Buffer[i]=0;
@@ -48,7 +48,7 @@ int ReadCom2(int Max,unsigned char *Buffer)
 	}
 	else {
 		return(0);
-	}	
+	}
 }
 
 int WriteCom2(int Count, unsigned char *Buffer)
@@ -56,11 +56,11 @@ int WriteCom2(int Count, unsigned char *Buffer)
 	// Writes Count bytes from Buffer into the the communications TX buffer
 	// returns -1 if the port is not open (configured)
 	// returns -2 if the message is too big to be sent
-	// If the transmitter is idle it will initiate interrupts by 
+	// If the transmitter is idle it will initiate interrupts by
 	// writing the first character to the hardware transmit buffer
 	unsigned i;
 	if (!ComOpen2) return (-1);
-		
+
 	// Wait for transmission to complete before sending more
 	if(Count<MAXBUFFER)
 	{
@@ -70,14 +70,14 @@ int WriteCom2(int Count, unsigned char *Buffer)
 	{
 		return (-2);
 	}
-		
+
 	for(i=0; i<Count; i++) PutBuf2(&ComTXBuffer2,Buffer[i]);
-	
+
 	if ( (USART2->CR1 & BIT3)==0) // transmitter was idle, turn it on and force out first character
-	{ 
+	{
 		USART2->CR1 |= BIT3;
-		USART2->TDR = GetBuf2(&ComTXBuffer2);		
-	} 
+		USART2->TDR = GetBuf2(&ComTXBuffer2);
+	}
 	return 0;
 }
 
@@ -85,17 +85,17 @@ void initUART2(int BaudRate)
 {
 	int BaudRateDivisor;
 	//int j;
-	
+
 	 __disable_irq();
-	ComRXBuffer2.Head = ComRXBuffer2.Tail = ComRXBuffer2.Count = 0;
+	ComRX_BUFFer2.Head = ComRX_BUFFer2.Tail = ComRX_BUFFer2.Count = 0;
 	ComTXBuffer2.Head = ComTXBuffer2.Tail = ComTXBuffer2.Count = 0;
 	ComOpen2 = 1;
 	ComError2 = 0;
-	
+
 	// Turn on the clock for GPIOA (usart 2 uses it)
 	RCC->IOPENR |= BIT0;
-	
-	BaudRateDivisor = 32000000; // assuming 32MHz clock 
+
+	BaudRateDivisor = 32000000; // assuming 32MHz clock
 	BaudRateDivisor = BaudRateDivisor / (long) BaudRate;
 
 	//Configure PA14 (TXD for USART2, pin 24 in LQFP32 package)
@@ -103,19 +103,19 @@ void initUART2(int BaudRate)
 	GPIOA->OTYPER   &= ~BIT14; // Push-pull
 	GPIOA->MODER    = (GPIOA->MODER & ~(BIT28)) | BIT29; // AF-Mode
 	GPIOA->AFR[1]   |= BIT26 ; // AF4 selected
-	
+
 	//Configure PA15 (RXD for USART2, pin 25 in LQFP32 package)
 	GPIOA->MODER    = (GPIOA->MODER & ~(BIT30)) | BIT31; // AF-Mode
 	GPIOA->AFR[1]   |= BIT30;  // AF4 selected
-	
+
 	RCC->APB1ENR    |= BIT17; // Turn on the clock for the USART2 peripheral
 
 	USART2->CR1 |= (BIT2 | BIT3 | BIT5 | BIT6); // Enable Transmitter, Receiver, Transmit & Receive interrupts.
 	USART2->CR2 = 0x00000000;
-	USART2->CR3 = 0x00000000;           
+	USART2->CR3 = 0x00000000;
 	USART2->BRR = BaudRateDivisor;
 	USART2->CR1 |= BIT0; // Enable Usart 1
-	
+
 	/* Test to see if baud rate is configured correctly.  Mesure the time of one bit.
 	   The inverse of that time is the baud rate.*/
 	//for(j=0; j<1000; j++)
@@ -123,13 +123,13 @@ void initUART2(int BaudRate)
 	//    USART2->ISR &= ~BIT7;
 	//	USART2->TDR = 'U';
 	//  	while (	(USART2->ISR & BIT7)==0);
-	//} 
+	//}
 
-	NVIC->ISER[0] |= BIT28; // Enable USART2 interrupts in NVIC	
+	NVIC->ISER[0] |= BIT28; // Enable USART2 interrupts in NVIC
 	__enable_irq();
 }
 
-void USART2_Handler(void) 
+void USART2_Handler(void)
 {
 	// check which interrupt happened.
     if (USART2->ISR & BIT7) // is it a TXE interrupt?
@@ -143,7 +143,7 @@ void usart_rx2 (void)
 	// Handles serial comms reception
 	// simply puts the data into the buffer and sets the ComError flag
 	// if the buffer is fullup
-	if ( PutBuf2(&ComRXBuffer2, USART2->RDR) )
+	if ( PutBuf2(&ComRX_BUFFer2, USART2->RDR) )
 	{
 		ComError2 = 1; // if PutBuf returns a non-zero value then there is an error
 	}
@@ -157,7 +157,7 @@ void usart_tx2 (void)
 	if (GetBufCount2(&ComTXBuffer2)) USART2->TDR=GetBuf2(&ComTXBuffer2);
 	else
 	{
-		// No more data, disable the transmitter 
+		// No more data, disable the transmitter
 		USART2->CR1 &= ~BIT3;
 		if (USART2->ISR & BIT6) USART2->ICR |= BIT6; // Write TCCF to USART_ICR
 		if (USART2->ISR & BIT7) USART2->RQR |= BIT4; // Write TXFRQ to USART_RQR
@@ -208,7 +208,7 @@ void eputc2(char c)
 
 char egetc2(void)
 {
-	return GetBuf2(&ComRXBuffer2);
+	return GetBuf2(&ComRX_BUFFer2);
 }
 
 int egets2(char *s, int Max)
@@ -224,21 +224,21 @@ int egets2(char *s, int Max)
 	Len=0; // Until initialization code is put in init.s, we have to do this
 	c = 0;
 	while ( (Len < Max-1) && (c != LINEFEED) )
-	{   
-		while (!GetBufCount2(&ComRXBuffer2)); // wait for a character
-		c = GetBuf2(&ComRXBuffer2);
+	{
+		while (!GetBufCount2(&ComRX_BUFFer2)); // wait for a character
+		c = GetBuf2(&ComRX_BUFFer2);
 		s[Len++] = c;
 	}
 	if (Len>0)
 	{
 		s[Len]=0;
-	}	
+	}
 	return Len;
 }
 
 int ReceivedBytes2 (void)
 {
-	return GetBufCount2(&ComRXBuffer2);
+	return GetBufCount2(&ComRX_BUFFer2);
 }
 
 char egetc_echo2(void)
@@ -262,15 +262,15 @@ int egets_echo2(char *s, int Max)
 	Len=0; // Until initialization code is put in init.s, we have to do this
 	c = 0;
 	while ( (Len < Max-1) && (c != NEWLINE) )
-	{   
-		while (!GetBufCount2(&ComRXBuffer2)); // wait for a character
-		c = GetBuf2(&ComRXBuffer2);
+	{
+		while (!GetBufCount2(&ComRX_BUFFer2)); // wait for a character
+		c = GetBuf2(&ComRX_BUFFer2);
 		eputc2(c);
 		s[Len++] = c;
 	}
 	if (Len>0)
 	{
 		s[Len]=0;
-	}	
+	}
 	return Len;
 }

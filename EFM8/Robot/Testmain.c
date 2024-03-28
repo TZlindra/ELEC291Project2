@@ -51,8 +51,8 @@ float calculate_freq_Hz(float period_s);
 float GetFreq(void);
 void SendFreq(int freq);
 void GetData(void);
-void RXData(void);
-void TXInductance(void);
+void RX_Data(void);
+void TX_I(void);
 int searchI(const char* array);
 
 
@@ -152,9 +152,9 @@ void Timer5_ISR (void) interrupt INTERRUPT_TIMER5
 		TX5Count = 0;
 		//SendFreq(freq);
 	    //freq += 5;
-		RXData();
+		RX_Data();
 	}
-	strcpy(hold, RXBUFF);
+	strcpy(hold, RX_BUFF);
 	TR5 = 1;
 
 }
@@ -381,17 +381,17 @@ void GetData(void){
 
 }
 
-void TXInductance(void){
+void TX_I(void){
 	sprintf(TX_BUFF,"%d",inductance);
 	sendstr1(TX_BUFF);
 	waitms_or_RI1(500);
 }
 
-void RXData(void){
+void RX_Data(void){
 	if (RXU1()){
 		getstr1(RX_BUFF);
 		//printf("%s\r\n",RX_BUFF);
-		// if (RX_BUFF[0] == 'I') TXInductance();
+		// if (RX_BUFF[0] == 'I') TX_I();
 		// else printf("%s \r\n",RX_BUFF);
 	}
 }

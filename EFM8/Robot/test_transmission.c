@@ -25,7 +25,7 @@ idata char TX_BUFF[60];
 
 volatile int inductance = 0;
 
-void TXInductance(void);
+void TX_I(void);
 void copyString(char* dest, const char* src);
 int searchI(const char* array);
 
@@ -328,18 +328,18 @@ void GetData(void){
 	}
 }
 
-void RXData(void){
+void RX_Data(void){
 	if (RXU1()) getstr1(RX_BUFF);
 
 	// No Printing in ISRs
 	// printf("%s\r\n",RX_BUFF);
-	if (searchI(RX_BUFF) == 1) TXInductance();
+	if (searchI(RX_BUFF) == 1) TX_I();
 	// else copyString(X_Y_BUFF, RX_BUFF);
 
 	// SBUF1 = 0;
 }
 
-void TXInductance(void){
+void TX_I(void){
 	sendstr1(TX_BUFF);
 	waitms_or_RI1(500);
 }
@@ -374,7 +374,7 @@ void main (void)
 
 	while(1){
 		// freq = GetFreq();
-		RXData();
+		RX_Data();
 		SBUF1 = 0;
 		//waitms(200);
 

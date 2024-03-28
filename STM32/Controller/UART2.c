@@ -18,7 +18,7 @@ typedef struct tagComBuffer{
     unsigned Count;
 } ComBuffer2;
 
-ComBuffer2 ComRXBuffer2, ComTXBuffer2;
+ComBuffer2 ComRX_BUFFer2, ComTXBuffer2;
 
 int PutBuf2(ComBuffer2  *Buf,unsigned char Data);
 unsigned char GetBuf2(ComBuffer2  *Buf);
@@ -40,8 +40,8 @@ int ReadCom2(int Max,unsigned char *Buffer)
   	if (!ComOpen2)
     	return (-1);
 	i=0;
-	while ((i < Max-1) && (GetBufCount2(&ComRXBuffer2)))
-		Buffer[i++] = GetBuf2(&ComRXBuffer2);
+	while ((i < Max-1) && (GetBufCount2(&ComRX_BUFFer2)))
+		Buffer[i++] = GetBuf2(&ComRX_BUFFer2);
 	if (i>0)
 	{
 		Buffer[i]=0;
@@ -88,7 +88,7 @@ void InitUART2(int BaudRate)
 	//int j;
 
 	 __disable_irq();
-	ComRXBuffer2.Head = ComRXBuffer2.Tail = ComRXBuffer2.Count = 0;
+	ComRX_BUFFer2.Head = ComRX_BUFFer2.Tail = ComRX_BUFFer2.Count = 0;
 	ComTXBuffer2.Head = ComTXBuffer2.Tail = ComTXBuffer2.Count = 0;
 	ComOpen2 = 1;
 	ComError2 = 0;
@@ -144,7 +144,7 @@ void usart_rx2 (void)
 	// Handles serial comms reception
 	// simply puts the data into the buffer and sets the ComError flag
 	// if the buffer is fullup
-	if ( PutBuf2(&ComRXBuffer2, USART2->RDR) )
+	if ( PutBuf2(&ComRX_BUFFer2, USART2->RDR) )
 	{
 		ComError2 = 1; // if PutBuf returns a non-zero value then there is an error
 	}
@@ -209,7 +209,7 @@ void eputc2(char c)
 
 char egetc2(void)
 {
-	return GetBuf2(&ComRXBuffer2);
+	return GetBuf2(&ComRX_BUFFer2);
 }
 
 int egets2(char *s, int Max)
@@ -226,8 +226,8 @@ int egets2(char *s, int Max)
 	c = 0;
 	while ( (Len < Max-1) && (c != LINEFEED) )
 	{
-		while (!GetBufCount2(&ComRXBuffer2)); // wait for a character
-		c = GetBuf2(&ComRXBuffer2);
+		while (!GetBufCount2(&ComRX_BUFFer2)); // wait for a character
+		c = GetBuf2(&ComRX_BUFFer2);
 		s[Len++] = c;
 	}
 	if (Len>0)
@@ -239,7 +239,7 @@ int egets2(char *s, int Max)
 
 int ReceivedBytes2 (void)
 {
-	return GetBufCount2(&ComRXBuffer2);
+	return GetBufCount2(&ComRX_BUFFer2);
 }
 
 char egetc_echo2(void)
@@ -264,8 +264,8 @@ int egets_echo2(char *s, int Max)
 	c = 0;
 	while ( (Len < Max-1) && (c != NEWLINE) )
 	{
-		while (!GetBufCount2(&ComRXBuffer2)); // wait for a character
-		c = GetBuf2(&ComRXBuffer2);
+		while (!GetBufCount2(&ComRX_BUFFer2)); // wait for a character
+		c = GetBuf2(&ComRX_BUFFer2);
 		eputc2(c);
 		s[Len++] = c;
 	}

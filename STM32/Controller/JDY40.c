@@ -104,17 +104,18 @@ void TX_XY(void) {
 
 void RX_I(void) {
 	int timeout_count = 0;
-	eputs2(RX_CMD);
+	egets2(RX_BUFF, sizeof(RX_BUFF)-1);
+	// eputs2(RX_CMD);
 
-	while (timeout_count <= 200) {
-		timeout_count++;
-		JDY_Delay_ms(1); // Delay For Response
+	// while (timeout_count <= 200) {
+	// 	timeout_count++;
+	// 	JDY_Delay_ms(1); // Delay For Response
 
-		if (ReceivedBytes2() > 0) {
-			egets2(RX_BUFF, sizeof(RX_BUFF)-1);
-			break;
-		}
-	}
+	// 	if (ReceivedBytes2() > 0) {
+	// 		egets2(RX_BUFF, sizeof(RX_BUFF)-1);
+	// 		break;
+	// 	}
+	// }
 
 	return;
 }
@@ -139,7 +140,7 @@ void Update_XY(int x_value, int y_value) {
 }
 
 int Update_I(int inductance) {
-	stripSpaces(RX_BUFF);
+	// stripSpaces(RX_BUFF);
 	int parsed = atoi(RX_BUFF);
 
 	return (parsed != 0) ? parsed : inductance;

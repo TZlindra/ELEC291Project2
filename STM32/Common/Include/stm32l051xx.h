@@ -1651,7 +1651,7 @@ typedef struct
 #define  I2C_PECR_PEC                        ((uint32_t)0x000000FF)       /*!< PEC register */
 
 /******************  Bit definition for I2C_RXDR register  *********************/
-#define  I2C_RXDR_RXDATA                     ((uint32_t)0x000000FF)        /*!< 8-bit receive data */
+#define  I2C_RXDR_RX_Data                     ((uint32_t)0x000000FF)        /*!< 8-bit receive data */
 
 /******************  Bit definition for I2C_TXDR register  *********************/
 #define  I2C_TXDR_TXDATA                     ((uint32_t)0x000000FF)        /*!< 8-bit transmit data */

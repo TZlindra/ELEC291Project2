@@ -352,7 +352,7 @@ END GROUP
  .text.memset   0x08001f02       0x10 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-memset.o)
                 0x08001f02                memset
  .text          0x08001f12        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-freer.o)
- *fill*         0x08001f12        0x2 
+ *fill*         0x08001f12        0x2
  .text._free_r  0x08001f14       0x94 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-freer.o)
                 0x08001f14                _free_r
  .text          0x08001fa8        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-mallocr.o)
@@ -374,7 +374,7 @@ END GROUP
  .text._printf_common
                 0x080026b0       0xde C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-vfprintf_i.o)
                 0x080026b0                _printf_common
- *fill*         0x0800278e        0x2 
+ *fill*         0x0800278e        0x2
  .text._printf_i
                 0x08002790      0x224 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-vfprintf_i.o)
                 0x08002790                _printf_i
@@ -411,7 +411,7 @@ END GROUP
  .text          0x08002bc8        0xe C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-strlen.o)
                 0x08002bc8                strlen
  .text          0x08002bd6        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-wbuf.o)
- *fill*         0x08002bd6        0x2 
+ *fill*         0x08002bd6        0x2
  .text.__swbuf_r
                 0x08002bd8       0xac C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-wbuf.o)
                 0x08002bd8                __swbuf_r
@@ -431,7 +431,7 @@ END GROUP
                 0x08002db0                _close_r
  .text          0x08002dd4        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-dtoa.o)
  .text.quorem   0x08002dd4      0x116 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-dtoa.o)
- *fill*         0x08002eea        0x2 
+ *fill*         0x08002eea        0x2
  .text._dtoa_r  0x08002eec      0xc34 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-dtoa.o)
                 0x08002eec                _dtoa_r
  .text          0x08003b20        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-localeconv.o)
@@ -502,7 +502,7 @@ END GROUP
                 0x08004168                __lshift
  .text.__mcmp   0x08004244       0x36 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
                 0x08004244                __mcmp
- *fill*         0x0800427a        0x2 
+ *fill*         0x0800427a        0x2
  .text.__mdiff  0x0800427c      0x130 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
                 0x0800427c                __mdiff
  .text.__ulp    0x080043ac       0x48 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
@@ -513,7 +513,7 @@ END GROUP
                 0x08004494                __d2b
  .text.__ratio  0x0800455c       0x52 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
                 0x0800455c                __ratio
- *fill*         0x080045ae        0x2 
+ *fill*         0x080045ae        0x2
  .text._mprec_log10
                 0x080045b0       0x34 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
                 0x080045b0                _mprec_log10
@@ -536,7 +536,7 @@ END GROUP
  .text.__sprint_r
                 0x08004712       0x1c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-vfprintf.o)
                 0x08004712                __sprint_r
- *fill*         0x0800472e        0x2 
+ *fill*         0x0800472e        0x2
  .text._vfprintf_r
                 0x08004730      0x274 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-vfprintf.o)
                 0x08004730                _vfprintf_r
@@ -629,7 +629,7 @@ END GROUP
  .text.__sigtramp_r
                 0x08004fa4       0x46 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-signal.o)
                 0x08004fa4                __sigtramp_r
- *fill*         0x08004fea        0x2 
+ *fill*         0x08004fea        0x2
  .text.raise    0x08004fec       0x14 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-signal.o)
                 0x08004fec                raise
  .text.signal   0x08005000       0x14 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-signal.o)
@@ -709,7 +709,7 @@ END GROUP
                                  0x96 (size before relaxing)
  .rodata.__multadd.str1.1
                 0x08006a2e       0x11 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
- *fill*         0x08006a2e        0x2 
+ *fill*         0x08006a2e        0x2
  .rodata.__mprec_bigtens
                 0x08006a30       0x28 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
                 0x08006a30                __mprec_bigtens
@@ -858,7 +858,7 @@ END GROUP
  .bss           0x200001d4        0x0 main.o
  .bss           0x200001d4        0x0 startup.o
  .bss           0x200001d4       0xa4 serial.o
-                0x200001d4                ComRXBuffer
+                0x200001d4                ComRX_BUFFer
                 0x20000220                ComTXBuffer
                 0x2000026c                ComOpen
                 0x20000270                ComError
@@ -912,7 +912,7 @@ END GROUP
  .bss           0x2000028d        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-memset.o)
  .bss           0x2000028d        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-freer.o)
  .bss           0x2000028d        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-mallocr.o)
- *fill*         0x2000028d        0x3 
+ *fill*         0x2000028d        0x3
  .bss.__malloc_free_list
                 0x20000290        0x4 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-mallocr.o)
                 0x20000290                __malloc_free_list
@@ -1252,7 +1252,7 @@ ADC_COMP_Handler                                  startup.o
 ComBusy                                           serial.o
 ComError                                          serial.o
 ComOpen                                           serial.o
-ComRXBuffer                                       serial.o
+ComRX_BUFFer                                       serial.o
 ComTXBuffer                                       serial.o
 DMA_CH1_Handler                                   startup.o
 DMA_CH2_3_Handler                                 startup.o

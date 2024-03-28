@@ -11,6 +11,9 @@ main.hex: $(OBJS)
 main.obj: main.c
 	$(CC) -c main.c
 
+JDY40.obj: JDY40.c
+	$(CC) -c JDY40.c
+
 clean:
 	@del $(OBJS) *.asm *.lkr *.lst *.map *.hex *.map 2> nul
 

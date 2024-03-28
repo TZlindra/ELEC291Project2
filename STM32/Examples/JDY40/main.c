@@ -110,9 +110,8 @@ void ConfigPinsUART2(void) {
 	GPIOA->PUPDR &= ~(BIT23);
 }
 
-int main(void)
-{
-	char buff[80];
+int main(void) {
+	char buff[20];
     int cnt=0;
 
 	ConfigPinsUART2();
@@ -126,7 +125,7 @@ int main(void)
 
 	cnt=0;
 	while (1) {
-		waitms(5000);
+		waitms(1000);
 		SendCommand("F:", cnt);
 		cnt++;
 		ReceiveCommand();

@@ -17,7 +17,6 @@
 
 /* Define Pins */
 #define EFM8_SIGNAL P1_0 // Signal to Measure
-#define TOGGLE P1_4
 
 #define VSS 5 // The measured value of VSS in volts
 #define VDD 3.3035 // The measured value of VDD in volts
@@ -32,12 +31,9 @@ volatile int freq = 300;
 volatile int inductance = 0;
 
 /* Function Prototypes */
-void TIMER0_Init(void);
-void TIMER5_Init(void);
 void Timer3us(unsigned char us);
 void waitms (unsigned int ms);
-void Serial_Init(void);
-void UART1_Init (unsigned long baudrate);
+
 void putchar1 (char c);
 void sendstr1 (char * s);
 char getchar1 (void);
@@ -46,7 +42,9 @@ void getstr1 (char * s);
 bit RXU1 (void);
 void waitms_or_RI1 (unsigned int ms);
 void SendATCommand (char * s);
+
 void JDYInit (void);
+
 float calculate_period_s(int overflow_count, int TH0, int TL0);
 float calculate_freq_Hz(float period_s);
 float GetFreq(void);
@@ -123,21 +121,6 @@ char _c51_external_startup(void) {
 
 	return 0;
 }
-void TIMER0_Init(void) {
-	TMOD &= 0b_1111_0000; // Set the Bits of Timer/Counter 0 to 0
-	TMOD |= 0b_0000_0001; // Timer/Counter 0 Used As 16-Bit Timer
-	TR0 = 0; // Stop Timer/Counter 0
-}
-
-void TIMER5_Init(void) {
-	SFRPAGE=0x10;
-	TMR5CN0=0x00;   // Stop Timer5; Clear TF5; WARNING: lives in SFR page 0x10
-	CKCON1|=0b_0000_0100; // Timer 5 uses the system clock
-	TMR5RL=(0x10000L-(SYSCLK/(2*TIMER_5_FREQ))); // Initialize reload value
-	TMR5=0xffff;   // Set to reload immediately
-	EIE2|=0b_0000_1000; // Enable Timer5 interrupts
-	TR5=1;         // Start Timer5 (TMR5CN0 is bit addressable)
-}
 
 void Timer5_ISR(void) interrupt INTERRUPT_TIMER5 {
 	SFRPAGE=0x10;
@@ -155,6 +138,51 @@ void Timer5_ISR(void) interrupt INTERRUPT_TIMER5 {
 	strcpy(hold, RX_BUFF);
 	TR5 = 1;
 
+}
+
+void TIMER0_Init(void) {
+	TMOD &= 0b_1111_0000; // Set the Bits of Timer/Counter 0 to 0
+	TMOD |= 0b_0000_0001; // Timer/Counter 0 Used As 16-Bit Timer
+	TR0 = 0; // Stop Timer/Counter 0
+}
+
+void TIMER5_Init(void) {
+	SFRPAGE=0x10;
+	TMR5CN0=0x00;   // Stop Timer5; Clear TF5; WARNING: lives in SFR page 0x10
+	CKCON1|=0b_0000_0100; // Timer 5 uses the system clock
+	TMR5RL=(0x10000L-(SYSCLK/(2*TIMER_5_FREQ))); // Initialize reload value
+	TMR5=0xffff;   // Set to reload immediately
+	EIE2|=0b_0000_1000; // Enable Timer5 interrupts
+	TR5=1;         // Start Timer5 (TMR5CN0 is bit addressable)
+}
+
+void Serial_Init(void) {
+	waitms(500); // Give Putty a chance to start.
+	printf("\x1b[2J"); // Clear screen using ANSI escape sequence.
+}
+
+void UART1_Init(unsigned long baudrate) {
+    SFRPAGE = 0x20;
+	SMOD1 = 0x0C; // no parity, 8 data bits, 1 stop bit
+	SCON1 = 0x10;
+	SBCON1 =0x00;   // disable baud rate generator
+	SBRL1 = 0x10000L-((SYSCLK/baudrate)/(12L*2L));
+	TI1 = 1; // indicate ready for TX
+	SBCON1 |= 0x40;   // enable baud rate generator
+	SFRPAGE = 0x00;
+}
+
+void JDYInit(void) {
+	SendATCommand("AT+DVIDAFAF\r\n");
+	SendATCommand("AT+RFIDFFBB\r\n");
+	// To check configuration
+	SendATCommand("AT+VER\r\n");
+	SendATCommand("AT+BAUD\r\n");
+	SendATCommand("AT+RFID\r\n");
+	SendATCommand("AT+DVID\r\n");
+	SendATCommand("AT+RFC\r\n");
+	SendATCommand("AT+POWE\r\n");
+	SendATCommand("AT+CLSS\r\n");
 }
 
 // Uses Timer3 to delay <us> micro-seconds.
@@ -183,21 +211,6 @@ void waitms(unsigned int ms) {
 		for (k=0; k<4; k++) Timer3us(250);
 }
 
-void Serial_Init(void) {
-	waitms(500); // Give Putty a chance to start.
-	printf("\x1b[2J"); // Clear screen using ANSI escape sequence.
-}
-
-void UART1_Init(unsigned long baudrate) {
-    SFRPAGE = 0x20;
-	SMOD1 = 0x0C; // no parity, 8 data bits, 1 stop bit
-	SCON1 = 0x10;
-	SBCON1 =0x00;   // disable baud rate generator
-	SBRL1 = 0x10000L-((SYSCLK/baudrate)/(12L*2L));
-	TI1 = 1; // indicate ready for TX
-	SBCON1 |= 0x40;   // enable baud rate generator
-	SFRPAGE = 0x00;
-}
 
 void putchar1(char c) {
     SFRPAGE = 0x20;
@@ -232,15 +245,13 @@ char getchar1_with_timeout (void)
 	char c;
 	unsigned int timeout;
     SFRPAGE = 0x20;
-    timeout=0;
-	while (!RI1)
-	{
+    timeout = 0;
+	while(!RI1) {
 		SFRPAGE = 0x00;
 		Timer3us(20);
 		SFRPAGE = 0x20;
 		timeout++;
-		if(timeout==25000)
-		{
+		if (timeout==25000) {
 			SFRPAGE = 0x00;
 			return ('\n'); // Timeout after half second
 		}
@@ -256,11 +267,9 @@ char getchar1_with_timeout (void)
 void getstr1(char* s) {
 	char c;
 
-	while(1)
-	{
-		c=getchar1_with_timeout();
-		if(c=='\n')
-		{
+	while(1) {
+		c = getchar1_with_timeout();
+		if (c=='\n') {
 			*s=0;
 			return;
 		}
@@ -302,19 +311,6 @@ void SendATCommand(char* s) {
 	printf("Response: %s\r\n", TX_BUFF);
 }
 
-void JDYInit(void) {
-	SendATCommand("AT+DVIDAFAF\r\n");
-	SendATCommand("AT+RFIDFFBB\r\n");
-	// To check configuration
-	SendATCommand("AT+VER\r\n");
-	SendATCommand("AT+BAUD\r\n");
-	SendATCommand("AT+RFID\r\n");
-	SendATCommand("AT+DVID\r\n");
-	SendATCommand("AT+RFC\r\n");
-	SendATCommand("AT+POWE\r\n");
-	SendATCommand("AT+CLSS\r\n");
-}
-
 float calculate_period_s(int overflow_count, int TH0, int TL0) {
 	return ((overflow_count * MAX_16_BIT)  + (TH0 * MAX_8_BIT) + TL0) * (12.0 / SYSCLK);
 }
@@ -324,35 +320,35 @@ float calculate_freq_Hz(float period_s) {
 }
 
 float GetFreq(void) {
-		float period_s, freq_Hz;
-		int overflow_count = 0;
-		TL0 = 0;
-		TH0 = 0;
-		TF0 = 0;
-		overflow_count = 0;
+	float period_s, freq_Hz;
+	int overflow_count = 0;
+	TL0 = 0;
+	TH0 = 0;
+	TF0 = 0;
+	overflow_count = 0;
 
-		while (EFM8_SIGNAL != 0); // Wait for Signal == 0
-		while (EFM8_SIGNAL != 1); // Wait for Signal == 1
+	while (EFM8_SIGNAL != 0); // Wait for Signal == 0
+	while (EFM8_SIGNAL != 1); // Wait for Signal == 1
 
-        TR0 = 1; // Start Timer
+    TR0 = 1; // Start Timer
 
-		while (EFM8_SIGNAL != 0) { // Wait for Signal == 0
-			if (TF0 == 1) { // Did 16-Bit Timer Overflow?
-				TF0 = 0;
-				overflow_count++;
-			}
-        }
-        while (EFM8_SIGNAL != 1) { // Wait for Signal == 1
-			if (TF0 == 1) { // Did 16-Bit Timer Overflow?
-				TF0 = 0;
-				overflow_count++;
-			}
-        }
+	while (EFM8_SIGNAL != 0) { // Wait for Signal == 0
+		if (TF0 == 1) { // Did 16-Bit Timer Overflow?
+			TF0 = 0;
+			overflow_count++;
+		}
+    }
+    while (EFM8_SIGNAL != 1) { // Wait for Signal == 1
+		if (TF0 == 1) { // Did 16-Bit Timer Overflow?
+			TF0 = 0;
+			overflow_count++;
+		}
+    }
 
-		TR0 = 0; // Stop Timer 0. The 24-bit number [overflow_count-TH0-TL0] has the period!
-		period_s = calculate_period_s(overflow_count, TH0, TL0);
-		freq_Hz = calculate_freq_Hz(period_s);
-		return freq_Hz;
+	TR0 = 0; // Stop Timer 0. The 24-bit number [overflow_count-TH0-TL0] has the period!
+	period_s = calculate_period_s(overflow_count, TH0, TL0);
+	freq_Hz = calculate_freq_Hz(period_s);
+	return freq_Hz;
 }
 
 void SendFreq(int freq) {
@@ -366,7 +362,6 @@ void GetData(void) {
 		getstr1(RX_BUFF);
 		SBUF1 = 0;
 	}
-
 }
 
 void TXInductance(void) {
@@ -406,8 +401,8 @@ void main (void) {
 	Serial_Init();
 	UART1_Init(9600);
 	JDYInit();
-	TOGGLE = 0;
 	TIMER5_Init();
+
 	EA = 1;
 	while(1){
 	/*
@@ -428,8 +423,5 @@ void main (void) {
 
 		}
 		// insert logic to get commands for pwm
-
-
-
 	}
 }

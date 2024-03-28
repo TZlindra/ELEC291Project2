@@ -329,10 +329,9 @@ void main (void)
 		PWM_manager(PWM_percent_x, PWM_percent_y);
         prev_PWM_percent_x = PWM_percent_x;
         prev_PWM_percent_y = PWM_percent_y;
-		printf("Left Wheel: %f\n", left_wheel);
-		printf("Right Wheel: %f\n", right_wheel);
-        printf("PWM X: %f\n", PWM_percent_x);
-        printf("PWM Y: %f\n", PWM_percent_y);
+		//printf("Left Wheel: %f\n", left_wheel);
+		//printf("Right Wheel: %f\n", right_wheel);
+
 
         if (P2_6 == 0)
         {
@@ -344,6 +343,9 @@ void main (void)
             PWM_percent_y += 10;
             while(P2_5 == 0);
         }
+
+        printf("PWM X: %d\n", PWM_percent_x);
+        printf("PWM Y: %d\n", PWM_percent_y);
 		//waitms(500);
 	}
 }

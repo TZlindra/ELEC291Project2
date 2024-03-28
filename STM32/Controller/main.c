@@ -86,7 +86,7 @@ void TIM2_Handler(void) {
 void TIM21_Handler(void) {
 	TIM21->SR &= ~BIT0; // Clear Update Interrupt Flag
 	TX21Count++;
-	if (TX21Count > 1000) {
+	if (TX21Count > 500) {
 		TX21Count = 0;
 		TX_XY();
 	}

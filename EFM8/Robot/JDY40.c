@@ -136,15 +136,22 @@ void TX_I(void) {
 	waitms_or_RI1(500);
 }
 
-void RX_Data(void) {
-	if (RXU1()){
-		getstr1(RX_BUFF);
-		SBUF1 = 0;
+void RX_XY(void) {
+	int timeout_count = 0;
+
+	while (timeout_count <= 200) {
+		if (RXU1()) {
+			getstr1(RX_BUFF);
+			SBUF1 = 0;
+		}
+
+		timeout_count++;
+		JDY_Delayms(1); // Delay For Response
 	}
 }
 
 void display_buffs(void) {
-	// printf("TX_BUFF: %s\r\n", TX_BUFF);
+	printf("TX_BUFF: %s\r\n", TX_BUFF);
 	printf("RX_BUFF: %s\r\n", RX_BUFF);
 }
 

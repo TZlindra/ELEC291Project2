@@ -51,7 +51,7 @@ float calculate_freq_Hz(float period_s);
 float GetFreq(void);
 void SendFreq(int freq);
 void GetData(void);
-void RX_Data(void);
+void RX_XY(void);
 void TX_I(void);
 int searchI(const char* array);
 
@@ -152,7 +152,7 @@ void Timer5_ISR (void) interrupt INTERRUPT_TIMER5
 		TX5Count = 0;
 		//SendFreq(freq);
 	    //freq += 5;
-		RX_Data();
+		RX_XY();
 	}
 	strcpy(hold, RX_BUFF);
 	TR5 = 1;
@@ -387,7 +387,7 @@ void TX_I(void){
 	waitms_or_RI1(500);
 }
 
-void RX_Data(void){
+void RX_XY(void){
 	if (RXU1()){
 		getstr1(RX_BUFF);
 		//printf("%s\r\n",RX_BUFF);

@@ -91,7 +91,7 @@ ___fsmul,any,0000,0000
 ___fsadd,any,0000,0000
 _printf,any,0000,0000
 __divulong_PARM_2,any,0000,0000
-_RX_Data,any,0000,0000
+_RX_XY,any,0000,0000
 _crt0,any,0000,0000
 _Update_I,any,0000,0000
 ___sint2fs,any,0000,0000
@@ -111,11 +111,11 @@ ___fsdiv,any,0000,0000
 </CODE>
 
 <CODE AT 0000>
-02 addr16(_crt0;)  
+02 addr16(_crt0;)
 </CODE>
 
 <CODE AT 0093>
-02 addr16(_Timer5_ISR;)  
+02 addr16(_Timer5_ISR;)
 </CODE>
 
 <CODE R_HOME>
@@ -191,14 +191,14 @@ C2 C7
 B2 93
 32
 90 01 F4
-12 addr16(_waitms;)  
+12 addr16(_waitms;)
 74 data8(__str_0;)
 C0 E0
 74 data8(__str_0;0x0008;>>;)
 C0 E0
 74 80
 C0 E0
-12 addr16(_printf;)  
+12 addr16(_printf;)
 15 81
 15 81
 15 81
@@ -218,7 +218,7 @@ FD
 90 A2 00
 75 F0 4A
 74 04
-12 addr16(__divulong;)  
+12 addr16(__divulong;)
 AA 82
 AB 83
 AC F0
@@ -232,7 +232,7 @@ F5 data8(__divulong_PARM_2;0x0003;+;)
 8B 83
 8C F0
 ED
-12 addr16(__divulong;)  
+12 addr16(__divulong;)
 AA 82
 AB 83
 AC F0
@@ -254,33 +254,33 @@ D2 C9
 43 94 40
 75 A7 00
 22
-90 data16(__str_1;)  
+90 data16(__str_1;)
 75 F0 80
-12 addr16(_SendATCommand;)  
-90 data16(__str_2;)  
+12 addr16(_SendATCommand;)
+90 data16(__str_2;)
 75 F0 80
-12 addr16(_SendATCommand;)  
-90 data16(__str_3;)  
+12 addr16(_SendATCommand;)
+90 data16(__str_3;)
 75 F0 80
-12 addr16(_SendATCommand;)  
-90 data16(__str_4;)  
+12 addr16(_SendATCommand;)
+90 data16(__str_4;)
 75 F0 80
-12 addr16(_SendATCommand;)  
-90 data16(__str_5;)  
+12 addr16(_SendATCommand;)
+90 data16(__str_5;)
 75 F0 80
-12 addr16(_SendATCommand;)  
-90 data16(__str_6;)  
+12 addr16(_SendATCommand;)
+90 data16(__str_6;)
 75 F0 80
-12 addr16(_SendATCommand;)  
-90 data16(__str_7;)  
+12 addr16(_SendATCommand;)
+90 data16(__str_7;)
 75 F0 80
-12 addr16(_SendATCommand;)  
-90 data16(__str_8;)  
+12 addr16(_SendATCommand;)
+90 data16(__str_8;)
 75 F0 80
-12 addr16(_SendATCommand;)  
-90 data16(__str_9;)  
+12 addr16(_SendATCommand;)
+90 data16(__str_9;)
 75 F0 80
-02 addr16(_SendATCommand;)  
+02 addr16(_SendATCommand;)
 AA 82
 43 8E 40
 75 92 B8
@@ -319,7 +319,7 @@ C0 03
 C0 04
 C0 05
 C0 06
-12 addr16(_Timer3us;)  
+12 addr16(_Timer3us;)
 D0 06
 D0 05
 D0 04
@@ -332,7 +332,7 @@ BC 00 rel3(L010005?;)
 0D
 80 rel2(L010005?;)
 22
-12 addr16(___sint2fs;)  
+12 addr16(___sint2fs;)
 AA 82
 AB 83
 AC F0
@@ -344,7 +344,7 @@ C0 05
 90 00 00
 75 F0 80
 74 47
-12 addr16(___fsmul;)  
+12 addr16(___fsmul;)
 AA 82
 AB 83
 AC F0
@@ -358,7 +358,7 @@ C0 02
 C0 03
 C0 04
 C0 05
-12 addr16(___sint2fs;)  
+12 addr16(___sint2fs;)
 AE 82
 AF 83
 A8 F0
@@ -370,7 +370,7 @@ C0 01
 90 00 00
 75 F0 80
 74 43
-12 addr16(___fsmul;)  
+12 addr16(___fsmul;)
 AE 82
 AF 83
 A8 F0
@@ -390,7 +390,7 @@ C0 01
 8B 83
 8C F0
 ED
-12 addr16(___fsadd;)  
+12 addr16(___fsadd;)
 AA 82
 AB 83
 AC F0
@@ -404,7 +404,7 @@ C0 02
 C0 03
 C0 04
 C0 05
-12 addr16(___sint2fs;)  
+12 addr16(___sint2fs;)
 AE 82
 AF 83
 A8 F0
@@ -421,7 +421,7 @@ C0 01
 8B 83
 8C F0
 ED
-12 addr16(___fsadd;)  
+12 addr16(___fsadd;)
 AA 82
 AB 83
 AC F0
@@ -436,7 +436,7 @@ C0 05
 90 F4 FC
 75 F0 32
 74 34
-12 addr16(___fsmul;)  
+12 addr16(___fsmul;)
 AA 82
 AB 83
 AC F0
@@ -460,7 +460,7 @@ C0 05
 90 00 00
 75 F0 80
 74 3F
-12 addr16(___fsdiv;)  
+12 addr16(___fsdiv;)
 AA 82
 AB 83
 AC F0
@@ -502,15 +502,15 @@ C2 8C
 75 data8(_calculate_period_s_PARM_3;0x0001;+;) 00
 8A 82
 8B 83
-12 addr16(_calculate_period_s;)  
-02 addr16(_calculate_freq_Hz;)  
+12 addr16(_calculate_period_s;)
+02 addr16(_calculate_freq_Hz;)
 AA 82
 AB 83
 AC F0
 C0 02
 C0 03
 C0 04
-12 addr16(_printf;)  
+12 addr16(_printf;)
 15 81
 15 81
 15 81
@@ -518,14 +518,14 @@ E5 data8(_GetMovement_PARM_2;)
 45 data8(_GetMovement_PARM_2;0x0001;+;)
 70 rel2(L014003?;)
 22
-12 addr16(_TIMER0_Init;)  
-12 addr16(_Serial_Init;)  
+12 addr16(_TIMER0_Init;)
+12 addr16(_Serial_Init;)
 90 25 80
 E4
 F5 F0
-12 addr16(_UART1_Init;)  
-12 addr16(_JDYInit;)  
-12 addr16(_TIMER5_Init;)  
+12 addr16(_UART1_Init;)
+12 addr16(_JDYInit;)
+12 addr16(_TIMER5_Init;)
 D2 AF
 74 01
 25 data8(_RX5Count;)
@@ -543,11 +543,11 @@ E5 data8(_RX5Count;0x0001;+;)
 E4
 F5 data8(_RX5Count;)
 F5 data8(_RX5Count;0x0001;+;)
-12 addr16(_RX_Data;)  
+12 addr16(_RX_XY;)
 85 data8(_inductance;) 82
 85 data8(_inductance;0x0001;+;) 83
-12 addr16(_Update_I;)  
-12 addr16(_display_buffs;)  
+12 addr16(_Update_I;)
+12 addr16(_display_buffs;)
 74 05
 25 data8(_inductance;)
 F5 data8(_inductance;)
@@ -555,7 +555,7 @@ E4
 35 data8(_inductance;0x0001;+;)
 F5 data8(_inductance;0x0001;+;)
 90 01 F4
-12 addr16(_waitms;)  
+12 addr16(_waitms;)
 80 rel2(L015004?;)
 </CODE>
 
@@ -567,41 +567,41 @@ F5 data8(_inductance;0x0001;+;)
 
 <CODE R_CONST>
 1B
-5B 32 4A 
+5B 32 4A
 00
-41 54 2B 44 56 49 44 41 46 41 46 
+41 54 2B 44 56 49 44 41 46 41 46
 0D
 0A
 00
-41 54 2B 52 46 49 44 46 46 42 42 
+41 54 2B 52 46 49 44 46 46 42 42
 0D
 0A
 00
-41 54 2B 56 45 52 
+41 54 2B 56 45 52
 0D
 0A
 00
-41 54 2B 42 41 55 44 
+41 54 2B 42 41 55 44
 0D
 0A
 00
-41 54 2B 52 46 49 44 
+41 54 2B 52 46 49 44
 0D
 0A
 00
-41 54 2B 44 56 49 44 
+41 54 2B 44 56 49 44
 0D
 0A
 00
-41 54 2B 52 46 43 
+41 54 2B 52 46 43
 0D
 0A
 00
-41 54 2B 50 4F 57 45 
+41 54 2B 50 4F 57 45
 0D
 0A
 00
-41 54 2B 43 4C 53 53 
+41 54 2B 43 4C 53 53
 0D
 0A
 00

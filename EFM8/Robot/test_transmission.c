@@ -328,7 +328,7 @@ void GetData(void){
 	}
 }
 
-void RX_Data(void){
+void RX_XY(void){
 	if (RXU1()) getstr1(RX_BUFF);
 
 	// No Printing in ISRs
@@ -374,7 +374,7 @@ void main (void)
 
 	while(1){
 		// freq = GetFreq();
-		RX_Data();
+		RX_XY();
 		SBUF1 = 0;
 		//waitms(200);
 

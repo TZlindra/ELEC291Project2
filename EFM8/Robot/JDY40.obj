@@ -74,7 +74,7 @@ _RXU1,R_CSEG,0123,0000
 _TX_BUFF,R_ISEG,0000,0014
 _searchI,R_CSEG,0261,0000
 _getstr1,R_CSEG,00EE,0000
-_RX_Data,R_CSEG,022D,0000
+_RX_XY,R_CSEG,022D,0000
 _Update_I,R_CSEG,01F4,0000
 _JDY_Timer3us,R_CSEG,0000,0000
 _getchar1_with_timeout,R_CSEG,00B2,0000
@@ -150,7 +150,7 @@ C0 03
 C0 04
 C0 05
 C0 06
-12 addr16(_JDY_Timer3us;)  
+12 addr16(_JDY_Timer3us;)
 D0 06
 D0 05
 D0 04
@@ -176,14 +176,14 @@ AC F0
 8A 82
 8B 83
 8C F0
-12 addr16(__gptrget;)  
+12 addr16(__gptrget;)
 FD
 60 rel2(L005004?;)
 8D 82
 C0 02
 C0 03
 C0 04
-12 addr16(_putchar1;)  
+12 addr16(_putchar1;)
 D0 04
 D0 03
 D0 02
@@ -207,7 +207,7 @@ BA 00 rel3(L005001?;)
 75 82 14
 C0 02
 C0 03
-12 addr16(_JDY_Timer3us;)  
+12 addr16(_JDY_Timer3us;)
 D0 03
 D0 02
 75 A7 20
@@ -230,7 +230,7 @@ AC F0
 C0 02
 C0 03
 C0 04
-12 addr16(_getchar1_with_timeout;)  
+12 addr16(_getchar1_with_timeout;)
 AD 82
 D0 04
 D0 03
@@ -240,12 +240,12 @@ BD 0A rel3(L008002?;)
 8B 83
 8C F0
 E4
-02 addr16(__gptrput;)  
+02 addr16(__gptrput;)
 8A 82
 8B 83
 8C F0
 ED
-12 addr16(__gptrput;)  
+12 addr16(__gptrput;)
 A3
 AA 82
 AB 83
@@ -272,7 +272,7 @@ C0 03
 C0 04
 C0 05
 C0 06
-12 addr16(_RXU1;)  
+12 addr16(_RXU1;)
 E4
 33
 D0 06
@@ -288,7 +288,7 @@ C0 03
 C0 04
 C0 05
 C0 06
-12 addr16(_JDY_Timer3us;)  
+12 addr16(_JDY_Timer3us;)
 D0 06
 D0 05
 D0 04
@@ -316,25 +316,25 @@ C0 E0
 C0 E0
 74 80
 C0 E0
-12 addr16(_printf;)  
+12 addr16(_printf;)
 E5 81
 24 FA
 F5 81
 C2 A0
 90 00 05
-12 addr16(_JDY_Delayms;)  
+12 addr16(_JDY_Delayms;)
 D0 04
 D0 03
 D0 02
 8A 82
 8B 83
 8C F0
-12 addr16(_sendstr1;)  
-90 data16(_TX_BUFF;)  
+12 addr16(_sendstr1;)
+90 data16(_TX_BUFF;)
 75 F0 40
-12 addr16(_getstr1;)  
+12 addr16(_getstr1;)
 90 00 0A
-12 addr16(_JDY_Delayms;)  
+12 addr16(_JDY_Delayms;)
 D2 A0
 74 data8(_TX_BUFF;)
 C0 E0
@@ -348,7 +348,7 @@ C0 E0
 C0 E0
 74 80
 C0 E0
-12 addr16(_printf;)  
+12 addr16(_printf;)
 E5 81
 24 FA
 F5 81
@@ -369,21 +369,21 @@ C0 E0
 C0 E0
 74 40
 C0 E0
-12 addr16(_sprintf;)  
+12 addr16(_sprintf;)
 E5 81
 24 F8
 F5 81
 22
-90 data16(_TX_BUFF;)  
+90 data16(_TX_BUFF;)
 75 F0 40
-12 addr16(_sendstr1;)  
+12 addr16(_sendstr1;)
 90 01 F4
-02 addr16(_waitms_or_RI1;)  
-12 addr16(_RXU1;)  
+02 addr16(_waitms_or_RI1;)
+12 addr16(_RXU1;)
 50 rel2(L014003?;)
-90 data16(_RX_BUFF;)  
+90 data16(_RX_BUFF;)
 75 F0 40
-12 addr16(_getstr1;)  
+12 addr16(_getstr1;)
 75 92 00
 22
 74 data8(_RX_BUFF;)
@@ -398,7 +398,7 @@ C0 E0
 C0 E0
 74 80
 C0 E0
-12 addr16(_printf;)  
+12 addr16(_printf;)
 E5 81
 24 FA
 F5 81
@@ -409,7 +409,7 @@ AC F0
 8A 82
 8B 83
 8C F0
-12 addr16(__gptrget;)  
+12 addr16(__gptrget;)
 FD
 60 rel2(L016005?;)
 BD 49 rel3(L016002?;)
@@ -430,15 +430,15 @@ BA 00 rel3(L016003?;)
 </CODE>
 
 <CODE R_CONST>
-43 6F 6D 6D 61 6E 64 3A 20 25 73 
+43 6F 6D 6D 61 6E 64 3A 20 25 73
 00
-52 65 73 70 6F 6E 73 65 3A 20 25 73 
+52 65 73 70 6F 6E 73 65 3A 20 25 73
 0D
 0A
 00
-25 64 
+25 64
 00
-52 58 5F 42 55 46 46 3A 20 25 73 
+52 58 5F 42 55 46 46 3A 20 25 73
 0D
 0A
 00

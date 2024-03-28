@@ -7,6 +7,7 @@
 idata char hold[20];
 
 volatile int TX5Count = 0;
+volatile int RX5Count = 0;
 
 volatile int freq = 300;
 volatile int inductance = 0;
@@ -119,13 +120,13 @@ void Serial_Init(void) {
 
 void UART1_Init(unsigned long baudrate) {
     SFRPAGE = 0x20;
-	SMOD1 = 0x0C; // no parity, 8 data bits, 1 stop bit
-	SCON1 = 0x10;
-	SBCON1 =0x00;   // disable baud rate generator
-	SBRL1 = 0x10000L-((SYSCLK/baudrate)/(12L*2L));
-	TI1 = 1; // indicate ready for TX
-	SBCON1 |= 0x40;   // enable baud rate generator
-	SFRPAGE = 0x00;
+    SMOD1 = 0x0C; // no parity, 8 data bits, 1 stop bit
+    SCON1 = 0x50; // Mode 1, 8-bit UART, variable baud rate, receive enabled
+    SBCON1 = 0x00; // disable baud rate generator
+    SBRL1 = 0x10000L - ((SYSCLK / baudrate) / (12L * 2L));
+    TI1 = 1; // indicate ready for TX
+    SBCON1 |= 0x40; // enable baud rate generator
+    SFRPAGE = 0x00;
 }
 
 void JDYInit(void) {
@@ -224,9 +225,15 @@ void main (void) {
 	TIMER5_Init();
 
 	EA = 1;
-	while (1) {
+	while(1){
+		RX5Count++;
+
+		if (RX5Count >= 100) {
+			RX5Count = 0;
+			RX_XY();
+		}
+
 		Update_I(inductance);
-		RX_XY();
 
 		display_buffs();
 

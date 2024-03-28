@@ -17,7 +17,7 @@ void SendATCommand(char* s);
 
 void Update_I(int inductance);
 
-void RX_Data(void);
+void RX_XY(void);
 void TX_I(void);
 void display_buffs(void);
 

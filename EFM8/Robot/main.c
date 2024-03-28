@@ -2,6 +2,8 @@
 #include "global.h"
 #include "JDY40.h"
 
+#define TIMER_OUT_5 P1_3
+
 idata char hold[20];
 
 volatile int TX5Count = 0;
@@ -86,24 +88,6 @@ char _c51_external_startup(void) {
 	return 0;
 }
 
-void Timer5_ISR(void) interrupt INTERRUPT_TIMER5 {
-	SFRPAGE=0x10;
-	TR5 = 0;
-	TF5H = 0; // Clear Timer5 interrupt flag
-
-	TX5Count++;
-
-	if (TX5Count >= 500) {
-		TX5Count = 0;
-		//TX_Freq(freq);
-	    //freq += 5;
-		RX_Data();
-	}
-	// strcpy(hold, RX_BUFF);
-	TR5 = 1;
-
-}
-
 void TIMER0_Init(void) {
 	TMOD &= 0b_1111_0000; // Set the Bits of Timer/Counter 0 to 0
 	TMOD |= 0b_0000_0001; // Timer/Counter 0 Used As 16-Bit Timer
@@ -111,6 +95,7 @@ void TIMER0_Init(void) {
 }
 
 void TIMER5_Init(void) {
+	// Initialize timer 5 for periodic interrupts
 	SFRPAGE=0x10;
 	TMR5CN0=0x00;   // Stop Timer5; Clear TF5; WARNING: lives in SFR page 0x10
 	CKCON1|=0b_0000_0100; // Timer 5 uses the system clock
@@ -118,6 +103,14 @@ void TIMER5_Init(void) {
 	TMR5=0xffff;   // Set to reload immediately
 	EIE2|=0b_0000_1000; // Enable Timer5 interrupts
 	TR5=1;         // Start Timer5 (TMR5CN0 is bit addressable)
+}
+
+
+void Timer5_ISR (void) interrupt INTERRUPT_TIMER5
+{
+	SFRPAGE=0x10;
+	TF5H = 0; // Clear Timer5 interrupt flag
+	TIMER_OUT_5=!TIMER_OUT_5;
 }
 
 void Serial_Init(void) {
@@ -229,26 +222,22 @@ void main (void) {
 	Serial_Init();
 	UART1_Init(9600);
 	JDYInit();
-	TIMER5_Init();
+	// TIMER5_Init();
 
 	EA = 1;
 	while(1){
-	/*
-		if (RX_BUFF[0] == 'I'){
-			SBUF1 = 0;
-			TX_Freq(freq);
-			freq += 5;
-			printf("%s \r\n", RX_BUFF);
-		}
-	*/
+		RX5Count++;
 
-		// GetData();
-		if (1) {
-			//TX_Freq(freq);
-			// printf("%s \r\n", RX_BUFF);
-			freq += 5;
-
+		if (RX5Count >= 500) {
+			RX5Count = 0;
+			RX_Data();
 		}
-		// insert logic to get commands for pwm
+
+		Update_I(inductance);
+
+		display_buffs();
+
+		inductance += 5;
+		waitms(500); // Delay 500 ms
 	}
 }

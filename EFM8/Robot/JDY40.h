@@ -19,5 +19,7 @@ void Update_I(int inductance);
 
 void RX_Data(void);
 void TX_I(void);
+void display_buffs(void);
+
 
 int searchI(const char* array);

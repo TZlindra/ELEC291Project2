@@ -143,10 +143,16 @@ void RX_Data(void) {
 	}
 }
 
+void display_buffs(void) {
+	// printf("TX_BUFF: %s\r\n", TX_BUFF);
+	printf("RX_BUFF: %s\r\n", RX_BUFF);
+}
+
 int searchI(char* array) {
-    while (*array) {
-        if (*array == 'I') return 0;
-        array++;
+	char* array_ptr = array;
+    while (*array_ptr) {
+        if (*array_ptr == 'I') return 1;
+        array_ptr++;
     }
-    return 1; // Did not find 'I'
+    return 0;
 }

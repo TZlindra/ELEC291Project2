@@ -247,13 +247,15 @@ void PWM_manager(float x_value, float y_value)
 
     // to account for the LEFT wheel being stronger than the RIGHT wheel
     if (abs(y_value) <= 25)
-        new_left_wheel = 0.7*left_wheel;
+        new_left_wheel = 0.9*left_wheel;
     else if (abs(y_value) <= 50)
-        new_left_wheel = left_wheel;
+        new_left_wheel = 1*left_wheel;
     else if (abs(y_value) <= 75)
         new_left_wheel = 0.9*left_wheel;
     else if (abs(y_value) <= 100)
         new_left_wheel = 0.9*left_wheel;
+    else
+        new_left_wheel = 1*left_wheel;
 
 
 }

@@ -1,61 +1,22 @@
 // C1 = 10nF C2 = 100nF
-#include <EFM8LB1.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
+#include "global.h"
+#include "JDY40.h"
 
-// #include "JDY40.h"
-
-#define SYSCLK 72000000
-#define BAUDRATE 115200L
-
-#define MAX_16_BIT 65536.0 // 16-Bit Maximum Value
-#define MAX_8_BIT 256.0 // 8-Bit Maximum Value
-#define TIMER_5_FREQ 1000L
-
-/* Clock Frequency and Baud Rate */
-// Baudrate of UART in BPS
-#define SARCLK 18000000L // SARCLK Frequency in Hz
-
-/* Define Pins */
-#define EFM8_SIGNAL P1_0 // Signal to Measure
-
-#define VSS 5 // The measured value of VSS in volts
-#define VDD 3.3035 // The measured value of VDD in volts
-
-idata char TX_BUFF[20];
-idata char RX_BUFF[20];
 idata char hold[20];
 
 volatile int TX5Count = 0;
 volatile int RX5Count = 0;
+
 volatile int freq = 300;
 volatile int inductance = 0;
 
 /* Function Prototypes */
 void Timer3us(unsigned char us);
-void waitms (unsigned int ms);
+void waitms(unsigned int ms);
 
 float calculate_period_s(int overflow_count, int TH0, int TL0);
 float calculate_freq_Hz(float period_s);
 float get_freq(void);
-
-void putchar1 (char c);
-void sendstr1 (char * s);
-char getchar1 (void);
-char getchar1_with_timeout (void);
-void getstr1 (char * s);
-bit RXU1 (void);
-
-void waitms_or_RI1 (unsigned int ms);
-void SendATCommand (char * s);
-
-void TX_Freq(int freq);
-
-void RX_Data(void);
-void TX_I(void);
-
-int searchI(const char* array);
 
 char _c51_external_startup(void) {
 	// Disable Watchdog with key sequence
@@ -138,7 +99,7 @@ void Timer5_ISR(void) interrupt INTERRUPT_TIMER5 {
 	    //freq += 5;
 		RX_Data();
 	}
-	strcpy(hold, RX_BUFF);
+	// strcpy(hold, RX_BUFF);
 	TR5 = 1;
 
 }
@@ -214,106 +175,6 @@ void waitms(unsigned int ms) {
 		for (k=0; k<4; k++) Timer3us(250);
 }
 
-
-void putchar1(char c) {
-    SFRPAGE = 0x20;
-	while (!TI1);
-	TI1=0;
-	SBUF1 = c;
-	SFRPAGE = 0x00;
-}
-
-void sendstr1(char* s) {
-	while(*s)
-	{
-		putchar1(*s);
-		s++;
-	}
-}
-
-char getchar1(void) {
-	char c;
-    SFRPAGE = 0x20;
-	while (!RI1);
-	RI1=0;
-	// Clear Overrun and Parity error flags
-	SCON1&=0b_0011_1111;
-	c = SBUF1;
-	SFRPAGE = 0x00;
-	return (c);
-}
-
-char getchar1_with_timeout (void)
-{
-	char c;
-	unsigned int timeout;
-    SFRPAGE = 0x20;
-    timeout = 0;
-	while(!RI1) {
-		SFRPAGE = 0x00;
-		Timer3us(20);
-		SFRPAGE = 0x20;
-		timeout++;
-		if (timeout==25000) {
-			SFRPAGE = 0x00;
-			return ('\n'); // Timeout after half second
-		}
-	}
-	RI1=0;
-	// Clear Overrun and Parity error flags
-	SCON1&=0b_0011_1111;
-	c = SBUF1;
-	SFRPAGE = 0x00;
-	return (c);
-}
-
-void getstr1(char* s) {
-	char c;
-
-	while(1) {
-		c = getchar1_with_timeout();
-		if (c=='\n') {
-			*s=0;
-			return;
-		}
-		*s=c;
-		s++;
-	}
-}
-
-// RXU1 returns '1' if there is a byte available in the receive buffer of UART1
-bit RXU1(void) {
-	bit mybit;
-    SFRPAGE = 0x20;
-	mybit=RI1;
-	SFRPAGE = 0x00;
-	return mybit;
-}
-
-void waitms_or_RI1(unsigned int ms) {
-	unsigned int j;
-	unsigned char k;
-	for(j=0; j<ms; j++)
-	{
-		for (k=0; k<4; k++)
-		{
-			if(RXU1()) return;
-			Timer3us(250);
-		}
-	}
-}
-
-void SendATCommand(char* s) {
-	printf("Command: %s", s);
-	P2_0=0; // 'set' pin to 0 is 'AT' mode.
-	waitms(5);
-	sendstr1(s);
-	getstr1(TX_BUFF);
-	waitms(10);
-	P2_0=1; // 'set' pin to 1 is normal operation mode.
-	printf("Response: %s\r\n", TX_BUFF);
-}
-
 float calculate_period_s(int overflow_count, int TH0, int TL0) {
 	return ((overflow_count * MAX_16_BIT)  + (TH0 * MAX_8_BIT) + TL0) * (12.0 / SYSCLK);
 }
@@ -354,36 +215,6 @@ float get_freq(void) {
 	return freq_Hz;
 }
 
-void TX_Freq(int freq) {
-	sprintf(TX_BUFF,"%d\r\n",freq);
-	sendstr1(TX_BUFF);
-	waitms_or_RI1(500);
-}
-
-void TX_I(void) {
-	sprintf(TX_BUFF,"%d",inductance);
-	sendstr1(TX_BUFF);
-	waitms_or_RI1(500);
-}
-
-void RX_Data(void) {
-	if (RXU1()){
-		getstr1(RX_BUFF);
-		SBUF1 = 0;
-		//printf("%s\r\n",RX_BUFF);
-		// if (RX_BUFF[0] == 'I') TX_I();
-		// else printf("%s \r\n",RX_BUFF);
-	}
-}
-
-int searchI(char* array) {
-    while (*array) {
-        if (*array == 'I') return 0;
-        array++;
-    }
-    return 1; // Did not find 'I'
-}
-
 void GetMovement(char* s, int com) {
 	printf(s);
 	if (com == 0){
@@ -413,9 +244,8 @@ void main (void) {
 
 		// GetData();
 		if (1) {
-
 			//TX_Freq(freq);
-			printf("%s \r\n", RX_BUFF);
+			// printf("%s \r\n", RX_BUFF);
 			freq += 5;
 
 		}

@@ -32,10 +32,11 @@ volatile int inductance = 0;
 int count = 0;
 
 enum State state;
-int PWM_percent_y = 100;
+int PWM_percent_y = 25;
 int PWM_percent_x = 0;
 float left_wheel = 0;
 float right_wheel = 0;
+float new_left_wheel;
 int prev_PWM_percent_x = 0;
 int prev_PWM_percent_y = 0;
 
@@ -244,7 +245,15 @@ void PWM_manager(float x_value, float y_value)
         right_wheel = abs(y_value);
     }
 
-
+    // to account for the LEFT wheel being stronger than the RIGHT wheel
+    if (abs(y_value) <= 25)
+        new_left_wheel = 0.7*left_wheel;
+    else if (abs(y_value) <= 50)
+        new_left_wheel = left_wheel;
+    else if (abs(y_value) <= 75)
+        new_left_wheel = 0.9*left_wheel;
+    else if (abs(y_value) <= 100)
+        new_left_wheel = 0.9*left_wheel;
 
 
 }
@@ -302,12 +311,12 @@ void Timer3_ISR (void) interrupt INTERRUPT_TIMER3
     }
     if (PWM_percent_y >= 0)
     {
-        LEFT_MOTOR_LHS = (count > left_wheel) ? 0:1;
+        LEFT_MOTOR_LHS = (count > new_left_wheel) ? 0:1;
         RIGHT_MOTOR_LHS = (count > right_wheel) ? 0:1;
     }
     else
     {
-        LEFT_MOTOR_LHS = (count > left_wheel) ? 1:0;
+        LEFT_MOTOR_LHS = (count > new_left_wheel) ? 1:0;
         RIGHT_MOTOR_LHS = (count > right_wheel) ? 1:0;
     }
 
@@ -324,7 +333,7 @@ void main (void)
 	Serial_Init();
 	UART1_Init(9600);
 	TIMER3Init();
-
+    new_left_wheel = left_wheel;
     idle();
 	while(1){
         state = movement_manager(PWM_percent_x, PWM_percent_y, prev_PWM_percent_x, prev_PWM_percent_y, state);
@@ -346,8 +355,12 @@ void main (void)
             while(P2_5 == 0);
         }
 
-        printf("PWM X: %d\n", PWM_percent_x);
-        printf("PWM Y: %d\n", PWM_percent_y);
+        //printf("PWM X: %d\n", PWM_percent_x);
+        //printf("PWM Y: %d\n", PWM_percent_y);
+
+        printf("Left Wheel: %f\n", left_wheel);
+		printf("Right Wheel: %f\n", right_wheel);
+        printf("NEW LEFT WHEEL: %f\n", new_left_wheel);
 		//waitms(500);
 	}
 }

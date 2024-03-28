@@ -1,17 +1,17 @@
 SHELL=cmd
 CC=c51 # Need Added to Path
 COMPORT = $(shell type COMPORT.inc)
-OBJS=main.obj
+OBJS=main.obj JDY40.obj
 
 main.hex: $(OBJS)
 	$(CC) $(OBJS)
 	@del *.asm *.lst *.lkr 2> nul
 	@echo Done!
 
-main.obj: main.c
+main.obj: main.c JDY40.h
 	$(CC) -c main.c
 
-JDY40.obj: JDY40.c
+JDY40.obj: JDY40.c JDY40.h
 	$(CC) -c JDY40.c
 
 clean:

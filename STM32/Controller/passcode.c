@@ -20,10 +20,10 @@
 //             VSS -|16      17|- VDD
 //                    ----------
 
-#define BUTTON0 1 << 6
-#define BUTTON1 1 << 5
-#define BUTTON2 1 << 4
-#define BUTTON3 1 << 3
+#define BUTTON0 1 << 12
+#define BUTTON1 1 << 10
+#define BUTTON2 1 << 8
+#define BUTTON3 1 << 6
 
 #define DEBOUNCE 30
 
@@ -32,26 +32,42 @@ enum State state = init;
 
 enum State
 {
-    init,
-    x1,
-    x2,
-    x3,
-    c1,
-    c2,
-    c3
+    s0,
+    s1,
+    s2,
+    s3
 };
 
 void passcodeButtonsInit()
 {
     RCC->IOPENR |= RCC_IOPENR_GPIOBEN; // Peripheral Clock Enable for Port A
-	GPIOA->MODER &= ~(BUTTON0 | BUTTON0 << 1); // Make Pin PA12 Input
 
+    GPIOA->MODER &= ~(BUTTON0 | BUTTON0 << 1); // Make Pin PA12 Input
 	GPIOA->PUPDR |= BUTTON0;
 	GPIOA->PUPDR &= ~(BUTTON0 << 1);
+
+    GPIOA->MODER &= ~(BUTTON1 | BUTTON1 << 1); // Make Pin PA12 Input
+	GPIOA->PUPDR |= BUTTON1;
+	GPIOA->PUPDR &= ~(BUTTON1 << 1);
+
+    GPIOA->MODER &= ~(BUTTON2 | BUTTON2 << 1); // Make Pin PA12 Input
+	GPIOA->PUPDR |= BUTTON2;
+	GPIOA->PUPDR &= ~(BUTTON2 << 1);
+
+    GPIOA->MODER &= ~(BUTTON3 | BUTTON3 << 1); // Make Pin PA12 Input
+	GPIOA->PUPDR |= BUTTON3;
+	GPIOA->PUPDR &= ~(BUTTON3 << 1);
+
+
 }
 
 void passcodeButtons()
 {
+    if (!(GPIOB->IDR & BUTTON0) || !(GPIOB->IDR & BUTTON1) || !(GPIOB->IDR & BUTTON2) || !(GPIOB->IDR & BUTTON3))
+    {
+        state++;
+    }
+
 
 }
 
@@ -61,7 +77,7 @@ int main(void)
         case init:
             printf("Current state is 1\n");
             break;
-        case STATE_2:
+        case x1:
             printf("Current state is 2\n");
             break;
         case STATE_3:

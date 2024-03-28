@@ -21,6 +21,8 @@
 
 volatile int inductance = 0;
 
+#define test_button1    P2_6    //test button
+#define test_button2    P2_5    //test button
 #define LEFT_MOTOR_LHS  P2_4    //brown
 #define LEFT_MOTOR_RHS  P2_3    //black
 #define RIGHT_MOTOR_LHS P2_2    //grey/brown
@@ -33,7 +35,7 @@ int count = 0;
 
 enum State state;
 int PWM_percent_y = 100;
-int PWM_percent_x = 100;
+int PWM_percent_x = 0;
 float left_wheel = 0;
 float right_wheel = 0;
 float new_right_wheel;
@@ -233,7 +235,6 @@ void TIMER3Init(void)
 
 void PWM_manager(float x_value, float y_value)
 {
-    /*
     if (x_value >= 0) // RIGHT TURN
     {
         left_wheel = abs(y_value);
@@ -244,20 +245,6 @@ void PWM_manager(float x_value, float y_value)
         left_wheel = (100 - abs(x_value)) * abs(y_value) / 100;
         right_wheel = abs(y_value);
     }
-    */
-
-    if (x_value <= 25) //RIGHT TURN
-    {
-        left_wheel = abs(y_value);
-        right_wheel = (100 - abs(x_value)) * abs(y_value) / 100;
-    }
-    else if (x_value <= 50)
-    {
-        left_wheel = abs(y_value);
-        right_wheel = (100 - abs(x_value)) * abs(y_value) / 100;
-    }
-
-
 
 
     // to account for the LEFT wheel being stronger than the RIGHT wheel
@@ -270,7 +257,7 @@ void PWM_manager(float x_value, float y_value)
     else if (abs(y_value) <= 100)
         new_right_wheel = 0.95*right_wheel;
     else
-        new_right_wheel = 1*right_wheel;
+        new_right_wheel = 0.95*right_wheel;
 
 
 }
@@ -368,7 +355,7 @@ void main (void)
         }
         if (P2_5 == 0)
         {
-            PWM_percent_y += 10;
+            PWM_percent_x -= 10;
             while(P2_5 == 0);
         }
 
@@ -379,5 +366,6 @@ void main (void)
 		printf("Right Wheel: %f\n", right_wheel);
         printf("NEW LEFT WHEEL: %f\n", new_right_wheel);
 		//waitms(500);
+
 	}
 }

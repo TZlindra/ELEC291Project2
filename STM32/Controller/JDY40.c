@@ -105,24 +105,15 @@ void TX_XY(void) {
 void RX_I(void) {
 	int timeout_count = 0;
 
+	// eputs2(RX_CMD);
 	while (timeout_count <= 200) {
 		if (ReceivedBytes2() > 0) {
 			egets2(RX_BUFF, sizeof(RX_BUFF)-1);
 		}
 		timeout_count++;
+		JDY_Delay_ms(1); // Delay For Response
 	}
 
-	// eputs2(RX_CMD);
-
-	// while (timeout_count <= 200) {
-	// 	timeout_count++;
-	// 	JDY_Delay_ms(1); // Delay For Response
-
-	// 	if (ReceivedBytes2() > 0) {
-	// 		egets2(RX_BUFF, sizeof(RX_BUFF)-1);
-	// 		break;
-	// 	}
-	// }
 
 	return;
 }

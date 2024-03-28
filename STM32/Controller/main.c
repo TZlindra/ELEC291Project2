@@ -208,18 +208,11 @@ void main(void) {
 		standardized_x = standardize_x(x);
 		standardized_y = standardize_y(y);
 		Update_XY(standardized_x, standardized_y);
+		RX_I(); // Receive Inductance Value
 
-		// RX21Count++;
-		// if (RX21Count > 5500) {
-		// 	RX21Count = 0;
-		// 	RX_I();
-		// }
-
-		RX_I();
-
-		display_buffs();
+		// display_buffs();
 		inductance = Update_I(inductance);
-		// printf("I: %d\r\n", inductance);
+		printf("I: %d\r\n", inductance);
 
 		// if (IsButtonPressed()) SpeakerRatio = SetSpeakerFreq(SpeakerRatio);
 

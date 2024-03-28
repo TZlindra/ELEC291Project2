@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
 ; File Created by C51
 ; Version 1.0.0 #1170 (Feb 16 2022) (MSVC)
-; This file was generated Wed Mar 27 14:54:49 2024
+; This file was generated Thu Mar 28 10:20:40 2024
 ;--------------------------------------------------------
 $name EFM8_JDY40_test
 $optc51 --model-small
@@ -1153,53 +1153,53 @@ _main:
 	clr	a
 	mov	b,a
 	lcall	_UART1_Init
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:253: SendATCommand("AT+DVIDAFAF\r\n");
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:246: SendATCommand("AT+DVIDAFAF\r\n");
 	mov	dptr,#__str_3
 	mov	b,#0x80
 	lcall	_SendATCommand
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:254: SendATCommand("AT+RFIDFFBB\r\n");
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:247: SendATCommand("AT+RFIDFFBB\r\n");
 	mov	dptr,#__str_4
 	mov	b,#0x80
 	lcall	_SendATCommand
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:256: SendATCommand("AT+VER\r\n");
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:249: SendATCommand("AT+VER\r\n");
 	mov	dptr,#__str_5
 	mov	b,#0x80
 	lcall	_SendATCommand
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:257: SendATCommand("AT+BAUD\r\n");
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:250: SendATCommand("AT+BAUD\r\n");
 	mov	dptr,#__str_6
 	mov	b,#0x80
 	lcall	_SendATCommand
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:258: SendATCommand("AT+RFID\r\n");
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:251: SendATCommand("AT+RFID\r\n");
 	mov	dptr,#__str_7
 	mov	b,#0x80
 	lcall	_SendATCommand
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:259: SendATCommand("AT+DVID\r\n");
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:252: SendATCommand("AT+DVID\r\n");
 	mov	dptr,#__str_8
 	mov	b,#0x80
 	lcall	_SendATCommand
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:260: SendATCommand("AT+RFC\r\n");
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:253: SendATCommand("AT+RFC\r\n");
 	mov	dptr,#__str_9
 	mov	b,#0x80
 	lcall	_SendATCommand
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:261: SendATCommand("AT+POWE\r\n");
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:254: SendATCommand("AT+POWE\r\n");
 	mov	dptr,#__str_10
 	mov	b,#0x80
 	lcall	_SendATCommand
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:262: SendATCommand("AT+CLSS\r\n");
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:255: SendATCommand("AT+CLSS\r\n");
 	mov	dptr,#__str_11
 	mov	b,#0x80
 	lcall	_SendATCommand
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:265: while (1) {
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:258: while (1) {
 	mov	r2,#0x00
 	mov	r3,#0x00
-L014006?:
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:266: sprintf(TX_BUFF, " %d\r\n", cnt++);
+L014008?:
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:259: sprintf(TX_BUFF, " %d\r\n", cnt++);
 	mov	ar4,r2
 	mov	ar5,r3
 	inc	r2
-	cjne	r2,#0x00,L014013?
+	cjne	r2,#0x00,L014016?
 	inc	r3
-L014013?:
+L014016?:
 	push	ar2
 	push	ar3
 	push	ar4
@@ -1220,20 +1220,38 @@ L014013?:
 	mov	a,sp
 	add	a,#0xf8
 	mov	sp,a
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:268: if(RXU1()) {
+	pop	ar3
+	pop	ar2
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:261: if (cnt % 1000 == 0) {
+	mov	__moduint_PARM_2,#0xE8
+	mov	(__moduint_PARM_2 + 1),#0x03
+	mov	dpl,r2
+	mov	dph,r3
+	push	ar2
+	push	ar3
+	lcall	__moduint
+	mov	a,dpl
+	mov	b,dph
+	pop	ar3
+	pop	ar2
+	orl	a,b
+	jnz	L014004?
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:262: if (RXU1()) {
+	push	ar2
+	push	ar3
 	lcall	_RXU1
 	clr	a
 	rlc	a
 	pop	ar3
 	pop	ar2
-	jz	L014002?
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:269: getstr1(RX_BUFF);
+	jz	L014004?
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:263: getstr1(RX_BUFF);
 	mov	dptr,#_RX_BUFF
 	mov	b,#0x40
 	push	ar2
 	push	ar3
 	lcall	_getstr1
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:270: printf("RX: %s\r\n", RX_BUFF);
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:264: printf("RX: %s\r\n", RX_BUFF);
 	mov	a,#_RX_BUFF
 	push	acc
 	mov	a,#(_RX_BUFF >> 8)
@@ -1252,39 +1270,41 @@ L014013?:
 	mov	sp,a
 	pop	ar3
 	pop	ar2
-L014002?:
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:273: if (strchr(RX_BUFF, 'I') != NULL) {
-	mov	_strchr_PARM_2,#0x49
-	mov	dptr,#_RX_BUFF
-	mov	b,#0x40
+L014004?:
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:269: if (cnt % 5500 == 0)  {
+	mov	__moduint_PARM_2,#0x7C
+	mov	(__moduint_PARM_2 + 1),#0x15
+	mov	dpl,r2
+	mov	dph,r3
 	push	ar2
 	push	ar3
-	lcall	_strchr
-	mov	r4,dpl
-	mov	r5,dph
-	mov	r6,b
+	lcall	__moduint
+	mov	a,dpl
+	mov	b,dph
 	pop	ar3
 	pop	ar2
-	cjne	r4,#0x00,L014015?
-	cjne	r5,#0x00,L014015?
-	cjne	r6,#0x00,L014015?
-	ljmp	L014006?
-L014015?:
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:274: sendstr1(TX_BUFF);
+	orl	a,b
+	jnz	L014006?
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:270: sendstr1(TX_BUFF);
 	mov	dptr,#_TX_BUFF
 	mov	b,#0x40
 	push	ar2
 	push	ar3
 	lcall	_sendstr1
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:275: putchar('.');
-	mov	dpl,#0x2E
-	lcall	_putchar
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:276: waitms_or_RI1(200);
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:272: waitms_or_RI1(200);
 	mov	dptr,#0x00C8
 	lcall	_waitms_or_RI1
 	pop	ar3
 	pop	ar2
-	ljmp	L014006?
+L014006?:
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:275: waitms(1);
+	mov	dptr,#0x0001
+	push	ar2
+	push	ar3
+	lcall	_waitms
+	pop	ar3
+	pop	ar2
+	ljmp	L014008?
 	rseg R_CSEG
 
 	rseg R_XINIT

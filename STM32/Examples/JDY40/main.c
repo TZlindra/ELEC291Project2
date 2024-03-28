@@ -67,7 +67,7 @@ void SendATCommand (char * s)
 void SendCommand(char * s, int value) {
 	int count = 0;
 	sprintf(TX_BUFF, "%s %d\r\n", s, value);
-	printf("%s", TX_BUFF); // Print to Terminal
+	// printf("%s", TX_BUFF); // Print to Terminal
 	eputs2(TX_BUFF);
 	waitms(200);
 }

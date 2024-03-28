@@ -258,15 +258,20 @@ void main (void) {
 	while (1) {
 		sprintf(TX_BUFF, " %d\r\n", cnt++);
 
-		if(RXU1()) {
-			getstr1(RX_BUFF);
-			printf("RX: %s\r\n", RX_BUFF);
+		if (cnt % 1000 == 0) {
+			if (RXU1()) {
+				getstr1(RX_BUFF);
+				printf("RX: %s\r\n", RX_BUFF);
+			}
 		}
 
-		if (strchr(RX_BUFF, 'I') != NULL) {
+		// if (strchr(RX_BUFF, 'I') != NULL) {
+		if (cnt % 5500 == 0)  {
 			sendstr1(TX_BUFF);
-			putchar('.');
+			// printf("TX: %s", TX_BUFF);
 			waitms_or_RI1(200);
 		}
+
+		waitms(1);
 	}
 }

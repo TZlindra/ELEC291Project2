@@ -1,7 +1,7 @@
 0000              1   ;--------------------------------------------------------
 0000              2   ; File Created by C51
 0000              3   ; Version 1.0.0 #1170 (Feb 16 2022) (MSVC)
-0000              4   ; This file was generated Wed Mar 27 14:54:49 2024
+0000              4   ; This file was generated Thu Mar 28 10:20:40 2024
 0000              5   ;--------------------------------------------------------
                   5   $name EFM8_JDY40_test
                   6   $optc51 --model-small
@@ -1153,53 +1153,53 @@
 02C7 E4        1153            clr     a
 02C8 F5F0      1154            mov     b,a
 02CA 120000    1155            lcall   _UART1_Init
-02CD           1156   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:253: SendATCommand("AT+DVIDAFAF\r\n");
+02CD           1156   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:246: SendATCommand("AT+DVIDAFAF\r\n");
 02CD 90BE50    1157            mov     dptr,#__str_3
 02D0 75F080    1158            mov     b,#0x80
 02D3 120000    1159            lcall   _SendATCommand
-02D6           1160   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:254: SendATCommand("AT+RFIDFFBB\r\n");
+02D6           1160   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:247: SendATCommand("AT+RFIDFFBB\r\n");
 02D6 90BE90    1161            mov     dptr,#__str_4
 02D9 75F080    1162            mov     b,#0x80
 02DC 120000    1163            lcall   _SendATCommand
-02DF           1164   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:256: SendATCommand("AT+VER\r\n");
+02DF           1164   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:249: SendATCommand("AT+VER\r\n");
 02DF 90BED0    1165            mov     dptr,#__str_5
 02E2 75F080    1166            mov     b,#0x80
 02E5 120000    1167            lcall   _SendATCommand
-02E8           1168   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:257: SendATCommand("AT+BAUD\r\n");
+02E8           1168   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:250: SendATCommand("AT+BAUD\r\n");
 02E8 90BF10    1169            mov     dptr,#__str_6
 02EB 75F080    1170            mov     b,#0x80
 02EE 120000    1171            lcall   _SendATCommand
-02F1           1172   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:258: SendATCommand("AT+RFID\r\n");
+02F1           1172   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:251: SendATCommand("AT+RFID\r\n");
 02F1 90BF50    1173            mov     dptr,#__str_7
 02F4 75F080    1174            mov     b,#0x80
 02F7 120000    1175            lcall   _SendATCommand
-02FA           1176   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:259: SendATCommand("AT+DVID\r\n");
+02FA           1176   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:252: SendATCommand("AT+DVID\r\n");
 02FA 90BF90    1177            mov     dptr,#__str_8
 02FD 75F080    1178            mov     b,#0x80
 0300 120000    1179            lcall   _SendATCommand
-0303           1180   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:260: SendATCommand("AT+RFC\r\n");
+0303           1180   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:253: SendATCommand("AT+RFC\r\n");
 0303 90BFD0    1181            mov     dptr,#__str_9
 0306 75F080    1182            mov     b,#0x80
 0309 120000    1183            lcall   _SendATCommand
-030C           1184   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:261: SendATCommand("AT+POWE\r\n");
+030C           1184   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:254: SendATCommand("AT+POWE\r\n");
 030C 90C010    1185            mov     dptr,#__str_10
 030F 75F080    1186            mov     b,#0x80
 0312 120000    1187            lcall   _SendATCommand
-0315           1188   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:262: SendATCommand("AT+CLSS\r\n");
+0315           1188   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:255: SendATCommand("AT+CLSS\r\n");
 0315 90C050    1189            mov     dptr,#__str_11
 0318 75F080    1190            mov     b,#0x80
 031B 120000    1191            lcall   _SendATCommand
-031E           1192   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:265: while (1) {
+031E           1192   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:258: while (1) {
 031E 7A00      1193            mov     r2,#0x00
 0320 7B00      1194            mov     r3,#0x00
-0322           1195   L014006?:
-0322           1196   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:266: sprintf(TX_BUFF, " %d\r\n", cnt++);
+0322           1195   L014008?:
+0322           1196   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:259: sprintf(TX_BUFF, " %d\r\n", cnt++);
 0322 8A04      1197            mov     ar4,r2
 0324 8B05      1198            mov     ar5,r3
 0326 0A        1199            inc     r2
-0327 BA00D0    1200            cjne    r2,#0x00,L014013?
+0327 BA00D0    1200            cjne    r2,#0x00,L014016?
 032A 0B        1201            inc     r3
-032B           1202   L014013?:
+032B           1202   L014016?:
 032B C002      1203            push    ar2
 032D C003      1204            push    ar3
 032F C004      1205            push    ar4
@@ -1220,172 +1220,192 @@
 034E E581      1220            mov     a,sp
 0350 24F8      1221            add     a,#0xf8
 0352 F581      1222            mov     sp,a
-0354           1223   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:268: if(RXU1()) {
-0354 120000    1224            lcall   _RXU1
-0357 E4        1225            clr     a
-0358 33        1226            rlc     a
-0359 D003      1227            pop     ar3
-035B D002      1228            pop     ar2
-035D 6000      1229            jz      L014002?
-035F           1230   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:269: getstr1(RX_BUFF);
-035F 901530    1231            mov     dptr,#_RX_BUFF
-0362 75F040    1232            mov     b,#0x40
-0365 C002      1233            push    ar2
-0367 C003      1234            push    ar3
-0369 120000    1235            lcall   _getstr1
-036C           1236   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:270: printf("RX: %s\r\n", RX_BUFF);
-036C 7430      1237            mov     a,#_RX_BUFF
-036E C0E0      1238            push    acc
-0370 7415      1239            mov     a,#(_RX_BUFF >> 8)
-0372 C0E0      1240            push    acc
-0374 7440      1241            mov     a,#0x40
-0376 C0E0      1242            push    acc
-0378 74D0      1243            mov     a,#__str_13
-037A C0E0      1244            push    acc
-037C 74C1      1245            mov     a,#(__str_13 >> 8)
-037E C0E0      1246            push    acc
-0380 7480      1247            mov     a,#0x80
-0382 C0E0      1248            push    acc
-0384 120000    1249            lcall   _printf
-0387 E581      1250            mov     a,sp
-0389 24FA      1251            add     a,#0xfa
-038B F581      1252            mov     sp,a
-038D D003      1253            pop     ar3
-038F D002      1254            pop     ar2
-0391           1255   L014002?:
-0391           1256   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:273: if (strchr(RX_BUFF, 'I') != NULL) {
-0391 750049    1257            mov     _strchr_PARM_2,#0x49
-0394 901530    1258            mov     dptr,#_RX_BUFF
-0397 75F040    1259            mov     b,#0x40
-039A C002      1260            push    ar2
-039C C003      1261            push    ar3
-039E 120000    1262            lcall   _strchr
-03A1 AC82      1263            mov     r4,dpl
-03A3 AD83      1264            mov     r5,dph
-03A5 AEF0      1265            mov     r6,b
-03A7 D003      1266            pop     ar3
-03A9 D002      1267            pop     ar2
-03AB BC0090    1268            cjne    r4,#0x00,L014015?
-03AE BD0090    1269            cjne    r5,#0x00,L014015?
-03B1 BE0090    1270            cjne    r6,#0x00,L014015?
-03B4 020000    1271            ljmp    L014006?
-03B7           1272   L014015?:
-03B7           1273   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:274: sendstr1(TX_BUFF);
-03B7 9014F0    1274            mov     dptr,#_TX_BUFF
-03BA 75F040    1275            mov     b,#0x40
-03BD C002      1276            push    ar2
-03BF C003      1277            push    ar3
-03C1 120000    1278            lcall   _sendstr1
-03C4           1279   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:275: putchar('.');
-03C4 75822E    1280            mov     dpl,#0x2E
-03C7 120000    1281            lcall   _putchar
-03CA           1282   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:276: waitms_or_RI1(200);
-03CA 9000C8    1283            mov     dptr,#0x00C8
-03CD 120000    1284            lcall   _waitms_or_RI1
-03D0 D003      1285            pop     ar3
-03D2 D002      1286            pop     ar2
-03D4 020000    1287            ljmp    L014006?
-03D7           1288            rseg R_CSEG
-03D7           1289   
-0000           1290            rseg R_XINIT
-0000           1291   
-0000           1292            rseg R_CONST
-0000           1293   _TX_CMD:
-0000 10C380    1294            db _str_14,(_str_14 >> 8),0x80
-0003           1295   __str_0:
-0003 436F6D6D  1296            db 'Command: %s'
+0354 D003      1223            pop     ar3
+0356 D002      1224            pop     ar2
+0358           1225   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:261: if (cnt % 1000 == 0) {
+0358 7500E8    1226            mov     __moduint_PARM_2,#0xE8
+035B 750103    1227            mov     (__moduint_PARM_2 + 1),#0x03
+035E 8A82      1228            mov     dpl,r2
+0360 8B83      1229            mov     dph,r3
+0362 C002      1230            push    ar2
+0364 C003      1231            push    ar3
+0366 120000    1232            lcall   __moduint
+0369 E582      1233            mov     a,dpl
+036B 8583F0    1234            mov     b,dph
+036E D003      1235            pop     ar3
+0370 D002      1236            pop     ar2
+0372 45F0      1237            orl     a,b
+0374 7000      1238            jnz     L014004?
+0376           1239   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:262: if (RXU1()) {
+0376 C002      1240            push    ar2
+0378 C003      1241            push    ar3
+037A 120000    1242            lcall   _RXU1
+037D E4        1243            clr     a
+037E 33        1244            rlc     a
+037F D003      1245            pop     ar3
+0381 D002      1246            pop     ar2
+0383 6000      1247            jz      L014004?
+0385           1248   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:263: getstr1(RX_BUFF);
+0385 901530    1249            mov     dptr,#_RX_BUFF
+0388 75F040    1250            mov     b,#0x40
+038B C002      1251            push    ar2
+038D C003      1252            push    ar3
+038F 120000    1253            lcall   _getstr1
+0392           1254   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:264: printf("RX: %s\r\n", RX_BUFF);
+0392 7430      1255            mov     a,#_RX_BUFF
+0394 C0E0      1256            push    acc
+0396 7415      1257            mov     a,#(_RX_BUFF >> 8)
+0398 C0E0      1258            push    acc
+039A 7440      1259            mov     a,#0x40
+039C C0E0      1260            push    acc
+039E 7460      1261            mov     a,#__str_13
+03A0 C0E0      1262            push    acc
+03A2 74C2      1263            mov     a,#(__str_13 >> 8)
+03A4 C0E0      1264            push    acc
+03A6 7480      1265            mov     a,#0x80
+03A8 C0E0      1266            push    acc
+03AA 120000    1267            lcall   _printf
+03AD E581      1268            mov     a,sp
+03AF 24FA      1269            add     a,#0xfa
+03B1 F581      1270            mov     sp,a
+03B3 D003      1271            pop     ar3
+03B5 D002      1272            pop     ar2
+03B7           1273   L014004?:
+03B7           1274   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:269: if (cnt % 5500 == 0)  {
+03B7 75007C    1275            mov     __moduint_PARM_2,#0x7C
+03BA 750115    1276            mov     (__moduint_PARM_2 + 1),#0x15
+03BD 8A82      1277            mov     dpl,r2
+03BF 8B83      1278            mov     dph,r3
+03C1 C002      1279            push    ar2
+03C3 C003      1280            push    ar3
+03C5 120000    1281            lcall   __moduint
+03C8 E582      1282            mov     a,dpl
+03CA 8583F0    1283            mov     b,dph
+03CD D003      1284            pop     ar3
+03CF D002      1285            pop     ar2
+03D1 45F0      1286            orl     a,b
+03D3 7000      1287            jnz     L014006?
+03D5           1288   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:270: sendstr1(TX_BUFF);
+03D5 9014F0    1289            mov     dptr,#_TX_BUFF
+03D8 75F040    1290            mov     b,#0x40
+03DB C002      1291            push    ar2
+03DD C003      1292            push    ar3
+03DF 120000    1293            lcall   _sendstr1
+03E2           1294   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:272: waitms_or_RI1(200);
+03E2 9000C8    1295            mov     dptr,#0x00C8
+03E5 120000    1296            lcall   _waitms_or_RI1
+03E8 D003      1297            pop     ar3
+03EA D002      1298            pop     ar2
+03EC           1299   L014006?:
+03EC           1300   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:275: waitms(1);
+03EC 900001    1301            mov     dptr,#0x0001
+03EF C002      1302            push    ar2
+03F1 C003      1303            push    ar3
+03F3 120000    1304            lcall   _waitms
+03F6 D003      1305            pop     ar3
+03F8 D002      1306            pop     ar2
+03FA 020000    1307            ljmp    L014008?
+03FD           1308            rseg R_CSEG
+03FD           1309   
+0000           1310            rseg R_XINIT
+0000           1311   
+0000           1312            rseg R_CONST
+0000           1313   _TX_CMD:
+0000 E0C280    1314            db _str_14,(_str_14 >> 8),0x80
+0003           1315   __str_0:
+0003 436F6D6D  1316            db 'Command: %s'
      616E643A
      202573
-000E 00        1297            db 0x00
-000F           1298   __str_1:
-000F 52657370  1299            db 'Response: %s'
+000E 00        1317            db 0x00
+000F           1318   __str_1:
+000F 52657370  1319            db 'Response: %s'
      6F6E7365
      3A202573
-001B 0D        1300            db 0x0D
-001C 0A        1301            db 0x0A
-001D 00        1302            db 0x00
-001E           1303   __str_2:
-001E 0D        1304            db 0x0D
-001F 0A        1305            db 0x0A
-0020 4A44592D  1306            db 'JDY-40 test'
+001B 0D        1320            db 0x0D
+001C 0A        1321            db 0x0A
+001D 00        1322            db 0x00
+001E           1323   __str_2:
+001E 0D        1324            db 0x0D
+001F 0A        1325            db 0x0A
+0020 4A44592D  1326            db 'JDY-40 test'
      34302074
      657374
-002B 0D        1307            db 0x0D
-002C 0A        1308            db 0x0A
-002D 00        1309            db 0x00
-002E           1310   __str_3:
-002E 41542B44  1311            db 'AT+DVIDAFAF'
+002B 0D        1327            db 0x0D
+002C 0A        1328            db 0x0A
+002D 00        1329            db 0x00
+002E           1330   __str_3:
+002E 41542B44  1331            db 'AT+DVIDAFAF'
      56494441
      464146
-0039 0D        1312            db 0x0D
-003A 0A        1313            db 0x0A
-003B 00        1314            db 0x00
-003C           1315   __str_4:
-003C 41542B52  1316            db 'AT+RFIDFFBB'
+0039 0D        1332            db 0x0D
+003A 0A        1333            db 0x0A
+003B 00        1334            db 0x00
+003C           1335   __str_4:
+003C 41542B52  1336            db 'AT+RFIDFFBB'
      46494446
      464242
-0047 0D        1317            db 0x0D
-0048 0A        1318            db 0x0A
-0049 00        1319            db 0x00
-004A           1320   __str_5:
-004A 41542B56  1321            db 'AT+VER'
+0047 0D        1337            db 0x0D
+0048 0A        1338            db 0x0A
+0049 00        1339            db 0x00
+004A           1340   __str_5:
+004A 41542B56  1341            db 'AT+VER'
      4552
-0050 0D        1322            db 0x0D
-0051 0A        1323            db 0x0A
-0052 00        1324            db 0x00
-0053           1325   __str_6:
-0053 41542B42  1326            db 'AT+BAUD'
+0050 0D        1342            db 0x0D
+0051 0A        1343            db 0x0A
+0052 00        1344            db 0x00
+0053           1345   __str_6:
+0053 41542B42  1346            db 'AT+BAUD'
      415544
-005A 0D        1327            db 0x0D
-005B 0A        1328            db 0x0A
-005C 00        1329            db 0x00
-005D           1330   __str_7:
-005D 41542B52  1331            db 'AT+RFID'
+005A 0D        1347            db 0x0D
+005B 0A        1348            db 0x0A
+005C 00        1349            db 0x00
+005D           1350   __str_7:
+005D 41542B52  1351            db 'AT+RFID'
      464944
-0064 0D        1332            db 0x0D
-0065 0A        1333            db 0x0A
-0066 00        1334            db 0x00
-0067           1335   __str_8:
-0067 41542B44  1336            db 'AT+DVID'
+0064 0D        1352            db 0x0D
+0065 0A        1353            db 0x0A
+0066 00        1354            db 0x00
+0067           1355   __str_8:
+0067 41542B44  1356            db 'AT+DVID'
      564944
-006E 0D        1337            db 0x0D
-006F 0A        1338            db 0x0A
-0070 00        1339            db 0x00
-0071           1340   __str_9:
-0071 41542B52  1341            db 'AT+RFC'
+006E 0D        1357            db 0x0D
+006F 0A        1358            db 0x0A
+0070 00        1359            db 0x00
+0071           1360   __str_9:
+0071 41542B52  1361            db 'AT+RFC'
      4643
-0077 0D        1342            db 0x0D
-0078 0A        1343            db 0x0A
-0079 00        1344            db 0x00
-007A           1345   __str_10:
-007A 41542B50  1346            db 'AT+POWE'
+0077 0D        1362            db 0x0D
+0078 0A        1363            db 0x0A
+0079 00        1364            db 0x00
+007A           1365   __str_10:
+007A 41542B50  1366            db 'AT+POWE'
      4F5745
-0081 0D        1347            db 0x0D
-0082 0A        1348            db 0x0A
-0083 00        1349            db 0x00
-0084           1350   __str_11:
-0084 41542B43  1351            db 'AT+CLSS'
+0081 0D        1367            db 0x0D
+0082 0A        1368            db 0x0A
+0083 00        1369            db 0x00
+0084           1370   __str_11:
+0084 41542B43  1371            db 'AT+CLSS'
      4C5353
-008B 0D        1352            db 0x0D
-008C 0A        1353            db 0x0A
-008D 00        1354            db 0x00
-008E           1355   __str_12:
-008E 202564    1356            db ' %d'
-0091 0D        1357            db 0x0D
-0092 0A        1358            db 0x0A
-0093 00        1359            db 0x00
-0094           1360   __str_13:
-0094 52583A20  1361            db 'RX: %s'
+008B 0D        1372            db 0x0D
+008C 0A        1373            db 0x0A
+008D 00        1374            db 0x00
+008E           1375   __str_12:
+008E 202564    1376            db ' %d'
+0091 0D        1377            db 0x0D
+0092 0A        1378            db 0x0A
+0093 00        1379            db 0x00
+0094           1380   __str_13:
+0094 52583A20  1381            db 'RX: %s'
      2573
-009A 0D        1362            db 0x0D
-009B 0A        1363            db 0x0A
-009C 00        1364            db 0x00
-009D           1365   _str_14:
-009D 49        1366            db 'I'
-009E 0D        1367            db 0x0D
-009F 0A        1368            db 0x0A
-00A0 00        1369            db 0x00
-00A1           1370   
-0003           1371            CSEG
-0003           1372   
-0003           1373   end
+009A 0D        1382            db 0x0D
+009B 0A        1383            db 0x0A
+009C 00        1384            db 0x00
+009D           1385   _str_14:
+009D 49        1386            db 'I'
+009E 0D        1387            db 0x0D
+009F 0A        1388            db 0x0A
+00A0 00        1389            db 0x00
+00A1           1390   
+0003           1391            CSEG
+0003           1392   
+0003           1393   end

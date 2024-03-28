@@ -320,7 +320,7 @@ END GROUP
                 0x08001d88        0x2 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-lock.o)
                 0x08001d88                __retarget_lock_release_recursive
  .text          0x08001d8a        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-makebuf.o)
- *fill*         0x08001d8a        0x2
+ *fill*         0x08001d8a        0x2 
  .text.__swhatbuf_r
                 0x08001d8c       0x50 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-makebuf.o)
                 0x08001d8c                __swhatbuf_r
@@ -359,7 +359,7 @@ END GROUP
  .text.__sprint_r
                 0x0800244a       0x1c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-vfprintf.o)
                 0x0800244a                __sprint_r
- *fill*         0x08002466        0x2
+ *fill*         0x08002466        0x2 
  .text._vfprintf_r
                 0x08002468      0x274 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-vfprintf.o)
                 0x08002468                _vfprintf_r
@@ -372,7 +372,7 @@ END GROUP
  .text._printf_common
                 0x080026f4       0xde C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-vfprintf_i.o)
                 0x080026f4                _printf_common
- *fill*         0x080027d2        0x2
+ *fill*         0x080027d2        0x2 
  .text._printf_i
                 0x080027d4      0x224 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-vfprintf_i.o)
                 0x080027d4                _printf_i
@@ -427,7 +427,7 @@ END GROUP
  .text.memmove  0x08002e6c       0x26 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-memmove.o)
                 0x08002e6c                memmove
  .text          0x08002e92        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mlock.o)
- *fill*         0x08002e92        0x2
+ *fill*         0x08002e92        0x2 
  .text.__malloc_lock
                 0x08002e94       0x10 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mlock.o)
                 0x08002e94                __malloc_lock
@@ -439,7 +439,7 @@ END GROUP
                 0x08002eb4       0x5e C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-reallocr.o)
                 0x08002eb4                _realloc_r
  .text          0x08002f12        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-readr.o)
- *fill*         0x08002f12        0x2
+ *fill*         0x08002f12        0x2 
  .text._read_r  0x08002f14       0x28 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-readr.o)
                 0x08002f14                _read_r
  .text          0x08002f3c        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-msizer.o)
@@ -454,7 +454,7 @@ END GROUP
                 0x0800306c                __aeabi_uidivmod
  *(.rodata*)
  .rodata        0x08003074      0x103 main.o
- *fill*         0x08003177        0x1
+ *fill*         0x08003177        0x1 
  .rodata        0x08003178       0x7c startup.o
  .rodata.__sf_fake_stderr
                 0x080031f4       0x20 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-findfp.o)
@@ -475,7 +475,7 @@ END GROUP
  .rodata._printf_i.str1.1
                 0x08003269       0x22 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-vfprintf_i.o)
                 0x0800328c                . = ALIGN (0x4)
- *fill*         0x0800328b        0x1
+ *fill*         0x0800328b        0x1 
                 0x0800328c                PROVIDE (__init_array_start = .)
  *(SORT_BY_NAME(.init_array.*))
  *(.init_array)
@@ -626,7 +626,7 @@ END GROUP
  .bss           0x2000020d        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-memset.o)
  .bss           0x2000020d        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-freer.o)
  .bss           0x2000020d        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-mallocr.o)
- *fill*         0x2000020d        0x3
+ *fill*         0x2000020d        0x3 
  .bss.__malloc_free_list
                 0x20000210        0x4 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-mallocr.o)
                 0x20000210                __malloc_free_list
@@ -688,23 +688,23 @@ LOAD linker stubs
  .debug_aranges
                 0x00000088       0x20 newlib_stubs.o
 
-.debug_line     0x00000000     0x1145
- .debug_line    0x00000000      0x25c main.o
- .debug_line    0x0000025c      0x4d4 serial.o
- .debug_line    0x00000730      0x4bf UART2.o
- .debug_line    0x00000bef      0x296 startup.o
- .debug_line    0x00000e85      0x2c0 newlib_stubs.o
+.debug_line     0x00000000     0x1147
+ .debug_line    0x00000000      0x25e main.o
+ .debug_line    0x0000025e      0x4d4 serial.o
+ .debug_line    0x00000732      0x4bf UART2.o
+ .debug_line    0x00000bf1      0x296 startup.o
+ .debug_line    0x00000e87      0x2c0 newlib_stubs.o
 
-.debug_str      0x00000000      0x835
+.debug_str      0x00000000      0x837
  .debug_str     0x00000000      0x2af main.o
                                 0x2f1 (size before relaxing)
- .debug_str     0x000002af      0x185 serial.o
-                                0x3e2 (size before relaxing)
- .debug_str     0x00000434       0xe9 UART2.o
-                                0x3f3 (size before relaxing)
- .debug_str     0x0000051d       0xee startup.o
+ .debug_str     0x000002af      0x186 serial.o
+                                0x3e3 (size before relaxing)
+ .debug_str     0x00000435       0xea UART2.o
+                                0x3f4 (size before relaxing)
+ .debug_str     0x0000051f       0xee startup.o
                                 0x30a (size before relaxing)
- .debug_str     0x0000060b      0x22a newlib_stubs.o
+ .debug_str     0x0000060d      0x22a newlib_stubs.o
                                 0x408 (size before relaxing)
 
 .comment        0x00000000       0x49
@@ -855,8 +855,8 @@ ComError                                          serial.o
 ComError2                                         UART2.o
 ComOpen                                           serial.o
 ComOpen2                                          UART2.o
-ComRX_BUFFer                                       serial.o
-ComRX_BUFFer2                                      UART2.o
+ComRX_BUFFer                                      serial.o
+ComRX_BUFFer2                                     UART2.o
 ComTXBuffer                                       serial.o
 ComTXBuffer2                                      UART2.o
 ConfigJDY40                                       main.o

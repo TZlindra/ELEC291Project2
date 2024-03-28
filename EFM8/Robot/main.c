@@ -222,7 +222,7 @@ void main (void) {
 	Serial_Init();
 	UART1_Init(9600);
 	JDYInit();
-	// TIMER5_Init();
+	TIMER5_Init();
 
 	EA = 1;
 	while(1){

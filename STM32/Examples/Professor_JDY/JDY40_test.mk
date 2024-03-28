@@ -2,7 +2,7 @@ SHELL=cmd
 CC=arm-none-eabi-gcc
 AS=arm-none-eabi-as
 LD=arm-none-eabi-ld
-CCFLAGS=-mcpu=cortex-m0 -mthumb -g
+CCFLAGS=-mcpu=cortex-m0 -mthumb -g 
 
 # Search for the path of the right libraries.  Works only on Windows.
 GCCPATH=$(subst \bin\arm-none-eabi-gcc.exe,\,$(shell where $(CC)))
@@ -36,11 +36,11 @@ UART2.o: UART2.c
 newlib_stubs.o: ../Common/Source/newlib_stubs.c
 	$(CC) -c $(CCFLAGS) ../Common/Source/newlib_stubs.c -o newlib_stubs.o
 
-clean:
+clean: 
 	@del $(OBJS) 2>NUL
 	@del main.elf main.hex main.map 2>NUL
 	@del *.lst 2>NUL
-
+	
 Flash_Load:
 	@taskkill /f /im putty.exe /t /fi "status eq running" > NUL
 	@echo ..\stm32flash\stm32flash -w main.hex -v -g 0x0 ^^>sflash.bat
@@ -54,6 +54,7 @@ putty:
 	@echo cmd /c start putty.exe -sercfg 115200,8,n,1,N -serial ^^>sputty.bat
 	@..\stm32flash\BO230\BO230 -r >>sputty.bat
 	@sputty
-
+	
 explorer:
 	@explorer .
+

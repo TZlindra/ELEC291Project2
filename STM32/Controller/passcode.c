@@ -28,14 +28,16 @@
 #define DEBOUNCE 30
 
 
-enum State state = init;
+volatile enum State state = init;
+int correct = 1;
 
 enum State
 {
-    s0,
+    init = 0,
     s1,
     s2,
-    s3
+    s3,
+    open,
 };
 
 void passcodeButtonsInit()
@@ -63,9 +65,21 @@ void passcodeButtonsInit()
 
 void passcodeButtons()
 {
+    if (!((!(GPIOB->IDR & BUTTON0) && state == init) || (!(GPIOB->IDR & BUTTON0) && state == s1) || (!(GPIOB->IDR & BUTTON0) && state == s2) || (!(GPIOB->IDR & BUTTON0) && state == s3)))
+    {
+        correct = 0;
+    }
+
     if (!(GPIOB->IDR & BUTTON0) || !(GPIOB->IDR & BUTTON1) || !(GPIOB->IDR & BUTTON2) || !(GPIOB->IDR & BUTTON3))
     {
-        state++;
+        waitms(DEBOUNCE);
+        if (!(GPIOB->IDR & BUTTON0) || !(GPIOB->IDR & BUTTON1) || !(GPIOB->IDR & BUTTON2) || !(GPIOB->IDR & BUTTON3))
+        {
+            state++;
+
+            while ((GPIOB->IDR & BUTTON0) || (GPIOB->IDR & BUTTON1) || (GPIOB->IDR & BUTTON2) || (GPIOB->IDR & BUTTON3));
+        }
+
     }
 
 
@@ -73,22 +87,17 @@ void passcodeButtons()
 
 int main(void)
 {
-    switch(state) {
-        case init:
-            printf("Current state is 1\n");
-            break;
-        case x1:
-            printf("Current state is 2\n");
-            break;
-        case STATE_3:
-            printf("Current state is 3\n");
-            break;
-        case STATE_4:
-            printf("Current state is 4\n");
-            break;
-        default:
-            printf("Invalid state\n");
-            break;
+    passcodeButtonsInit();
+    while(state != open && correct = 0)
+    {
+        if (state == open)
+        {
+            state = init;
+            if (correct == 0) correct = 1;
+        }
+
+        passcodeButtons();
     }
+
     return 0;
 }

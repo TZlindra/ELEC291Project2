@@ -264,7 +264,6 @@ void PWM_manager(float x_value, float y_value)
 
 enum State movement_manager(float PWM_percent_x, float PWM_percent_y, float prev_PWM_percent_x, float prev_PWM_percent_y, enum State state)
 {
-
     if (prev_PWM_percent_x != PWM_percent_x || prev_PWM_percent_y != PWM_percent_y)
     {
         if (PWM_percent_y == 0 && PWM_percent_x == 0)
@@ -357,6 +356,16 @@ void main (void)
         {
             PWM_percent_x -= 10;
             while(P2_5 == 0);
+        }
+        if (P3_2 == 0)
+        {
+            PWM_percent_y -= 10;
+            while(P3_2 == 0);
+        }
+        if (P3_7 == 0)
+        {
+            PWM_percent_y += 10;
+            while(P3_7 == 0);
         }
 
         //printf("PWM X: %d\n", PWM_percent_x);

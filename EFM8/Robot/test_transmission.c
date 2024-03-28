@@ -95,7 +95,7 @@ char _c51_external_startup (void) {
 	TI = 1;  // Indicate TX0 ready
 
 	return 0;
-}
+ }
 void TIMER0_Init(void) {
 	TMOD &= 0b_1111_0000; // Set the Bits of Timer/Counter 0 to 0
 	TMOD |= 0b_0000_0001; // Timer/Counter 0 Used As 16-Bit Timer

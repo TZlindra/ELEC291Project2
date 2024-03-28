@@ -32,6 +32,7 @@
 #include "JDY40.h"
 #include "movement.h"
 #include "frequency_calc.h"
+//#include "passcode.h"
 
 #define CHARS_PER_LINE 16
 
@@ -210,9 +211,9 @@ void main(void) {
 		Update_XY(standardized_x, standardized_y);
 		RX_I(); // Receive Inductance Value
 
-		// display_buffs();
+		display_buffs();
 		inductance = Update_I(inductance);
-		printf("I: %d\r\n", inductance);
+		// printf("I: %d\r\n", inductance);
 
 		// if (IsButtonPressed()) SpeakerRatio = SetSpeakerFreq(SpeakerRatio);
 

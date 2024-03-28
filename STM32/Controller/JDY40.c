@@ -114,7 +114,6 @@ void RX_I(void) {
 		JDY_Delay_ms(1); // Delay For Response
 	}
 
-
 	return;
 }
 

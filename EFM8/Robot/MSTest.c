@@ -1,26 +1,15 @@
-// C1 = 10nF C2 = 100nF
-#include "global.h"
-#include "JDY40.h"
+#include <EFM8LB1.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
 
-#define TIMER_OUT_5 P1_3
+#define SYSCLK 72000000
+#define BAUDRATE 115200L
 
-idata char hold[20];
+idata char buff[80];
 
-volatile int TX5Count = 0;
-volatile int RX5Count = 0;
-
-volatile int freq = 300;
-volatile int inductance = 0;
-
-/* Function Prototypes */
-void Timer3us(unsigned char us);
-void waitms(unsigned int ms);
-
-float calculate_period_s(int overflow_count, int TH0, int TL0);
-float calculate_freq_Hz(float period_s);
-float get_freq(void);
-
-char _c51_external_startup(void) {
+char _c51_external_startup (void)
+{
 	// Disable Watchdog with key sequence
 	SFRPAGE = 0x00;
 	WDTCN = 0xDE; //First key
@@ -88,62 +77,9 @@ char _c51_external_startup(void) {
 	return 0;
 }
 
-void TIMER0_Init(void) {
-	TMOD &= 0b_1111_0000; // Set the Bits of Timer/Counter 0 to 0
-	TMOD |= 0b_0000_0001; // Timer/Counter 0 Used As 16-Bit Timer
-	TR0 = 0; // Stop Timer/Counter 0
-}
-
-void TIMER5_Init(void) {
-	// Initialize timer 5 for periodic interrupts
-	SFRPAGE=0x10;
-	TMR5CN0=0x00;   // Stop Timer5; Clear TF5; WARNING: lives in SFR page 0x10
-	CKCON1|=0b_0000_0100; // Timer 5 uses the system clock
-	TMR5RL=(0x10000L-(SYSCLK/(2*TIMER_5_FREQ))); // Initialize reload value
-	TMR5=0xffff;   // Set to reload immediately
-	EIE2|=0b_0000_1000; // Enable Timer5 interrupts
-	TR5=1;         // Start Timer5 (TMR5CN0 is bit addressable)
-}
-
-
-void Timer5_ISR (void) interrupt INTERRUPT_TIMER5
-{
-	SFRPAGE=0x10;
-	TF5H = 0; // Clear Timer5 interrupt flag
-	TIMER_OUT_5=!TIMER_OUT_5;
-}
-
-void Serial_Init(void) {
-	waitms(500); // Give Putty a chance to start.
-	printf("\x1b[2J"); // Clear screen using ANSI escape sequence.
-}
-
-void UART1_Init(unsigned long baudrate) {
-    SFRPAGE = 0x20;
-    SMOD1 = 0x0C; // no parity, 8 data bits, 1 stop bit
-    SCON1 = 0x50; // Mode 1, 8-bit UART, variable baud rate, receive enabled
-    SBCON1 = 0x00; // disable baud rate generator
-    SBRL1 = 0x10000L - ((SYSCLK / baudrate) / (12L * 2L));
-    TI1 = 1; // indicate ready for TX
-    SBCON1 |= 0x40; // enable baud rate generator
-    SFRPAGE = 0x00;
-}
-
-void JDYInit(void) {
-	SendATCommand("AT+DVIDAFAF\r\n");
-	SendATCommand("AT+RFIDFFBB\r\n");
-	// To check configuration
-	SendATCommand("AT+VER\r\n");
-	SendATCommand("AT+BAUD\r\n");
-	SendATCommand("AT+RFID\r\n");
-	SendATCommand("AT+DVID\r\n");
-	SendATCommand("AT+RFC\r\n");
-	SendATCommand("AT+POWE\r\n");
-	SendATCommand("AT+CLSS\r\n");
-}
-
 // Uses Timer3 to delay <us> micro-seconds.
-void Timer3us(unsigned char us) {
+void Timer3us(unsigned char us)
+{
 	unsigned char i;               // usec counter
 
 	// The input for Timer 3 is selected as SYSCLK by setting T3ML (bit 6) of CKCON0:
@@ -161,83 +97,183 @@ void Timer3us(unsigned char us) {
 	TMR3CN0 = 0 ;                   // Stop Timer3 and clear overflow flag
 }
 
-void waitms(unsigned int ms) {
+void waitms (unsigned int ms)
+{
 	unsigned int j;
 	unsigned char k;
 	for(j=0; j<ms; j++)
 		for (k=0; k<4; k++) Timer3us(250);
 }
 
-float calculate_period_s(int overflow_count, int TH0, int TL0) {
-	return ((overflow_count * MAX_16_BIT)  + (TH0 * MAX_8_BIT) + TL0) * (12.0 / SYSCLK);
+void UART1_Init(unsigned long baudrate) {
+    SFRPAGE = 0x20;
+    SMOD1 = 0x0C; // no parity, 8 data bits, 1 stop bit
+    SCON1 = 0x50; // Mode 1, 8-bit UART, variable baud rate, receive enabled
+    SBCON1 = 0x00; // disable baud rate generator
+    SBRL1 = 0x10000L - ((SYSCLK / baudrate) / (12L * 2L));
+    TI1 = 1; // indicate ready for TX
+    SBCON1 |= 0x40; // enable baud rate generator
+    SFRPAGE = 0x00;
 }
 
-float calculate_freq_Hz(float period_s) {
-	return (1.0 / period_s);
+void putchar1(char c) {
+    SFRPAGE = 0x20;
+    while (!TI1);
+    TI1 = 0;
+    SBUF1 = c;
+    SFRPAGE = 0x00;
 }
 
-float get_freq(void) {
-	float period_s, freq_Hz;
-	int overflow_count = 0;
-	TL0 = 0;
-	TH0 = 0;
-	TF0 = 0;
-	overflow_count = 0;
-
-	while (EFM8_SIGNAL != 0); // Wait for Signal == 0
-	while (EFM8_SIGNAL != 1); // Wait for Signal == 1
-
-    TR0 = 1; // Start Timer
-
-	while (EFM8_SIGNAL != 0) { // Wait for Signal == 0
-		if (TF0 == 1) { // Did 16-Bit Timer Overflow?
-			TF0 = 0;
-			overflow_count++;
-		}
-    }
-    while (EFM8_SIGNAL != 1) { // Wait for Signal == 1
-		if (TF0 == 1) { // Did 16-Bit Timer Overflow?
-			TF0 = 0;
-			overflow_count++;
-		}
-    }
-
-	TR0 = 0; // Stop Timer 0. The 24-bit number [overflow_count-TH0-TL0] has the period!
-	period_s = calculate_period_s(overflow_count, TH0, TL0);
-	freq_Hz = calculate_freq_Hz(period_s);
-	return freq_Hz;
-}
-
-void GetMovement(char* s, int com) {
-	printf(s);
-	if (com == 0){
-		return;
+void sendstr1 (char * s)
+{
+	while(*s)
+	{
+		putchar1(*s);
+		s++;
 	}
 }
 
-void main (void) {
-	// int com;
+char getchar1(void) {
+    char c;
+    SFRPAGE = 0x20;
+    while (!RI1);
+    RI1 = 0;
+    // Clear Overrun and Parity error flags
+    SCON1 &= 0b_0011_1111;
+    c = SBUF1;
+    SFRPAGE = 0x00;
+    return (c);
+}
 
-	TIMER0_Init();
-	Serial_Init();
-	UART1_Init(9600);
-	JDYInit();
-	TIMER5_Init();
-
-	EA = 1;
-	while(1){
-		RX5Count++;
-
-		if (RX5Count >= 100) {
-			RX5Count = 0;
-			RX_XY();
+char getchar1_with_timeout (void)
+{
+	char c;
+	unsigned int timeout;
+    SFRPAGE = 0x20;
+    timeout=0;
+	while (!RI1)
+	{
+		SFRPAGE = 0x00;
+		Timer3us(20);
+		SFRPAGE = 0x20;
+		timeout++;
+		if(timeout==25000)
+		{
+			SFRPAGE = 0x00;
+			return ('\n'); // Timeout after half second
 		}
+	}
+	RI1=0;
+	// Clear Overrun and Parity error flags
+	SCON1&=0b_0011_1111;
+	c = SBUF1;
+	SFRPAGE = 0x00;
+	return (c);
+}
 
-		Update_I(inductance);
+void getstr1 (char * s)
+{
+	char c;
 
-		display_buffs();
+	while(1)
+	{
+		c=getchar1_with_timeout();
+		if(c=='\n')
+		{
+			*s=0;
+			return;
+		}
+		*s=c;
+		s++;
+	}
+}
 
-		inductance += 5;
-		waitms(500); // Delay 500 ms
+// RXU1 returns '1' if there is a byte available in the receive buffer of UART1
+bit RXU1 (void)
+{
+	bit mybit;
+    SFRPAGE = 0x20;
+	mybit=RI1;
+	SFRPAGE = 0x00;
+	return mybit;
+}
+
+void waitms_or_RI1 (unsigned int ms)
+{
+	unsigned int j;
+	unsigned char k;
+	for(j=0; j<ms; j++)
+	{
+		for (k=0; k<4; k++)
+		{
+			if(RXU1()) return;
+			Timer3us(250);
+		}
+	}
+}
+
+void SendATCommand (char * s)
+{
+	printf("Command: %s", s);
+	P2_0=0; // 'set' pin to 0 is 'AT' mode.
+	waitms(5);
+	sendstr1(s);
+	getstr1(buff);
+	waitms(10);
+	P2_0=1; // 'set' pin to 1 is normal operation mode.
+	printf("Response: %s\r\n", buff);
+}
+
+
+void main (void)
+{
+	unsigned int cnt;
+
+	waitms(500);
+	printf("\r\nJDY-40 test\r\n");
+	UART1_Init(9600);
+
+	// To configure the device (shown here using default values).
+	// For some changes to take effect, the JDY-40 needs to be power cycled.
+	// Communication can only happen between devices with the
+	// same RFID and DVID in the same channel.
+
+	//SendATCommand("AT+BAUD4\r\n");
+	//SendATCommand("AT+RFID8899\r\n");
+	//SendATCommand("AT+DVID1122\r\n"); // Default device ID.
+	//SendATCommand("AT+RFC001\r\n");
+	//SendATCommand("AT+POWE9\r\n");
+	//SendATCommand("AT+CLSSA0\r\n");
+
+	// We should select an unique device ID.  The device ID can be a hex
+	// number from 0x0000 to 0xFFFF.  In this case is set to 0xABBA
+	SendATCommand("AT+DVIDAFAF\r\n");
+	SendATCommand("AT+RFIDFFBB\r\n");
+	// To check configuration
+	SendATCommand("AT+VER\r\n");
+	SendATCommand("AT+BAUD\r\n");
+	SendATCommand("AT+RFID\r\n");
+	SendATCommand("AT+DVID\r\n");
+	SendATCommand("AT+RFC\r\n");
+	SendATCommand("AT+POWE\r\n");
+	SendATCommand("AT+CLSS\r\n");
+
+	printf("\r\Press and hold the BOOT button to transmit.\r\n");
+
+	cnt=0;
+	while(1)
+	{
+		if(P3_7==0)
+		{
+			sprintf(buff, " %d\r\n", cnt++);
+			sendstr1(buff);
+			putchar('.');
+			waitms_or_RI1(200);
+		}
+		if(RXU1())
+		{
+			getstr1(buff);
+			printf("RX: %s\r\n", buff);
+		}
 	}
 }

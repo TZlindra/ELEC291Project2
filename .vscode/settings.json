@@ -15,7 +15,8 @@
         "jdy40.h": "c",
         "Timer21.h": "c",
         "frequency_calc.h": "c",
-        "string.h": "c"
+        "string.h": "c",
+        "WPS.C": "cpp"
     },
     "makefile.makePath": "C:\\mingw\\bin",
     "cmake.configureOnOpen": false

@@ -104,7 +104,14 @@ void TX_XY(void) {
 
 void RX_I(void) {
 	int timeout_count = 0;
-	egets2(RX_BUFF, sizeof(RX_BUFF)-1);
+
+	while (timeout_count <= 200) {
+		if (ReceivedBytes2() > 0) {
+			egets2(RX_BUFF, sizeof(RX_BUFF)-1);
+		}
+		timeout_count++;
+	}
+
 	// eputs2(RX_CMD);
 
 	// while (timeout_count <= 200) {
@@ -136,7 +143,6 @@ void ConfigJDY40(void) {
 
 void Update_XY(int x_value, int y_value) {
 	sprintf(TX_BUFF, " X:%d Y:%d\r\n", x_value, y_value);
-	printf("%s", TX_BUFF);
 }
 
 int Update_I(int inductance) {
@@ -144,4 +150,9 @@ int Update_I(int inductance) {
 	int parsed = atoi(RX_BUFF);
 
 	return (parsed != 0) ? parsed : inductance;
+}
+
+void display_buffs(void) {
+	printf("TX_BUFF: %s\r\n", TX_BUFF);
+	printf("RX_BUFF: %s\r\n", RX_BUFF);
 }

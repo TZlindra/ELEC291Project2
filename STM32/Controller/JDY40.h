@@ -18,3 +18,5 @@ void RX_I(void);
 
 void Update_XY(int x_value, int y_value);
 int Update_I(int inductance);
+
+void display_buffs(void);

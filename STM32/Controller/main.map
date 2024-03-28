@@ -189,7 +189,7 @@ LOAD C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-
 LOAD C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libm.a
 END GROUP
 
-.text           0x08000000     0x8ccc
+.text           0x08000000     0x8cec
  *(.vectors)
  .vectors       0x08000000       0xb8 startup.o
                 0x08000000                Vectors
@@ -198,7 +198,7 @@ END GROUP
                 0x080000b8       0x28 startup.o
                 0x080000b8                ResetInit
  *(.text*)
- .text          0x080000e0      0x5f8 main.o
+ .text          0x080000e0      0x5c8 main.o
                 0x080000e0                TIM2_Handler
                 0x08000154                TIM21_Handler
                 0x08000194                delay
@@ -212,709 +212,711 @@ END GROUP
                 0x08000460                display_adc
                 0x080004e8                display_inductance
                 0x08000520                main
- .text          0x080006d8      0x1a8 startup.o
-                0x08000750                initClock
-                0x08000858                EXTI2_3_Handler
-                0x08000858                SysTick_Handler
-                0x08000858                I2C1_Handler
-                0x08000858                PendSV_Handler
-                0x08000858                NMI_Handler
-                0x08000858                WWDG_Handler
-                0x08000858                RTC_Handler
-                0x08000858                EXTI4_15_Handler
-                0x08000858                DMA_CH4_5_6_7_Handler
-                0x08000858                Default_Handler
-                0x08000858                LPUART1_Handler
-                0x08000858                FLASH_Handler
-                0x08000858                EXTI0_1_Handler
-                0x08000858                DMA_CH1_Handler
-                0x08000858                SPI2_Handler
-                0x08000858                DMA_CH2_3_Handler
-                0x08000858                I2C2_Handler
-                0x08000858                SVC_Handler
-                0x08000858                LPTIM1_Handler
-                0x08000858                SPI1_Handler
-                0x08000858                RCC_Handler
-                0x08000858                PVD_Handler
-                0x08000858                TIM6_Handler
-                0x08000858                TIM22_Handler
-                0x08000858                ADC_COMP_Handler
-                0x0800086c                Hard_Fault_Handler
- .text          0x08000880      0x5b4 serial.o
-                0x08000880                ReadCom
-                0x080008f4                WriteCom
-                0x08000994                initUART
-                0x08000ae4                USART1_Handler
-                0x08000b10                usart_rx
-                0x08000b40                usart_tx
-                0x08000ba8                PutBuf
-                0x08000c0a                GetBuf
-                0x08000c60                GetBufCount
-                0x08000c74                eputs
-                0x08000cb0                eputc
-                0x08000cce                egetc
-                0x08000ce8                egets
-                0x08000d74                egetc_echo
-                0x08000d9a                egets_echo
- .text          0x08000e34      0x5c8 UART2.o
-                0x08000e34                ReadCom2
-                0x08000ea8                WriteCom2
-                0x08000f48                InitUART2
-                0x08001094                USART2_Handler
-                0x080010c0                usart_rx2
-                0x080010f0                usart_tx2
-                0x08001158                PutBuf2
-                0x080011ba                GetBuf2
-                0x08001210                GetBufCount2
-                0x08001224                eputs2
-                0x08001260                eputc2
-                0x0800127e                egetc2
-                0x08001298                egets2
-                0x08001324                ReceivedBytes2
-                0x0800133c                egetc_echo2
-                0x08001362                egets_echo2
- .text          0x080013fc      0x378 JDY40.o
-                0x08001428                InitTimer21
-                0x08001480                JDS_Delay_us
-                0x080014e0                JDY_Delay_ms
-                0x0800152c                SendATCommand
-                0x080015a4                SendCommand
-                0x080015d8                ReceiveCommand
-                0x080015f8                stripSpaces
-                0x08001660                TX_XY
-                0x08001678                RX_I
-                0x08001698                ConfigJDY40
-                0x08001710                Update_XY
-                0x08001748                Update_I
- .text          0x08001774      0x3a0 lcd.o
-                0x08001774                wait_1ms
-                0x080017ac                waitms
-                0x080017d6                Delay_us
-                0x08001834                LCD_pulse
-                0x08001864                LCD_byte
-                0x080019e6                WriteData
-                0x08001a1a                WriteCommand
-                0x08001a4e                LCD_4BIT
-                0x08001a98                LCDprint
- .text          0x08001b14      0x100 adc.o
-                0x08001b14                initADC
-                0x08001ba8                readADC
- .text          0x08001c14      0x168 speaker.o
-                0x08001c40                InitTimer2
-                0x08001cb0                ToggleSpeaker
-                0x08001ccc                SetSpeakerFreq
-                0x08001d40                ConfigSpeaker
- .text          0x08001d7c       0xb0 frequency_calc.o
-                0x08001d7c                calculateCT
-                0x08001d88                calculate_inductance
- .text          0x08001e2c      0x1e8 movement.o
-                0x08001e2c                standardize_directions
-                0x08001e9c                standardize_y
-                0x08001f58                standardize_x
- .text          0x08002014      0x29c newlib_stubs.o
-                0x08002014                _exit
-                0x0800201e                _close
-                0x08002032                _execve
-                0x08002054                _fork
-                0x0800206c                _fstat
-                0x08002088                _getpid
-                0x08002094                _kill
-                0x080020b4                _link
-                0x080020d4                _lseek
-                0x080020ea                _stat
-                0x08002106                _times
-                0x0800211a                _unlink
-                0x08002138                _wait
-                0x08002158                _isatty
-                0x08002180                _sbrk
-                0x080021e4                _read
-                0x0800225c                _write
- .text          0x080022b0        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libnosys.a(errno.o)
- .text          0x080022b0      0x1d4 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(_divsi3.o)
-                0x080022b0                __divsi3
-                0x080022b0                __aeabi_idiv
-                0x0800247c                __aeabi_idivmod
- .text          0x08002484        0x4 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(_dvmd_tls.o)
-                0x08002484                __aeabi_idiv0
-                0x08002484                __aeabi_ldiv0
- .text          0x08002488       0x7c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(_arm_cmpdf2.o)
-                0x08002488                __aeabi_cdrcmple
-                0x08002498                __aeabi_cdcmple
-                0x08002498                __aeabi_cdcmpeq
-                0x080024a8                __aeabi_dcmpeq
-                0x080024b4                __aeabi_dcmplt
-                0x080024c8                __aeabi_dcmple
-                0x080024dc                __aeabi_dcmpgt
-                0x080024f0                __aeabi_dcmpge
- .text          0x08002504       0x74 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(_arm_cmpsf2.o)
-                0x08002504                __aeabi_cfrcmple
-                0x0800250c                __aeabi_cfcmpeq
-                0x0800250c                __aeabi_cfcmple
-                0x0800251c                __aeabi_fcmpeq
-                0x08002528                __aeabi_fcmplt
-                0x0800253c                __aeabi_fcmple
-                0x08002550                __aeabi_fcmpgt
-                0x08002564                __aeabi_fcmpge
- .text          0x08002578      0x230 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(divsf3.o)
-                0x08002578                __aeabi_fdiv
- .text          0x080027a8       0x4c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(eqsf2.o)
-                0x080027a8                __eqsf2
-                0x080027a8                __nesf2
- .text          0x080027f4       0x8c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(gesf2.o)
-                0x080027f4                __gesf2
-                0x080027f4                __gtsf2
- .text          0x08002880       0x88 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(lesf2.o)
-                0x08002880                __ltsf2
-                0x08002880                __lesf2
- .text          0x08002908      0x24c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(mulsf3.o)
-                0x08002908                __aeabi_fmul
- .text          0x08002b54       0x40 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(fixsfsi.o)
-                0x08002b54                __aeabi_f2iz
- .text          0x08002b94       0x9c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(floatsisf.o)
-                0x08002b94                __aeabi_i2f
- .text          0x08002c30      0x678 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(adddf3.o)
-                0x08002c30                __aeabi_dadd
- .text          0x080032a8      0x5ec C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(divdf3.o)
-                0x080032a8                __aeabi_ddiv
- .text          0x08003894       0x84 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(eqdf2.o)
-                0x08003894                __nedf2
-                0x08003894                __eqdf2
- .text          0x08003918       0xcc C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(gedf2.o)
-                0x08003918                __gedf2
-                0x08003918                __gtdf2
- .text          0x080039e4       0xc8 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(ledf2.o)
-                0x080039e4                __ledf2
-                0x080039e4                __ltdf2
- .text          0x08003aac      0x4d8 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(muldf3.o)
-                0x08003aac                __aeabi_dmul
- .text          0x08003f84      0x724 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(subdf3.o)
-                0x08003f84                __aeabi_dsub
- .text          0x080046a8       0x6c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(fixdfsi.o)
-                0x080046a8                __aeabi_d2iz
- .text          0x08004714       0x60 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(floatsidf.o)
-                0x08004714                __aeabi_i2d
- .text          0x08004774       0x90 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(extendsfdf2.o)
-                0x08004774                __aeabi_f2d
- .text          0x08004804      0x110 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(truncdfsf2.o)
-                0x08004804                __aeabi_d2f
- .text          0x08004914      0x114 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(_udivsi3.o)
-                0x08004914                __aeabi_uidiv
-                0x08004914                __udivsi3
-                0x08004a20                __aeabi_uidivmod
- .text          0x08004a28       0x3c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(_clzsi2.o)
-                0x08004a28                __clzsi2
- .text          0x08004a64        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-atoi.o)
- .text.atoi     0x08004a64        0xc C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-atoi.o)
-                0x08004a64                atoi
- .text._atoi_r  0x08004a70        0xc C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-atoi.o)
-                0x08004a70                _atoi_r
- .text          0x08004a7c        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-ctype_.o)
- .text          0x08004a7c        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-fflush.o)
+ .text          0x080006a8      0x1a8 startup.o
+                0x08000720                initClock
+                0x08000828                EXTI2_3_Handler
+                0x08000828                SysTick_Handler
+                0x08000828                I2C1_Handler
+                0x08000828                PendSV_Handler
+                0x08000828                NMI_Handler
+                0x08000828                WWDG_Handler
+                0x08000828                RTC_Handler
+                0x08000828                EXTI4_15_Handler
+                0x08000828                DMA_CH4_5_6_7_Handler
+                0x08000828                Default_Handler
+                0x08000828                LPUART1_Handler
+                0x08000828                FLASH_Handler
+                0x08000828                EXTI0_1_Handler
+                0x08000828                DMA_CH1_Handler
+                0x08000828                SPI2_Handler
+                0x08000828                DMA_CH2_3_Handler
+                0x08000828                I2C2_Handler
+                0x08000828                SVC_Handler
+                0x08000828                LPTIM1_Handler
+                0x08000828                SPI1_Handler
+                0x08000828                RCC_Handler
+                0x08000828                PVD_Handler
+                0x08000828                TIM6_Handler
+                0x08000828                TIM22_Handler
+                0x08000828                ADC_COMP_Handler
+                0x0800083c                Hard_Fault_Handler
+ .text          0x08000850      0x5b4 serial.o
+                0x08000850                ReadCom
+                0x080008c4                WriteCom
+                0x08000964                initUART
+                0x08000ab4                USART1_Handler
+                0x08000ae0                usart_rx
+                0x08000b10                usart_tx
+                0x08000b78                PutBuf
+                0x08000bda                GetBuf
+                0x08000c30                GetBufCount
+                0x08000c44                eputs
+                0x08000c80                eputc
+                0x08000c9e                egetc
+                0x08000cb8                egets
+                0x08000d44                egetc_echo
+                0x08000d6a                egets_echo
+ .text          0x08000e04      0x5c8 UART2.o
+                0x08000e04                ReadCom2
+                0x08000e78                WriteCom2
+                0x08000f18                InitUART2
+                0x08001064                USART2_Handler
+                0x08001090                usart_rx2
+                0x080010c0                usart_tx2
+                0x08001128                PutBuf2
+                0x0800118a                GetBuf2
+                0x080011e0                GetBufCount2
+                0x080011f4                eputs2
+                0x08001230                eputc2
+                0x0800124e                egetc2
+                0x08001268                egets2
+                0x080012f4                ReceivedBytes2
+                0x0800130c                egetc_echo2
+                0x08001332                egets_echo2
+ .text          0x080013cc      0x3b4 JDY40.o
+                0x080013f8                InitTimer21
+                0x08001450                JDS_Delay_us
+                0x080014b0                JDY_Delay_ms
+                0x080014fc                SendATCommand
+                0x08001574                SendCommand
+                0x080015a8                ReceiveCommand
+                0x080015c8                stripSpaces
+                0x08001630                TX_XY
+                0x08001648                RX_I
+                0x08001680                ConfigJDY40
+                0x080016f8                Update_XY
+                0x08001720                Update_I
+                0x0800174c                display_buffs
+ .text          0x08001780      0x3a0 lcd.o
+                0x08001780                wait_1ms
+                0x080017b8                waitms
+                0x080017e2                Delay_us
+                0x08001840                LCD_pulse
+                0x08001870                LCD_byte
+                0x080019f2                WriteData
+                0x08001a26                WriteCommand
+                0x08001a5a                LCD_4BIT
+                0x08001aa4                LCDprint
+ .text          0x08001b20      0x100 adc.o
+                0x08001b20                initADC
+                0x08001bb4                readADC
+ .text          0x08001c20      0x168 speaker.o
+                0x08001c4c                InitTimer2
+                0x08001cbc                ToggleSpeaker
+                0x08001cd8                SetSpeakerFreq
+                0x08001d4c                ConfigSpeaker
+ .text          0x08001d88       0xb0 frequency_calc.o
+                0x08001d88                calculateCT
+                0x08001d94                calculate_inductance
+ .text          0x08001e38      0x1e8 movement.o
+                0x08001e38                standardize_directions
+                0x08001ea8                standardize_y
+                0x08001f64                standardize_x
+ .text          0x08002020      0x29c newlib_stubs.o
+                0x08002020                _exit
+                0x0800202a                _close
+                0x0800203e                _execve
+                0x08002060                _fork
+                0x08002078                _fstat
+                0x08002094                _getpid
+                0x080020a0                _kill
+                0x080020c0                _link
+                0x080020e0                _lseek
+                0x080020f6                _stat
+                0x08002112                _times
+                0x08002126                _unlink
+                0x08002144                _wait
+                0x08002164                _isatty
+                0x0800218c                _sbrk
+                0x080021f0                _read
+                0x08002268                _write
+ .text          0x080022bc        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libnosys.a(errno.o)
+ .text          0x080022bc      0x1d4 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(_divsi3.o)
+                0x080022bc                __divsi3
+                0x080022bc                __aeabi_idiv
+                0x08002488                __aeabi_idivmod
+ .text          0x08002490        0x4 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(_dvmd_tls.o)
+                0x08002490                __aeabi_idiv0
+                0x08002490                __aeabi_ldiv0
+ .text          0x08002494       0x7c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(_arm_cmpdf2.o)
+                0x08002494                __aeabi_cdrcmple
+                0x080024a4                __aeabi_cdcmple
+                0x080024a4                __aeabi_cdcmpeq
+                0x080024b4                __aeabi_dcmpeq
+                0x080024c0                __aeabi_dcmplt
+                0x080024d4                __aeabi_dcmple
+                0x080024e8                __aeabi_dcmpgt
+                0x080024fc                __aeabi_dcmpge
+ .text          0x08002510       0x74 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(_arm_cmpsf2.o)
+                0x08002510                __aeabi_cfrcmple
+                0x08002518                __aeabi_cfcmpeq
+                0x08002518                __aeabi_cfcmple
+                0x08002528                __aeabi_fcmpeq
+                0x08002534                __aeabi_fcmplt
+                0x08002548                __aeabi_fcmple
+                0x0800255c                __aeabi_fcmpgt
+                0x08002570                __aeabi_fcmpge
+ .text          0x08002584      0x230 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(divsf3.o)
+                0x08002584                __aeabi_fdiv
+ .text          0x080027b4       0x4c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(eqsf2.o)
+                0x080027b4                __eqsf2
+                0x080027b4                __nesf2
+ .text          0x08002800       0x8c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(gesf2.o)
+                0x08002800                __gesf2
+                0x08002800                __gtsf2
+ .text          0x0800288c       0x88 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(lesf2.o)
+                0x0800288c                __ltsf2
+                0x0800288c                __lesf2
+ .text          0x08002914      0x24c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(mulsf3.o)
+                0x08002914                __aeabi_fmul
+ .text          0x08002b60       0x40 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(fixsfsi.o)
+                0x08002b60                __aeabi_f2iz
+ .text          0x08002ba0       0x9c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(floatsisf.o)
+                0x08002ba0                __aeabi_i2f
+ .text          0x08002c3c      0x678 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(adddf3.o)
+                0x08002c3c                __aeabi_dadd
+ .text          0x080032b4      0x5ec C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(divdf3.o)
+                0x080032b4                __aeabi_ddiv
+ .text          0x080038a0       0x84 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(eqdf2.o)
+                0x080038a0                __nedf2
+                0x080038a0                __eqdf2
+ .text          0x08003924       0xcc C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(gedf2.o)
+                0x08003924                __gedf2
+                0x08003924                __gtdf2
+ .text          0x080039f0       0xc8 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(ledf2.o)
+                0x080039f0                __ledf2
+                0x080039f0                __ltdf2
+ .text          0x08003ab8      0x4d8 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(muldf3.o)
+                0x08003ab8                __aeabi_dmul
+ .text          0x08003f90      0x724 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(subdf3.o)
+                0x08003f90                __aeabi_dsub
+ .text          0x080046b4       0x6c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(fixdfsi.o)
+                0x080046b4                __aeabi_d2iz
+ .text          0x08004720       0x60 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(floatsidf.o)
+                0x08004720                __aeabi_i2d
+ .text          0x08004780       0x90 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(extendsfdf2.o)
+                0x08004780                __aeabi_f2d
+ .text          0x08004810      0x110 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(truncdfsf2.o)
+                0x08004810                __aeabi_d2f
+ .text          0x08004920      0x114 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(_udivsi3.o)
+                0x08004920                __aeabi_uidiv
+                0x08004920                __udivsi3
+                0x08004a2c                __aeabi_uidivmod
+ .text          0x08004a34       0x3c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(_clzsi2.o)
+                0x08004a34                __clzsi2
+ .text          0x08004a70        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-atoi.o)
+ .text.atoi     0x08004a70        0xc C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-atoi.o)
+                0x08004a70                atoi
+ .text._atoi_r  0x08004a7c        0xc C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-atoi.o)
+                0x08004a7c                _atoi_r
+ .text          0x08004a88        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-ctype_.o)
+ .text          0x08004a88        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-fflush.o)
  .text.__sflush_r
-                0x08004a7c      0x118 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-fflush.o)
-                0x08004a7c                __sflush_r
+                0x08004a88      0x118 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-fflush.o)
+                0x08004a88                __sflush_r
  .text._fflush_r
-                0x08004b94       0x80 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-fflush.o)
-                0x08004b94                _fflush_r
- .text.fflush   0x08004c14       0x2c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-fflush.o)
-                0x08004c14                fflush
- .text          0x08004c40        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-findfp.o)
- .text.std      0x08004c40       0x48 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-findfp.o)
+                0x08004ba0       0x80 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-fflush.o)
+                0x08004ba0                _fflush_r
+ .text.fflush   0x08004c20       0x2c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-fflush.o)
+                0x08004c20                fflush
+ .text          0x08004c4c        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-findfp.o)
+ .text.std      0x08004c4c       0x48 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-findfp.o)
  .text._cleanup_r
-                0x08004c88       0x10 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-findfp.o)
-                0x08004c88                _cleanup_r
+                0x08004c94       0x10 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-findfp.o)
+                0x08004c94                _cleanup_r
  .text.__fp_lock
-                0x08004c98       0x18 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-findfp.o)
+                0x08004ca4       0x18 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-findfp.o)
  .text.__fp_unlock
-                0x08004cb0       0x18 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-findfp.o)
+                0x08004cbc       0x18 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-findfp.o)
  .text.__sfmoreglue
-                0x08004cc8       0x2c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-findfp.o)
-                0x08004cc8                __sfmoreglue
+                0x08004cd4       0x2c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-findfp.o)
+                0x08004cd4                __sfmoreglue
  .text._cleanup
-                0x08004cf4       0x10 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-findfp.o)
-                0x08004cf4                _cleanup
+                0x08004d00       0x10 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-findfp.o)
+                0x08004d00                _cleanup
  .text.__sfp_lock_acquire
-                0x08004d04       0x10 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-findfp.o)
-                0x08004d04                __sfp_lock_acquire
+                0x08004d10       0x10 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-findfp.o)
+                0x08004d10                __sfp_lock_acquire
  .text.__sfp_lock_release
-                0x08004d14       0x10 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-findfp.o)
-                0x08004d14                __sfp_lock_release
+                0x08004d20       0x10 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-findfp.o)
+                0x08004d20                __sfp_lock_release
  .text.__sinit_lock_acquire
-                0x08004d24       0x10 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-findfp.o)
-                0x08004d24                __sinit_lock_acquire
+                0x08004d30       0x10 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-findfp.o)
+                0x08004d30                __sinit_lock_acquire
  .text.__sinit_lock_release
-                0x08004d34       0x10 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-findfp.o)
-                0x08004d34                __sinit_lock_release
- .text.__sinit  0x08004d44       0x70 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-findfp.o)
-                0x08004d44                __sinit
- .text.__sfp    0x08004db4       0x90 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-findfp.o)
-                0x08004db4                __sfp
+                0x08004d40       0x10 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-findfp.o)
+                0x08004d40                __sinit_lock_release
+ .text.__sinit  0x08004d50       0x70 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-findfp.o)
+                0x08004d50                __sinit
+ .text.__sfp    0x08004dc0       0x90 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-findfp.o)
+                0x08004dc0                __sfp
  .text.__fp_lock_all
-                0x08004e44       0x1c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-findfp.o)
-                0x08004e44                __fp_lock_all
+                0x08004e50       0x1c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-findfp.o)
+                0x08004e50                __fp_lock_all
  .text.__fp_unlock_all
-                0x08004e60       0x1c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-findfp.o)
-                0x08004e60                __fp_unlock_all
- .text          0x08004e7c        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-fwalk.o)
- .text._fwalk   0x08004e7c       0x36 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-fwalk.o)
-                0x08004e7c                _fwalk
+                0x08004e6c       0x1c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-findfp.o)
+                0x08004e6c                __fp_unlock_all
+ .text          0x08004e88        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-fwalk.o)
+ .text._fwalk   0x08004e88       0x36 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-fwalk.o)
+                0x08004e88                _fwalk
  .text._fwalk_reent
-                0x08004eb2       0x40 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-fwalk.o)
-                0x08004eb2                _fwalk_reent
- .text          0x08004ef2        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-impure.o)
- .text          0x08004ef2        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-lock.o)
+                0x08004ebe       0x40 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-fwalk.o)
+                0x08004ebe                _fwalk_reent
+ .text          0x08004efe        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-impure.o)
+ .text          0x08004efe        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-lock.o)
  .text.__retarget_lock_init
-                0x08004ef2        0x2 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-lock.o)
-                0x08004ef2                __retarget_lock_init
+                0x08004efe        0x2 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-lock.o)
+                0x08004efe                __retarget_lock_init
  .text.__retarget_lock_init_recursive
-                0x08004ef4        0x2 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-lock.o)
-                0x08004ef4                __retarget_lock_init_recursive
+                0x08004f00        0x2 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-lock.o)
+                0x08004f00                __retarget_lock_init_recursive
  .text.__retarget_lock_close
-                0x08004ef6        0x2 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-lock.o)
-                0x08004ef6                __retarget_lock_close
+                0x08004f02        0x2 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-lock.o)
+                0x08004f02                __retarget_lock_close
  .text.__retarget_lock_close_recursive
-                0x08004ef8        0x2 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-lock.o)
-                0x08004ef8                __retarget_lock_close_recursive
+                0x08004f04        0x2 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-lock.o)
+                0x08004f04                __retarget_lock_close_recursive
  .text.__retarget_lock_acquire
-                0x08004efa        0x2 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-lock.o)
-                0x08004efa                __retarget_lock_acquire
- .text.__retarget_lock_acquire_recursive
-                0x08004efc        0x2 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-lock.o)
-                0x08004efc                __retarget_lock_acquire_recursive
- .text.__retarget_lock_try_acquire
-                0x08004efe        0x4 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-lock.o)
-                0x08004efe                __retarget_lock_try_acquire
- .text.__retarget_lock_try_acquire_recursive
-                0x08004f02        0x4 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-lock.o)
-                0x08004f02                __retarget_lock_try_acquire_recursive
- .text.__retarget_lock_release
                 0x08004f06        0x2 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-lock.o)
-                0x08004f06                __retarget_lock_release
- .text.__retarget_lock_release_recursive
+                0x08004f06                __retarget_lock_acquire
+ .text.__retarget_lock_acquire_recursive
                 0x08004f08        0x2 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-lock.o)
-                0x08004f08                __retarget_lock_release_recursive
- .text          0x08004f0a        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-memset.o)
- .text.memset   0x08004f0a       0x10 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-memset.o)
-                0x08004f0a                memset
- .text          0x08004f1a        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-freer.o)
- *fill*         0x08004f1a        0x2 
- .text._free_r  0x08004f1c       0x94 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-freer.o)
-                0x08004f1c                _free_r
- .text          0x08004fb0        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-mallocr.o)
+                0x08004f08                __retarget_lock_acquire_recursive
+ .text.__retarget_lock_try_acquire
+                0x08004f0a        0x4 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-lock.o)
+                0x08004f0a                __retarget_lock_try_acquire
+ .text.__retarget_lock_try_acquire_recursive
+                0x08004f0e        0x4 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-lock.o)
+                0x08004f0e                __retarget_lock_try_acquire_recursive
+ .text.__retarget_lock_release
+                0x08004f12        0x2 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-lock.o)
+                0x08004f12                __retarget_lock_release
+ .text.__retarget_lock_release_recursive
+                0x08004f14        0x2 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-lock.o)
+                0x08004f14                __retarget_lock_release_recursive
+ .text          0x08004f16        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-memset.o)
+ .text.memset   0x08004f16       0x10 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-memset.o)
+                0x08004f16                memset
+ .text          0x08004f26        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-freer.o)
+ *fill*         0x08004f26        0x2 
+ .text._free_r  0x08004f28       0x94 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-freer.o)
+                0x08004f28                _free_r
+ .text          0x08004fbc        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-mallocr.o)
  .text.sbrk_aligned
-                0x08004fb0       0x44 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-mallocr.o)
+                0x08004fbc       0x44 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-mallocr.o)
  .text._malloc_r
-                0x08004ff4       0xec C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-mallocr.o)
-                0x08004ff4                _malloc_r
- .text          0x080050e0        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-vfprintf_float.o)
- .text.__cvt    0x080050e0       0xc6 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-vfprintf_float.o)
-                0x080050e0                __cvt
+                0x08005000       0xec C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-mallocr.o)
+                0x08005000                _malloc_r
+ .text          0x080050ec        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-vfprintf_float.o)
+ .text.__cvt    0x080050ec       0xc6 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-vfprintf_float.o)
+                0x080050ec                __cvt
  .text.__exponent
-                0x080051a6       0x8e C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-vfprintf_float.o)
-                0x080051a6                __exponent
+                0x080051b2       0x8e C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-vfprintf_float.o)
+                0x080051b2                __exponent
  .text._printf_float
-                0x08005234      0x484 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-vfprintf_float.o)
-                0x08005234                _printf_float
- .text          0x080056b8        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-vfprintf_i.o)
+                0x08005240      0x484 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-vfprintf_float.o)
+                0x08005240                _printf_float
+ .text          0x080056c4        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-vfprintf_i.o)
  .text._printf_common
-                0x080056b8       0xde C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-vfprintf_i.o)
-                0x080056b8                _printf_common
- *fill*         0x08005796        0x2 
+                0x080056c4       0xde C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-vfprintf_i.o)
+                0x080056c4                _printf_common
+ *fill*         0x080057a2        0x2 
  .text._printf_i
-                0x08005798      0x224 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-vfprintf_i.o)
-                0x08005798                _printf_i
- .text          0x080059bc        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-printf.o)
+                0x080057a4      0x224 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-vfprintf_i.o)
+                0x080057a4                _printf_i
+ .text          0x080059c8        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-printf.o)
  .text._printf_r
-                0x080059bc       0x28 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-printf.o)
-                0x080059bc                _iprintf_r
-                0x080059bc                _printf_r
- .text.printf   0x080059e4       0x34 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-printf.o)
-                0x080059e4                iprintf
-                0x080059e4                printf
- .text          0x08005a18        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-sbrkr.o)
- .text._sbrk_r  0x08005a18       0x24 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-sbrkr.o)
-                0x08005a18                _sbrk_r
- .text          0x08005a3c        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-sprintf.o)
+                0x080059c8       0x28 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-printf.o)
+                0x080059c8                _iprintf_r
+                0x080059c8                _printf_r
+ .text.printf   0x080059f0       0x34 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-printf.o)
+                0x080059f0                iprintf
+                0x080059f0                printf
+ .text          0x08005a24        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-sbrkr.o)
+ .text._sbrk_r  0x08005a24       0x24 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-sbrkr.o)
+                0x08005a24                _sbrk_r
+ .text          0x08005a48        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-sprintf.o)
  .text._sprintf_r
-                0x08005a3c       0x38 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-sprintf.o)
-                0x08005a3c                _sprintf_r
-                0x08005a3c                _siprintf_r
- .text.sprintf  0x08005a74       0x40 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-sprintf.o)
-                0x08005a74                siprintf
-                0x08005a74                sprintf
- .text          0x08005ab4        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-stdio.o)
- .text.__sread  0x08005ab4       0x28 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-stdio.o)
-                0x08005ab4                __sread
+                0x08005a48       0x38 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-sprintf.o)
+                0x08005a48                _sprintf_r
+                0x08005a48                _siprintf_r
+ .text.sprintf  0x08005a80       0x40 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-sprintf.o)
+                0x08005a80                siprintf
+                0x08005a80                sprintf
+ .text          0x08005ac0        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-stdio.o)
+ .text.__sread  0x08005ac0       0x28 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-stdio.o)
+                0x08005ac0                __sread
  .text.__seofread
-                0x08005adc        0x4 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-stdio.o)
-                0x08005adc                __seofread
+                0x08005ae8        0x4 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-stdio.o)
+                0x08005ae8                __seofread
  .text.__swrite
-                0x08005ae0       0x38 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-stdio.o)
-                0x08005ae0                __swrite
- .text.__sseek  0x08005b18       0x2c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-stdio.o)
-                0x08005b18                __sseek
+                0x08005aec       0x38 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-stdio.o)
+                0x08005aec                __swrite
+ .text.__sseek  0x08005b24       0x2c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-stdio.o)
+                0x08005b24                __sseek
  .text.__sclose
-                0x08005b44        0xc C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-stdio.o)
-                0x08005b44                __sclose
- .text          0x08005b50        0xe C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-strlen.o)
-                0x08005b50                strlen
- .text          0x08005b5e        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-strtol.o)
- *fill*         0x08005b5e        0x2 
+                0x08005b50        0xc C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-stdio.o)
+                0x08005b50                __sclose
+ .text          0x08005b5c        0xe C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-strlen.o)
+                0x08005b5c                strlen
+ .text          0x08005b6a        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-strtol.o)
+ *fill*         0x08005b6a        0x2 
  .text._strtol_l.constprop.0
-                0x08005b60      0x11c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-strtol.o)
+                0x08005b6c      0x11c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-strtol.o)
  .text._strtol_r
-                0x08005c7c        0x8 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-strtol.o)
-                0x08005c7c                _strtol_r
+                0x08005c88        0x8 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-strtol.o)
+                0x08005c88                _strtol_r
  .text.strtol_l
-                0x08005c84       0x18 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-strtol.o)
-                0x08005c84                strtol_l
- .text.strtol   0x08005c9c       0x18 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-strtol.o)
-                0x08005c9c                strtol
- .text          0x08005cb4        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-writer.o)
+                0x08005c90       0x18 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-strtol.o)
+                0x08005c90                strtol_l
+ .text.strtol   0x08005ca8       0x18 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-strtol.o)
+                0x08005ca8                strtol
+ .text          0x08005cc0        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-writer.o)
  .text._write_r
-                0x08005cb4       0x28 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-writer.o)
-                0x08005cb4                _write_r
- .text          0x08005cdc        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-closer.o)
+                0x08005cc0       0x28 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-writer.o)
+                0x08005cc0                _write_r
+ .text          0x08005ce8        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-closer.o)
  .text._close_r
-                0x08005cdc       0x24 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-closer.o)
-                0x08005cdc                _close_r
- .text          0x08005d00        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-dtoa.o)
- .text.quorem   0x08005d00      0x116 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-dtoa.o)
- *fill*         0x08005e16        0x2 
- .text._dtoa_r  0x08005e18      0xc34 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-dtoa.o)
-                0x08005e18                _dtoa_r
- .text          0x08006a4c        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-errno.o)
- .text.__errno  0x08006a4c        0xc C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-errno.o)
-                0x08006a4c                __errno
- .text          0x08006a58        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-localeconv.o)
+                0x08005ce8       0x24 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-closer.o)
+                0x08005ce8                _close_r
+ .text          0x08005d0c        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-dtoa.o)
+ .text.quorem   0x08005d0c      0x116 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-dtoa.o)
+ *fill*         0x08005e22        0x2 
+ .text._dtoa_r  0x08005e24      0xc34 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-dtoa.o)
+                0x08005e24                _dtoa_r
+ .text          0x08006a58        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-errno.o)
+ .text.__errno  0x08006a58        0xc C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-errno.o)
+                0x08006a58                __errno
+ .text          0x08006a64        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-localeconv.o)
  .text.__localeconv_l
-                0x08006a58        0x4 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-localeconv.o)
-                0x08006a58                __localeconv_l
+                0x08006a64        0x4 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-localeconv.o)
+                0x08006a64                __localeconv_l
  .text._localeconv_r
-                0x08006a5c        0x8 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-localeconv.o)
-                0x08006a5c                _localeconv_r
+                0x08006a68        0x8 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-localeconv.o)
+                0x08006a68                _localeconv_r
  .text.localeconv
-                0x08006a64        0x8 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-localeconv.o)
-                0x08006a64                localeconv
- .text          0x08006a6c        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-lseekr.o)
+                0x08006a70        0x8 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-localeconv.o)
+                0x08006a70                localeconv
+ .text          0x08006a78        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-lseekr.o)
  .text._lseek_r
-                0x08006a6c       0x28 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-lseekr.o)
-                0x08006a6c                _lseek_r
- .text          0x08006a94        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-malloc.o)
- .text.malloc   0x08006a94       0x14 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-malloc.o)
-                0x08006a94                malloc
- .text.free     0x08006aa8       0x14 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-malloc.o)
-                0x08006aa8                free
- .text          0x08006abc        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-memchr-stub.o)
- .text.memchr   0x08006abc       0x16 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-memchr-stub.o)
-                0x08006abc                memchr
- .text          0x08006ad2        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-memcpy-stub.o)
- .text.memcpy   0x08006ad2       0x12 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-memcpy-stub.o)
-                0x08006ad2                memcpy
- .text          0x08006ae4        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mlock.o)
+                0x08006a78       0x28 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-lseekr.o)
+                0x08006a78                _lseek_r
+ .text          0x08006aa0        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-malloc.o)
+ .text.malloc   0x08006aa0       0x14 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-malloc.o)
+                0x08006aa0                malloc
+ .text.free     0x08006ab4       0x14 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-malloc.o)
+                0x08006ab4                free
+ .text          0x08006ac8        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-memchr-stub.o)
+ .text.memchr   0x08006ac8       0x16 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-memchr-stub.o)
+                0x08006ac8                memchr
+ .text          0x08006ade        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-memcpy-stub.o)
+ .text.memcpy   0x08006ade       0x12 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-memcpy-stub.o)
+                0x08006ade                memcpy
+ .text          0x08006af0        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mlock.o)
  .text.__malloc_lock
-                0x08006ae4       0x10 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mlock.o)
-                0x08006ae4                __malloc_lock
+                0x08006af0       0x10 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mlock.o)
+                0x08006af0                __malloc_lock
  .text.__malloc_unlock
-                0x08006af4       0x10 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mlock.o)
-                0x08006af4                __malloc_unlock
- .text          0x08006b04        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
- .text._Balloc  0x08006b04       0x88 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
-                0x08006b04                _Balloc
- .text._Bfree   0x08006b8c       0x48 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
-                0x08006b8c                _Bfree
+                0x08006b00       0x10 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mlock.o)
+                0x08006b00                __malloc_unlock
+ .text          0x08006b10        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
+ .text._Balloc  0x08006b10       0x88 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
+                0x08006b10                _Balloc
+ .text._Bfree   0x08006b98       0x48 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
+                0x08006b98                _Bfree
  .text.__multadd
-                0x08006bd4       0x88 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
-                0x08006bd4                __multadd
- .text.__s2b    0x08006c5c       0x98 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
-                0x08006c5c                __s2b
+                0x08006be0       0x88 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
+                0x08006be0                __multadd
+ .text.__s2b    0x08006c68       0x98 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
+                0x08006c68                __s2b
  .text.__hi0bits
-                0x08006cf4       0x34 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
-                0x08006cf4                __hi0bits
+                0x08006d00       0x34 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
+                0x08006d00                __hi0bits
  .text.__lo0bits
-                0x08006d28       0x5c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
-                0x08006d28                __lo0bits
- .text.__i2b    0x08006d84       0x2c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
-                0x08006d84                __i2b
+                0x08006d34       0x5c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
+                0x08006d34                __lo0bits
+ .text.__i2b    0x08006d90       0x2c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
+                0x08006d90                __i2b
  .text.__multiply
-                0x08006db0      0x160 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
-                0x08006db0                __multiply
+                0x08006dbc      0x160 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
+                0x08006dbc                __multiply
  .text.__pow5mult
-                0x08006f10       0xb8 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
-                0x08006f10                __pow5mult
+                0x08006f1c       0xb8 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
+                0x08006f1c                __pow5mult
  .text.__lshift
-                0x08006fc8       0xdc C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
-                0x08006fc8                __lshift
- .text.__mcmp   0x080070a4       0x36 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
-                0x080070a4                __mcmp
- *fill*         0x080070da        0x2 
- .text.__mdiff  0x080070dc      0x130 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
-                0x080070dc                __mdiff
- .text.__ulp    0x0800720c       0x48 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
-                0x0800720c                __ulp
- .text.__b2d    0x08007254       0xa0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
-                0x08007254                __b2d
- .text.__d2b    0x080072f4       0xc8 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
-                0x080072f4                __d2b
- .text.__ratio  0x080073bc       0x52 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
-                0x080073bc                __ratio
- *fill*         0x0800740e        0x2 
+                0x08006fd4       0xdc C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
+                0x08006fd4                __lshift
+ .text.__mcmp   0x080070b0       0x36 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
+                0x080070b0                __mcmp
+ *fill*         0x080070e6        0x2 
+ .text.__mdiff  0x080070e8      0x130 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
+                0x080070e8                __mdiff
+ .text.__ulp    0x08007218       0x48 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
+                0x08007218                __ulp
+ .text.__b2d    0x08007260       0xa0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
+                0x08007260                __b2d
+ .text.__d2b    0x08007300       0xc8 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
+                0x08007300                __d2b
+ .text.__ratio  0x080073c8       0x52 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
+                0x080073c8                __ratio
+ *fill*         0x0800741a        0x2 
  .text._mprec_log10
-                0x08007410       0x34 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
-                0x08007410                _mprec_log10
+                0x0800741c       0x34 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
+                0x0800741c                _mprec_log10
  .text.__copybits
-                0x08007444       0x42 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
-                0x08007444                __copybits
+                0x08007450       0x42 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
+                0x08007450                __copybits
  .text.__any_on
-                0x08007486       0x46 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
-                0x08007486                __any_on
- .text          0x080074cc        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-callocr.o)
+                0x08007492       0x46 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
+                0x08007492                __any_on
+ .text          0x080074d8        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-callocr.o)
  .text._calloc_r
-                0x080074cc       0x58 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-callocr.o)
-                0x080074cc                _calloc_r
- .text          0x08007524        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-svfprintf.o)
+                0x080074d8       0x58 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-callocr.o)
+                0x080074d8                _calloc_r
+ .text          0x08007530        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-svfprintf.o)
  .text.__ssputs_r
-                0x08007524       0xc4 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-svfprintf.o)
-                0x08007524                __ssputs_r
+                0x08007530       0xc4 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-svfprintf.o)
+                0x08007530                __ssputs_r
  .text.__ssprint_r
-                0x080075e8      0x100 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-svfprintf.o)
-                0x080075e8                __ssprint_r
+                0x080075f4      0x100 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-svfprintf.o)
+                0x080075f4                __ssprint_r
  .text._svfprintf_r
-                0x080076e8      0x200 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-svfprintf.o)
-                0x080076e8                _svfiprintf_r
-                0x080076e8                _svfprintf_r
- .text          0x080078e8        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-vfprintf.o)
+                0x080076f4      0x200 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-svfprintf.o)
+                0x080076f4                _svfiprintf_r
+                0x080076f4                _svfprintf_r
+ .text          0x080078f4        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-vfprintf.o)
  .text.__sfputc_r
-                0x080078e8       0x2a C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-vfprintf.o)
+                0x080078f4       0x2a C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-vfprintf.o)
  .text.__sfputs_r
-                0x08007912       0x24 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-vfprintf.o)
-                0x08007912                __sfputs_r
+                0x0800791e       0x24 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-vfprintf.o)
+                0x0800791e                __sfputs_r
  .text.__sprint_r
-                0x08007936       0x1c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-vfprintf.o)
-                0x08007936                __sprint_r
- *fill*         0x08007952        0x2 
+                0x08007942       0x1c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-vfprintf.o)
+                0x08007942                __sprint_r
+ *fill*         0x0800795e        0x2 
  .text._vfprintf_r
-                0x08007954      0x274 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-vfprintf.o)
-                0x08007954                _vfprintf_r
-                0x08007954                _vfiprintf_r
+                0x08007960      0x274 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-vfprintf.o)
+                0x08007960                _vfprintf_r
+                0x08007960                _vfiprintf_r
  .text.vfprintf
-                0x08007bc8       0x18 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-vfprintf.o)
-                0x08007bc8                vfprintf
-                0x08007bc8                vfiprintf
- .text          0x08007be0        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-readr.o)
- .text._read_r  0x08007be0       0x28 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-readr.o)
-                0x08007be0                _read_r
- .text          0x08007c08        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-wbuf.o)
+                0x08007bd4       0x18 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-vfprintf.o)
+                0x08007bd4                vfprintf
+                0x08007bd4                vfiprintf
+ .text          0x08007bec        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-readr.o)
+ .text._read_r  0x08007bec       0x28 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-readr.o)
+                0x08007bec                _read_r
+ .text          0x08007c14        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-wbuf.o)
  .text.__swbuf_r
-                0x08007c08       0xac C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-wbuf.o)
-                0x08007c08                __swbuf_r
- .text.__swbuf  0x08007cb4       0x14 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-wbuf.o)
-                0x08007cb4                __swbuf
- .text          0x08007cc8        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-wsetup.o)
+                0x08007c14       0xac C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-wbuf.o)
+                0x08007c14                __swbuf_r
+ .text.__swbuf  0x08007cc0       0x14 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-wbuf.o)
+                0x08007cc0                __swbuf
+ .text          0x08007cd4        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-wsetup.o)
  .text.__swsetup_r
-                0x08007cc8       0xf0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-wsetup.o)
-                0x08007cc8                __swsetup_r
- .text          0x08007db8        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-assert.o)
+                0x08007cd4       0xf0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-wsetup.o)
+                0x08007cd4                __swsetup_r
+ .text          0x08007dc4        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-assert.o)
  .text.__assert_func
-                0x08007db8       0x3c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-assert.o)
-                0x08007db8                __assert_func
+                0x08007dc4       0x3c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-assert.o)
+                0x08007dc4                __assert_func
  .text.__assert
-                0x08007df4        0xa C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-assert.o)
-                0x08007df4                __assert
- .text          0x08007dfe        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-fprintf.o)
+                0x08007e00        0xa C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-assert.o)
+                0x08007e00                __assert
+ .text          0x08007e0a        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-fprintf.o)
  .text._fprintf_r
-                0x08007dfe       0x16 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-fprintf.o)
-                0x08007dfe                _fiprintf_r
-                0x08007dfe                _fprintf_r
- .text.fprintf  0x08007e14       0x20 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-fprintf.o)
-                0x08007e14                fiprintf
-                0x08007e14                fprintf
- .text          0x08007e34        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-fvwrite.o)
+                0x08007e0a       0x16 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-fprintf.o)
+                0x08007e0a                _fiprintf_r
+                0x08007e0a                _fprintf_r
+ .text.fprintf  0x08007e20       0x20 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-fprintf.o)
+                0x08007e20                fiprintf
+                0x08007e20                fprintf
+ .text          0x08007e40        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-fvwrite.o)
  .text.__sfvwrite_r
-                0x08007e34      0x2d0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-fvwrite.o)
-                0x08007e34                __sfvwrite_r
- .text          0x08008104        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-locale.o)
+                0x08007e40      0x2d0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-fvwrite.o)
+                0x08007e40                __sfvwrite_r
+ .text          0x08008110        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-locale.o)
  .text._setlocale_r
-                0x08008104       0x40 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-locale.o)
-                0x08008104                _setlocale_r
+                0x08008110       0x40 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-locale.o)
+                0x08008110                _setlocale_r
  .text.__locale_mb_cur_max
-                0x08008144       0x10 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-locale.o)
-                0x08008144                __locale_mb_cur_max
+                0x08008150       0x10 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-locale.o)
+                0x08008150                __locale_mb_cur_max
  .text.setlocale
-                0x08008154       0x14 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-locale.o)
-                0x08008154                setlocale
- .text          0x08008168        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-makebuf.o)
+                0x08008160       0x14 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-locale.o)
+                0x08008160                setlocale
+ .text          0x08008174        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-makebuf.o)
  .text.__swhatbuf_r
-                0x08008168       0x50 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-makebuf.o)
-                0x08008168                __swhatbuf_r
+                0x08008174       0x50 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-makebuf.o)
+                0x08008174                __swhatbuf_r
  .text.__smakebuf_r
-                0x080081b8       0x88 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-makebuf.o)
-                0x080081b8                __smakebuf_r
- .text          0x08008240        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mbtowc_r.o)
+                0x080081c4       0x88 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-makebuf.o)
+                0x080081c4                __smakebuf_r
+ .text          0x0800824c        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mbtowc_r.o)
  .text._mbtowc_r
-                0x08008240       0x14 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mbtowc_r.o)
-                0x08008240                _mbtowc_r
+                0x0800824c       0x14 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mbtowc_r.o)
+                0x0800824c                _mbtowc_r
  .text.__ascii_mbtowc
-                0x08008254       0x24 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mbtowc_r.o)
-                0x08008254                __ascii_mbtowc
- .text          0x08008278        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-memmove.o)
- .text.memmove  0x08008278       0x26 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-memmove.o)
-                0x08008278                memmove
- .text          0x0800829e        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-reallocr.o)
+                0x08008260       0x24 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mbtowc_r.o)
+                0x08008260                __ascii_mbtowc
+ .text          0x08008284        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-memmove.o)
+ .text.memmove  0x08008284       0x26 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-memmove.o)
+                0x08008284                memmove
+ .text          0x080082aa        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-reallocr.o)
  .text._realloc_r
-                0x0800829e       0x5e C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-reallocr.o)
-                0x0800829e                _realloc_r
- .text          0x080082fc       0x14 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-strcmp.o)
-                0x080082fc                strcmp
- .text          0x08008310        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-wctomb_r.o)
+                0x080082aa       0x5e C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-reallocr.o)
+                0x080082aa                _realloc_r
+ .text          0x08008308       0x14 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-strcmp.o)
+                0x08008308                strcmp
+ .text          0x0800831c        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-wctomb_r.o)
  .text._wctomb_r
-                0x08008310       0x10 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-wctomb_r.o)
-                0x08008310                _wctomb_r
+                0x0800831c       0x10 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-wctomb_r.o)
+                0x0800831c                _wctomb_r
  .text.__ascii_wctomb
-                0x08008320       0x1a C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-wctomb_r.o)
-                0x08008320                __ascii_wctomb
- .text          0x0800833a        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-abort.o)
- .text.abort    0x0800833a        0xe C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-abort.o)
-                0x0800833a                abort
- .text          0x08008348        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-fstatr.o)
+                0x0800832c       0x1a C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-wctomb_r.o)
+                0x0800832c                __ascii_wctomb
+ .text          0x08008346        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-abort.o)
+ .text.abort    0x08008346        0xe C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-abort.o)
+                0x08008346                abort
+ .text          0x08008354        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-fstatr.o)
  .text._fstat_r
-                0x08008348       0x24 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-fstatr.o)
-                0x08008348                _fstat_r
- .text          0x0800836c        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-isattyr.o)
+                0x08008354       0x24 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-fstatr.o)
+                0x08008354                _fstat_r
+ .text          0x08008378        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-isattyr.o)
  .text._isatty_r
-                0x0800836c       0x24 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-isattyr.o)
-                0x0800836c                _isatty_r
- .text          0x08008390        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-msizer.o)
+                0x08008378       0x24 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-isattyr.o)
+                0x08008378                _isatty_r
+ .text          0x0800839c        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-msizer.o)
  .text._malloc_usable_size_r
-                0x08008390       0x10 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-msizer.o)
-                0x08008390                _malloc_usable_size_r
- .text          0x080083a0        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-signal.o)
+                0x0800839c       0x10 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-msizer.o)
+                0x0800839c                _malloc_usable_size_r
+ .text          0x080083ac        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-signal.o)
  .text._init_signal_r
-                0x080083a0       0x2a C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-signal.o)
-                0x080083a0                _init_signal_r
+                0x080083ac       0x2a C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-signal.o)
+                0x080083ac                _init_signal_r
  .text._signal_r
-                0x080083ca       0x32 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-signal.o)
-                0x080083ca                _signal_r
+                0x080083d6       0x32 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-signal.o)
+                0x080083d6                _signal_r
  .text._raise_r
-                0x080083fc       0x54 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-signal.o)
-                0x080083fc                _raise_r
+                0x08008408       0x54 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-signal.o)
+                0x08008408                _raise_r
  .text.__sigtramp_r
-                0x08008450       0x46 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-signal.o)
-                0x08008450                __sigtramp_r
- *fill*         0x08008496        0x2 
- .text.raise    0x08008498       0x14 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-signal.o)
-                0x08008498                raise
- .text.signal   0x080084ac       0x14 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-signal.o)
-                0x080084ac                signal
+                0x0800845c       0x46 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-signal.o)
+                0x0800845c                __sigtramp_r
+ *fill*         0x080084a2        0x2 
+ .text.raise    0x080084a4       0x14 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-signal.o)
+                0x080084a4                raise
+ .text.signal   0x080084b8       0x14 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-signal.o)
+                0x080084b8                signal
  .text._init_signal
-                0x080084c0       0x10 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-signal.o)
-                0x080084c0                _init_signal
+                0x080084cc       0x10 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-signal.o)
+                0x080084cc                _init_signal
  .text.__sigtramp
-                0x080084d0       0x14 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-signal.o)
-                0x080084d0                __sigtramp
- .text          0x080084e4        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-signalr.o)
- .text._kill_r  0x080084e4       0x24 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-signalr.o)
-                0x080084e4                _kill_r
+                0x080084dc       0x14 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-signal.o)
+                0x080084dc                __sigtramp
+ .text          0x080084f0        0x0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-signalr.o)
+ .text._kill_r  0x080084f0       0x24 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-signalr.o)
+                0x080084f0                _kill_r
  .text._getpid_r
-                0x08008508        0x8 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-signalr.o)
-                0x08008508                _getpid_r
- .text          0x08008510       0x14 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(_thumb1_case_uqi.o)
-                0x08008510                __gnu_thumb1_case_uqi
- .text          0x08008524       0x14 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(_thumb1_case_shi.o)
-                0x08008524                __gnu_thumb1_case_shi
- .text          0x08008538       0x3c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(unorddf2.o)
-                0x08008538                __aeabi_dcmpun
- .text          0x08008574       0x4c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(floatunsidf.o)
-                0x08008574                __aeabi_ui2d
+                0x08008514        0x8 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-signalr.o)
+                0x08008514                _getpid_r
+ .text          0x0800851c       0x14 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(_thumb1_case_uqi.o)
+                0x0800851c                __gnu_thumb1_case_uqi
+ .text          0x08008530       0x14 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(_thumb1_case_shi.o)
+                0x08008530                __gnu_thumb1_case_shi
+ .text          0x08008544       0x3c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(unorddf2.o)
+                0x08008544                __aeabi_dcmpun
+ .text          0x08008580       0x4c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(floatunsidf.o)
+                0x08008580                __aeabi_ui2d
  *(.rodata*)
- .rodata        0x080085c0       0x48 main.o
- .rodata        0x08008608       0x7c startup.o
- .rodata        0x08008684       0xb7 JDY40.o
-                0x0800868c                RX_CMD
- *fill*         0x0800873b        0x1 
- .rodata        0x0800873c       0x80 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(divsf3.o)
- .rodata        0x080087bc       0x40 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(mulsf3.o)
- .rodata        0x080087fc       0x40 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(divdf3.o)
- .rodata        0x0800883c       0x40 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(muldf3.o)
+ .rodata        0x080085cc       0x3f main.o
+ *fill*         0x0800860b        0x1 
+ .rodata        0x0800860c       0x7c startup.o
+ .rodata        0x08008688       0xd2 JDY40.o
+                0x08008690                RX_CMD
+ *fill*         0x0800875a        0x2 
+ .rodata        0x0800875c       0x80 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(divsf3.o)
+ .rodata        0x080087dc       0x40 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(mulsf3.o)
+ .rodata        0x0800881c       0x40 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(divdf3.o)
+ .rodata        0x0800885c       0x40 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(muldf3.o)
  .rodata._ctype_
-                0x0800887c      0x101 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-ctype_.o)
-                0x0800887c                _ctype_
- *fill*         0x0800897d        0x3 
+                0x0800889c      0x101 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-ctype_.o)
+                0x0800889c                _ctype_
+ *fill*         0x0800899d        0x3 
  .rodata.__sf_fake_stderr
-                0x08008980       0x20 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-findfp.o)
-                0x08008980                __sf_fake_stderr
- .rodata.__sf_fake_stdin
                 0x080089a0       0x20 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-findfp.o)
-                0x080089a0                __sf_fake_stdin
- .rodata.__sf_fake_stdout
+                0x080089a0                __sf_fake_stderr
+ .rodata.__sf_fake_stdin
                 0x080089c0       0x20 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-findfp.o)
-                0x080089c0                __sf_fake_stdout
+                0x080089c0                __sf_fake_stdin
+ .rodata.__sf_fake_stdout
+                0x080089e0       0x20 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-findfp.o)
+                0x080089e0                __sf_fake_stdout
  .rodata._global_impure_ptr
-                0x080089e0        0x4 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-impure.o)
-                0x080089e0                _global_impure_ptr
+                0x08008a00        0x4 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-impure.o)
+                0x08008a00                _global_impure_ptr
  .rodata._printf_float.str1.1
-                0x080089e4       0x12 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-vfprintf_float.o)
+                0x08008a04       0x12 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-vfprintf_float.o)
  .rodata._printf_i.str1.1
-                0x080089f6       0x22 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-vfprintf_i.o)
+                0x08008a16       0x22 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-vfprintf_i.o)
  .rodata._dtoa_r.str1.1
-                0x08008a18       0xb3 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-dtoa.o)
+                0x08008a38       0xb3 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-dtoa.o)
                                  0xb5 (size before relaxing)
  .rodata._Balloc.str1.1
-                0x08008acb       0x7f C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
+                0x08008aeb       0x7f C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
                                  0x96 (size before relaxing)
  .rodata.__multadd.str1.1
-                0x08008b4a       0x11 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
- *fill*         0x08008b4a        0x6 
+                0x08008b6a       0x11 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
+ *fill*         0x08008b6a        0x6 
  .rodata.__mprec_bigtens
-                0x08008b50       0x28 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
-                0x08008b50                __mprec_bigtens
+                0x08008b70       0x28 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
+                0x08008b70                __mprec_bigtens
  .rodata.__mprec_tens
-                0x08008b78       0xc8 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
-                0x08008b78                __mprec_tens
+                0x08008b98       0xc8 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
+                0x08008b98                __mprec_tens
  .rodata.__mprec_tinytens
-                0x08008c40       0x28 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
-                0x08008c40                __mprec_tinytens
- .rodata.p05.0  0x08008c68        0xc C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
+                0x08008c60       0x28 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
+                0x08008c60                __mprec_tinytens
+ .rodata.p05.0  0x08008c88        0xc C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
  .rodata._svfprintf_r.str1.1
-                0x08008c74       0x11 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-svfprintf.o)
+                0x08008c94       0x11 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-svfprintf.o)
  .rodata._vfprintf_r.str1.1
-                0x08008c85       0x11 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-vfprintf.o)
+                0x08008ca5       0x11 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-vfprintf.o)
  .rodata.__assert_func.str1.1
-                0x08008c85       0x3c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-assert.o)
+                0x08008ca5       0x3c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-assert.o)
                                  0x3d (size before relaxing)
  .rodata._setlocale_r.str1.1
-                0x08008cc1        0x8 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-locale.o)
+                0x08008ce1        0x8 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-locale.o)
                                   0x9 (size before relaxing)
  .rodata.str1.1
-                0x08008cc9        0x2 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-locale.o)
-                0x08008ccc                . = ALIGN (0x4)
- *fill*         0x08008ccb        0x1 
-                0x08008ccc                PROVIDE (__init_array_start = .)
+                0x08008ce9        0x2 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-locale.o)
+                0x08008cec                . = ALIGN (0x4)
+ *fill*         0x08008ceb        0x1 
+                0x08008cec                PROVIDE (__init_array_start = .)
  *(SORT_BY_NAME(.init_array.*))
  *(.init_array)
-                0x08008ccc                PROVIDE (__init_array_end = .)
-                0x08008ccc                . = ALIGN (0x4)
-                0x08008ccc                _etext = .
+                0x08008cec                PROVIDE (__init_array_end = .)
+                0x08008cec                . = ALIGN (0x4)
+                0x08008cec                _etext = .
 
-.glue_7         0x08008ccc        0x0
- .glue_7        0x08008ccc        0x0 linker stubs
+.glue_7         0x08008cec        0x0
+ .glue_7        0x08008cec        0x0 linker stubs
 
-.glue_7t        0x08008ccc        0x0
- .glue_7t       0x08008ccc        0x0 linker stubs
+.glue_7t        0x08008cec        0x0
+ .glue_7t       0x08008cec        0x0 linker stubs
 
-.vfp11_veneer   0x08008ccc        0x0
- .vfp11_veneer  0x08008ccc        0x0 linker stubs
+.vfp11_veneer   0x08008cec        0x0
+ .vfp11_veneer  0x08008cec        0x0 linker stubs
 
-.v4_bx          0x08008ccc        0x0
- .v4_bx         0x08008ccc        0x0 linker stubs
+.v4_bx          0x08008cec        0x0
+ .v4_bx         0x08008cec        0x0 linker stubs
 
-.iplt           0x08008ccc        0x0
- .iplt          0x08008ccc        0x0 main.o
+.iplt           0x08008cec        0x0
+ .iplt          0x08008cec        0x0 main.o
 
-.rel.dyn        0x08008ccc        0x0
- .rel.iplt      0x08008ccc        0x0 main.o
+.rel.dyn        0x08008cec        0x0
+ .rel.iplt      0x08008cec        0x0 main.o
 
-.data           0x20000000      0x1d8 load address 0x08008ccc
+.data           0x20000000      0x1d8 load address 0x08008cec
                 0x20000000                . = ALIGN (0x4)
                 0x20000000                _data = .
  *(.data*)
@@ -1022,10 +1024,10 @@ END GROUP
                 0x200001d8                . = ALIGN (0x4)
                 0x200001d8                _edata = .
 
-.igot.plt       0x200001d8        0x0 load address 0x08008ea4
+.igot.plt       0x200001d8        0x0 load address 0x08008ec4
  .igot.plt      0x200001d8        0x0 main.o
 
-.bss            0x200001d8      0x260 load address 0x08008ea4
+.bss            0x200001d8      0x260 load address 0x08008ec4
                 0x200001d8                _bss = .
  *(.bss*)
  .bss           0x200001d8       0x34 main.o
@@ -1190,18 +1192,18 @@ END GROUP
 OUTPUT(main.elf elf32-littlearm)
 LOAD linker stubs
 
-.debug_info     0x00000000     0x4032
+.debug_info     0x00000000     0x4044
  .debug_info    0x00000000      0xeae main.o
  .debug_info    0x00000eae      0x3ad startup.o
  .debug_info    0x0000125b      0x82d serial.o
  .debug_info    0x00001a88      0x84c UART2.o
- .debug_info    0x000022d4      0x877 JDY40.o
- .debug_info    0x00002b4b      0x2ee lcd.o
- .debug_info    0x00002e39      0x31b adc.o
- .debug_info    0x00003154      0x675 speaker.o
- .debug_info    0x000037c9       0x82 frequency_calc.o
- .debug_info    0x0000384b       0xc3 movement.o
- .debug_info    0x0000390e      0x724 newlib_stubs.o
+ .debug_info    0x000022d4      0x889 JDY40.o
+ .debug_info    0x00002b5d      0x2ee lcd.o
+ .debug_info    0x00002e4b      0x31b adc.o
+ .debug_info    0x00003166      0x675 speaker.o
+ .debug_info    0x000037db       0x82 frequency_calc.o
+ .debug_info    0x0000385d       0xc3 movement.o
+ .debug_info    0x00003920      0x724 newlib_stubs.o
 
 .debug_abbrev   0x00000000     0x1081
  .debug_abbrev  0x00000000      0x28a main.o
@@ -1240,20 +1242,20 @@ LOAD linker stubs
  .debug_aranges
                 0x00000148       0x20 newlib_stubs.o
 
-.debug_line     0x00000000     0x1e11
- .debug_line    0x00000000      0x3ab main.o
- .debug_line    0x000003ab      0x296 startup.o
- .debug_line    0x00000641      0x4d4 serial.o
- .debug_line    0x00000b15      0x4bf UART2.o
- .debug_line    0x00000fd4      0x33f JDY40.o
- .debug_line    0x00001313      0x330 lcd.o
- .debug_line    0x00001643      0x1cc adc.o
- .debug_line    0x0000180f      0x1f9 speaker.o
- .debug_line    0x00001a08       0x5f frequency_calc.o
- .debug_line    0x00001a67       0xea movement.o
- .debug_line    0x00001b51      0x2c0 newlib_stubs.o
+.debug_line     0x00000000     0x1e1b
+ .debug_line    0x00000000      0x39b main.o
+ .debug_line    0x0000039b      0x296 startup.o
+ .debug_line    0x00000631      0x4d4 serial.o
+ .debug_line    0x00000b05      0x4bf UART2.o
+ .debug_line    0x00000fc4      0x359 JDY40.o
+ .debug_line    0x0000131d      0x330 lcd.o
+ .debug_line    0x0000164d      0x1cc adc.o
+ .debug_line    0x00001819      0x1f9 speaker.o
+ .debug_line    0x00001a12       0x5f frequency_calc.o
+ .debug_line    0x00001a71       0xea movement.o
+ .debug_line    0x00001b5b      0x2c0 newlib_stubs.o
 
-.debug_str      0x00000000     0x1093
+.debug_str      0x00000000     0x10a1
  .debug_str     0x00000000      0x70e main.o
                                 0x78b (size before relaxing)
  .debug_str     0x0000070e       0xf5 startup.o
@@ -1262,19 +1264,19 @@ LOAD linker stubs
                                 0x3df (size before relaxing)
  .debug_str     0x00000977       0xea UART2.o
                                 0x3fc (size before relaxing)
- .debug_str     0x00000a61      0x277 JDY40.o
-                                0x57c (size before relaxing)
- .debug_str     0x00000cd8       0x64 lcd.o
+ .debug_str     0x00000a61      0x285 JDY40.o
+                                0x58a (size before relaxing)
+ .debug_str     0x00000ce6       0x64 lcd.o
                                 0x234 (size before relaxing)
- .debug_str     0x00000d3c       0x71 adc.o
+ .debug_str     0x00000d4a       0x71 adc.o
                                 0x29a (size before relaxing)
- .debug_str     0x00000dad       0x61 speaker.o
+ .debug_str     0x00000dbb       0x61 speaker.o
                                 0x4f5 (size before relaxing)
- .debug_str     0x00000e0e       0x3c frequency_calc.o
+ .debug_str     0x00000e1c       0x3c frequency_calc.o
                                 0x11d (size before relaxing)
- .debug_str     0x00000e4a       0x3e movement.o
+ .debug_str     0x00000e58       0x3e movement.o
                                 0x12f (size before relaxing)
- .debug_str     0x00000e88      0x20b newlib_stubs.o
+ .debug_str     0x00000e96      0x20b newlib_stubs.o
                                 0x404 (size before relaxing)
 
 .comment        0x00000000       0x49
@@ -1476,88 +1478,88 @@ LOAD linker stubs
  .ARM.attributes
                 0x00000ee8       0x2c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(floatunsidf.o)
 
-.debug_frame    0x00000000     0x213c
+.debug_frame    0x00000000     0x2158
  .debug_frame   0x00000000      0x18c main.o
  .debug_frame   0x0000018c       0x94 startup.o
  .debug_frame   0x00000220      0x1e8 serial.o
  .debug_frame   0x00000408      0x204 UART2.o
- .debug_frame   0x0000060c      0x1a0 JDY40.o
- .debug_frame   0x000007ac      0x124 lcd.o
- .debug_frame   0x000008d0       0x4c adc.o
- .debug_frame   0x0000091c       0xa8 speaker.o
- .debug_frame   0x000009c4       0x50 frequency_calc.o
- .debug_frame   0x00000a14       0x70 movement.o
- .debug_frame   0x00000a84      0x228 newlib_stubs.o
- .debug_frame   0x00000cac       0x20 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(_divsi3.o)
- .debug_frame   0x00000ccc       0x38 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(divsf3.o)
- .debug_frame   0x00000d04       0x2c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(eqsf2.o)
- .debug_frame   0x00000d30       0x2c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(gesf2.o)
- .debug_frame   0x00000d5c       0x2c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(lesf2.o)
- .debug_frame   0x00000d88       0x38 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(mulsf3.o)
- .debug_frame   0x00000dc0       0x20 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(fixsfsi.o)
- .debug_frame   0x00000de0       0x30 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(floatsisf.o)
- .debug_frame   0x00000e10       0x38 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(adddf3.o)
- .debug_frame   0x00000e48       0x3c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(divdf3.o)
- .debug_frame   0x00000e84       0x38 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(eqdf2.o)
- .debug_frame   0x00000ebc       0x34 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(gedf2.o)
- .debug_frame   0x00000ef0       0x34 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(ledf2.o)
- .debug_frame   0x00000f24       0x3c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(muldf3.o)
- .debug_frame   0x00000f60       0x3c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(subdf3.o)
- .debug_frame   0x00000f9c       0x2c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(fixdfsi.o)
- .debug_frame   0x00000fc8       0x2c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(floatsidf.o)
- .debug_frame   0x00000ff4       0x2c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(extendsfdf2.o)
- .debug_frame   0x00001020       0x30 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(truncdfsf2.o)
- .debug_frame   0x00001050       0x20 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(_udivsi3.o)
- .debug_frame   0x00001070       0x40 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-atoi.o)
- .debug_frame   0x000010b0       0x68 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-fflush.o)
- .debug_frame   0x00001118      0x170 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-findfp.o)
- .debug_frame   0x00001288       0x58 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-fwalk.o)
- .debug_frame   0x000012e0       0xb0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-lock.o)
- .debug_frame   0x00001390       0x20 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-memset.o)
- .debug_frame   0x000013b0       0x2c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-freer.o)
- .debug_frame   0x000013dc       0x50 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-mallocr.o)
- .debug_frame   0x0000142c       0x70 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-vfprintf_float.o)
- .debug_frame   0x0000149c       0x54 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-vfprintf_i.o)
- .debug_frame   0x000014f0       0x50 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-printf.o)
- .debug_frame   0x00001540       0x2c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-sbrkr.o)
- .debug_frame   0x0000156c       0x48 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-sprintf.o)
- .debug_frame   0x000015b4       0x90 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-stdio.o)
- .debug_frame   0x00001644       0x78 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-strtol.o)
- .debug_frame   0x000016bc       0x2c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-writer.o)
- .debug_frame   0x000016e8       0x2c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-closer.o)
- .debug_frame   0x00001714       0x54 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-dtoa.o)
- .debug_frame   0x00001768       0x20 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-errno.o)
- .debug_frame   0x00001788       0x40 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-localeconv.o)
- .debug_frame   0x000017c8       0x2c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-lseekr.o)
- .debug_frame   0x000017f4       0x40 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-malloc.o)
- .debug_frame   0x00001834       0x20 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-memchr-stub.o)
- .debug_frame   0x00001854       0x28 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-memcpy-stub.o)
- .debug_frame   0x0000187c       0x40 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mlock.o)
- .debug_frame   0x000018bc      0x22c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
- .debug_frame   0x00001ae8       0x2c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-callocr.o)
- .debug_frame   0x00001b14       0x74 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-svfprintf.o)
- .debug_frame   0x00001b88       0x9c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-vfprintf.o)
- .debug_frame   0x00001c24       0x2c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-readr.o)
- .debug_frame   0x00001c50       0x48 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-wbuf.o)
- .debug_frame   0x00001c98       0x2c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-wsetup.o)
- .debug_frame   0x00001cc4       0x44 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-assert.o)
- .debug_frame   0x00001d08       0x4c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-fprintf.o)
- .debug_frame   0x00001d54       0x30 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-fvwrite.o)
- .debug_frame   0x00001d84       0x54 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-locale.o)
- .debug_frame   0x00001dd8       0x54 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-makebuf.o)
- .debug_frame   0x00001e2c       0x44 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mbtowc_r.o)
- .debug_frame   0x00001e70       0x28 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-memmove.o)
- .debug_frame   0x00001e98       0x34 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-reallocr.o)
- .debug_frame   0x00001ecc       0x20 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-strcmp.o)
- .debug_frame   0x00001eec       0x38 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-wctomb_r.o)
- .debug_frame   0x00001f24       0x28 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-abort.o)
- .debug_frame   0x00001f4c       0x2c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-fstatr.o)
- .debug_frame   0x00001f78       0x2c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-isattyr.o)
- .debug_frame   0x00001fa4       0x20 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-msizer.o)
- .debug_frame   0x00001fc4       0xe0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-signal.o)
- .debug_frame   0x000020a4       0x44 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-signalr.o)
- .debug_frame   0x000020e8       0x2c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(unorddf2.o)
- .debug_frame   0x00002114       0x28 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(floatunsidf.o)
+ .debug_frame   0x0000060c      0x1bc JDY40.o
+ .debug_frame   0x000007c8      0x124 lcd.o
+ .debug_frame   0x000008ec       0x4c adc.o
+ .debug_frame   0x00000938       0xa8 speaker.o
+ .debug_frame   0x000009e0       0x50 frequency_calc.o
+ .debug_frame   0x00000a30       0x70 movement.o
+ .debug_frame   0x00000aa0      0x228 newlib_stubs.o
+ .debug_frame   0x00000cc8       0x20 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(_divsi3.o)
+ .debug_frame   0x00000ce8       0x38 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(divsf3.o)
+ .debug_frame   0x00000d20       0x2c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(eqsf2.o)
+ .debug_frame   0x00000d4c       0x2c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(gesf2.o)
+ .debug_frame   0x00000d78       0x2c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(lesf2.o)
+ .debug_frame   0x00000da4       0x38 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(mulsf3.o)
+ .debug_frame   0x00000ddc       0x20 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(fixsfsi.o)
+ .debug_frame   0x00000dfc       0x30 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(floatsisf.o)
+ .debug_frame   0x00000e2c       0x38 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(adddf3.o)
+ .debug_frame   0x00000e64       0x3c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(divdf3.o)
+ .debug_frame   0x00000ea0       0x38 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(eqdf2.o)
+ .debug_frame   0x00000ed8       0x34 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(gedf2.o)
+ .debug_frame   0x00000f0c       0x34 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(ledf2.o)
+ .debug_frame   0x00000f40       0x3c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(muldf3.o)
+ .debug_frame   0x00000f7c       0x3c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(subdf3.o)
+ .debug_frame   0x00000fb8       0x2c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(fixdfsi.o)
+ .debug_frame   0x00000fe4       0x2c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(floatsidf.o)
+ .debug_frame   0x00001010       0x2c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(extendsfdf2.o)
+ .debug_frame   0x0000103c       0x30 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(truncdfsf2.o)
+ .debug_frame   0x0000106c       0x20 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(_udivsi3.o)
+ .debug_frame   0x0000108c       0x40 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-atoi.o)
+ .debug_frame   0x000010cc       0x68 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-fflush.o)
+ .debug_frame   0x00001134      0x170 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-findfp.o)
+ .debug_frame   0x000012a4       0x58 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-fwalk.o)
+ .debug_frame   0x000012fc       0xb0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-lock.o)
+ .debug_frame   0x000013ac       0x20 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-memset.o)
+ .debug_frame   0x000013cc       0x2c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-freer.o)
+ .debug_frame   0x000013f8       0x50 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-mallocr.o)
+ .debug_frame   0x00001448       0x70 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-vfprintf_float.o)
+ .debug_frame   0x000014b8       0x54 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-vfprintf_i.o)
+ .debug_frame   0x0000150c       0x50 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-printf.o)
+ .debug_frame   0x0000155c       0x2c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-sbrkr.o)
+ .debug_frame   0x00001588       0x48 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-sprintf.o)
+ .debug_frame   0x000015d0       0x90 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-stdio.o)
+ .debug_frame   0x00001660       0x78 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-strtol.o)
+ .debug_frame   0x000016d8       0x2c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-writer.o)
+ .debug_frame   0x00001704       0x2c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-closer.o)
+ .debug_frame   0x00001730       0x54 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-dtoa.o)
+ .debug_frame   0x00001784       0x20 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-errno.o)
+ .debug_frame   0x000017a4       0x40 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-localeconv.o)
+ .debug_frame   0x000017e4       0x2c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-lseekr.o)
+ .debug_frame   0x00001810       0x40 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-malloc.o)
+ .debug_frame   0x00001850       0x20 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-memchr-stub.o)
+ .debug_frame   0x00001870       0x28 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-memcpy-stub.o)
+ .debug_frame   0x00001898       0x40 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mlock.o)
+ .debug_frame   0x000018d8      0x22c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
+ .debug_frame   0x00001b04       0x2c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-callocr.o)
+ .debug_frame   0x00001b30       0x74 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-svfprintf.o)
+ .debug_frame   0x00001ba4       0x9c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-vfprintf.o)
+ .debug_frame   0x00001c40       0x2c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-readr.o)
+ .debug_frame   0x00001c6c       0x48 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-wbuf.o)
+ .debug_frame   0x00001cb4       0x2c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-wsetup.o)
+ .debug_frame   0x00001ce0       0x44 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-assert.o)
+ .debug_frame   0x00001d24       0x4c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-fprintf.o)
+ .debug_frame   0x00001d70       0x30 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-fvwrite.o)
+ .debug_frame   0x00001da0       0x54 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-locale.o)
+ .debug_frame   0x00001df4       0x54 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-makebuf.o)
+ .debug_frame   0x00001e48       0x44 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mbtowc_r.o)
+ .debug_frame   0x00001e8c       0x28 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-memmove.o)
+ .debug_frame   0x00001eb4       0x34 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-reallocr.o)
+ .debug_frame   0x00001ee8       0x20 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-strcmp.o)
+ .debug_frame   0x00001f08       0x38 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-wctomb_r.o)
+ .debug_frame   0x00001f40       0x28 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-abort.o)
+ .debug_frame   0x00001f68       0x2c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-fstatr.o)
+ .debug_frame   0x00001f94       0x2c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-isattyr.o)
+ .debug_frame   0x00001fc0       0x20 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-msizer.o)
+ .debug_frame   0x00001fe0       0xe0 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-signal.o)
+ .debug_frame   0x000020c0       0x44 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-signalr.o)
+ .debug_frame   0x00002104       0x2c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(unorddf2.o)
+ .debug_frame   0x00002130       0x28 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(floatunsidf.o)
 
 .debug_ranges   0x00000000       0x18
  .debug_ranges  0x00000000       0x18 startup.o
@@ -2107,6 +2109,8 @@ calculateCT                                       frequency_calc.o
 calculate_inductance                              frequency_calc.o
 delay                                             main.o
 display_adc                                       main.o
+display_buffs                                     JDY40.o
+                                                  main.o
 display_inductance                                main.o
 display_x_y                                       main.o
 egetc                                             serial.o

@@ -268,10 +268,11 @@ void main (void)
 	{
 		if(P3_7==0)
 		{
-			sprintf(buff, "JDY40 test %d\r\n", cnt++);
+			sprintf(buff, "%d\r\n", cnt++);
 			sendstr1(buff);
-			putchar('.');
 			waitms_or_RI1(200);
+
+			printf("TX: %s", buff);
 		}
 		if(RXU1())
 		{

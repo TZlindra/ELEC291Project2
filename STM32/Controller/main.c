@@ -209,14 +209,17 @@ void main(void) {
 		standardized_y = standardize_y(y);
 		Update_XY(standardized_x, standardized_y);
 
-		RX21Count++;
-		if (RX21Count > 5500) {
-			RX21Count = 0;
-			RX_I();
-		}
+		// RX21Count++;
+		// if (RX21Count > 5500) {
+		// 	RX21Count = 0;
+		// 	RX_I();
+		// }
 
+		RX_I();
+
+		display_buffs();
 		inductance = Update_I(inductance);
-		printf("I: %d\r\n", inductance);
+		// printf("I: %d\r\n", inductance);
 
 		// if (IsButtonPressed()) SpeakerRatio = SetSpeakerFreq(SpeakerRatio);
 
@@ -231,9 +234,6 @@ void main(void) {
 
 		display_inductance(inductance);
 		display_x_y(standardized_x, standardized_y);
-
-		// display_x_y(x, y);
-		// display_adc(x, standardized_x, y, standardized_y);
 
 		fflush(stdout); // GCC printf wants a \n in order to send something.  If \n is not present, we fflush(stdout)
 		waitms(200);

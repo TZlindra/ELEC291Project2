@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
 ; File Created by C51
 ; Version 1.0.0 #1170 (Feb 16 2022) (MSVC)
-; This file was generated Thu Mar 28 12:37:54 2024
+; This file was generated Thu Mar 28 12:56:21 2024
 ;--------------------------------------------------------
 $name EFM8_JDY40_test
 $optc51 --model-small
@@ -1202,7 +1202,7 @@ _main:
 L014006?:
 ;	EFM8_JDY40_test.c:269: if(P3_7==0)
 	jb	_P3_7,L014002?
-;	EFM8_JDY40_test.c:271: sprintf(buff, "JDY40 test %d\r\n", cnt++);
+;	EFM8_JDY40_test.c:271: sprintf(buff, "%d\r\n", cnt++);
 	mov	ar4,r2
 	mov	ar5,r3
 	inc	r2
@@ -1233,31 +1233,10 @@ L014014?:
 	mov	dptr,#_buff
 	mov	b,#0x40
 	lcall	_sendstr1
-;	EFM8_JDY40_test.c:273: putchar('.');
-	mov	dpl,#0x2E
-	lcall	_putchar
-;	EFM8_JDY40_test.c:274: waitms_or_RI1(200);
+;	EFM8_JDY40_test.c:273: waitms_or_RI1(200);
 	mov	dptr,#0x00C8
 	lcall	_waitms_or_RI1
-	pop	ar3
-	pop	ar2
-L014002?:
-;	EFM8_JDY40_test.c:276: if(RXU1())
-	push	ar2
-	push	ar3
-	lcall	_RXU1
-	clr	a
-	rlc	a
-	pop	ar3
-	pop	ar2
-	jz	L014006?
-;	EFM8_JDY40_test.c:278: getstr1(buff);
-	mov	dptr,#_buff
-	mov	b,#0x40
-	push	ar2
-	push	ar3
-	lcall	_getstr1
-;	EFM8_JDY40_test.c:279: printf("RX: %s\r\n", buff);
+;	EFM8_JDY40_test.c:275: printf("TX: %s", buff);
 	mov	a,#_buff
 	push	acc
 	mov	a,#(_buff >> 8)
@@ -1267,6 +1246,39 @@ L014002?:
 	mov	a,#__str_14
 	push	acc
 	mov	a,#(__str_14 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	mov	a,sp
+	add	a,#0xfa
+	mov	sp,a
+	pop	ar3
+	pop	ar2
+L014002?:
+;	EFM8_JDY40_test.c:277: if(RXU1())
+	push	ar2
+	push	ar3
+	lcall	_RXU1
+	pop	ar3
+	pop	ar2
+	jnc	L014006?
+;	EFM8_JDY40_test.c:279: getstr1(buff);
+	mov	dptr,#_buff
+	mov	b,#0x40
+	push	ar2
+	push	ar3
+	lcall	_getstr1
+;	EFM8_JDY40_test.c:280: printf("RX: %s\r\n", buff);
+	mov	a,#_buff
+	push	acc
+	mov	a,#(_buff >> 8)
+	push	acc
+	mov	a,#0x40
+	push	acc
+	mov	a,#__str_15
+	push	acc
+	mov	a,#(__str_15 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -1349,11 +1361,14 @@ __str_12:
 	db 0x0A
 	db 0x00
 __str_13:
-	db 'JDY40 test %d'
+	db '%d'
 	db 0x0D
 	db 0x0A
 	db 0x00
 __str_14:
+	db 'TX: %s'
+	db 0x00
+__str_15:
 	db 'RX: %s'
 	db 0x0D
 	db 0x0A

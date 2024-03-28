@@ -6,26 +6,26 @@ Modules linked:
    'gptrput' from 'C:\call51\Bin\..\lib\small\libc51.lib'
    'sprintf' from 'C:\call51\Bin\..\lib\small\libc51.lib'
    'crt0' from 'C:\call51\Bin\..\lib\small\libc51.lib'
-   'putchar' from 'C:\call51\Bin\..\lib\small\libc51.lib'
    'print_format' from 'C:\call51\Bin\..\lib\small\libc51.lib'
    'bp' from 'C:\call51\Bin\..\lib\small\libc51.lib'
+   'putchar' from 'C:\call51\Bin\..\lib\small\libc51.lib'
    'strlen' from 'C:\call51\Bin\..\lib\small\libc51.lib'
 
 Memory use per module linked:
-C:01180 D:000 I:020 B:000 X:00000 - EFM8_JDY40_test
+C:01201 D:000 I:020 B:000 X:00000 - EFM8_JDY40_test
 C:00028 D:000 I:000 B:000 X:00000 - gptrget
 C:00101 D:004 I:000 B:000 X:00000 - divulong
 C:00054 D:001 I:000 B:000 X:00000 - vprintf
 C:00025 D:001 I:000 B:000 X:00000 - gptrput
 C:00149 D:007 I:000 B:000 X:00000 - sprintf
 C:00113 D:000 I:000 B:000 X:00000 - crt0
-C:00021 D:000 I:000 B:000 X:00000 - putchar
 C:01579 D:021 I:006 B:014 X:00000 - print_format
 C:00000 D:001 I:000 B:000 X:00000 - bp
+C:00021 D:000 I:000 B:000 X:00000 - putchar
 C:00040 D:000 I:000 B:000 X:00000 - strlen
 C:00004 D:000 I:000 B:000 X:00000 - ABSOLUTE
 ------------------------------------------------------
-C:03294 D:035 I:026 B:014 X:00000 - Totals
+C:03315 D:035 I:026 B:014 X:00000 - Totals
 
 INTERMAL RAM map (see legend below):
 00: 0 0 0 0 0 0 0 0 a b b b b b b b 
@@ -69,7 +69,7 @@ BIT map:
 70: . . . . . . . . . . . . . . . . 
 
 CODE usage map:
-0000: 256 256 256 256 256 256 256 256 256 256 256 256 222 000 000 000 
+0000: 256 256 256 256 256 256 256 256 256 256 256 256 243 000 000 000 
 1000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
 2000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
 3000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
@@ -85,7 +85,7 @@ C000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000
 D000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
 E000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
 F000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
-Total: 3294 bytes
+Total: 3315 bytes
 
 XDATA usage map:
 0000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
@@ -110,9 +110,9 @@ Base Segments:
    ?lib?dseg?1=D:0022, size=0015
    BIT_BANK=D:0000, size=0000
    R_BSEG=B:0000, size=000E
-   R_CONST=C:0074, size=00DE
-   R_CSEG=C:0153, size=0B8B
-   R_DINIT=C:0152, size=0000
+   R_CONST=C:0074, size=00DA
+   R_CSEG=C:014F, size=0BA4
+   R_DINIT=C:014E, size=0000
    R_DSEG=D:0000, size=0009
    R_GSINIT=C:0003, size=0071
    R_HOME=C:0000, size=0000
@@ -126,40 +126,40 @@ Base Segments:
 
 Module Segments:
    CSEG=C:0000, size=0004
-   EFM8_JDY40_test:R_CONST=C:0074, size=00D3
-   EFM8_JDY40_test:R_CSEG=C:0153, size=03C9
+   EFM8_JDY40_test:R_CONST=C:0074, size=00CF
+   EFM8_JDY40_test:R_CSEG=C:014F, size=03E2
    EFM8_JDY40_test:R_ISEG=I:0037, size=0014
    bp:R_DSEG=D:0008, size=0001
    crt0:R_GSINIT=C:0003, size=0071
-   divulong:R_CSEG=C:0538, size=0065
+   divulong:R_CSEG=C:054D, size=0065
    divulong:R_OSEG=D:0011, size=0004
-   gptrget:R_CSEG=C:051C, size=001C
-   gptrput:R_CSEG=C:05D3, size=0019
+   gptrget:R_CSEG=C:0531, size=001C
+   gptrput:R_CSEG=C:05E8, size=0019
    gptrput:R_OSEG=D:0011, size=0001
    print_format:?lib?dseg?1=D:0022, size=0015
    print_format:R_BSEG=B:0000, size=000E
-   print_format:R_CONST=C:0147, size=000B
+   print_format:R_CONST=C:0143, size=000B
    print_format:R_CSEG=C:0696, size=0620
    print_format:R_ISEG=I:004B, size=0006
-   putchar:R_CSEG=C:0681, size=0015
-   sprintf:R_CSEG=C:05EC, size=0095
+   putchar:R_CSEG=C:0CB6, size=0015
+   sprintf:R_CSEG=C:0601, size=0095
    sprintf:R_DSEG=D:0009, size=0007
-   strlen:R_CSEG=C:0CB6, size=0028
-   vprintf:R_CSEG=C:059D, size=0036
+   strlen:R_CSEG=C:0CCB, size=0028
+   vprintf:R_CSEG=C:05B2, size=0036
    vprintf:R_DSEG=D:0010, size=0001
 
 Public symbols:
    _?lib?dseg?1_size=L:0015
    _?lib?dseg?1_start=L:0022
-   _RXU1=C:032B
+   _RXU1=C:0327
    _R_BSEG_size=L:000E
    _R_BSEG_start=L:0000
-   _R_CONST_size=L:00DE
+   _R_CONST_size=L:00DA
    _R_CONST_start=L:0074
-   _R_CSEG_size=L:0B8B
-   _R_CSEG_start=L:0153
+   _R_CSEG_size=L:0BA4
+   _R_CSEG_start=L:014F
    _R_DINIT_size=L:0000
-   _R_DINIT_start=L:0152
+   _R_DINIT_start=L:014E
    _R_GSINIT_size=L:0071
    _R_GSINIT_start=L:0003
    _R_HOME_size=L:0000
@@ -176,15 +176,15 @@ Public symbols:
    _R_XINIT_start=L:0000
    _R_XSEG_size=L:0000
    _R_XSEG_start=L:0000
-   _SendATCommand=C:038B
-   _Timer3us=C:01A7
-   _UART1_Init=C:020C
-   __c51_external_startup=C:0153
+   _SendATCommand=C:0387
+   _Timer3us=C:01A3
+   _UART1_Init=C:0208
+   __c51_external_startup=C:014F
    __divslong_PARM_2=D:0011
-   __divulong=C:0538
+   __divulong=C:054D
    __divulong_PARM_2=D:0011
-   __gptrget=C:051C
-   __gptrput=C:05D3
+   __gptrget=C:0531
+   __gptrput=C:05E8
    __gptrput_PARM_2=D:0011
    __print_format=C:071F
    __print_format_PARM_2=D:0030
@@ -194,67 +194,68 @@ Public symbols:
    _bp_R_DSEG_start=L:0008
    _buff=I:0037
    _crt0=C:0003
-   _dummy_name_crt0=C:0681
-   _getchar1=C:02A8
-   _getchar1_with_timeout=C:02BA
-   _getstr1=C:02F6
-   _main=C:03FC
-   _printf=C:05B2
-   _putchar1=C:026D
-   _putchar=C:0681
-   _sendstr1=C:027D
-   _sprintf=C:063B
+   _dummy_name_crt0=C:0696
+   _getchar1=C:02A4
+   _getchar1_with_timeout=C:02B6
+   _getstr1=C:02F2
+   _main=C:03F8
+   _printf=C:05C7
+   _putchar1=C:0269
+   _putchar=C:0CB6
+   _sendstr1=C:0279
+   _sprintf=C:0650
    _sprintf_R_DSEG_size=L:0007
    _sprintf_R_DSEG_start=L:0009
    _stack_start=L:0051
-   _strlen=C:0CB6
-   _vprintf=C:05A0
+   _strlen=C:0CCB
+   _vprintf=C:05B5
    _vprintf_PARM_2=D:0010
    _vprintf_R_DSEG_size=L:0001
    _vprintf_R_DSEG_start=L:0010
-   _vsprintf=C:0607
+   _vsprintf=C:061C
    _vsprintf_PARM_2=D:000C
    _vsprintf_PARM_3=D:000F
-   _waitms=C:01D1
-   _waitms_or_RI1=C:0334
+   _waitms=C:01CD
+   _waitms_or_RI1=C:0330
 
 Local symbols:
-   EFM8_JDY40_test:L002001?=C:0171
-   EFM8_JDY40_test:L002004?=C:017C
-   EFM8_JDY40_test:L003001?=C:01C2
-   EFM8_JDY40_test:L003004?=C:01BD
-   EFM8_JDY40_test:L003007?=C:01CD
-   EFM8_JDY40_test:L004001?=C:01E2
-   EFM8_JDY40_test:L004005?=C:01D9
-   EFM8_JDY40_test:L004007?=C:0204
-   EFM8_JDY40_test:L004009?=C:020B
-   EFM8_JDY40_test:L004018?=C:01E5
-   EFM8_JDY40_test:L006001?=C:0272
-   EFM8_JDY40_test:L006008?=C:0277
-   EFM8_JDY40_test:L007001?=C:0283
-   EFM8_JDY40_test:L007004?=C:02A7
-   EFM8_JDY40_test:L008001?=C:02AB
-   EFM8_JDY40_test:L008008?=C:02B0
-   EFM8_JDY40_test:L009003?=C:02C1
-   EFM8_JDY40_test:L009005?=C:02EA
-   EFM8_JDY40_test:L009012?=C:02DD
-   EFM8_JDY40_test:L010002?=C:031A
-   EFM8_JDY40_test:L010004?=C:02FC
-   EFM8_JDY40_test:L012002?=C:0366
-   EFM8_JDY40_test:L012003?=C:0345
-   EFM8_JDY40_test:L012007?=C:033C
-   EFM8_JDY40_test:L012009?=C:0383
-   EFM8_JDY40_test:L012011?=C:038A
-   EFM8_JDY40_test:L012019?=C:0348
-   EFM8_JDY40_test:L014002?=C:04D8
-   EFM8_JDY40_test:L014006?=C:048A
-   EFM8_JDY40_test:L014014?=C:0496
+   EFM8_JDY40_test:L002001?=C:016D
+   EFM8_JDY40_test:L002004?=C:0178
+   EFM8_JDY40_test:L003001?=C:01BE
+   EFM8_JDY40_test:L003004?=C:01B9
+   EFM8_JDY40_test:L003007?=C:01C9
+   EFM8_JDY40_test:L004001?=C:01DE
+   EFM8_JDY40_test:L004005?=C:01D5
+   EFM8_JDY40_test:L004007?=C:0200
+   EFM8_JDY40_test:L004009?=C:0207
+   EFM8_JDY40_test:L004018?=C:01E1
+   EFM8_JDY40_test:L006001?=C:026E
+   EFM8_JDY40_test:L006008?=C:0273
+   EFM8_JDY40_test:L007001?=C:027F
+   EFM8_JDY40_test:L007004?=C:02A3
+   EFM8_JDY40_test:L008001?=C:02A7
+   EFM8_JDY40_test:L008008?=C:02AC
+   EFM8_JDY40_test:L009003?=C:02BD
+   EFM8_JDY40_test:L009005?=C:02E6
+   EFM8_JDY40_test:L009012?=C:02D9
+   EFM8_JDY40_test:L010002?=C:0316
+   EFM8_JDY40_test:L010004?=C:02F8
+   EFM8_JDY40_test:L012002?=C:0362
+   EFM8_JDY40_test:L012003?=C:0341
+   EFM8_JDY40_test:L012007?=C:0338
+   EFM8_JDY40_test:L012009?=C:037F
+   EFM8_JDY40_test:L012011?=C:0386
+   EFM8_JDY40_test:L012019?=C:0344
+   EFM8_JDY40_test:L014002?=C:04EF
+   EFM8_JDY40_test:L014006?=C:0486
+   EFM8_JDY40_test:L014014?=C:0492
    EFM8_JDY40_test:__str_0=C:0074
    EFM8_JDY40_test:__str_10=C:00EB
    EFM8_JDY40_test:__str_11=C:00F5
    EFM8_JDY40_test:__str_12=C:00FF
    EFM8_JDY40_test:__str_13=C:012E
-   EFM8_JDY40_test:__str_14=C:013E
+   EFM8_JDY40_test:__str_14=C:0133
+   EFM8_JDY40_test:__str_15=C:013A
    EFM8_JDY40_test:__str_1=C:0080
    EFM8_JDY40_test:__str_2=C:008F
    EFM8_JDY40_test:__str_3=C:009F
@@ -273,20 +274,20 @@ Local symbols:
    crt0:__c51_init_data=C:0010
    crt0:__c51_program_startup=C:006F
    crt0:forever?home?=C:0072
-   divulong:__divlong_dummy=C:0538
-   divulong:exit=C:059B
-   divulong:in_lp=C:056C
-   divulong:loop=C:0559
-   divulong:lp0=C:0540
-   divulong:minus=C:0599
-   gptrget:codeptr?=C:0533
-   gptrget:dataptrrestore?=C:052A
-   gptrget:pdataptr?=C:0530
-   gptrget:xdataptr?=C:0536
-   gptrput:codeptr?=C:05E6
-   gptrput:dataptrrestore?=C:05E1
-   gptrput:pdataptr?=C:05E7
-   gptrput:xdataptr?=C:05EA
+   divulong:__divlong_dummy=C:054D
+   divulong:exit=C:05B0
+   divulong:in_lp=C:0581
+   divulong:loop=C:056E
+   divulong:lp0=C:0555
+   divulong:minus=C:05AE
+   gptrget:codeptr?=C:0548
+   gptrget:dataptrrestore?=C:053F
+   gptrget:pdataptr?=C:0545
+   gptrget:xdataptr?=C:054B
+   gptrput:codeptr?=C:05FB
+   gptrput:dataptrrestore?=C:05F6
+   gptrput:pdataptr?=C:05FC
+   gptrput:xdataptr?=C:05FF
    print_format:L002003?=C:06A7
    print_format:L002004?=C:06AF
    print_format:L003004?=C:06C4
@@ -405,7 +406,7 @@ Local symbols:
    print_format:__output_char=C:0696
    print_format:__print_format_sloc0_1_0=D:0034
    print_format:__print_format_store_4_108=I:004B
-   print_format:__str_0=C:0147
+   print_format:__str_0=C:0143
    print_format:_calculate_digit=C:06E0
    print_format:_char_argument=B:0009
    print_format:_charsOutputted=D:0029
@@ -431,13 +432,13 @@ Local symbols:
    print_format:_value=D:0024
    print_format:_width=D:002C
    print_format:_zero_padding=B:0005
-   putchar:L002001?=C:0686
-   putchar:L002006?=C:068E
-   putchar:L002017?=C:068B
-   putchar:L002018?=C:0693
-   sprintf:L002003?=C:0606
+   putchar:L002001?=C:0CBB
+   putchar:L002006?=C:0CC3
+   putchar:L002017?=C:0CC0
+   putchar:L002018?=C:0CC8
+   sprintf:L002003?=C:061B
    sprintf:_obuf=D:0009
-   sprintf:_put_char_to_string=C:05EC
-   strlen:L002001?=C:0CC0
-   strlen:L002003?=C:0CD9
-   vprintf:_put_char_to_stdout=C:059D
+   sprintf:_put_char_to_string=C:0601
+   strlen:L002001?=C:0CD5
+   strlen:L002003?=C:0CEE
+   vprintf:_put_char_to_stdout=C:05B2

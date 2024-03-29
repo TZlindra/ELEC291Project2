@@ -7,8 +7,6 @@ enum State
     backward_enum
 };
 
-#include "movement_integration.h"
-
 #include <EFM8LB1.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -27,6 +25,5 @@ void horizontal(float PWM_percent_x);
 void TIMER3Init(void);
 void PWM_manager(float x_value, float y_value);
 enum State movement_manager(float PWM_percent_x, float PWM_percent_y, float prev_PWM_percent_x, float prev_PWM_percent_y, enum State state);
-void Timer3_ISR (void) interrupt INTERRUPT_TIMER3;
 void movement_init(void);
 void movement_loop(float x, float y);

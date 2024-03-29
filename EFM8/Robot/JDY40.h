@@ -1,24 +1,25 @@
 #include "global.h"
 
-#define SYSCLK 72000000
-
-void Timer3_us(unsigned char us);
+void JDY40Init(void);
+void TIMER4_Init(void);
 
 void putchar1(char c);
-void sendstr1(char * s);
+void sendstr1(char *s);
 char getchar1(void);
 char getchar1_with_timeout(void);
-void getstr1(char * s);
+void getstr1(char *s);
 bit RXU1(void);
 
 void waitms_or_RI1(unsigned int ms);
-void SendATCommand(char* s);
+void clearUART1Buffer(void);
+void SendATCommand(char * s);
 
-void Update_I(int inductance);
+int stringToInt(char *str);
+void splitString(const char *str, char *part1, char *part2);
+void Trim(char *str, int *xin, int *yin);
 
-void RX_XY(void);
 void TX_I(void);
-void display_buffs(void);
+void RX_XY(void);
 
-
-int searchI(const char* array);
+float return_x(void);
+float return_y(void);

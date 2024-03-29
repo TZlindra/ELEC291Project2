@@ -55,12 +55,34 @@ int getPasscodeButton(void) {
     if (isButtonPressed(BUTTON_S0) || isButtonPressed(BUTTON_S1) || isButtonPressed(BUTTON_S2) || isButtonPressed(BUTTON_S3)) {
         waitms(DEBOUNCE); // Debounce
 
-        if (isButtonPressed(BUTTON_S0)) pressed = s_0; // Button A
-        else if (isButtonPressed(BUTTON_S1)) pressed = s_1; // Button B
-        else if (isButtonPressed(BUTTON_S2)) pressed = s_2; // Button C
-        else if (isButtonPressed(BUTTON_S3)) pressed = s_3; // Button D
-        else pressed = -1;
-
+        if (isButtonPressed(BUTTON_S0))
+        {
+            pressed = s_0; // Button A
+            GPIOA->ODR &= ~BIT6;
+            GPIOA->ODR &= ~BIT7;
+        }
+        else if (isButtonPressed(BUTTON_S1))
+        {
+            pressed = s_1; // Button B
+            GPIOA->ODR &= ~BIT6;
+            GPIOA->ODR |= BIT7;
+        }
+        else if (isButtonPressed(BUTTON_S2))
+        {
+            pressed = s_2; // Button C
+            GPIOA->ODR |= BIT6;
+            GPIOA->ODR &= ~BIT7;
+        }
+        else if (isButtonPressed(BUTTON_S3))
+        {
+            pressed = s_3; // Button D
+            GPIOA->ODR |= BIT6;
+            GPIOA->ODR |= BIT7;
+        }
+        else
+        {
+            pressed = -1;
+        }
         while (isButtonPressed(BUTTON_S0) || isButtonPressed(BUTTON_S1) || isButtonPressed(BUTTON_S2) || isButtonPressed(BUTTON_S3)); // Wait for button release
         return pressed;
     } else {
@@ -75,7 +97,7 @@ void checkCombination(void) {
         PASSCODE_BUFF[state] = '*';
         LCDprint(PASSCODE_BUFF, 2, 1);
         state++;
-        printf("State:%d Button:%d Correct:%d\r\n", state, button, correct_combination);
+        // printf("State:%d Button:%d Correct:%d\r\n", state, button, correct_combination);
     }
 }
 

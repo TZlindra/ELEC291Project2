@@ -1,25 +1,39 @@
-// C1 = 10nF C2 = 100nF
-#include "global.h"
-#include "JDY40.h"
+#include "movement_integration.h"
 
-#define TIMER_OUT_5 P1_3
+#include <EFM8LB1.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
 
-idata char hold[20];
+#define SYSCLK 72000000
+#define BAUDRATE 115200L
 
-volatile int TX5Count = 0;
+#define MAX_16_BIT 65536.0 // 16-Bit Maximum Value
+#define MAX_8_BIT 256.0 // 8-Bit Maximum Value
+#define TIMER_4_FREQ 1000L
+#define TIMER_5_FREQ 1000L
 
-volatile int freq = 300;
-volatile int inductance = 0;
+/* Clock Frequency and Baud Rate */
+// Baudrate of UART in BPS
+#define SARCLK 18000000L // SARCLK Frequency in Hz
 
-/* Function Prototypes */
-void Timer3us(unsigned char us);
-void waitms(unsigned int ms);
+/* Define Pins */
+#define EFM8_SIGNAL P1_0 // Signal to Measure
 
-float calculate_period_s(int overflow_count, int TH0, int TL0);
-float calculate_freq_Hz(float period_s);
-float get_freq(void);
+#define VSS 5 // The measured value of VSS in volts
+#define VDD 3.3035 // The measured value of VDD in volts
 
-char _c51_external_startup(void) {
+idata char buff[80];
+
+void splitString(const char *str, char *part1, char *part2);
+int stringToInt(char *str);
+
+volatile int TXcount=0;
+volatile int flag = 0;
+
+char _c51_external_startup (void)
+{
 	// Disable Watchdog with key sequence
 	SFRPAGE = 0x00;
 	WDTCN = 0xDE; //First key
@@ -83,66 +97,39 @@ char _c51_external_startup(void) {
 	TMOD |=  0x20;
 	TR1 = 1; // START Timer1
 	TI = 1;  // Indicate TX0 ready
-
+	P1MDOUT |= 0b0000_0100;
+	EA=1;
 	return 0;
 }
 
-void TIMER0_Init(void) {
-	TMOD &= 0b_1111_0000; // Set the Bits of Timer/Counter 0 to 0
-	TMOD |= 0b_0000_0001; // Timer/Counter 0 Used As 16-Bit Timer
-	TR0 = 0; // Stop Timer/Counter 0
-}
-
-void TIMER5_Init(void) {
-	// Initialize timer 5 for periodic interrupts
+void TIMER4_Init(void)
+{
+	// Initialize timer 4 for periodic interrupts
 	SFRPAGE=0x10;
-	TMR5CN0=0x00;   // Stop Timer5; Clear TF5; WARNING: lives in SFR page 0x10
-	CKCON1|=0b_0000_0100; // Timer 5 uses the system clock
-	TMR5RL=(0x10000L-(SYSCLK/(2*TIMER_5_FREQ))); // Initialize reload value
-	TMR5=0xffff;   // Set to reload immediately
-	EIE2|=0b_0000_1000; // Enable Timer5 interrupts
-	TR5=1;         // Start Timer5 (TMR5CN0 is bit addressable)
+	TMR4CN0=0x00;   // Stop Timer4; Clear TF4; WARNING: lives in SFR page 0x10
+	CKCON1|=0b_0000_0001; // Timer 4 uses the system clock
+	TMR4RL=(0x10000L-(SYSCLK/(2*TIMER_4_FREQ))); // Initialize reload value
+	TMR4=0xffff;   // Set to reload immediately
+	EIE2|=0b_0000_0100;     // Enable Timer4 interrupts
+	TR4=1;
 }
 
-
-void Timer5_ISR (void) interrupt INTERRUPT_TIMER5
+void Timer4_ISR (void) interrupt INTERRUPT_TIMER4
 {
 	SFRPAGE=0x10;
-	TF5H = 0; // Clear Timer5 interrupt flag
-	TIMER_OUT_5=!TIMER_OUT_5;
+	TF4H = 0; // Clear Timer4 interrupt flag
+	TXcount++;
+	if(TXcount >= 1000){
+		TXcount=0;
+		P1_2=!P1_2;
+		flag == 0;
+	}
 }
 
-void Serial_Init(void) {
-	waitms(500); // Give Putty a chance to start.
-	printf("\x1b[2J"); // Clear screen using ANSI escape sequence.
-}
-
-void UART1_Init(unsigned long baudrate) {
-    SFRPAGE = 0x20;
-	SMOD1 = 0x0C; // no parity, 8 data bits, 1 stop bit
-	SCON1 = 0x10;
-	SBCON1 =0x00;   // disable baud rate generator
-	SBRL1 = 0x10000L-((SYSCLK/baudrate)/(12L*2L));
-	TI1 = 1; // indicate ready for TX
-	SBCON1 |= 0x40;   // enable baud rate generator
-	SFRPAGE = 0x00;
-}
-
-void JDYInit(void) {
-	SendATCommand("AT+DVIDAFAF\r\n");
-	SendATCommand("AT+RFIDFFBB\r\n");
-	// To check configuration
-	SendATCommand("AT+VER\r\n");
-	SendATCommand("AT+BAUD\r\n");
-	SendATCommand("AT+RFID\r\n");
-	SendATCommand("AT+DVID\r\n");
-	SendATCommand("AT+RFC\r\n");
-	SendATCommand("AT+POWE\r\n");
-	SendATCommand("AT+CLSS\r\n");
-}
 
 // Uses Timer3 to delay <us> micro-seconds.
-void Timer3us(unsigned char us) {
+void Timer3us(unsigned char us)
+{
 	unsigned char i;               // usec counter
 
 	// The input for Timer 3 is selected as SYSCLK by setting T3ML (bit 6) of CKCON0:
@@ -160,77 +147,345 @@ void Timer3us(unsigned char us) {
 	TMR3CN0 = 0 ;                   // Stop Timer3 and clear overflow flag
 }
 
-void waitms(unsigned int ms) {
+void waitms (unsigned int ms)
+{
 	unsigned int j;
 	unsigned char k;
 	for(j=0; j<ms; j++)
 		for (k=0; k<4; k++) Timer3us(250);
 }
 
-float calculate_period_s(int overflow_count, int TH0, int TL0) {
-	return ((overflow_count * MAX_16_BIT)  + (TH0 * MAX_8_BIT) + TL0) * (12.0 / SYSCLK);
+void UART1_Init(unsigned long baudrate) {
+    SFRPAGE = 0x20;
+    SMOD1 = 0x0C; // no parity, 8 data bits, 1 stop bit
+    SCON1 = 0x10; // Mode 1, 8-bit UART, variable baud rate, receive enabled
+    SBCON1 = 0x00; // disable baud rate generator
+    SBRL1 = 0x10000L - ((SYSCLK / baudrate) / (12L * 2L));
+    TI1 = 1; // indicate ready for TX
+    SBCON1 |= 0x40; // enable baud rate generator
+    SFRPAGE = 0x00;
 }
 
-float calculate_freq_Hz(float period_s) {
-	return (1.0 / period_s);
+void putchar1(char c) {
+    SFRPAGE = 0x20;
+    while (!TI1);
+    TI1 = 0;
+    SBUF1 = c;
+    SFRPAGE = 0x00;
 }
 
-float get_freq(void) {
-	float period_s, freq_Hz;
-	int overflow_count = 0;
-	TL0 = 0;
-	TH0 = 0;
-	TF0 = 0;
-	overflow_count = 0;
-
-	while (EFM8_SIGNAL != 0); // Wait for Signal == 0
-	while (EFM8_SIGNAL != 1); // Wait for Signal == 1
-
-    TR0 = 1; // Start Timer
-
-	while (EFM8_SIGNAL != 0) { // Wait for Signal == 0
-		if (TF0 == 1) { // Did 16-Bit Timer Overflow?
-			TF0 = 0;
-			overflow_count++;
-		}
-    }
-    while (EFM8_SIGNAL != 1) { // Wait for Signal == 1
-		if (TF0 == 1) { // Did 16-Bit Timer Overflow?
-			TF0 = 0;
-			overflow_count++;
-		}
-    }
-
-	TR0 = 0; // Stop Timer 0. The 24-bit number [overflow_count-TH0-TL0] has the period!
-	period_s = calculate_period_s(overflow_count, TH0, TL0);
-	freq_Hz = calculate_freq_Hz(period_s);
-	return freq_Hz;
-}
-
-void GetMovement(char* s, int com) {
-	printf(s);
-	if (com == 0){
-		return;
+void sendstr1 (char * s)
+{
+	while(*s)
+	{
+		putchar1(*s);
+		s++;
 	}
 }
 
-void main (void) {
-	// int com;
+char getchar1(void) {
+    char c;
+    SFRPAGE = 0x20;
+    while (!RI1);
+    RI1 = 0;
+    // Clear Overrun and Parity error flags
+    SCON1 &= 0b_0011_1111;
+    c = SBUF1;
+    SFRPAGE = 0x00;
+    return (c);
+}
 
-	TIMER0_Init();
-	Serial_Init();
+char getchar1_with_timeout (void)
+{
+	char c;
+	unsigned int timeout;
+    SFRPAGE = 0x20;
+    timeout=0;
+	while (!RI1)
+	{
+		SFRPAGE = 0x00;
+		Timer3us(20);
+		SFRPAGE = 0x20;
+		timeout++;
+		if(timeout==25000)
+		{
+			SFRPAGE = 0x00;
+			return ('\n'); // Timeout after half second
+		}
+	}
+	RI1=0;
+	// Clear Overrun and Parity error flags
+	SCON1&=0b_0011_1111;
+	c = SBUF1;
+	SFRPAGE = 0x00;
+	return (c);
+}
+
+void getstr1 (char * s)
+{
+	char c;
+
+	while(1)
+	{
+		c=getchar1_with_timeout();
+		if(c=='\n')
+		{
+			*s=0;
+			return;
+		}
+		*s=c;
+		s++;
+	}
+}
+
+// RXU1 returns '1' if there is a byte available in the receive buffer of UART1
+bit RXU1 (void)
+{
+	bit mybit;
+    SFRPAGE = 0x20;
+	mybit=RI1;
+	SFRPAGE = 0x00;
+	return mybit;
+}
+
+void waitms_or_RI1 (unsigned int ms)
+{
+	unsigned int j;
+	unsigned char k;
+	for(j=0; j<ms; j++)
+	{
+		for (k=0; k<4; k++)
+		{
+			if(RXU1()) return;
+			Timer3us(250);
+		}
+	}
+}
+
+void SendATCommand (char * s)
+{
+	printf("Command: %s", s);
+	P2_0=0; // 'set' pin to 0 is 'AT' mode.
+	waitms(5);
+	sendstr1(s);
+	getstr1(buff);
+	waitms(10);
+	P2_0=1; // 'set' pin to 1 is normal operation mode.
+	printf("Response: %s\r\n", buff);
+}
+
+
+void JDYInit(void) {
+	SendATCommand("AT+DVIDAFAF\r\n");
+	SendATCommand("AT+RFIDFFBB\r\n");
+	// To check configuration
+	SendATCommand("AT+VER\r\n");
+	SendATCommand("AT+BAUD\r\n");
+	SendATCommand("AT+RFID\r\n");
+	SendATCommand("AT+DVID\r\n");
+	SendATCommand("AT+RFC\r\n");
+	SendATCommand("AT+POWE\r\n");
+	SendATCommand("AT+CLSS\r\n");
+}
+
+void clearUART1Buffer(void) {
+    // Disable UART1 reception
+    REN1 = 0;  // Disable UART1 reception
+
+    // Flush the receive buffer
+    while (RI1) {
+        volatile dummy = SBUF1; // Read and discard data from receive buffer
+    }
+
+    // Re-enable UART1 reception
+    REN1 = 1;  // Enable UART1 reception
+}
+
+
+int stringToInt(char *str) {
+    int result = 0;
+    int sign = 1;
+    int i = 0;
+
+    // Check for negative sign
+    if (str[0] == '-') {
+        sign = -1;
+        i++;
+    }
+
+    // Iterate through characters of the string
+    for (; str[i] != '\0'; i++) {
+        if (str[i] >= '0' && str[i] <= '9') {
+            // Convert character to integer and add to result
+            result = result * 10 + (str[i] - '0');
+        } else {
+            // If non-numeric character encountered, return 0
+            return 0;
+        }
+    }
+
+    // Apply sign
+    return sign * result;
+}
+
+void splitString(const char *str, char *part1, char *part2) {
+    // Get the length of the input string
+    int length = strlen(str);
+    int isNegative1 = 0; // Flag for negative first number
+    int isNegative2 = 0; // Flag for negative second number
+    const char *ptr = str;
+
+    //printf("str: %s\n", str);
+    //printf("part1: %p\n", (void*)part1);
+    //printf("part2: %p\n", (void*)part2);
+
+    // Check if the length of the string is less than 6
+    // If it is, we cannot split the string as required
+    if (length < 6) {
+        printf("Error: Input string is too short to split.\n");
+        printf("STR: %s \r\n", str);
+        return;
+    }
+
+    // Loop through the string pointer to check for negative signs
+    while (*ptr != '\0') {
+        if (*ptr == '-') {
+            // Check if the negative sign is for the first or second number
+            if (ptr == str) {
+                isNegative1 = 1;
+            } else {
+                isNegative2 = 1;
+            }
+        }
+        ptr++;
+    }
+
+    // If the number was negative, prepend '-' to part1 or append it to part2
+    if (isNegative1) {
+        // Copy the first three characters of the input string to part1
+        strncpy(part1+1, str+1, 3);
+        part1[4] = '\0'; // Null-terminate the string
+        part1[0] = '-'; // Prepend '-'
+    } else {
+        strncpy(part1, str, 3);
+        part1[3] = '\0'; // Null-terminate the string
+    }
+
+    if (isNegative2) {
+        // Copy the first three characters of the input string to part1
+        strncpy(part2+1, str+length-3, 3);
+        part2[4] = '\0'; // Null-terminate the string
+        part2[0] = '-'; // Prepend '-'
+    } else {
+        // Copy the first three characters of the input string to part1
+        strncpy(part2, str+length-3, 3);
+        part2[3] = '\0'; // Null-terminate the string
+    }
+
+    //printf("part 1: %s\n", part1);
+    //printf("part 2: %s\n", part2);
+}
+
+void Trim(char *str, int *xin, int *yin) {
+    int i, j;
+    char * strStart = str;
+    char *x = malloc(5 * sizeof(char));
+    char *y = malloc(5 * sizeof(char));
+
+    for (i = 0, j = 0; str[i] != '\0'; i++) {
+        if (isdigit(str[i]) || str[i] == '-') {
+            str[j++] = str[i];
+        }
+    }
+    str[j] = '\0';  // Null-terminate the resulting string
+   // printf("%p \n", x);
+    //printf("%s \n", str);
+    //printf("%p \n", &x);
+    splitString(str, x, y);
+
+    //printf("%p \n", y);
+    //printf("%p \n", x);
+
+    *xin = stringToInt(x);
+    *yin = stringToInt(y);
+
+    //printf("%d \n", *xin);
+
+   // printf("%d \n", *yin);
+}
+
+void JDY40Init(void){
+
+	SendATCommand("AT+DVIDAFAF\r\n");
+	SendATCommand("AT+RFIDFFBB\r\n");
+	// To check configuration
+	SendATCommand("AT+VER\r\n");
+	SendATCommand("AT+BAUD\r\n");
+	SendATCommand("AT+RFID\r\n");
+	SendATCommand("AT+DVID\r\n");
+	SendATCommand("AT+RFC\r\n");
+	SendATCommand("AT+POWE\r\n");
+	SendATCommand("AT+CLSS\r\n");
+}
+
+void main (void)
+{
+
+	volatile int flag = 0;
+	int *xin = malloc(8);
+    int *yin = malloc(8);
+	unsigned int cnt =0;
+	int length;
+	int commands[2];
+	waitms(500);
+	printf("\r\nJDY-40 test\r\n");
 	UART1_Init(9600);
-	JDYInit();
-	TIMER5_Init();
+	JDY40Init();
+	TIMER4_Init();
+	movement_init();
 
-	EA = 1;
-	while (1) {
-		Update_I(inductance);
-		RX_XY();
+	// To configure the device (shown here using default values).
+	// For some changes to take effect, the JDY-40 needs to be power cycled.
+	// Communication can only happen between devices with the
+	// same RFID and DVID in the same channel.
 
-		display_buffs();
+	//SendATCommand("AT+BAUD4\r\n");
+	//SendATCommand("AT+RFID8899\r\n");
+	//SendATCommand("AT+DVID1122\r\n"); // Default device ID.
+	//SendATCommand("AT+RFC001\r\n");
+	//SendATCommand("AT+POWE9\r\n");
+	//SendATCommand("AT+CLSSA0\r\n");
 
-		inductance += 5;
-		waitms(500); // Delay 500 ms
+	// We should select an unique device ID.  The device ID can be a hex
+	// number from 0x0000 to 0xFFFF.  In this case is set to 0xABBA
+
+
+	while(1)
+	{
+		if(flag == 0)
+		{
+			flag == 1;
+			sprintf(buff, " %04d\r\n", cnt++);
+			sendstr1(buff);
+			printf("%s\r\n",buff);
+			clearUART1Buffer();
+			waitms_or_RI1(200);
+		}
+		if(RXU1())
+		{
+
+			getstr1(buff);
+			clearUART1Buffer();
+			length = strlen(buff);
+			Trim(buff, &commands[0],&commands[1]);
+			if(length >= 11){
+				printf("X: %d \r\n", commands[0]);
+				printf("Y: %d \r\n", commands[1]);
+			}
+			else{
+				printf("test\r\n");
+			}
+		}
+
 	}
 }

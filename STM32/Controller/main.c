@@ -32,7 +32,6 @@ char LCD_BUFF[CHARS_PER_LINE]; // Buffer for LCD Display
 
 volatile int Timer2Count = 0;
 volatile int TX21Count = 0;
-volatile int SpeakerCount = 0;
 volatile float SpeakerRatio = 5;
 
 volatile int inductance = 0;
@@ -69,16 +68,11 @@ void TIM2_Handler(void) {
 
 void TIM21_Handler(void) {
 	TIM21->SR &= ~BIT0; // Clear Update Interrupt Flag
-	SpeakerCount++;
 	TX21Count++;
 
 	if (TX21Count > 500) {
 		TX21Count = 0;
 		TX_XY();
-	}
-
-	if (SpeakerCount > 1000) {
-		if (SpeakerEnabled) ToggleSpeaker();
 	}
 }
 
@@ -144,6 +138,16 @@ void ConfigPinSpeaker(void) {
     GPIOA->MODER = (GPIOA->MODER & ~(BIT17|BIT16)) | BIT16; // PA8
 }
 
+void ConfigLEDPins(void)
+{
+    GPIOA->MODER = (GPIOA->MODER & ~(BIT12|BIT13)) | BIT12; // PA6
+	GPIOA->OTYPER &= ~BIT6; // Push-pull
+
+    GPIOA->MODER = (GPIOA->MODER & ~(BIT14|BIT15)) | BIT14; // PA7
+	GPIOA->OTYPER &= ~BIT7; // Push-pull
+
+}
+
 void ConfigPasscodeButtonPins(void) {
     RCC->IOPENR |= RCC_IOPENR_GPIOBEN; // Peripheral Clock Enable for Port B
     GPIOB->MODER &= ~(BIT14 | BIT15); // Make Pin PB7 Input
@@ -198,6 +202,7 @@ void main(void) {
 	ConfigPinADC();
 	ConfigPinSpeaker();
 	ConfigPasscodeButtonPins();
+	ConfigLEDPins();
 
 	InitTimer2();
 	InitTimer21();
@@ -222,7 +227,7 @@ void main(void) {
 		inductance = Update_I(inductance);
 		// printf("I: %d\r\n", inductance);
 
-		// if (isTestButtonPressed()) SpeakerRatio = SetSpeakerFreq(SpeakerRatio);
+		// if (isTestButtonPressed()) SpeakerRatio = SetSpeakerFreq(inductance, SpeakerRatio);
 
 		if (inductance >= 500) {
 			SpeakerEnabled = 1;

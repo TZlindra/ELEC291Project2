@@ -7,10 +7,28 @@
 #define SYSCLK 72000000
 #define BAUDRATE 115200L
 
+#define MAX_16_BIT 65536.0 // 16-Bit Maximum Value
+#define MAX_8_BIT 256.0 // 8-Bit Maximum Value
+#define TIMER_4_FREQ 1000L
+#define TIMER_5_FREQ 1000L
+
+/* Clock Frequency and Baud Rate */
+// Baudrate of UART in BPS
+#define SARCLK 18000000L // SARCLK Frequency in Hz
+
+/* Define Pins */
+#define EFM8_SIGNAL P1_0 // Signal to Measure
+
+#define VSS 5 // The measured value of VSS in volts
+#define VDD 3.3035 // The measured value of VDD in volts
+
 idata char buff[80];
 
-void splitString(const char *str, char **part1, char **part2);
+void splitString(const char *str, char *part1, char *part2);
 int stringToInt(char *str);
+
+volatile int TXcount=0;
+volatile int flag = 0;
 
 char _c51_external_startup (void)
 {
@@ -77,9 +95,35 @@ char _c51_external_startup (void)
 	TMOD |=  0x20;
 	TR1 = 1; // START Timer1
 	TI = 1;  // Indicate TX0 ready
-
+	P1MDOUT |= 0b0000_0100;
+	EA=1;
 	return 0;
 }
+
+void TIMER4_Init(void)
+{
+	// Initialize timer 4 for periodic interrupts
+	SFRPAGE=0x10;
+	TMR4CN0=0x00;   // Stop Timer4; Clear TF4; WARNING: lives in SFR page 0x10
+	CKCON1|=0b_0000_0001; // Timer 4 uses the system clock
+	TMR4RL=(0x10000L-(SYSCLK/(2*TIMER_4_FREQ))); // Initialize reload value
+	TMR4=0xffff;   // Set to reload immediately
+	EIE2|=0b_0000_0100;     // Enable Timer4 interrupts
+	TR4=1;
+}
+
+void Timer4_ISR (void) interrupt INTERRUPT_TIMER4
+{
+	SFRPAGE=0x10;
+	TF4H = 0; // Clear Timer4 interrupt flag
+	TXcount++;
+	if(TXcount >= 1000){
+		TXcount=0;
+		P1_2=!P1_2;
+		flag == 0;
+	}
+}
+
 
 // Uses Timer3 to delay <us> micro-seconds.
 void Timer3us(unsigned char us)
@@ -242,21 +286,6 @@ void JDYInit(void) {
 	SendATCommand("AT+CLSS\r\n");
 }
 
-void Trim(char *str, int *xin, int *yin) {
-    int i,j;
-    char *x,*y;
-    for (i = 0, j = 0; str[i] != '\0'; i++) {
-        if (isdigit(str[i])|| str[i] == '-') {
-            str[j++] = str[i];
-        }
-    }
-    str[j] = '\0';  // Null-terminate the resulting string
-    printf("Test1: %s \r\n",str);
-    splitString(str,&x,&y);
-    *xin = stringToInt(x);
-    *yin = stringToInt(y);
-}
-
 void clearUART1Buffer(void) {
     // Disable UART1 reception
     REN1 = 0;  // Disable UART1 reception
@@ -270,6 +299,7 @@ void clearUART1Buffer(void) {
     REN1 = 1;  // Enable UART1 reception
 }
 
+
 int stringToInt(char *str) {
     int result = 0;
     int sign = 1;
@@ -282,7 +312,7 @@ int stringToInt(char *str) {
     }
 
     // Iterate through characters of the string
-    for (; str[i] != '\0'; ++i) {
+    for (; str[i] != '\0'; i++) {
         if (str[i] >= '0' && str[i] <= '9') {
             // Convert character to integer and add to result
             result = result * 10 + (str[i] - '0');
@@ -296,39 +326,120 @@ int stringToInt(char *str) {
     return sign * result;
 }
 
-void splitString(const char *str, char **part1, char **part2) {
-    int len = strlen(str);
+void splitString(const char *str, char *part1, char *part2) {
+    // Get the length of the input string
+    int length = strlen(str);
+    int isNegative1 = 0; // Flag for negative first number
+    int isNegative2 = 0; // Flag for negative second number
+    const char *ptr = str;
 
-    // Check if the string length is less than 3
-    if (len < 3) {
-        *part1 = malloc((len + 1) * sizeof(char)); // Include space for null terminator
-        strcpy(*part1, str);
-        *part2 = NULL;
+    //printf("str: %s\n", str);
+    //printf("part1: %p\n", (void*)part1);
+    //printf("part2: %p\n", (void*)part2);
+
+    // Check if the length of the string is less than 6
+    // If it is, we cannot split the string as required
+    if (length < 6) {
+        printf("Error: Input string is too short to split.\n");
+        printf("STR: %s \r\n", str);
         return;
     }
 
-    // Allocate memory for part1 and part2
-    *part1 = malloc(4 * sizeof(char));  // Include space for null terminator
-    *part2 = malloc((len - 2 + 1) * sizeof(char));  // Include space for null terminator
+    // Loop through the string pointer to check for negative signs
+    while (*ptr != '\0') {
+        if (*ptr == '-') {
+            // Check if the negative sign is for the first or second number
+            if (ptr == str) {
+                isNegative1 = 1;
+            } else {
+                isNegative2 = 1;
+            }
+        }
+        ptr++;
+    }
 
-    // Copy characters up to the third index (excluding)
-    strncpy(*part1, str, 3);
-    (*part1)[3] = '\0';  // Null terminate part1
+    // If the number was negative, prepend '-' to part1 or append it to part2
+    if (isNegative1) {
+        // Copy the first three characters of the input string to part1
+        strncpy(part1+1, str+1, 3);
+        part1[4] = '\0'; // Null-terminate the string
+        part1[0] = '-'; // Prepend '-'
+    } else {
+        strncpy(part1, str, 3);
+        part1[3] = '\0'; // Null-terminate the string
+    }
 
-    // Copy remaining characters to part2
-    strncpy(*part2, str + 3,3);
-    (*part2)[6] = '\0';
+    if (isNegative2) {
+        // Copy the first three characters of the input string to part1
+        strncpy(part2+1, str+length-3, 3);
+        part2[4] = '\0'; // Null-terminate the string
+        part2[0] = '-'; // Prepend '-'
+    } else {
+        // Copy the first three characters of the input string to part1
+        strncpy(part2, str+length-3, 3);
+        part2[3] = '\0'; // Null-terminate the string
+    }
+
+    //printf("part 1: %s\n", part1);
+    //printf("part 2: %s\n", part2);
 }
 
+void Trim(char *str, int *xin, int *yin) {
+    int i, j;
+    char * strStart = str;
+    char *x = malloc(5 * sizeof(char));
+    char *y = malloc(5 * sizeof(char));
+
+    for (i = 0, j = 0; str[i] != '\0'; i++) {
+        if (isdigit(str[i]) || str[i] == '-') {
+            str[j++] = str[i];
+        }
+    }
+    str[j] = '\0';  // Null-terminate the resulting string
+   // printf("%p \n", x);
+    //printf("%s \n", str);
+    //printf("%p \n", &x);
+    splitString(str, x, y);
+
+    //printf("%p \n", y);
+    //printf("%p \n", x);
+
+    *xin = stringToInt(x);
+    *yin = stringToInt(y);
+
+    //printf("%d \n", *xin);
+
+   // printf("%d \n", *yin);
+}
+
+void JDY40Init(void){
+
+	SendATCommand("AT+DVIDAFAF\r\n");
+	SendATCommand("AT+RFIDFFBB\r\n");
+	// To check configuration
+	SendATCommand("AT+VER\r\n");
+	SendATCommand("AT+BAUD\r\n");
+	SendATCommand("AT+RFID\r\n");
+	SendATCommand("AT+DVID\r\n");
+	SendATCommand("AT+RFC\r\n");
+	SendATCommand("AT+POWE\r\n");
+	SendATCommand("AT+CLSS\r\n");
+}
 
 void main (void)
 {
-	unsigned int cnt;
+
+	volatile int flag = 0;
+	int *xin = malloc(8);
+    int *yin = malloc(8);
+	unsigned int cnt =0;
 	int length;
 	int commands[2];
 	waitms(500);
 	printf("\r\nJDY-40 test\r\n");
 	UART1_Init(9600);
+	JDY40Init();
+	TIMER4_Init();
 
 	// To configure the device (shown here using default values).
 	// For some changes to take effect, the JDY-40 needs to be power cycled.
@@ -344,28 +455,17 @@ void main (void)
 
 	// We should select an unique device ID.  The device ID can be a hex
 	// number from 0x0000 to 0xFFFF.  In this case is set to 0xABBA
-	SendATCommand("AT+DVIDAFAF\r\n");
-	SendATCommand("AT+RFIDFFBB\r\n");
-	// To check configuration
-	SendATCommand("AT+VER\r\n");
-	SendATCommand("AT+BAUD\r\n");
-	SendATCommand("AT+RFID\r\n");
-	SendATCommand("AT+DVID\r\n");
-	SendATCommand("AT+RFC\r\n");
-	SendATCommand("AT+POWE\r\n");
-	SendATCommand("AT+CLSS\r\n");
 
-	printf("\r\Press and hold the BOOT button to transmit.\r\n");
 
-	cnt=0;
 	while(1)
 	{
-		if(P3_7==0)
+		if(flag == 0)
 		{
-			sprintf(buff, " %d\r\n", cnt++);
+			flag == 1;
+			sprintf(buff, " %04d\r\n", cnt++);
 			sendstr1(buff);
+			printf("%s\r\n",buff);
 			clearUART1Buffer();
-			putchar('.');
 			waitms_or_RI1(200);
 		}
 		if(RXU1())
@@ -376,12 +476,13 @@ void main (void)
 			length = strlen(buff);
 			Trim(buff, &commands[0],&commands[1]);
 			if(length >= 11){
-			//	printf("X: %d \r\n", commands[0]);
-			//	printf("Y: %d \r\n", commands[1]);
+				printf("X: %d \r\n", commands[0]);
+				printf("Y: %d \r\n", commands[1]);
 			}
 			else{
 				printf("test\r\n");
 			}
 		}
+
 	}
 }

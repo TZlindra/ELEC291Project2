@@ -17,7 +17,8 @@
         "frequency_calc.h": "c",
         "string.h": "c",
         "WPS.C": "cpp",
-        "passcode.h": "c"
+        "passcode.h": "c",
+        "movement_integration.h": "c"
     },
     "makefile.makePath": "C:\\mingw\\bin",
     "cmake.configureOnOpen": false

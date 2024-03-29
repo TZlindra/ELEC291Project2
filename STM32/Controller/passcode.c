@@ -24,10 +24,10 @@
 
 #define DEBOUNCE 30
 
-#define BUTTON_A BIT3
-#define BUTTON_B BIT5
-#define BUTTON_C BIT6
-#define BUTTON_D BIT7
+#define BUTTON_S0 BIT7
+#define BUTTON_S1 BIT6
+#define BUTTON_S2 BIT5
+#define BUTTON_S3 BIT3
 
 static enum State state;
 static int correct_combination;
@@ -35,7 +35,7 @@ static int correct_combination;
 char PASSCODE_BUFF[CHARS_PER_LINE]; // Buffer for Passcode
 
 int isButtonPressed(int ButtonPin) {
-	return !(GPIOA->IDR & ButtonPin);
+	return !(GPIOB->IDR & ButtonPin);
 }
 
 void resetPasscode(void) {
@@ -51,13 +51,13 @@ void resetPasscode(void) {
 }
 
 int getPasscodeButton(void) {
-    if (isButtonPressed(BIT12) || isButtonPressed(BIT12) || isButtonPressed(BIT12) || isButtonPressed(BIT12)) {
+    if (isButtonPressed(BUTTON_S0) || isButtonPressed(BUTTON_S1) || isButtonPressed(BUTTON_S2) || isButtonPressed(BUTTON_S3)) {
         waitms(DEBOUNCE); // Debounce
 
-        if (isButtonPressed(BIT12)) return s_0; // Button A
-        else if (isButtonPressed(BIT12)) return s_1; // Button B
-        else if (isButtonPressed(BIT12)) return s_2; // Button C
-        else if (isButtonPressed(BIT12)) return s_3; // Button D
+        if (isButtonPressed(BUTTON_S0)) return s_0; // Button A
+        else if (isButtonPressed(BUTTON_S1)) return s_1; // Button B
+        else if (isButtonPressed(BUTTON_S2)) return s_2; // Button C
+        else if (isButtonPressed(BUTTON_S3)) return s_3; // Button D
         else return -1;
     } else {
         return -1;
@@ -79,10 +79,10 @@ void getPasscode(void) {
     resetPasscode();
 
     while (state != s_success) {
-        // printf("Button A: %d\r\n", isButtonPressed(BIT12));
-        // printf("Button B: %d\r\n", isButtonPressed(BIT12));
-        // printf("Button C: %d\r\n", isButtonPressed(BIT12));
-        // printf("Button D: %d\r\n", isButtonPressed(BIT12));
+        // printf("Button S_0: %d\r\n", isButtonPressed(BUTTON_S0));
+        // printf("Button S_1: %d\r\n", isButtonPressed(BUTTON_S1));
+        // printf("Button S_2: %d\r\n", isButtonPressed(BUTTON_S2));
+        // printf("Button S_3: %d\r\n", isButtonPressed(BUTTON_S3));
 
         waitms(500); // Wait 500ms
 

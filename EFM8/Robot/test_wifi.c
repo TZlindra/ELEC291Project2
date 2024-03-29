@@ -1,9 +1,9 @@
 #include "EFM8LB1.h"
 #include <stdio.h>
 
-#define WIFI_SSID "yourSSID"
-#define WIFI_PASSWORD "yourPassword"
-#define SERVER_IP "192.168.1.100" // Replace with your laptop's IP address
+#define WIFI_SSID "Emile's iPhone"
+#define WIFI_PASSWORD "Koos1234"
+#define SERVER_IP "128.189.201.143" // Replace with your laptop's IP address
 #define SERVER_PORT "12345" // Replace with your server's listening port
 
 #define SYSCLK 72000000

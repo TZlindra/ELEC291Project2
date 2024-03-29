@@ -1,4 +1,6 @@
+
 #include "passcode.h"
+#include <stdio.h>
 
 // LQFP32 pinout
 //                    ----------
@@ -20,84 +22,66 @@
 //             VSS -|16      17|- VDD
 //                    ----------
 
-#define BUTTON0 1 << 12
-#define BUTTON1 1 << 10
-#define BUTTON2 1 << 8
-#define BUTTON3 1 << 6
-
 #define DEBOUNCE 30
 
+#define BUTTON_A BIT3
+#define BUTTON_B BIT5
+#define BUTTON_C BIT6
+#define BUTTON_D BIT7
 
-volatile enum State state = init;
+volatile enum State state = sinit;
 int correct = 1;
 
-enum State
-{
-    init = 0,
-    s1,
-    s2,
-    s3,
-    open,
-};
-
-void passcodeButtonsInit()
-{
-    RCC->IOPENR |= RCC_IOPENR_GPIOBEN; // Peripheral Clock Enable for Port A
-
-    GPIOA->MODER &= ~(BUTTON0 | BUTTON0 << 1); // Make Pin PA12 Input
-	GPIOA->PUPDR |= BUTTON0;
-	GPIOA->PUPDR &= ~(BUTTON0 << 1);
-
-    GPIOA->MODER &= ~(BUTTON1 | BUTTON1 << 1); // Make Pin PA12 Input
-	GPIOA->PUPDR |= BUTTON1;
-	GPIOA->PUPDR &= ~(BUTTON1 << 1);
-
-    GPIOA->MODER &= ~(BUTTON2 | BUTTON2 << 1); // Make Pin PA12 Input
-	GPIOA->PUPDR |= BUTTON2;
-	GPIOA->PUPDR &= ~(BUTTON2 << 1);
-
-    GPIOA->MODER &= ~(BUTTON3 | BUTTON3 << 1); // Make Pin PA12 Input
-	GPIOA->PUPDR |= BUTTON3;
-	GPIOA->PUPDR &= ~(BUTTON3 << 1);
-
-
+void passcode_wait_1ms(void) {
+	// For SysTick info check the STM32L0xxx Cortex-M0 programming manual page 85.
+	SysTick->LOAD = (F_CPU/1000L) - 1;  // set reload register, counter rolls over from zero, hence -1
+	SysTick->VAL = 0; // load the SysTick counter
+	SysTick->CTRL  = SysTick_CTRL_CLKSOURCE_Msk | SysTick_CTRL_ENABLE_Msk; // Enable SysTick IRQ and SysTick Timer */
+	while((SysTick->CTRL & BIT16)==0); // Bit 16 is the COUNTFLAG.  True when counter rolls over from zero.
+	SysTick->CTRL = 0x00; // Disable Systick counter
 }
 
-void passcodeButtons()
-{
-    if (!((!(GPIOB->IDR & BUTTON0) && state == init) || (!(GPIOB->IDR & BUTTON0) && state == s1) || (!(GPIOB->IDR & BUTTON0) && state == s2) || (!(GPIOB->IDR & BUTTON0) && state == s3)))
-    {
-        correct = 0;
-    }
+void passcode_waitms(unsigned int ms) {
+	unsigned int j;
+	for(j=0; j<ms; j++) passcode_wait_1ms();
+}
 
-    if (!(GPIOB->IDR & BUTTON0) || !(GPIOB->IDR & BUTTON1) || !(GPIOB->IDR & BUTTON2) || !(GPIOB->IDR & BUTTON3))
+
+int IsButtonPressed(int ButtonPin) {
+	return !(GPIOA->IDR & ButtonPin);
+}
+
+void passcodeButtons() {
+    if (state == sinit) correct &= IsButtonPressed(BUTTON_A);
+    else if (state == s1) correct &= IsButtonPressed(BUTTON_B);
+    else if (state == s2) correct &= IsButtonPressed(BUTTON_C);
+    else if (state == s3) correct &= IsButtonPressed(BUTTON_D);
+
+    if (IsButtonPressed(BUTTON_A) || IsButtonPressed(BUTTON_B) || IsButtonPressed(BUTTON_C) || IsButtonPressed(BUTTON_D))
     {
-        waitms(DEBOUNCE);
-        if (!(GPIOB->IDR & BUTTON0) || !(GPIOB->IDR & BUTTON1) || !(GPIOB->IDR & BUTTON2) || !(GPIOB->IDR & BUTTON3))
+        passcode_waitms(DEBOUNCE);
+        if (IsButtonPressed(BUTTON_A) || IsButtonPressed(BUTTON_B) || IsButtonPressed(BUTTON_C) || IsButtonPressed(BUTTON_D))
         {
             state++;
+            printf("%d %d\n", state, correct);
 
-            while ((GPIOB->IDR & BUTTON0) || (GPIOB->IDR & BUTTON1) || (GPIOB->IDR & BUTTON2) || (GPIOB->IDR & BUTTON3));
+            while (!IsButtonPressed(BUTTON_A) && !IsButtonPressed(BUTTON_B) && !IsButtonPressed(BUTTON_C) && !IsButtonPressed(BUTTON_D));
         }
-
     }
-
-
 }
 
-int main(void)
+int passcodeMain(void)
 {
-    passcodeButtonsInit();
-    while(state != open && correct = 0)
-    {
-        if (state == open)
-        {
-            state = init;
-            if (correct == 0) correct = 1;
-        }
+    printf("Passcode Main\n");
+    // while(state != sfinal && correct == 0)
+    // {
+    //     if (state == sfinal)
+    //     {
+    //         state = sinit;
+    //         if (correct == 0) correct = 1;
+    //     }
 
-        passcodeButtons();
-    }
-
+    //     passcodeButtons();
+    // }
     return 0;
 }

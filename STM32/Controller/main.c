@@ -2,11 +2,11 @@
 //                    ----------
 //              VDD -|1      32|- VSS
 //             PC14 -|2      31|- BOOT0
-//             PC15 -|3      30|- PB7
-//             NRST -|4      29|- PB6
-//             VDDA -|5      28|- PB5
+//             PC15 -|3      30|- PB7 (Button D)
+//             NRST -|4      29|- PB6 (Button C)
+//             VDDA -|5      28|- PB5 (Button B)
 // LCD_RS      PA0 -|6       27|- PB4
-// LCD_E       PA1 -|7       26|- PB3  (Toggle Pin)
+// LCD_E       PA1 -|7       26|- PB3 (Button A)
 // LCD_D4      PA2 -|8       25|- PA15 (USART2 RX)
 // LCD_D5      PA3 -|9       24|- PA14 (USART2 TX)
 // LCD_D6      PA4 -|10      23|- PA13
@@ -32,7 +32,7 @@
 #include "JDY40.h"
 #include "movement.h"
 #include "frequency_calc.h"
-//#include "passcode.h"
+#include "passcode.h"
 
 #define CHARS_PER_LINE 16
 
@@ -62,8 +62,7 @@ void ConfigPinButton(void);
 void ConfigPinADC(void);
 void ConfigPinsUART2(void);
 void ConfigPinSpeaker(void);
-
-void TogglePin(void);
+void ConfigPasscodeButtonPins(void);
 
 void display_x_y(int x, int y);
 void display_adc(float x, int standardized_x, float y, int standardized_y);
@@ -87,7 +86,7 @@ void TIM2_Handler(void) {
 void TIM21_Handler(void) {
 	TIM21->SR &= ~BIT0; // Clear Update Interrupt Flag
 	TX21Count++;
-	if (TX21Count > 750) {
+	if (TX21Count > 500) {
 		TX21Count = 0;
 		TX_XY();
 	}
@@ -159,7 +158,26 @@ void ConfigPinSpeaker(void) {
     GPIOA->MODER = (GPIOA->MODER & ~(BIT17|BIT16)) | BIT16; // PA8
 }
 
-int IsButtonPressed(void) {
+void ConfigPasscodeButtonPins(void) {
+    RCC->IOPENR |= RCC_IOPENR_GPIOBEN; // Peripheral Clock Enable for Port B
+    GPIOB->MODER &= ~(BIT14 | BIT15); // Make Pin PB7 Input
+	GPIOB->PUPDR |= BIT14;
+	GPIOB->PUPDR &= ~(BIT15);
+
+    GPIOB->MODER &= ~(BIT12 | BIT13); // Make Pin PB6 Input
+	GPIOB->PUPDR |= BIT12;
+	GPIOB->PUPDR &= ~(BIT13);
+
+    GPIOB->MODER &= ~(BIT10 | BIT11); // Make Pin PB5 Input
+	GPIOB->PUPDR |= BIT10;
+	GPIOB->PUPDR &= ~(BIT11);
+
+    GPIOB->MODER &= ~(BIT6 | BIT7); // Make Pin PB3 Input
+	GPIOB->PUPDR |= BIT6;
+	GPIOB->PUPDR &= ~(BIT7);
+}
+
+int IsTestButtonPressed(void) {
 	return !(GPIOA->IDR & BIT12);
 }
 
@@ -193,6 +211,7 @@ void main(void) {
 	ConfigPinButton();
 	ConfigPinADC();
 	ConfigPinSpeaker();
+	ConfigPasscodeButtonPins();
 
 	InitTimer2();
 	InitTimer21();
@@ -201,6 +220,8 @@ void main(void) {
 
 	waitms(500); // Wait for putty to start.
 	printf("\x1b[2J\x1b[1;1H"); // Clear screen using ANSI escape sequence.
+
+    // passcodeMain();
 
 	while (1) {
 		x = -1*(readADC(ADC_CHSELR_CHSEL8)-X_MIDPOINT);
@@ -211,11 +232,11 @@ void main(void) {
 		Update_XY(standardized_x, standardized_y);
 		RX_I(); // Receive Inductance Value
 
-		display_buffs();
+		// display_buffs();
 		inductance = Update_I(inductance);
-		printf("I: %d\r\n", inductance);
+		// printf("I: %d\r\n", inductance);
 
-		// if (IsButtonPressed()) SpeakerRatio = SetSpeakerFreq(SpeakerRatio);
+		// if (IsTestButtonPressed()) SpeakerRatio = SetSpeakerFreq(SpeakerRatio);
 
 		if (inductance >= 500) {
 			SpeakerEnabled = 1;

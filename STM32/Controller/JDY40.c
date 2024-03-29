@@ -81,21 +81,6 @@ void ReceiveCommand(void) {
 	if (ReceivedBytes2() > 0) egets2(RX_BUFF, sizeof(RX_BUFF)-1);
 }
 
-void stripSpaces(char* str) {
-    char *p1 = str;
-    while (*p1 != '\0' && isspace((unsigned char)*p1)) {
-        p1++; // Skip leading spaces
-    }
-
-    if (p1 != str) {
-        char *p2 = str;
-        while (*p1 != '\0') {
-            *p2++ = *p1++; // Shift characters forward
-        }
-        *p2 = '\0'; // Null-terminate the modified string
-    }
-}
-
 void TX_XY(void) {
 	// No Printing in ISRs
 	// printf("TX_BUFF: %s\r\n", TX_BUFF);
@@ -126,13 +111,14 @@ void Update_XY(int x_value, int y_value) {
 }
 
 int Update_I(int inductance) {
-	// stripSpaces(RX_BUFF);
-	int parsed = atoi(RX_BUFF);
+	if (strlen(RX_BUFF) < 4) return inductance;
 
+	int parsed = atoi(RX_BUFF);
 	return (parsed != 0) ? parsed : inductance;
 }
 
 void display_buffs(void) {
 	printf("TX_BUFF: %s\r\n", TX_BUFF);
-	printf("RX_BUFF: %s\r\n", RX_BUFF);
+
+	if (strlen(RX_BUFF) >= 4) printf("RX_BUFF: %s\r\n", RX_BUFF);
 }

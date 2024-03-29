@@ -18,13 +18,7 @@
 //             VSS -|16      17|- VDD
 //                    ----------
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-
-#include "../Common/Include/serial.h"
-#include "../Common/Include/stm32l051xx.h"
-
+#include "global.h"
 #include "lcd.h"
 #include "speaker.h"
 #include "adc.h"
@@ -33,14 +27,6 @@
 #include "movement.h"
 #include "frequency_calc.h"
 #include "passcode.h"
-
-#define CHARS_PER_LINE 16
-
-#define MAX_16_BIT 65536.0 // 16-Bit Maximum Value
-#define MAX_8_BIT 256.0 // 8-Bit Maximum Value
-
-#define Y_MIDPOINT 2044.0
-#define X_MIDPOINT 2136.0
 
 char LCD_BUFF[CHARS_PER_LINE]; // Buffer for LCD Display
 

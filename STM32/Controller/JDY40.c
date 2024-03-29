@@ -1,13 +1,7 @@
 #include <ctype.h>
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-#include "../Common/Include/stm32l051xx.h"
-#include "../Common/Include/serial.h"
-#include "UART2.h"
 #include "JDY40.h"
+#include "UART2.h"
 
 // LQFP32 pinout
 //                    ----------

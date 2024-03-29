@@ -15,6 +15,7 @@
 
 #define Y_MIDPOINT 2044.0
 #define X_MIDPOINT 2136.0
+#define MINIMUM_PERCENT_ACTIVE 0.05
 
 #define DEBOUNCE 30
 

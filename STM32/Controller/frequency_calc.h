@@ -1,3 +1,5 @@
+#include "global.h"
+
 #define C1 1E-9
 #define C2 1E-9
 #define PI 3.14159265358979323846

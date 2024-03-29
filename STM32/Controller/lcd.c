@@ -18,7 +18,6 @@
 //             VSS -|16      17|- VDD
 //                    ----------
 
-#include "../Common/Include/stm32l051xx.h"
 #include "lcd.h"
 
 void wait_1ms(void) {

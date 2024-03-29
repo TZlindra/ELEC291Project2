@@ -21,9 +21,6 @@
 //             VSS -|16      17|- VDD
 //                    ----------
 
-#include <stdio.h>
-
-#include "../Common/Include/stm32l051xx.h"
 #include "speaker.h"
 
 void InitTimer2(void) {

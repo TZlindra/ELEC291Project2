@@ -1,6 +1,4 @@
-#define Y_MIDPOINT 2044.0
-#define X_MIDPOINT 2136.0
-#define MINIMUM_PERCENT_ACTIVE 0.05
+#include "global.h"
 
 void standardize_directions(float* x_value, float* y_value);
 int standardize_y(float y_value);

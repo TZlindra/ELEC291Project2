@@ -1,4 +1,5 @@
-#define F_CPU 32000000L
+#include "global.h"
+
 #define DEF_F 15000L
 #define TICK_FREQ_TIM21 1000L
 

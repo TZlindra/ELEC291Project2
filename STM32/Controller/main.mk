@@ -10,7 +10,7 @@ LIBPATH1=$(subst \libgcc.a,,$(shell dir /s /b "$(GCCPATH)*libgcc.a" | find "v6-m
 LIBPATH2=$(subst \libc_nano.a,,$(shell dir /s /b "$(GCCPATH)*libc_nano.a" | find "v6-m"))
 LIBSPEC=-L"$(LIBPATH1)" -L"$(LIBPATH2)"
 
-OBJS=main.o startup.o serial.o UART2.o JDY40.o lcd.o adc.o speaker.o frequency_calc.o passcode.o movement.o newlib_stubs.o
+OBJS=main.o startup.o serial.o global.o UART2.o JDY40.o lcd.o adc.o speaker.o frequency_calc.o passcode.o movement.o newlib_stubs.o
 
 # Notice that floating point is enabled with printf (-u _printf_float)
 main.hex: $(OBJS)
@@ -20,6 +20,9 @@ main.hex: $(OBJS)
 
 main.o: main.c
 	$(CC) -c $(CCFLAGS) main.c -o main.o
+
+global.o: global.c
+	$(CC) -c $(CCFLAGS) global.c -o global.o
 
 adc.o: adc.c
 	$(CC) -c $(CCFLAGS) adc.c -o adc.o

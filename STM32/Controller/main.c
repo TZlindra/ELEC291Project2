@@ -41,8 +41,6 @@ volatile int SpeakerEnabled = 0;
 float x = 0, y = 0;
 int standardized_x = 0, standardized_y = 0;
 
-void delay(int dly);
-
 void ConfigPinsLCD(void);
 void ConfigPinButton(void);
 void ConfigPinADC(void);
@@ -76,10 +74,6 @@ void TIM21_Handler(void) {
 		TX21Count = 0;
 		TX_XY();
 	}
-}
-
-void delay(int dly) {
-	while( dly--);
 }
 
 void ConfigPinsLCD(void) {

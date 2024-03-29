@@ -24,10 +24,10 @@
 #define BUTTON_C BIT6
 #define BUTTON_D BIT7
 
-// void wait_1ms(void);
-// void waitms (unsigned int ms);
+void wait_1ms(void);
+void waitms (unsigned int ms);
 
-// void Delay_us(unsigned char us);
-// void Delay_ms(unsigned int ms);
+void Delay_us(unsigned char us);
+void Delay_ms(unsigned int ms);
 
-// void delay(int dly);
+void delay(int dly);

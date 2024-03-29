@@ -7,9 +7,7 @@ enum State
     backward_enum
 };
 
-#include <EFM8LB1.h>
-#include <stdlib.h>
-#include <stdio.h>
+#include "global.h"
 
 #define LEFT_MOTOR_LHS  P2_4    //brown
 #define LEFT_MOTOR_RHS  P2_3    //black

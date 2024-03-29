@@ -1,6 +1,6 @@
 #include "global.h"
 #include "JDY40.h"
-// #include "movement_integration.h"
+#include "movement_integration.h"
 
 volatile float x;
 volatile float y;
@@ -86,19 +86,18 @@ void UART1_Init(unsigned long baudrate) {
 }
 
 void main (void) {
-
 	waitms(500);
 	printf("\r\nJDY-40 test\r\n");
 	UART1_Init(9600);
 	JDY40Init();
 	TIMER4_Init();
-	//movement_init();
+	movement_init();
 
 	while(1) {
 		TX_I();
 		RX_XY();
 		x = return_x();
 		y = return_y();
-		// movement_loop(x, y);
+		movement_loop(x, y);
 	}
 }

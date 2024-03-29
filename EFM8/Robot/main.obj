@@ -21,13 +21,13 @@ R_IXSEG,xdata,0000,NO
 R_ISEG,idata,0000,NO
 R_HOME,code,0000,NO
 R_XINIT,code,0000,NO
-R_CSEG,code,0108,NO
+R_CSEG,code,0125,NO
 </SEGMENTS>
 
 <LOCALS>
 L002004?,R_CSEG,0029,0000
 L002001?,R_CSEG,001E,0000
-L004002?,R_CSEG,00E4,0000
+L004002?,R_CSEG,00E7,0000
 __str_0,R_CONST,0000,0000
 </LOCALS>
 
@@ -44,11 +44,14 @@ __divulong,any,0000,0000
 _TX_I,any,0000,0000
 _TIMER4_Init,any,0000,0000
 _JDY40Init,any,0000,0000
+_movement_loop_PARM_2,any,0000,0000
 _RX_XY,any,0000,0000
 _printf,any,0000,0000
 __divulong_PARM_2,any,0000,0000
+_movement_init,any,0000,0000
 _return_x,any,0000,0000
 _return_y,any,0000,0000
+_movement_loop,any,0000,0000
 _crt0,any,0000,0000
 _waitms,any,0000,0000
 </EXTERNALS>
@@ -183,6 +186,7 @@ F5 F0
 12 addr16(_UART1_Init;)  
 12 addr16(_JDY40Init;)  
 12 addr16(_TIMER4_Init;)  
+12 addr16(_movement_init;)  
 12 addr16(_TX_I;)  
 12 addr16(_RX_XY;)  
 12 addr16(_return_x;)  
@@ -195,6 +199,15 @@ F5 data8(_x;0x0003;+;)
 85 83 data8(_y;0x0001;+;)
 85 F0 data8(_y;0x0002;+;)
 F5 data8(_y;0x0003;+;)
+85 data8(_y;) data8(_movement_loop_PARM_2;)
+85 data8(_y;0x0001;+;) data8(_movement_loop_PARM_2;0x0001;+;)
+85 data8(_y;0x0002;+;) data8(_movement_loop_PARM_2;0x0002;+;)
+85 data8(_y;0x0003;+;) data8(_movement_loop_PARM_2;0x0003;+;)
+85 data8(_x;) 82
+85 data8(_x;0x0001;+;) 83
+85 data8(_x;0x0002;+;) F0
+E5 data8(_x;0x0003;+;)
+12 addr16(_movement_loop;)  
 80 rel2(L004002?;)
 </CODE>
 

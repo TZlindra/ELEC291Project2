@@ -32,7 +32,7 @@ char LCD_BUFF[CHARS_PER_LINE]; // Buffer for LCD Display
 
 volatile int Timer2Count = 0;
 volatile int TX21Count = 0;
-volatile int RX21Count = 0;
+volatile int SpeakerCount = 0;
 volatile float SpeakerRatio = 5;
 
 volatile int inductance = 0;
@@ -69,10 +69,16 @@ void TIM2_Handler(void) {
 
 void TIM21_Handler(void) {
 	TIM21->SR &= ~BIT0; // Clear Update Interrupt Flag
+	SpeakerCount++;
 	TX21Count++;
+
 	if (TX21Count > 500) {
 		TX21Count = 0;
 		TX_XY();
+	}
+
+	if (SpeakerCount > 1000) {
+		if (SpeakerEnabled) ToggleSpeaker();
 	}
 }
 
@@ -201,7 +207,7 @@ void main(void) {
 	waitms(500); // Wait for putty to start.
 	printf("\x1b[2J\x1b[1;1H"); // Clear screen using ANSI escape sequence.
 
-    // getPasscode();
+    getPasscode();
 
 	while (1) {
 		x = -1*(readADC(ADC_CHSELR_CHSEL8)-X_MIDPOINT);

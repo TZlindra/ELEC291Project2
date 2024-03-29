@@ -1,4 +1,4 @@
-#define F_CPU 32000000L
+#include "global.h"
 
 #define LCD_RS_0 (GPIOA->ODR &= ~BIT0)
 #define LCD_RS_1 (GPIOA->ODR |= BIT0)
@@ -12,7 +12,6 @@
 #define LCD_D6_1 (GPIOA->ODR |= BIT4)
 #define LCD_D7_0 (GPIOA->ODR &= ~BIT5)
 #define LCD_D7_1 (GPIOA->ODR |= BIT5)
-#define CHARS_PER_LINE 16
 
 void Delay_us(unsigned char us);
 void waitms (unsigned int ms);

@@ -80,7 +80,7 @@ void checkCombination(void) {
     }
 }
 
-void checkPasscode(void) {
+void getPasscode(void) {
     resetCombination();
 
     while (state != s_success) {

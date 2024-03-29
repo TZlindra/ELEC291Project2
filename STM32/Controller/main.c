@@ -221,7 +221,7 @@ void main(void) {
 	waitms(500); // Wait for putty to start.
 	printf("\x1b[2J\x1b[1;1H"); // Clear screen using ANSI escape sequence.
 
-    checkPasscode();
+    // getPasscode();
 
 	while (1) {
 		x = -1*(readADC(ADC_CHSELR_CHSEL8)-X_MIDPOINT);

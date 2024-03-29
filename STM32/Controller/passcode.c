@@ -51,14 +51,18 @@ void resetPasscode(void) {
 }
 
 int getPasscodeButton(void) {
+    int pressed = -1;
     if (isButtonPressed(BUTTON_S0) || isButtonPressed(BUTTON_S1) || isButtonPressed(BUTTON_S2) || isButtonPressed(BUTTON_S3)) {
         waitms(DEBOUNCE); // Debounce
 
-        if (isButtonPressed(BUTTON_S0)) return s_0; // Button A
-        else if (isButtonPressed(BUTTON_S1)) return s_1; // Button B
-        else if (isButtonPressed(BUTTON_S2)) return s_2; // Button C
-        else if (isButtonPressed(BUTTON_S3)) return s_3; // Button D
-        else return -1;
+        if (isButtonPressed(BUTTON_S0)) pressed = s_0; // Button A
+        else if (isButtonPressed(BUTTON_S1)) pressed = s_1; // Button B
+        else if (isButtonPressed(BUTTON_S2)) pressed = s_2; // Button C
+        else if (isButtonPressed(BUTTON_S3)) pressed = s_3; // Button D
+        else pressed = -1;
+
+        while (isButtonPressed(BUTTON_S0) || isButtonPressed(BUTTON_S1) || isButtonPressed(BUTTON_S2) || isButtonPressed(BUTTON_S3)); // Wait for button release
+        return pressed;
     } else {
         return -1;
     }
@@ -84,7 +88,7 @@ void getPasscode(void) {
         // printf("Button S_2: %d\r\n", isButtonPressed(BUTTON_S2));
         // printf("Button S_3: %d\r\n", isButtonPressed(BUTTON_S3));
 
-        waitms(500); // Wait 500ms
+        // waitms(250); // Wait 500ms
 
         if (state != s_check) checkCombination();
         else if (correct_combination == 1) {

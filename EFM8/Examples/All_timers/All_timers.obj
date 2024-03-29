@@ -7,7 +7,7 @@ All_timers
 </OPTC51>
 
 <SEGMENTS>
-R_GSINIT,code,0000,NO
+R_Gs_0,code,0000,NO
 R_BSEG,bit,0000,NO
 R_XSEG,xdata,0000,NO
 BIT_BANK,data,0000,OV
@@ -59,51 +59,51 @@ _crt0,any,0000,0000
 <CODE R_HOME>
 </CODE>
 
-<CODE R_GSINIT>
+<CODE R_Gs_0>
 </CODE>
 
 <CODE R_CSEG>
 </CODE>
 
 <CODE AT 0000>
-02 addr16(_crt0;)  
+02 addr16(_crt0;)
 </CODE>
 
 <CODE AT 000B>
-02 addr16(_Timer0_ISR;)  
+02 addr16(_Timer0_ISR;)
 </CODE>
 
 <CODE AT 001B>
-02 addr16(_Timer1_ISR;)  
+02 addr16(_Timer1_ISR;)
 </CODE>
 
 <CODE AT 002B>
-02 addr16(_Timer2_ISR;)  
+02 addr16(_Timer2_ISR;)
 </CODE>
 
 <CODE AT 005B>
-02 addr16(_PCA_ISR;)  
+02 addr16(_PCA_ISR;)
 </CODE>
 
 <CODE AT 0073>
-02 addr16(_Timer3_ISR;)  
+02 addr16(_Timer3_ISR;)
 </CODE>
 
 <CODE AT 008B>
-02 addr16(_Timer4_ISR;)  
+02 addr16(_Timer4_ISR;)
 </CODE>
 
 <CODE AT 0093>
-02 addr16(_Timer5_ISR;)  
+02 addr16(_Timer5_ISR;)
 </CODE>
 
 <CODE R_HOME>
 </CODE>
 
-<CODE R_GSINIT>
+<CODE R_Gs_0>
 </CODE>
 
-<CODE R_GSINIT>
+<CODE R_Gs_0>
 </CODE>
 
 <CODE R_DINIT>

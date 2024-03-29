@@ -15,7 +15,7 @@ $printf_float
 	R_OSEG    segment data overlay
 	BIT_BANK  segment data overlay
 	R_HOME    segment code
-	R_GSINIT  segment code
+	R_Gs_0  segment code
 	R_IXSEG   segment xdata
 	R_CONST   segment code
 	R_XINIT   segment code
@@ -399,7 +399,7 @@ _PARITY         BIT 0xd0
 _F1             BIT 0xd1
 _OV             BIT 0xd2
 _RS0            BIT 0xd3
-_RS1            BIT 0xd4
+_Rs_1            BIT 0xd4
 _F0             BIT 0xd5
 _AC             BIT 0xd6
 _CY             BIT 0xd7
@@ -484,7 +484,7 @@ _TFRQ           BIT 0xdf
 _main_v_1_59:
 	ds 16
 ;--------------------------------------------------------
-; overlayable items in internal ram 
+; overlayable items in internal ram
 ;--------------------------------------------------------
 	rseg	R_OSEG
 	rseg	R_OSEG
@@ -520,7 +520,7 @@ _InitPinADC_PARM_2:
 ;--------------------------------------------------------
 	rseg R_IXSEG
 	rseg R_HOME
-	rseg R_GSINIT
+	rseg R_Gs_0
 	rseg R_CSEG
 ;--------------------------------------------------------
 ; Reset entry point and interrupt vectors
@@ -531,8 +531,8 @@ _InitPinADC_PARM_2:
 ; global & static initialisations
 ;--------------------------------------------------------
 	rseg R_HOME
-	rseg R_GSINIT
-	rseg R_GSINIT
+	rseg R_Gs_0
+	rseg R_Gs_0
 ;--------------------------------------------------------
 ; data variables initialization
 ;--------------------------------------------------------
@@ -640,8 +640,8 @@ _InitADC:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'Timer3us'
 ;------------------------------------------------------------
-;us                        Allocated to registers r2 
-;i                         Allocated to registers r3 
+;us                        Allocated to registers r2
+;i                         Allocated to registers r3
 ;------------------------------------------------------------
 ;	ADC.c:125: void Timer3us(unsigned char us)
 ;	-----------------------------------------
@@ -682,9 +682,9 @@ L004007?:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'waitms'
 ;------------------------------------------------------------
-;ms                        Allocated to registers r2 r3 
-;j                         Allocated to registers r4 r5 
-;k                         Allocated to registers r6 
+;ms                        Allocated to registers r2 r3
+;j                         Allocated to registers r4 r5
+;k                         Allocated to registers r6
 ;------------------------------------------------------------
 ;	ADC.c:144: void waitms (unsigned int ms)
 ;	-----------------------------------------
@@ -735,8 +735,8 @@ L005009?:
 ;Allocation info for local variables in function 'InitPinADC'
 ;------------------------------------------------------------
 ;pin_num                   Allocated with name '_InitPinADC_PARM_2'
-;portno                    Allocated to registers r2 
-;mask                      Allocated to registers r3 
+;portno                    Allocated to registers r2
+;mask                      Allocated to registers r3
 ;------------------------------------------------------------
 ;	ADC.c:154: void InitPinADC (unsigned char portno, unsigned char pin_num)
 ;	-----------------------------------------
@@ -807,7 +807,7 @@ L006005?:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'ADC_at_Pin'
 ;------------------------------------------------------------
-;pin                       Allocated to registers 
+;pin                       Allocated to registers
 ;------------------------------------------------------------
 ;	ADC.c:181: unsigned int ADC_at_Pin(unsigned char pin)
 ;	-----------------------------------------
@@ -829,7 +829,7 @@ L007001?:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'Volts_at_Pin'
 ;------------------------------------------------------------
-;pin                       Allocated to registers r2 
+;pin                       Allocated to registers r2
 ;------------------------------------------------------------
 ;	ADC.c:190: float Volts_at_Pin(unsigned char pin)
 ;	-----------------------------------------

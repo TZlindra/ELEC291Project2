@@ -15,7 +15,7 @@ $printf_float
 	R_OSEG    segment data overlay
 	BIT_BANK  segment data overlay
 	R_HOME    segment code
-	R_GSINIT  segment code
+	R_Gs_0  segment code
 	R_IXSEG   segment xdata
 	R_CONST   segment code
 	R_XINIT   segment code
@@ -396,7 +396,7 @@ _PARITY         BIT 0xd0
 _F1             BIT 0xd1
 _OV             BIT 0xd2
 _RS0            BIT 0xd3
-_RS1            BIT 0xd4
+_Rs_1            BIT 0xd4
 _F0             BIT 0xd5
 _AC             BIT 0xd6
 _CY             BIT 0xd7
@@ -513,7 +513,7 @@ _overflow_count:
 ;--------------------------------------------------------
 	rseg R_IXSEG
 	rseg R_HOME
-	rseg R_GSINIT
+	rseg R_Gs_0
 	rseg R_CSEG
 ;--------------------------------------------------------
 ; Reset entry point and interrupt vectors
@@ -524,8 +524,8 @@ _overflow_count:
 ; global & static initialisations
 ;--------------------------------------------------------
 	rseg R_HOME
-	rseg R_GSINIT
-	rseg R_GSINIT
+	rseg R_Gs_0
+	rseg R_Gs_0
 ;--------------------------------------------------------
 ; data variables initialization
 ;--------------------------------------------------------

@@ -7,7 +7,7 @@ EFM8_uart1_test
 </OPTC51>
 
 <SEGMENTS>
-R_GSINIT,code,0000,NO
+R_Gs_0,code,0000,NO
 R_BSEG,bit,0000,NO
 R_XSEG,xdata,0000,NO
 BIT_BANK,data,0001,OV
@@ -67,7 +67,7 @@ _state,R_DSEG,0002,0002
 
 <EXTERNALS>
 ___fsgt,any,0000,0000
-___fs2sint,any,0000,0000
+___fs_2sint,any,0000,0000
 ___fslt,any,0000,0000
 _abs,any,0000,0000
 __mulint,any,0000,0000
@@ -85,27 +85,27 @@ __divsint_PARM_2,any,0000,0000
 <CODE R_HOME>
 </CODE>
 
-<CODE R_GSINIT>
+<CODE R_Gs_0>
 </CODE>
 
 <CODE R_CSEG>
 </CODE>
 
 <CODE AT 0000>
-02 addr16(_crt0;)  
+02 addr16(_crt0;)
 </CODE>
 
 <CODE AT 008B>
-02 addr16(_Timer4_ISR;)  
+02 addr16(_Timer4_ISR;)
 </CODE>
 
 <CODE R_HOME>
 </CODE>
 
-<CODE R_GSINIT>
+<CODE R_Gs_0>
 </CODE>
 
-<CODE R_GSINIT>
+<CODE R_Gs_0>
 </CODE>
 
 <CODE R_DINIT>
@@ -214,7 +214,7 @@ F5 data8(_count;0x0001;+;)
 80 rel2(L005005?;)
 85 data8(_count;) 82
 85 data8(_count;0x0001;+;) 83
-12 addr16(___sint2fs;)  
+12 addr16(___sint2fs;)
 AA 82
 AB 83
 AC F0
@@ -227,7 +227,7 @@ C0 data8(_right_wheel;0x0003;+;)
 8B 83
 8C F0
 ED
-12 addr16(___fsgt;)  
+12 addr16(___fsgt;)
 AA 82
 E5 81
 24 FC
@@ -271,7 +271,7 @@ C0 E0
 8B 83
 8C F0
 ED
-12 addr16(___fslt;)  
+12 addr16(___fslt;)
 AE 82
 E5 81
 24 FC
@@ -282,7 +282,7 @@ D0 03
 D0 02
 EE
 60 rel2(L006010?;)
-02 addr16(L006004?;)  
+02 addr16(L006004?;)
 85 data8(_PWM_manager_PARM_2;) 82
 85 data8(_PWM_manager_PARM_2;0x0001;+;) 83
 85 data8(_PWM_manager_PARM_2;0x0002;+;) F0
@@ -291,11 +291,11 @@ C0 02
 C0 03
 C0 04
 C0 05
-12 addr16(___fs2sint;)  
+12 addr16(___fs_2sint;)
 85 82 data8(_PWM_manager_sloc0_1_0;)
 85 83 data8(_PWM_manager_sloc0_1_0;0x0001;+;)
-12 addr16(_abs;)  
-12 addr16(___sint2fs;)  
+12 addr16(_abs;)
+12 addr16(___sint2fs;)
 85 82 data8(_left_wheel;)
 85 83 data8(_left_wheel;0x0001;+;)
 85 F0 data8(_left_wheel;0x0002;+;)
@@ -308,8 +308,8 @@ D0 02
 8B 83
 8C F0
 ED
-12 addr16(___fs2sint;)  
-12 addr16(_abs;)  
+12 addr16(___fs_2sint;)
+12 addr16(_abs;)
 A9 82
 AF 83
 74 64
@@ -323,14 +323,14 @@ FF
 85 data8(_PWM_manager_sloc0_1_0;0x0001;+;) 83
 C0 07
 C0 01
-12 addr16(_abs;)  
+12 addr16(_abs;)
 85 82 data8(__mulint_PARM_2;)
 85 83 data8(__mulint_PARM_2;0x0001;+;)
 D0 01
 D0 07
 89 82
 8F 83
-12 addr16(__mulint;)  
+12 addr16(__mulint;)
 AF 82
 A8 83
 75 data8(__divsint_PARM_2;) 64
@@ -338,8 +338,8 @@ E4
 F5 data8(__divsint_PARM_2;0x0001;+;)
 8F 82
 88 83
-12 addr16(__divsint;)  
-12 addr16(___sint2fs;)  
+12 addr16(__divsint;)
+12 addr16(___sint2fs;)
 85 82 data8(_right_wheel;)
 85 83 data8(_right_wheel;0x0001;+;)
 85 F0 data8(_right_wheel;0x0002;+;)
@@ -352,8 +352,8 @@ EE
 8B 83
 8C F0
 ED
-12 addr16(___fs2sint;)  
-12 addr16(_abs;)  
+12 addr16(___fs_2sint;)
+12 addr16(_abs;)
 AA 82
 AB 83
 74 64
@@ -369,12 +369,12 @@ FB
 E5 data8(_PWM_manager_PARM_2;0x0003;+;)
 C0 02
 C0 03
-12 addr16(___fs2sint;)  
+12 addr16(___fs_2sint;)
 AC 82
 AD 83
 C0 04
 C0 05
-12 addr16(_abs;)  
+12 addr16(_abs;)
 85 82 data8(__mulint_PARM_2;)
 85 83 data8(__mulint_PARM_2;0x0001;+;)
 D0 05
@@ -385,7 +385,7 @@ D0 02
 8B 83
 C0 04
 C0 05
-12 addr16(__mulint;)  
+12 addr16(__mulint;)
 AA 82
 AB 83
 75 data8(__divsint_PARM_2;) 64
@@ -393,8 +393,8 @@ E4
 F5 data8(__divsint_PARM_2;0x0001;+;)
 8A 82
 8B 83
-12 addr16(__divsint;)  
-12 addr16(___sint2fs;)  
+12 addr16(__divsint;)
+12 addr16(___sint2fs;)
 85 82 data8(_left_wheel;)
 85 83 data8(_left_wheel;0x0001;+;)
 85 F0 data8(_left_wheel;0x0002;+;)
@@ -403,8 +403,8 @@ D0 05
 D0 04
 8C 82
 8D 83
-12 addr16(_abs;)  
-12 addr16(___sint2fs;)  
+12 addr16(_abs;)
+12 addr16(___sint2fs;)
 85 82 data8(_right_wheel;)
 85 83 data8(_right_wheel;0x0001;+;)
 85 F0 data8(_right_wheel;0x0002;+;)
@@ -412,7 +412,7 @@ F5 data8(_right_wheel;0x0003;+;)
 22
 85 data8(_PWM_percent_x;) 82
 85 data8(_PWM_percent_x;0x0001;+;) 83
-12 addr16(___sint2fs;)  
+12 addr16(___sint2fs;)
 AA 82
 AB 83
 AC F0
@@ -421,22 +421,22 @@ FD
 8B data8(_PWM_manager_PARM_2;0x0001;+;)
 8C data8(_PWM_manager_PARM_2;0x0002;+;)
 8D data8(_PWM_manager_PARM_2;0x0003;+;)
-12 addr16(_PWM_manager;)  
-12 addr16(_TIMER3Init;)  
-12 addr16(_TIMER4Init;)  
+12 addr16(_PWM_manager;)
+12 addr16(_TIMER3Init;)
+12 addr16(_TIMER4Init;)
 74 data8(__str_0;)
 C0 E0
 74 data8(__str_0;0x0008;>>;)
 C0 E0
 74 80
 C0 E0
-12 addr16(_printf;)  
+12 addr16(_printf;)
 15 81
 15 81
 15 81
 85 data8(_PWM_percent_x;) 82
 85 data8(_PWM_percent_x;0x0001;+;) 83
-12 addr16(___sint2fs;)  
+12 addr16(___sint2fs;)
 AA 82
 AB 83
 AC F0
@@ -445,7 +445,7 @@ FD
 8B data8(_PWM_manager_PARM_2;0x0001;+;)
 8C data8(_PWM_manager_PARM_2;0x0002;+;)
 8D data8(_PWM_manager_PARM_2;0x0003;+;)
-12 addr16(_PWM_manager;)  
+12 addr16(_PWM_manager;)
 80 rel2(L007002?;)
 </CODE>
 
@@ -458,7 +458,7 @@ FD
 <CODE R_CONST>
 0D
 0A
-55 61 72 74 20 31 20 74 65 73 74 
+55 61 72 74 20 31 20 74 65 73 74
 0D
 0A
 00

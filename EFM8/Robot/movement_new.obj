@@ -7,7 +7,7 @@ movement_new
 </OPTC51>
 
 <SEGMENTS>
-R_GSINIT,code,0000,NO
+R_Gs_0,code,0000,NO
 R_BSEG,bit,0000,NO
 R_XSEG,xdata,0000,NO
 BIT_BANK,data,0001,OV
@@ -106,31 +106,31 @@ ___sint2fs,any,0000,0000
 <CODE R_HOME>
 </CODE>
 
-<CODE R_GSINIT>
+<CODE R_Gs_0>
 </CODE>
 
 <CODE R_CSEG>
 </CODE>
 
 <CODE AT 0000>
-02 addr16(_crt0;)  
+02 addr16(_crt0;)
 </CODE>
 
 <CODE AT 0073>
-02 addr16(_Timer3_ISR;)  
+02 addr16(_Timer3_ISR;)
 </CODE>
 
 <CODE AT 008B>
-02 addr16(_Timer4_ISR;)  
+02 addr16(_Timer4_ISR;)
 </CODE>
 
 <CODE R_HOME>
 </CODE>
 
-<CODE R_GSINIT>
+<CODE R_Gs_0>
 </CODE>
 
-<CODE R_GSINIT>
+<CODE R_Gs_0>
 </CODE>
 
 <CODE R_DINIT>
@@ -222,7 +222,7 @@ B2 92
 E5 data8(_state;)
 45 data8(_state;0x0001;+;)
 70 rel2(L005029?;)
-02 addr16(L005020?;)  
+02 addr16(L005020?;)
 C3
 74 64
 95 data8(_count;)
@@ -261,7 +261,7 @@ C0 data8(_PWM_percent_y;0x0003;+;)
 90 00 00
 75 F0 C8
 74 42
-12 addr16(___fsmul;)  
+12 addr16(___fsmul;)
 AA 82
 AB 83
 AC F0
@@ -275,8 +275,8 @@ C0 02
 C0 03
 C0 04
 C0 05
-12 addr16(___sint2fs;)  
-12 addr16(___fsgt;)  
+12 addr16(___sint2fs;)
+12 addr16(___fsgt;)
 AA 82
 E5 81
 24 FC
@@ -354,7 +354,7 @@ C0 E0
 8B 83
 8C F0
 ED
-12 addr16(___fsgt;)  
+12 addr16(___fsgt;)
 AA 82
 E5 81
 24 FC
@@ -382,7 +382,7 @@ C0 E0
 8B 83
 8C F0
 ED
-12 addr16(___fsgt;)  
+12 addr16(___fsgt;)
 AA 82
 E5 81
 24 FC
@@ -411,7 +411,7 @@ C0 05
 85 data8(_movement_manager_PARM_3;0x0001;+;) 83
 85 data8(_movement_manager_PARM_3;0x0002;+;) F0
 E5 data8(_movement_manager_PARM_3;0x0003;+;)
-12 addr16(___fseq;)  
+12 addr16(___fseq;)
 AE 82
 E5 81
 24 FC
@@ -434,7 +434,7 @@ C0 data8(_movement_manager_PARM_2;0x0003;+;)
 85 data8(_movement_manager_PARM_4;0x0001;+;) 83
 85 data8(_movement_manager_PARM_4;0x0002;+;) F0
 E5 data8(_movement_manager_PARM_4;0x0003;+;)
-12 addr16(___fseq;)  
+12 addr16(___fseq;)
 AE 82
 E5 81
 24 FC
@@ -445,7 +445,7 @@ D0 03
 D0 02
 EE
 60 rel2(L012026?;)
-02 addr16(L012015?;)  
+02 addr16(L012015?;)
 E5 data8(_movement_manager_PARM_2;)
 45 data8(_movement_manager_PARM_2;0x0001;+;)
 45 data8(_movement_manager_PARM_2;0x0002;+;)
@@ -461,8 +461,8 @@ C2 F7
 45 F0
 70 rel2(L012011?;)
 F5 data8(_movement_manager_PARM_5;)
-12 addr16(_idle;)  
-02 addr16(L012015?;)  
+12 addr16(_idle;)
+02 addr16(L012015?;)
 C0 02
 C0 03
 C0 04
@@ -476,7 +476,7 @@ C0 E0
 8B 83
 8C F0
 ED
-12 addr16(___fslt;)  
+12 addr16(___fslt;)
 AE 82
 E5 81
 24 FC
@@ -492,7 +492,7 @@ EE
 85 data8(_movement_manager_PARM_2;0x0001;+;) 83
 85 data8(_movement_manager_PARM_2;0x0002;+;) F0
 E5 data8(_movement_manager_PARM_2;0x0003;+;)
-12 addr16(_left;)  
+12 addr16(_left;)
 80 rel2(L012015?;)
 E4
 C0 E0
@@ -503,7 +503,7 @@ C0 E0
 8B 83
 8C F0
 ED
-12 addr16(___fsgt;)  
+12 addr16(___fsgt;)
 AA 82
 E5 81
 24 FC
@@ -515,7 +515,7 @@ EA
 85 data8(_movement_manager_PARM_2;0x0001;+;) 83
 85 data8(_movement_manager_PARM_2;0x0002;+;) F0
 E5 data8(_movement_manager_PARM_2;0x0003;+;)
-12 addr16(_right;)  
+12 addr16(_right;)
 80 rel2(L012015?;)
 E4
 C0 E0
@@ -526,7 +526,7 @@ C0 E0
 85 data8(_movement_manager_PARM_2;0x0001;+;) 83
 85 data8(_movement_manager_PARM_2;0x0002;+;) F0
 E5 data8(_movement_manager_PARM_2;0x0003;+;)
-12 addr16(___fsgt;)  
+12 addr16(___fsgt;)
 AA 82
 E5 81
 24 FC
@@ -534,19 +534,19 @@ F5 81
 EA
 60 rel2(L012002?;)
 75 data8(_movement_manager_PARM_5;) 03
-12 addr16(_straight;)  
+12 addr16(_straight;)
 80 rel2(L012015?;)
 75 data8(_movement_manager_PARM_5;) 04
-12 addr16(_backward;)  
+12 addr16(_backward;)
 85 data8(_movement_manager_PARM_5;) 82
 22
-12 addr16(_TIMER3Init;)  
-12 addr16(_TIMER4Init;)  
+12 addr16(_TIMER3Init;)
+12 addr16(_TIMER4Init;)
 90 00 00
 E4
 F5 F0
 74 3F
-12 addr16(_left;)  
+12 addr16(_left;)
 75 data8(_state;) 01
 E4
 F5 data8(_state;0x0001;+;)
@@ -567,7 +567,7 @@ F5 data8(_state;0x0001;+;)
 85 data8(_PWM_percent_x;0x0001;+;) 83
 85 data8(_PWM_percent_x;0x0002;+;) F0
 E5 data8(_PWM_percent_x;0x0003;+;)
-12 addr16(_movement_manager;)  
+12 addr16(_movement_manager;)
 AA 82
 8A data8(_state;)
 75 data8(_state;0x0001;+;) 00

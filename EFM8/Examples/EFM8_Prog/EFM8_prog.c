@@ -1,19 +1,19 @@
 /////////////////////////////////////////////////////////////////////////////
 //
 // EFM8_prog.c:  Serial flash loader for the EFM8LB1 family of microcontrollers.
-// 
+//
 // Copyright (C) 2013-2022  Jesus Calvino-Fraga, jesusc (at) ece.ubc.ca
-// 
+//
 // This program is free software; you can redistribute it and/or modify it
 // under the terms of the GNU General Public License as published by the
 // Free Software Foundation; either version 2, or (at your option) any
 // later version.
-// 
+//
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
-// 
+//
 // You should have received a copy of the GNU General Public License
 // along with this program; if not, write to the Free Software
 // Foundation, 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
@@ -56,12 +56,12 @@
 	#include <string.h>
 	#include <stdbool.h>
 
-	#define strnicmp strncasecmp 
+	#define strnicmp strncasecmp
 	#define TRUE true
 	#define FALSE false
 	#define EQ(X,Y)  (stricmp(X, Y)==0)
 	#define NEQ(X,Y) (stricmp(X, Y)!=0)
-	
+
 #else
 	#include <stdio.h>
 	#include <stdlib.h>
@@ -171,17 +171,17 @@ int Select_Baud (int Baud_Rate)
 //CSTOPB Set two stop bits, rather than one.
 //PARENB Enable parity generation on output and parity checking for input.
 //PARODD If set, then parity for input and output is odd; otherwise even parity is used.
-#define ONESTOPBIT 0 
-#define TWOSTOPBITS CSTOPB 
+#define ONESTOPBIT 0
+#define TWOSTOPBITS CSTOPB
 #define NOPARITY 0
 
 int OpenSerialPort(char * devicename, int baud, int parity, int numbits, int numstop)
 {
     struct termios options;
 	speed_t BAUD;
-	
+
 	BAUD=Select_Baud(baud);
-	
+
 	//open the device(com port) to be non-blocking (read will return immediately)
 	fd = open(devicename, O_RDWR | O_NOCTTY | O_NDELAY );
 	if (fd < 0)
@@ -189,32 +189,32 @@ int OpenSerialPort(char * devicename, int baud, int parity, int numbits, int num
 		perror(devicename);
 		return(1);
 	}
-	
+
 	/*Reading data from a port is a little trickier. When you operate the port
 	in raw data mode, each read system call will return however many characters
 	are actually available in the serial input buffers. If no characters are
 	available, the call will block (wait) until characters come in, an interval
 	timer expires, or an error occurs. The read function can be made to return
 	immediately by doing the following:*/
-	
+
 	//fcntl(fd, F_SETFL, FNDELAY);
 
 	/* The FNDELAY option causes the read function to return 0 if no characters
 	are available on the port. To restore normal (blocking) behavior, call
 	fcntl() without the FNDELAY option:*/
-	
+
     	fcntl(fd, F_SETFL, 0);
-	
+
 	/*This is also used after opening a serial port with the O_NDELAY option.*/
 
-	// Make the file descriptor asynchronous 
-	
+	// Make the file descriptor asynchronous
+
 	tcgetattr(fd, &comio);
-	
+
 	//newtio.sg_ispeed = newtio.sg_ospeed = BAUD;
 	cfsetospeed(&comio, (speed_t)BAUD);
 	cfsetispeed(&comio, (speed_t)BAUD);
-	
+
 	comio.c_cflag = BAUD | CS8 | CSTOPB | CLOCAL | CREAD;
 	comio.c_cflag &= ~(CRTSCTS); /* No hardware flow control */
 	comio.c_iflag = IGNPAR;
@@ -261,14 +261,14 @@ int OpenSerialPort (char * Port, DWORD baud, BYTE parity, BYTE bits, BYTE stop)
 	COMMTIMEOUTS Timeouts;
 
 	sprintf(sPort, "\\\\.\\%s", Port);
-	
+
 	hComm = CreateFile(sPort, GENERIC_READ | GENERIC_WRITE, 0, NULL, OPEN_EXISTING, 0, NULL);
 	if (hComm == INVALID_HANDLE_VALUE)
 	{
 		printf("Failed to open up the comunication port %s\n", Port);
 		return -1;
 	}
-	
+
 	if (!GetCommState(hComm, &dcb))
 	{
 		printf("Failed in call to GetCommState()\n");
@@ -276,7 +276,7 @@ int OpenSerialPort (char * Port, DWORD baud, BYTE parity, BYTE bits, BYTE stop)
 	}
 
 	dcb.fAbortOnError=FALSE;
-	dcb.BaudRate = baud; 
+	dcb.BaudRate = baud;
 	dcb.Parity = parity;
 	dcb.ByteSize = bits;
 	dcb.StopBits = stop;
@@ -291,7 +291,7 @@ int OpenSerialPort (char * Port, DWORD baud, BYTE parity, BYTE bits, BYTE stop)
 	{
 		printf("Failed in call to SetCommState()\n");
 		return -1;
-	}	
+	}
 
 	ZeroMemory(&Timeouts, sizeof(COMMTIMEOUTS));
 	Timeouts.ReadIntervalTimeout = 250;
@@ -378,7 +378,7 @@ int ReadHexFile(char * filename)
        fflush(stdout);
        return -1;
     }
-    
+
 	numbytes=filesize(filein);
 
     while(fgets(buffer, sizeof(buffer), filein)!=NULL)
@@ -417,8 +417,8 @@ int ReadHexFile(char * filename)
 		}
     }
     fclose(filein);
-	
-	printf("%s: loaded %d bytes\n", filename, LoadedBytes); 
+
+	printf("%s: loaded %d bytes\n", filename, LoadedBytes);
 
     return MaxAddress;
 }
@@ -427,7 +427,7 @@ BOOL PortWrRd(char x, DWORD delay)
 {
 	DWORD j;
     char s=0;
-    
+
 #ifdef __unix__
     j=write(fd, &x, 1);  // For Unix/macOS
 #else
@@ -436,7 +436,7 @@ BOOL PortWrRd(char x, DWORD delay)
 #endif
 
     Sleep(delay+1);
-    
+
 #ifdef __unix__
 	j = read(fd, &s, 1); // For Unix/macOS
 #else
@@ -452,7 +452,7 @@ BOOL Identify (void)
     int i;
 	unsigned char x[100];
     unsigned char c;
-	    
+
 	// Autobaud first
 	x[0]=0xff;
 #ifdef __unix__
@@ -462,7 +462,7 @@ BOOL Identify (void)
 	WriteFile(hComm, x, 1, &j, NULL);
 #endif
 	Sleep(5);
-	
+
 	for(i=0; id[i].device_id!=0; i++)
 	{
 		x[0]='$';
@@ -477,7 +477,7 @@ BOOL Identify (void)
 		WriteFile(hComm, x, 5, &j, NULL);
 #endif
 		Sleep(1);
-		
+
 		c=0;
 #ifdef __unix__
 		j = read(fd, &c, 1); // For Unix/macOS
@@ -553,11 +553,11 @@ unsigned char Send_EFM8LB_Record(unsigned char * x, int sleeptime)
 		return 0;
 	}
 #endif
-	
+
 	return c;
 }
 
-unsigned char Write_EFM8LB_Flash(int address, int len, int * hashcnt) 
+unsigned char Write_EFM8LB_Flash(int address, int len, int * hashcnt)
 {
 	int j;
 	unsigned char buff[0x100];
@@ -585,11 +585,11 @@ unsigned char Write_EFM8LB_Flash(int address, int len, int * hashcnt)
 			printf("\n"); fflush(stdout);
 		}
 	}
-	
+
 	return empty?0x40:Send_EFM8LB_Record(buff, 0);
 }
 
-unsigned char Erase_EFM8LB_Flash(void) 
+unsigned char Erase_EFM8LB_Flash(void)
 {
 	unsigned int address;
 	unsigned char buff[0x10];
@@ -618,8 +618,8 @@ unsigned char Erase_EFM8LB_Flash(void)
 unsigned char Setup_EFM8LB(void)
 {
 	unsigned char buff[0x10];
-	
-	// 24 04 31 A5 F1 00 
+
+	// 24 04 31 A5 F1 00
 	buff[0]='$';
 	buff[1]=0x04;
 	buff[2]=0x31;
@@ -648,7 +648,7 @@ unsigned int crc16 (unsigned int crc, unsigned char val)
 	return crc;
 }
 
-unsigned char Check_EFM8LB_Flash(void) 
+unsigned char Check_EFM8LB_Flash(void)
 {
 	unsigned int j;
 	unsigned char buff[0x10];
@@ -656,7 +656,7 @@ unsigned char Check_EFM8LB_Flash(void)
 	unsigned char c;
 
 	printf("Verifying... ");
-	
+
 	for(j=0; j<m_memsize; j++)
 	{
 		crc=crc16(crc, FlashBuff[j]);
@@ -684,12 +684,12 @@ unsigned char Check_EFM8LB_Flash(void)
 	return c;
 }
 
-void Reset_EFM8LB(void) 
+void Reset_EFM8LB(void)
 {
 	unsigned char buff[0x10];
 
 	printf("Running program... ");
-	
+
 	buff[0]='$';
 	buff[1]=0x01;
 	buff[2]=0x36;
@@ -703,7 +703,7 @@ void GetOut (int val)
 #ifndef __unix__
 	if(handle!=NULL)
 	{
-		FT_SetBitMode(handle, 0x00, FT_BITMODE_CBUS_BITBANG); // Set CBUS3 and CBUS0 as input
+		FT_SetBitMode(handle, 0x00, FT_BITMODE_CBUS_BITBANG); // Set CBUs_3 and CBUS0 as input
 		FT_SetBitMode(handle, 0x0, FT_BITMODE_RESET); // Back to serial port mode
 		FT_Close(handle);
 	}
@@ -711,7 +711,7 @@ void GetOut (int val)
 	exit(val);
 }
 
-void Flash(void) 
+void Flash(void)
 {
     int portn;
 	char buff[0x100];
@@ -723,7 +723,7 @@ void Flash(void)
         fflush(stdout);
         return;
     }
-    
+
     if(OpenSerialPort(m_Serial, 115200, NOPARITY, 8, ONESTOPBIT)!=0)
     {
         printf("ERROR: Could not open serial port '%s'.\n", m_Serial);
@@ -732,7 +732,7 @@ void Flash(void)
     }
 
 	START; // Measure the time it takes to program the microcontroller
-	
+
 	//Identify the microcontroller
 	if(Identify()==FALSE)
 	{
@@ -740,7 +740,7 @@ void Flash(void)
 		fflush(stdout);
 		goto The_end;
 	}
-		
+
 	printf("Sending 'setup' command... "); fflush(stdout);
 	if(Setup_EFM8LB()!=0x40)
 	{
@@ -767,18 +767,18 @@ void Flash(void)
             goto The_end;
 		}
 	}
-	
+
     printf(" Done.\n");
 	Check_EFM8LB_Flash();
-	
+
 	if (m_reset==1) Reset_EFM8LB();
-	
+
     printf("Actions completed in ");
     STOP;
 	PRINTTIME;
 	printf("\n");
 	fflush(stdout);
-	    
+
 The_end:
     CloseSerialPort();
 }
@@ -797,16 +797,16 @@ int List_FTDI_Devices (void)
 	char Description[64];
 	int j, toreturn=0;
 	LONG PortNumber;
-	
+
 	if (Selected_Device>=0) return Selected_Device;
-	
+
 	// create the device information list
 	ftStatus = FT_CreateDeviceInfoList(&numDevs);
 	if (ftStatus == FT_OK)
 	{
 		//printf("Number of devices is %d\n",numDevs);
 	}
-	
+
 	if (numDevs > 1)
 	{
 		printf("More than one device detected.  Use option -d to select device to use:\n");
@@ -824,7 +824,7 @@ int List_FTDI_Devices (void)
 				printf("Description='%s' ",Description);
 				//printf(" ftHandle=0x%x",ftHandleTemp);
 				FT_Open(j, &handle);
-				FT_GetComPortNumber(handle, &PortNumber);				
+				FT_GetComPortNumber(handle, &PortNumber);
 				FT_Close(handle);
 				printf("Port=COM%d\n", PortNumber); fflush(stdout);
 			}
@@ -832,11 +832,11 @@ int List_FTDI_Devices (void)
 		fflush(stdout);
 		exit(-1);
 	}
-	
+
 	return toreturn;
 }
 
-// CBUS3 and CBUs0 are used as RESET and C2D respectevely, to activate bootload mode.
+// CBUs_3 and CBUs0 are used as RESET and C2D respectevely, to activate bootload mode.
 // They must be configured for GPIO first.
 void FTDI_Set_CBUS_Mode (int pinmode)
 {
@@ -846,28 +846,28 @@ void FTDI_Set_CBUS_Mode (int pinmode)
 	char Description[64];
 	char SerialNumber[64];
 	int j;
-	
+
 	FT_EEPROM_HEADER ft_eeprom_header;
 	FT_EEPROM_X_SERIES ft_eeprom_x_series;
-	
+
 	ft_eeprom_header.deviceType = FT_DEVICE_X_SERIES; // FTxxxx device type to be accessed
 	ft_eeprom_x_series.common = ft_eeprom_header;
 	ft_eeprom_x_series.common.deviceType = FT_DEVICE_X_SERIES;
-	
+
 	status = FT_EEPROM_Read(handle, &ft_eeprom_x_series, sizeof(ft_eeprom_x_series),
 							Manufacturer, ManufacturerId, Description, SerialNumber);
 	// FT_X_SERIES_CBUS_IOMODE configure pin to this mode for bit bang mode
-	// FT_X_SERIES_CBUS_SLEEP Factory default setting for CBUS3
-	// FT_X_SERIES_CBUS_TXLED Factory default setting for CBUS2
-	// FT_X_SERIES_CBUS_RXLED Factory default setting for CBUS1
+	// FT_X_SERIES_CBUS_SLEEP Factory default setting for CBUs_3
+	// FT_X_SERIES_CBUS_TXLED Factory default setting for CBUs_2
+	// FT_X_SERIES_CBUS_RXLED Factory default setting for CBUs_1
 	// FT_X_SERIES_CBUS_TXDEN Factory default setting for CBUS0
 	if (status == FT_OK)
 	{
 		if(pinmode==1)
 		{
-			if ((ft_eeprom_x_series.Cbus3!=FT_X_SERIES_CBUS_IOMODE) ||  (ft_eeprom_x_series.Cbus0!=FT_X_SERIES_CBUS_IOMODE))
+			if ((ft_eeprom_x_series.Cbus_3!=FT_X_SERIES_CBUS_IOMODE) ||  (ft_eeprom_x_series.Cbus0!=FT_X_SERIES_CBUS_IOMODE))
 			{
-				ft_eeprom_x_series.Cbus3=FT_X_SERIES_CBUS_IOMODE;
+				ft_eeprom_x_series.Cbus_3=FT_X_SERIES_CBUS_IOMODE;
 				ft_eeprom_x_series.Cbus0=FT_X_SERIES_CBUS_IOMODE;
 				status = FT_EEPROM_Program(handle, &ft_eeprom_x_series, sizeof(ft_eeprom_x_series),
 										Manufacturer, ManufacturerId, Description, SerialNumber);
@@ -875,9 +875,9 @@ void FTDI_Set_CBUS_Mode (int pinmode)
 				{
 					FT_CyclePort(handle); // It takes about 5 seconds to cycle port
 					FT_Close(handle);
-					printf("Pins CBUS3 and CBUS0 configured as 'IO Mode for CBUS bit-bang'.\n");					
+					printf("Pins CBUs_3 and CBUS0 configured as 'IO Mode for CBUS bit-bang'.\n");
 					fflush(stdout);
-					
+
 					for(j=0; j<20; j++)
 					{
 						if(FT_Open(List_FTDI_Devices(), &handle) != FT_OK)
@@ -898,15 +898,15 @@ void FTDI_Set_CBUS_Mode (int pinmode)
 				        printf("Can not open FTDI adapter.\n");
 						fflush(stdout);
 						exit(1);
-					}    
+					}
 				}
 			}
 		}
 		else
 		{
-			if ((ft_eeprom_x_series.Cbus3!=FT_X_SERIES_CBUS_SLEEP) || (ft_eeprom_x_series.Cbus0!=FT_X_SERIES_CBUS_TXDEN))
+			if ((ft_eeprom_x_series.Cbus_3!=FT_X_SERIES_CBUS_SLEEP) || (ft_eeprom_x_series.Cbus0!=FT_X_SERIES_CBUS_TXDEN))
 			{
-				ft_eeprom_x_series.Cbus3=FT_X_SERIES_CBUS_SLEEP;
+				ft_eeprom_x_series.Cbus_3=FT_X_SERIES_CBUS_SLEEP;
 				ft_eeprom_x_series.Cbus0=FT_X_SERIES_CBUS_TXDEN;
 				status = FT_EEPROM_Program(handle, &ft_eeprom_x_series, sizeof(ft_eeprom_x_series),
 										Manufacturer, ManufacturerId, Description, SerialNumber);
@@ -914,7 +914,7 @@ void FTDI_Set_CBUS_Mode (int pinmode)
 				{
 					FT_ResetDevice(handle);
 					Sleep(100);
-					printf("WARNING: Pins CBUS3 and CBUS0 have been configured as factory default.\n");
+					printf("WARNING: Pins CBUs_3 and CBUS0 have been configured as factory default.\n");
 					printf("Please unplug/plug the BO230XS board for the changes to take effect\n"
 					       "and try again.\n");
 					fflush(stdout);
@@ -928,22 +928,22 @@ void FTDI_Set_CBUS_Mode (int pinmode)
 void Activate_Bootloader (void)
 {
 	// Bits 7 down to 4 set CBUSx as either input or ouput.  Bits 3 down to 0 is the actual output.
-	// For example 0x90 configures CBUS3 and CBUS0 as outputs and set their values to zero.
+	// For example 0x90 configures CBUs_3 and CBUS0 as outputs and set their values to zero.
 	unsigned char Seq[3]={0x90, 0x98, 0x99};
 	unsigned char c;
 
     FT_SetBaudRate(handle, 115200);
-	
-	FTDI_Set_CBUS_Mode(1); // Make sure both CBUS3 and CBUS0 are in "CBUS IOMODE"
-	
+
+	FTDI_Set_CBUS_Mode(1); // Make sure both CBUs_3 and CBUS0 are in "CBUS IOMODE"
+
 	for(c=0; c<3; c++)
 	{
 		FT_SetBitMode(handle, Seq[c], FT_BITMODE_CBUS_BITBANG); // RESET=0, TEST=0
 		Sleep(10); // Sleep mili seconds
 	}
-	
+
 	FT_Purge(handle, FT_PURGE_RX | FT_PURGE_TX);
-	FT_SetBitMode(handle, 0x00, FT_BITMODE_CBUS_BITBANG); // Set CBUS3 and CBUS0 as input
+	FT_SetBitMode(handle, 0x00, FT_BITMODE_CBUS_BITBANG); // Set CBUs_3 and CBUS0 as input
 	FT_SetBitMode(handle, 0x0, FT_BITMODE_RESET); // Back to serial port mode
 
 	Sleep(10);
@@ -967,8 +967,8 @@ void print_help (char * prn)
 	       "   -txx (boot loader activation timeout is xx seconds)\n"
 	       "   -r  (reset processor after loading flash)\n"
 #ifndef __unix__
-	       "   -f or -ft230 (activate bootloader using FT230 pins CBUS0 and CBUS3)\n"
-	       "   -cbus  (restore default configuration for CBUS0 and CBUS3)\n"
+	       "   -f or -ft230 (activate bootloader using FT230 pins CBUS0 and CBUs_3)\n"
+	       "   -cbus  (restore default configuration for CBUS0 and CBUs_3)\n"
 	       "   -dx (select FT230XS device x, for example for device 1: -d1)\n"
 #endif
 	       "   -h (this help)\n"
@@ -989,13 +989,13 @@ void print_help (char * prn)
 int main(int argc, char **argv)
 {
 	int j;
-	
+
 	unsigned char buff[32];
 	BOOL use_ft230=FALSE;
 
     printf("Serial flash programmer for the EFM8LB1. (C) Jesus Calvino-Fraga (2012-2022)\n");
     fflush(stdout);
-	
+
     for(j=1; j<argc; j++)
     {
     		 if(EQ("-h", argv[j])) {print_help(argv[0]); return 0;}
@@ -1022,15 +1022,15 @@ int main(int argc, char **argv)
 	        puts("Can not open FTDI adapter.\n");
 	        return 3;
 	    }
-	    
+
 	    if(b_default_CBUS)
 	    {
-			FTDI_Set_CBUS_Mode(0); // Restore default operation of CBUS0 and CBUS3
+			FTDI_Set_CBUS_Mode(0); // Restore default operation of CBUS0 and CBUs_3
 			GetOut(0);
 	    }
-	    
+
 	    if (FT_GetComPortNumber(handle, &lComPortNumber) == FT_OK)
-	    { 
+	    {
 	    	if (lComPortNumber != -1)
 	    	{
 	    		sprintf(m_Serial, "COM%d", lComPortNumber);
@@ -1039,7 +1039,7 @@ int main(int argc, char **argv)
 	    		system(buff);
 	    	}
 	    }
-	    
+
 	    Activate_Bootloader();
 		FT_Close(handle); // The port will be re-open as an standard serial port
 	}

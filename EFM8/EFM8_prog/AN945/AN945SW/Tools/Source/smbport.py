@@ -4,8 +4,8 @@
 
 """CP2112 HID to SMBus bridge interface.
 
-This module uses the ctypes package to wrap a small set of functions from the Silicon Labs 
-HID to SMBus Interface library (SLABHIDtoSMBus.dll). The wrapped functions are all that are 
+This module uses the ctypes package to wrap a small set of functions from the Silicon Labs
+HID to SMBus Interface library (SLABHIDtoSMBus.dll). The wrapped functions are all that are
 needed to communicate with the EFM8 SMB bootloader.
 """
 
@@ -19,8 +19,8 @@ class HID_SMBUS_S0:
     COMPLETE = 0x02
     ERROR = 0x03
 
-# Detailed status (S1) codes
-class HID_SMBUS_S1:
+# Detailed status (s_1) codes
+class HID_SMBUS_s_1:
     BUSY_ADDRESS_ACKED = 0x00
     BUSY_ADDRESS_NACKED = 0x01
     BUSY_READING = 0x02
@@ -75,14 +75,14 @@ else:
 
 # Set return types and error check function for the wrapped library
 for hidsmb_function in [
-    "HidSmbus_GetNumDevices", 
-    "HidSmbus_Open", 
-    "HidSmbus_Close", 
-    "HidSmbus_ReadRequest", 
+    "HidSmbus_GetNumDevices",
+    "HidSmbus_Open",
+    "HidSmbus_Close",
+    "HidSmbus_ReadRequest",
     "HidSmbus_GetReadResponse",
-    "HidSmbus_WriteRequest", 
-    "HidSmbus_TransferStatusRequest", 
-    "HidSmbus_GetTransferStatusResponse", 
+    "HidSmbus_WriteRequest",
+    "HidSmbus_TransferStatusRequest",
+    "HidSmbus_GetTransferStatusResponse",
     "HidSmbus_SetSmbusConfig"]:
     fnc = getattr(_DLL, hidsmb_function)
     fnc.restype = ct.c_int
@@ -98,7 +98,7 @@ def port_count():
 class SmbPort(object):
     """Base class for communicating with a Silicon Labs CP2112 device.
 
-    Creating an instance of this class automatically opens the first available 
+    Creating an instance of this class automatically opens the first available
     CP2112 device.
 
     Args:

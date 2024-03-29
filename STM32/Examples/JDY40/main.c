@@ -57,8 +57,8 @@ void SendATCommand (char * s)
 	printf("Command: %s", s);
 	GPIOA->ODR &= ~(BIT13); // 'set' pin to 0 is 'AT' mode.
 	waitms(10);
-	eputs2(s);
-	egets2(TX_BUFF, sizeof(TX_BUFF)-1);
+	eputs_2(s);
+	egets_2(TX_BUFF, sizeof(TX_BUFF)-1);
 	GPIOA->ODR |= BIT13; // 'set' pin to 1 is normal operation mode.
 	waitms(10);
 	printf("Response: %s", TX_BUFF);
@@ -68,15 +68,15 @@ void SendCommand(char * s, int value) {
 	int count = 0;
 	sprintf(TX_BUFF, "%s %d\r\n", s, value);
 	// printf("%s", TX_BUFF); // Print to Terminal
-	eputs2(TX_BUFF);
+	eputs_2(TX_BUFF);
 	waitms(200);
 }
 
 void ReceiveCommand(void)
 {
-	if(ReceivedBytes2()>0) // Something has arrived
+	if(ReceivedBytes_2()>0) // Something has arrived
 	{
-		egets2(RX_BUFF, sizeof(RX_BUFF)-1);
+		egets_2(RX_BUFF, sizeof(RX_BUFF)-1);
 		printf("RX: %s\r\n", RX_BUFF);
 		// printf("Length: %d\r\n", strlen(RX_BUFF));
 	}

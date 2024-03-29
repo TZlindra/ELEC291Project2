@@ -14,12 +14,12 @@
 0000             14            R_OSEG    segment data overlay
 0000             15            BIT_BANK  segment data overlay
 0000             16            R_HOME    segment code
-0000             17            R_GSINIT  segment code
+0000             17            R_Gs_0  segment code
 0000             18            R_IXSEG   segment xdata
 0000             19            R_CONST   segment code
 0000             20            R_XINIT   segment code
 0000             21            R_DINIT   segment code
-0000             22   
+0000             22
 0000             23   ;--------------------------------------------------------
 0000             24   ; Public variables in this module
 0000             25   ;--------------------------------------------------------
@@ -398,7 +398,7 @@
 0000            398   _F1             BIT 0xd1
 0000            399   _OV             BIT 0xd2
 0000            400   _RS0            BIT 0xd3
-0000            401   _RS1            BIT 0xd4
+0000            401   _Rs_1            BIT 0xd4
 0000            402   _F0             BIT 0xd5
 0000            403   _AC             BIT 0xd6
 0000            404   _CY             BIT 0xd7
@@ -481,7 +481,7 @@
 0000            481   ;--------------------------------------------------------
 0000            482            rseg R_DSEG
 0000            483   ;--------------------------------------------------------
-0000            484   ; overlayable items in internal ram 
+0000            484   ; overlayable items in internal ram
 0000            485   ;--------------------------------------------------------
 0000            486            rseg    R_OSEG
 0000            487   ;--------------------------------------------------------
@@ -513,7 +513,7 @@
 0000            513   ;--------------------------------------------------------
 0000            514            rseg R_IXSEG
 0000            515            rseg R_HOME
-0000            516            rseg R_GSINIT
+0000            516            rseg R_Gs_0
 0000            517            rseg R_CSEG
 0000            518   ;--------------------------------------------------------
 0000            519   ; Reset entry point and interrupt vectors
@@ -538,8 +538,8 @@
 0096            538   ; global & static initialisations
 0096            539   ;--------------------------------------------------------
 0000            540            rseg R_HOME
-0000            541            rseg R_GSINIT
-0000            542            rseg R_GSINIT
+0000            541            rseg R_Gs_0
+0000            542            rseg R_Gs_0
 0000            543   ;--------------------------------------------------------
 0000            544   ; data variables initialization
 0000            545   ;--------------------------------------------------------
@@ -598,7 +598,7 @@
 0033 75A5FF     598            mov     _P1MDOUT,#0xFF
 0036            599   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\All_timers\All_timers.c:90: P2MDOUT|=0b_0000_0001;
 0036 43A601     600            orl     _P2MDOUT,#0x01
-0039            601   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\All_timers\All_timers.c:92: XBR0     = 0x00;                     
+0039            601   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\All_timers\All_timers.c:92: XBR0     = 0x00;
 0039 75E100     602            mov     _XBR0,#0x00
 003C            603   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\All_timers\All_timers.c:93: XBR1     = 0X00;
 003C 75E200     604            mov     _XBR1,#0x00
@@ -874,7 +874,7 @@
 0152            874   ;------------------------------------------------------------
 0152            875   ;Allocation info for local variables in function 'PCA_ISR'
 0152            876   ;------------------------------------------------------------
-0152            877   ;j                         Allocated to registers r2 r3 
+0152            877   ;j                         Allocated to registers r2 r3
 0152            878   ;------------------------------------------------------------
 0152            879   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\All_timers\All_timers.c:227: void PCA_ISR (void) interrupt INTERRUPT_PCA0
 0152            880   ;        -----------------------------------------
@@ -1121,7 +1121,7 @@
 0285           1121   ;------------------------------------------------------------
 0285           1122   ;Allocation info for local variables in function 'main'
 0285           1123   ;------------------------------------------------------------
-0285           1124   ;j                         Allocated to registers r2 r3 
+0285           1124   ;j                         Allocated to registers r2 r3
 0285           1125   ;------------------------------------------------------------
 0285           1126   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\All_timers\All_timers.c:277: void main (void)
 0285           1127   ;        -----------------------------------------
@@ -1145,11 +1145,11 @@
 0292 7000      1145            jnz     L010006?
 0294 8000      1146            sjmp    L010002?
 0296           1147            rseg R_CSEG
-0296           1148   
+0296           1148
 0000           1149            rseg R_XINIT
-0000           1150   
+0000           1150
 0000           1151            rseg R_CONST
-0000           1152   
+0000           1152
 0096           1153            CSEG
-0096           1154   
+0096           1154
 0096           1155   end

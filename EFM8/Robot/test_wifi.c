@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 #define WIFI_SSID "Emile's iPhone"
-#define WIFI_PASSWORD "Koos1234"
+#define WIFI_PASSWORD "Koos_1234"
 #define SERVER_IP "128.189.201.143" // Replace with your laptop's IP address
 #define SERVER_PORT "12345" // Replace with your server's listening port
 

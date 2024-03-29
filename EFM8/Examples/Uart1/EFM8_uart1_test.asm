@@ -14,7 +14,7 @@ $optc51 --model-small
 	R_OSEG    segment data overlay
 	BIT_BANK  segment data overlay
 	R_HOME    segment code
-	R_GSINIT  segment code
+	R_Gs_0  segment code
 	R_IXSEG   segment xdata
 	R_CONST   segment code
 	R_XINIT   segment code
@@ -404,7 +404,7 @@ _PARITY         BIT 0xd0
 _F1             BIT 0xd1
 _OV             BIT 0xd2
 _RS0            BIT 0xd3
-_RS1            BIT 0xd4
+_Rs_1            BIT 0xd4
 _F0             BIT 0xd5
 _AC             BIT 0xd6
 _CY             BIT 0xd7
@@ -488,14 +488,14 @@ _TFRQ           BIT 0xdf
 	rseg BIT_BANK
 bits:
 	ds 1
-	b0 equ  bits.0 
-	b1 equ  bits.1 
-	b2 equ  bits.2 
-	b3 equ  bits.3 
-	b4 equ  bits.4 
-	b5 equ  bits.5 
-	b6 equ  bits.6 
-	b7 equ  bits.7 
+	b0 equ  bits.0
+	b1 equ  bits.1
+	b2 equ  bits.2
+	b3 equ  bits.3
+	b4 equ  bits.4
+	b5 equ  bits.5
+	b6 equ  bits.6
+	b7 equ  bits.7
 ;--------------------------------------------------------
 ; internal ram data
 ;--------------------------------------------------------
@@ -521,7 +521,7 @@ _PWM_manager_PARM_2:
 _PWM_manager_sloc0_1_0:
 	ds 2
 ;--------------------------------------------------------
-; overlayable items in internal ram 
+; overlayable items in internal ram
 ;--------------------------------------------------------
 	rseg R_OSEG
 ;--------------------------------------------------------
@@ -553,7 +553,7 @@ _PWM_manager_sloc0_1_0:
 ;--------------------------------------------------------
 	rseg R_IXSEG
 	rseg R_HOME
-	rseg R_GSINIT
+	rseg R_Gs_0
 	rseg R_CSEG
 ;--------------------------------------------------------
 ; Reset entry point and interrupt vectors
@@ -566,8 +566,8 @@ _PWM_manager_sloc0_1_0:
 ; global & static initialisations
 ;--------------------------------------------------------
 	rseg R_HOME
-	rseg R_GSINIT
-	rseg R_GSINIT
+	rseg R_Gs_0
+	rseg R_Gs_0
 ;--------------------------------------------------------
 ; data variables initialization
 ;--------------------------------------------------------
@@ -816,7 +816,7 @@ L005012?:
 ;Allocation info for local variables in function 'PWM_manager'
 ;------------------------------------------------------------
 ;y_value                   Allocated with name '_PWM_manager_PARM_2'
-;x_value                   Allocated to registers r2 r3 r4 r5 
+;x_value                   Allocated to registers r2 r3 r4 r5
 ;sloc0                     Allocated with name '_PWM_manager_sloc0_1_0'
 ;------------------------------------------------------------
 ;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:311: void PWM_manager(float x_value, float y_value)
@@ -864,7 +864,7 @@ L006010?:
 	push	ar3
 	push	ar4
 	push	ar5
-	lcall	___fs2sint
+	lcall	___fs_2sint
 	mov	_PWM_manager_sloc0_1_0,dpl
 	mov  (_PWM_manager_sloc0_1_0 + 1),dph
 	lcall	_abs
@@ -882,7 +882,7 @@ L006010?:
 	mov	dph,r3
 	mov	b,r4
 	mov	a,r5
-	lcall	___fs2sint
+	lcall	___fs_2sint
 	lcall	_abs
 	mov	r1,dpl
 	mov	r7,dph
@@ -930,7 +930,7 @@ L006011?:
 	mov	dph,r3
 	mov	b,r4
 	mov	a,r5
-	lcall	___fs2sint
+	lcall	___fs_2sint
 	lcall	_abs
 	mov	r2,dpl
 	mov	r3,dph
@@ -947,7 +947,7 @@ L006011?:
 	mov	a,(_PWM_manager_PARM_2 + 3)
 	push	ar2
 	push	ar3
-	lcall	___fs2sint
+	lcall	___fs_2sint
 	mov	r4,dpl
 	mov  r5,dph
 	push	ar4

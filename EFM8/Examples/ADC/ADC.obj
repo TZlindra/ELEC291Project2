@@ -11,7 +11,7 @@ printf_float
 </PRINTF_FLOAT>
 
 <SEGMENTS>
-R_GSINIT,code,0000,NO
+R_Gs_0,code,0000,NO
 R_BSEG,bit,0000,NO
 R_XSEG,xdata,0000,NO
 BIT_BANK,data,0000,OV
@@ -84,23 +84,23 @@ ___fsdiv,any,0000,0000
 <CODE R_HOME>
 </CODE>
 
-<CODE R_GSINIT>
+<CODE R_Gs_0>
 </CODE>
 
 <CODE R_CSEG>
 </CODE>
 
 <CODE AT 0000>
-02 addr16(_crt0;)  
+02 addr16(_crt0;)
 </CODE>
 
 <CODE R_HOME>
 </CODE>
 
-<CODE R_GSINIT>
+<CODE R_Gs_0>
 </CODE>
 
-<CODE R_GSINIT>
+<CODE R_Gs_0>
 </CODE>
 
 <CODE R_DINIT>
@@ -184,7 +184,7 @@ C0 03
 C0 04
 C0 05
 C0 06
-12 addr16(_Timer3us;)  
+12 addr16(_Timer3us;)
 D0 06
 D0 05
 D0 04
@@ -241,8 +241,8 @@ D2 EC
 85 BD 82
 85 BE 83
 22
-12 addr16(_ADC_at_Pin;)  
-12 addr16(___uint2fs;)  
+12 addr16(_ADC_at_Pin;)
+12 addr16(___uint2fs;)
 AA 82
 AB 83
 AC F0
@@ -254,7 +254,7 @@ C0 05
 90 6C 8B
 75 F0 53
 74 40
-12 addr16(___fsmul;)  
+12 addr16(___fsmul;)
 AA 82
 AB 83
 AC F0
@@ -274,7 +274,7 @@ C0 E0
 8B 83
 8C F0
 ED
-12 addr16(___fsdiv;)  
+12 addr16(___fsdiv;)
 AA 82
 AB 83
 AC F0
@@ -288,14 +288,14 @@ F5 81
 ED
 22
 90 01 F4
-12 addr16(_waitms;)  
+12 addr16(_waitms;)
 74 data8(__str_0;)
 C0 E0
 74 data8(__str_0;0x0008;>>;)
 C0 E0
 74 80
 C0 E0
-12 addr16(_printf;)  
+12 addr16(_printf;)
 15 81
 15 81
 15 81
@@ -323,25 +323,25 @@ C0 E0
 C0 E0
 74 80
 C0 E0
-12 addr16(_printf;)  
+12 addr16(_printf;)
 E5 81
 24 F4
 F5 81
 75 data8(_InitPinADC_PARM_2;) 02
 75 82 02
-12 addr16(_InitPinADC;)  
+12 addr16(_InitPinADC;)
 75 data8(_InitPinADC_PARM_2;) 03
 75 82 02
-12 addr16(_InitPinADC;)  
+12 addr16(_InitPinADC;)
 75 data8(_InitPinADC_PARM_2;) 04
 75 82 02
-12 addr16(_InitPinADC;)  
+12 addr16(_InitPinADC;)
 75 data8(_InitPinADC_PARM_2;) 05
 75 82 02
-12 addr16(_InitPinADC;)  
-12 addr16(_InitADC;)  
+12 addr16(_InitPinADC;)
+12 addr16(_InitADC;)
 75 82 0F
-12 addr16(_Volts_at_Pin;)  
+12 addr16(_Volts_at_Pin;)
 AA 82
 AB 83
 AC F0
@@ -351,7 +351,7 @@ FD
 8C data8(_main_v_1_59;0x0002;+;)
 8D data8(_main_v_1_59;0x0003;+;)
 75 82 10
-12 addr16(_Volts_at_Pin;)  
+12 addr16(_Volts_at_Pin;)
 AA 82
 AB 83
 AC F0
@@ -361,7 +361,7 @@ FD
 8C data8(_main_v_1_59;0x0004;+;0x0002;+;)
 8D data8(_main_v_1_59;0x0004;+;0x0003;+;)
 75 82 11
-12 addr16(_Volts_at_Pin;)  
+12 addr16(_Volts_at_Pin;)
 AA 82
 AB 83
 AC F0
@@ -371,7 +371,7 @@ FD
 8C data8(_main_v_1_59;0x0008;+;0x0002;+;)
 8D data8(_main_v_1_59;0x0008;+;0x0003;+;)
 75 82 12
-12 addr16(_Volts_at_Pin;)  
+12 addr16(_Volts_at_Pin;)
 AA 82
 AB 83
 AC F0
@@ -402,13 +402,13 @@ C0 E0
 C0 E0
 74 80
 C0 E0
-12 addr16(_printf;)  
+12 addr16(_printf;)
 E5 81
 24 ED
 F5 81
 90 01 F4
-12 addr16(_waitms;)  
-02 addr16(L009002?;)  
+12 addr16(_waitms;)
+02 addr16(L009002?;)
 </CODE>
 
 <CODE R_CSEG>
@@ -419,26 +419,26 @@ F5 81
 
 <CODE R_CONST>
 1B
-5B 32 4A 
+5B 32 4A
 00
-41 44 43 20 74 65 73 74 20 70 72 6F 67 72 61 6D 
+41 44 43 20 74 65 73 74 20 70 72 6F 67 72 61 6D
 0A
-46 69 6C 65 3A 20 25 73 
+46 69 6C 65 3A 20 25 73
 0A
-43 6F 6D 70 69 6C 65 64 3A 20 25 73 2C 20 25 73 
+43 6F 6D 70 69 6C 65 64 3A 20 25 73 2C 20 25 73
 0A
 0A
 00
-41 44 43 2E 63 
+41 44 43 2E 63
 00
-4D 61 72 20 32 37 20 32 30 32 34 
+4D 61 72 20 32 37 20 32 30 32 34
 00
-31 31 3A 35 39 3A 30 31 
+31 31 3A 35 39 3A 30 31
 00
 56 40 50 32 2E 32 3D 25 37 2E 35 66 56 2C 20 56 40
 50 32 2E 33 3D 25 37 2E 35 66 56 2C 20 56 40 50
 32 2E 34 3D 25 37 2E 35 66 56 2C 20 56 40 50 32
-2E 35 3D 25 37 2E 35 66 56 
+2E 35 3D 25 37 2E 35 66 56
 0D
 00
 </CODE>

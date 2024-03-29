@@ -14,12 +14,12 @@
 0000             14            R_OSEG    segment data overlay
 0000             15            BIT_BANK  segment data overlay
 0000             16            R_HOME    segment code
-0000             17            R_GSINIT  segment code
+0000             17            R_Gs_0  segment code
 0000             18            R_IXSEG   segment xdata
 0000             19            R_CONST   segment code
 0000             20            R_XINIT   segment code
 0000             21            R_DINIT   segment code
-0000             22   
+0000             22
 0000             23   ;--------------------------------------------------------
 0000             24   ; Public variables in this module
 0000             25   ;--------------------------------------------------------
@@ -405,7 +405,7 @@
 0000            405   _F1             BIT 0xd1
 0000            406   _OV             BIT 0xd2
 0000            407   _RS0            BIT 0xd3
-0000            408   _RS1            BIT 0xd4
+0000            408   _Rs_1            BIT 0xd4
 0000            409   _F0             BIT 0xd5
 0000            410   _AC             BIT 0xd6
 0000            411   _CY             BIT 0xd7
@@ -488,7 +488,7 @@
 0000            488   ;--------------------------------------------------------
 0000            489            rseg R_DSEG
 0000            490   ;--------------------------------------------------------
-0000            491   ; overlayable items in internal ram 
+0000            491   ; overlayable items in internal ram
 0000            492   ;--------------------------------------------------------
 0000            493            rseg    R_OSEG
 0000            494            rseg    R_OSEG
@@ -526,7 +526,7 @@
 0000            526   ;--------------------------------------------------------
 0000            527            rseg R_IXSEG
 0000            528            rseg R_HOME
-0000            529            rseg R_GSINIT
+0000            529            rseg R_Gs_0
 0000            530            rseg R_CSEG
 0000            531   ;--------------------------------------------------------
 0000            532   ; Reset entry point and interrupt vectors
@@ -537,8 +537,8 @@
 0003            537   ; global & static initialisations
 0003            538   ;--------------------------------------------------------
 0000            539            rseg R_HOME
-0000            540            rseg R_GSINIT
-0000            541            rseg R_GSINIT
+0000            540            rseg R_Gs_0
+0000            541            rseg R_Gs_0
 0000            542   ;--------------------------------------------------------
 0000            543   ; data variables initialization
 0000            544   ;--------------------------------------------------------
@@ -620,8 +620,8 @@
 0054            620   ;------------------------------------------------------------
 0054            621   ;Allocation info for local variables in function 'Timer3us'
 0054            622   ;------------------------------------------------------------
-0054            623   ;us                        Allocated to registers r2 
-0054            624   ;i                         Allocated to registers r3 
+0054            623   ;us                        Allocated to registers r2
+0054            624   ;i                         Allocated to registers r3
 0054            625   ;------------------------------------------------------------
 0054            626   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:83: void Timer3us(unsigned char us)
 0054            627   ;        -----------------------------------------
@@ -662,9 +662,9 @@
 007E            662   ;------------------------------------------------------------
 007E            663   ;Allocation info for local variables in function 'waitms'
 007E            664   ;------------------------------------------------------------
-007E            665   ;ms                        Allocated to registers r2 r3 
-007E            666   ;j                         Allocated to registers r4 r5 
-007E            667   ;k                         Allocated to registers r6 
+007E            665   ;ms                        Allocated to registers r2 r3
+007E            666   ;j                         Allocated to registers r4 r5
+007E            667   ;k                         Allocated to registers r6
 007E            668   ;------------------------------------------------------------
 007E            669   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:102: void waitms (unsigned int ms)
 007E            670   ;        -----------------------------------------
@@ -714,7 +714,7 @@
 00B9            714   ;------------------------------------------------------------
 00B9            715   ;Allocation info for local variables in function 'UART1_Init'
 00B9            716   ;------------------------------------------------------------
-00B9            717   ;baudrate                  Allocated to registers r2 r3 r4 r5 
+00B9            717   ;baudrate                  Allocated to registers r2 r3 r4 r5
 00B9            718   ;------------------------------------------------------------
 00B9            719   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:110: void UART1_Init (unsigned long baudrate)
 00B9            720   ;        -----------------------------------------
@@ -783,7 +783,7 @@
 011A            783   ;------------------------------------------------------------
 011A            784   ;Allocation info for local variables in function 'putchar1'
 011A            785   ;------------------------------------------------------------
-011A            786   ;c                         Allocated to registers r2 
+011A            786   ;c                         Allocated to registers r2
 011A            787   ;------------------------------------------------------------
 011A            788   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:122: void putchar1 (char c)
 011A            789   ;        -----------------------------------------
@@ -807,7 +807,7 @@
 012A            807   ;------------------------------------------------------------
 012A            808   ;Allocation info for local variables in function 'sendstr1'
 012A            809   ;------------------------------------------------------------
-012A            810   ;s                         Allocated to registers r2 r3 r4 
+012A            810   ;s                         Allocated to registers r2 r3 r4
 012A            811   ;------------------------------------------------------------
 012A            812   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:131: void sendstr1 (char * s)
 012A            813   ;        -----------------------------------------
@@ -844,7 +844,7 @@
 0155            844   ;------------------------------------------------------------
 0155            845   ;Allocation info for local variables in function 'getchar1'
 0155            846   ;------------------------------------------------------------
-0155            847   ;c                         Allocated to registers 
+0155            847   ;c                         Allocated to registers
 0155            848   ;------------------------------------------------------------
 0155            849   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:140: char getchar1 (void)
 0155            850   ;        -----------------------------------------
@@ -870,8 +870,8 @@
 0167            870   ;------------------------------------------------------------
 0167            871   ;Allocation info for local variables in function 'getchar1_with_timeout'
 0167            872   ;------------------------------------------------------------
-0167            873   ;c                         Allocated to registers 
-0167            874   ;timeout                   Allocated to registers r2 r3 
+0167            873   ;c                         Allocated to registers
+0167            874   ;timeout                   Allocated to registers r2 r3
 0167            875   ;------------------------------------------------------------
 0167            876   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:153: char getchar1_with_timeout (void)
 0167            877   ;        -----------------------------------------
@@ -923,8 +923,8 @@
 01A3            923   ;------------------------------------------------------------
 01A3            924   ;Allocation info for local variables in function 'getstr1'
 01A3            925   ;------------------------------------------------------------
-01A3            926   ;s                         Allocated to registers r2 r3 r4 
-01A3            927   ;c                         Allocated to registers r5 
+01A3            926   ;s                         Allocated to registers r2 r3 r4
+01A3            927   ;c                         Allocated to registers r5
 01A3            928   ;------------------------------------------------------------
 01A3            929   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:179: void getstr1 (char * s)
 01A3            930   ;        -----------------------------------------
@@ -986,9 +986,9 @@
 01E1            986   ;------------------------------------------------------------
 01E1            987   ;Allocation info for local variables in function 'waitms_or_RI1'
 01E1            988   ;------------------------------------------------------------
-01E1            989   ;ms                        Allocated to registers r2 r3 
-01E1            990   ;j                         Allocated to registers r4 r5 
-01E1            991   ;k                         Allocated to registers r6 
+01E1            989   ;ms                        Allocated to registers r2 r3
+01E1            990   ;j                         Allocated to registers r4 r5
+01E1            991   ;k                         Allocated to registers r6
 01E1            992   ;------------------------------------------------------------
 01E1            993   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:206: void waitms_or_RI1 (unsigned int ms)
 01E1            994   ;        -----------------------------------------
@@ -1057,7 +1057,7 @@
 0238           1057   ;------------------------------------------------------------
 0238           1058   ;Allocation info for local variables in function 'SendATCommand'
 0238           1059   ;------------------------------------------------------------
-0238           1060   ;s                         Allocated to registers r2 r3 r4 
+0238           1060   ;s                         Allocated to registers r2 r3 r4
 0238           1061   ;------------------------------------------------------------
 0238           1062   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:220: void SendATCommand (char * s)
 0238           1063   ;        -----------------------------------------
@@ -1127,7 +1127,7 @@
 02A9           1127   ;------------------------------------------------------------
 02A9           1128   ;Allocation info for local variables in function 'main'
 02A9           1129   ;------------------------------------------------------------
-02A9           1130   ;cnt                       Allocated to registers 
+02A9           1130   ;cnt                       Allocated to registers
 02A9           1131   ;------------------------------------------------------------
 02A9           1132   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\JDY40\EFM8_JDY40_test.c:232: void main (void) {
 02A9           1133   ;        -----------------------------------------
@@ -1306,9 +1306,9 @@
 03F8 D002      1306            pop     ar2
 03FA 020000    1307            ljmp    L014008?
 03FD           1308            rseg R_CSEG
-03FD           1309   
+03FD           1309
 0000           1310            rseg R_XINIT
-0000           1311   
+0000           1311
 0000           1312            rseg R_CONST
 0000           1313   _TX_CMD:
 0000 E0C280    1314            db _str_14,(_str_14 >> 8),0x80
@@ -1405,7 +1405,7 @@
 009E 0D        1387            db 0x0D
 009F 0A        1388            db 0x0A
 00A0 00        1389            db 0x00
-00A1           1390   
+00A1           1390
 0003           1391            CSEG
-0003           1392   
+0003           1392
 0003           1393   end

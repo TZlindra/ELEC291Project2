@@ -1,9 +1,13 @@
 #include "../Common/Include/stm32l051xx.h"
 
-enum State { sinit = 0, s1, s2, s3, sfinal };
+enum State { s_0 = 0, s_1, s_2, s_3, s_check, s_success };
 
 #define F_CPU 32000000L
 
 void passcode_waitms(unsigned int ms);
-void passcodeButtons();
-int passcodeMain();
+
+int getPasscodeButton(void);
+
+void resetCombination(void);
+void checkCombination(void);
+void checkPasscode(void);

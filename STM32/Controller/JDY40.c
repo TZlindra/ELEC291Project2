@@ -64,8 +64,8 @@ void SendATCommand(char * s) {
 	printf("Command: %s", s);
 	GPIOA->ODR &= ~(BIT13); // 'set' pin to 0 is 'AT' mode.
 	JDY_Delay_ms(10);
-	eputs2(s);
-	egets2(TX_BUFF, sizeof(TX_BUFF)-1);
+	eputs_2(s);
+	egets_2(TX_BUFF, sizeof(TX_BUFF)-1);
 	GPIOA->ODR |= BIT13; // 'set' pin to 1 is normal operation mode.
 	JDY_Delay_ms(10);
 	printf("Response: %s", TX_BUFF);
@@ -73,22 +73,22 @@ void SendATCommand(char * s) {
 
 void SendCommand(char * s, int value) {
 	sprintf(TX_BUFF, "%s %d\r\n", s, value);
-	eputs2(TX_BUFF);
+	eputs_2(TX_BUFF);
 	JDY_Delay_ms(200); // Delay For Response
 }
 
 void ReceiveCommand(void) {
-	if (ReceivedBytes2() > 0) egets2(RX_BUFF, sizeof(RX_BUFF)-1);
+	if (ReceivedBytes_2() > 0) egets_2(RX_BUFF, sizeof(RX_BUFF)-1);
 }
 
 void TX_XY(void) {
 	// No Printing in ISRs
 	// printf("TX_BUFF: %s\r\n", TX_BUFF);
-	eputs2(TX_BUFF);
+	eputs_2(TX_BUFF);
 }
 
 void RX_I(void) {
-	if (ReceivedBytes2() > 0) egets2(RX_BUFF, sizeof(RX_BUFF)-1);
+	if (ReceivedBytes_2() > 0) egets_2(RX_BUFF, sizeof(RX_BUFF)-1);
 	return;
 }
 

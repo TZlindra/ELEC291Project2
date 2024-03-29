@@ -14,7 +14,7 @@ $optc51 --model-small
 	R_OSEG    segment data overlay
 	BIT_BANK  segment data overlay
 	R_HOME    segment code
-	R_GSINIT  segment code
+	R_Gs_0  segment code
 	R_IXSEG   segment xdata
 	R_CONST   segment code
 	R_XINIT   segment code
@@ -409,7 +409,7 @@ _PARITY         BIT 0xd0
 _F1             BIT 0xd1
 _OV             BIT 0xd2
 _RS0            BIT 0xd3
-_RS1            BIT 0xd4
+_Rs_1            BIT 0xd4
 _F0             BIT 0xd5
 _AC             BIT 0xd6
 _CY             BIT 0xd7
@@ -493,14 +493,14 @@ _TFRQ           BIT 0xdf
 	rseg BIT_BANK
 bits:
 	ds 1
-	b0 equ  bits.0 
-	b1 equ  bits.1 
-	b2 equ  bits.2 
-	b3 equ  bits.3 
-	b4 equ  bits.4 
-	b5 equ  bits.5 
-	b6 equ  bits.6 
-	b7 equ  bits.7 
+	b0 equ  bits.0
+	b1 equ  bits.1
+	b2 equ  bits.2
+	b3 equ  bits.3
+	b4 equ  bits.4
+	b5 equ  bits.5
+	b6 equ  bits.6
+	b7 equ  bits.7
 ;--------------------------------------------------------
 ; internal ram data
 ;--------------------------------------------------------
@@ -526,7 +526,7 @@ _movement_manager_PARM_4:
 _movement_manager_PARM_5:
 	ds 1
 ;--------------------------------------------------------
-; overlayable items in internal ram 
+; overlayable items in internal ram
 ;--------------------------------------------------------
 	rseg R_OSEG
 ;--------------------------------------------------------
@@ -558,7 +558,7 @@ _movement_manager_PARM_5:
 ;--------------------------------------------------------
 	rseg R_IXSEG
 	rseg R_HOME
-	rseg R_GSINIT
+	rseg R_Gs_0
 	rseg R_CSEG
 ;--------------------------------------------------------
 ; Reset entry point and interrupt vectors
@@ -571,8 +571,8 @@ _movement_manager_PARM_5:
 ; global & static initialisations
 ;--------------------------------------------------------
 	rseg R_HOME
-	rseg R_GSINIT
-	rseg R_GSINIT
+	rseg R_Gs_0
+	rseg R_Gs_0
 ;--------------------------------------------------------
 ; data variables initialization
 ;--------------------------------------------------------
@@ -896,7 +896,7 @@ _backward:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'left'
 ;------------------------------------------------------------
-;PWM_percent_y             Allocated to registers r2 r3 r4 r5 
+;PWM_percent_y             Allocated to registers r2 r3 r4 r5
 ;------------------------------------------------------------
 ;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\STM32\Controller\testmovement.c:174: void left(float PWM_percent_y)
 ;	-----------------------------------------
@@ -942,7 +942,7 @@ L008002?:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'right'
 ;------------------------------------------------------------
-;PWM_percent_y             Allocated to registers r2 r3 r4 r5 
+;PWM_percent_y             Allocated to registers r2 r3 r4 r5
 ;------------------------------------------------------------
 ;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\STM32\Controller\testmovement.c:193: void right(float PWM_percent_y)
 ;	-----------------------------------------
@@ -992,7 +992,7 @@ L009002?:
 ;prev_PWM_percent_x        Allocated with name '_movement_manager_PARM_3'
 ;prev_PWM_percent_y        Allocated with name '_movement_manager_PARM_4'
 ;state                     Allocated with name '_movement_manager_PARM_5'
-;PWM_percent_x             Allocated to registers r2 r3 r4 r5 
+;PWM_percent_x             Allocated to registers r2 r3 r4 r5
 ;------------------------------------------------------------
 ;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\STM32\Controller\testmovement.c:212: enum State movement_manager(float PWM_percent_x, float PWM_percent_y, float prev_PWM_percent_x, float prev_PWM_percent_y, enum State state)
 ;	-----------------------------------------

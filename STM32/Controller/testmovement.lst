@@ -14,12 +14,12 @@
 0000             14            R_OSEG    segment data overlay
 0000             15            BIT_BANK  segment data overlay
 0000             16            R_HOME    segment code
-0000             17            R_GSINIT  segment code
+0000             17            R_Gs_0  segment code
 0000             18            R_IXSEG   segment xdata
 0000             19            R_CONST   segment code
 0000             20            R_XINIT   segment code
 0000             21            R_DINIT   segment code
-0000             22   
+0000             22
 0000             23   ;--------------------------------------------------------
 0000             24   ; Public variables in this module
 0000             25   ;--------------------------------------------------------
@@ -409,7 +409,7 @@
 0000            409   _F1             BIT 0xd1
 0000            410   _OV             BIT 0xd2
 0000            411   _RS0            BIT 0xd3
-0000            412   _RS1            BIT 0xd4
+0000            412   _Rs_1            BIT 0xd4
 0000            413   _F0             BIT 0xd5
 0000            414   _AC             BIT 0xd6
 0000            415   _CY             BIT 0xd7
@@ -493,14 +493,14 @@
 0000            493            rseg BIT_BANK
 0000            494   bits:
 0000            495            ds 1
-0001            496            b0 equ  bits.0 
-0001            497            b1 equ  bits.1 
-0001            498            b2 equ  bits.2 
-0001            499            b3 equ  bits.3 
-0001            500            b4 equ  bits.4 
-0001            501            b5 equ  bits.5 
-0001            502            b6 equ  bits.6 
-0001            503            b7 equ  bits.7 
+0001            496            b0 equ  bits.0
+0001            497            b1 equ  bits.1
+0001            498            b2 equ  bits.2
+0001            499            b3 equ  bits.3
+0001            500            b4 equ  bits.4
+0001            501            b5 equ  bits.5
+0001            502            b6 equ  bits.6
+0001            503            b7 equ  bits.7
 0001            504   ;--------------------------------------------------------
 0001            505   ; internal ram data
 0001            506   ;--------------------------------------------------------
@@ -526,7 +526,7 @@
 0020            526   _movement_manager_PARM_5:
 0020            527            ds 1
 0021            528   ;--------------------------------------------------------
-0021            529   ; overlayable items in internal ram 
+0021            529   ; overlayable items in internal ram
 0021            530   ;--------------------------------------------------------
 0000            531            rseg R_OSEG
 0000            532   ;--------------------------------------------------------
@@ -558,7 +558,7 @@
 0000            558   ;--------------------------------------------------------
 0000            559            rseg R_IXSEG
 0000            560            rseg R_HOME
-0000            561            rseg R_GSINIT
+0000            561            rseg R_Gs_0
 0000            562            rseg R_CSEG
 0000            563   ;--------------------------------------------------------
 0000            564   ; Reset entry point and interrupt vectors
@@ -571,8 +571,8 @@
 000E            571   ; global & static initialisations
 000E            572   ;--------------------------------------------------------
 0000            573            rseg R_HOME
-0000            574            rseg R_GSINIT
-0000            575            rseg R_GSINIT
+0000            574            rseg R_Gs_0
+0000            575            rseg R_Gs_0
 0000            576   ;--------------------------------------------------------
 0000            577   ; data variables initialization
 0000            578   ;--------------------------------------------------------
@@ -896,7 +896,7 @@
 0165            896   ;------------------------------------------------------------
 0165            897   ;Allocation info for local variables in function 'left'
 0165            898   ;------------------------------------------------------------
-0165            899   ;PWM_percent_y             Allocated to registers r2 r3 r4 r5 
+0165            899   ;PWM_percent_y             Allocated to registers r2 r3 r4 r5
 0165            900   ;------------------------------------------------------------
 0165            901   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\STM32\Controller\testmovement.c:174: void left(float PWM_percent_y)
 0165            902   ;        -----------------------------------------
@@ -942,7 +942,7 @@
 0198            942   ;------------------------------------------------------------
 0198            943   ;Allocation info for local variables in function 'right'
 0198            944   ;------------------------------------------------------------
-0198            945   ;PWM_percent_y             Allocated to registers r2 r3 r4 r5 
+0198            945   ;PWM_percent_y             Allocated to registers r2 r3 r4 r5
 0198            946   ;------------------------------------------------------------
 0198            947   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\STM32\Controller\testmovement.c:193: void right(float PWM_percent_y)
 0198            948   ;        -----------------------------------------
@@ -992,7 +992,7 @@
 01CB            992   ;prev_PWM_percent_x        Allocated with name '_movement_manager_PARM_3'
 01CB            993   ;prev_PWM_percent_y        Allocated with name '_movement_manager_PARM_4'
 01CB            994   ;state                     Allocated with name '_movement_manager_PARM_5'
-01CB            995   ;PWM_percent_x             Allocated to registers r2 r3 r4 r5 
+01CB            995   ;PWM_percent_x             Allocated to registers r2 r3 r4 r5
 01CB            996   ;------------------------------------------------------------
 01CB            997   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\STM32\Controller\testmovement.c:212: enum State movement_manager(float PWM_percent_x, float PWM_percent_y, float prev_PWM_percent_x, float prev_PWM_percent_y, enum State state)
 01CB            998   ;        -----------------------------------------
@@ -1215,11 +1215,11 @@
 0356 853363    1215            mov     (_prev_PWM_percent_y + 3),(_PWM_percent_y + 3)
 0359 8000      1216            sjmp    L011002?
 035B           1217            rseg R_CSEG
-035B           1218   
+035B           1218
 0000           1219            rseg R_XINIT
-0000           1220   
+0000           1220
 0000           1221            rseg R_CONST
-0000           1222   
+0000           1222
 000E           1223            CSEG
-000E           1224   
+000E           1224
 000E           1225   end

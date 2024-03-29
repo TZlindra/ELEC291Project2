@@ -273,9 +273,9 @@ extern void PBCFG_0_enter_DefaultMode_from_RESET(void) {
 	// XBARE (Crossbar Enable) = ENABLED (Crossbar enabled.)
 	// URT1E (UART1 I/O Enable) = DISABLED (UART1 I/O unavailable at Port
 	//     pin.)
-	// URT1RTSE (UART1 RTS Output Enable) = DISABLED (UART1 RTS1 unavailable
+	// URT1RTSE (UART1 RTS Output Enable) = DISABLED (UART1 RTs_1 unavailable
 	//     at Port pin.)
-	// URT1CTSE (UART1 CTS Input Enable) = DISABLED (UART1 CTS1 unavailable
+	// URT1CTSE (UART1 CTS Input Enable) = DISABLED (UART1 CTs_1 unavailable
 	//     at Port pin.)
 	*/
 	SFRPAGE = 0x00;

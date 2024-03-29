@@ -177,7 +177,7 @@ void ConfigPasscodeButtonPins(void) {
 	GPIOB->PUPDR &= ~(BIT7);
 }
 
-int IsTestButtonPressed(void) {
+int isTestButtonPressed(void) {
 	return !(GPIOA->IDR & BIT12);
 }
 
@@ -221,7 +221,7 @@ void main(void) {
 	waitms(500); // Wait for putty to start.
 	printf("\x1b[2J\x1b[1;1H"); // Clear screen using ANSI escape sequence.
 
-    // passcodeMain();
+    checkPasscode();
 
 	while (1) {
 		x = -1*(readADC(ADC_CHSELR_CHSEL8)-X_MIDPOINT);
@@ -236,7 +236,7 @@ void main(void) {
 		inductance = Update_I(inductance);
 		// printf("I: %d\r\n", inductance);
 
-		// if (IsTestButtonPressed()) SpeakerRatio = SetSpeakerFreq(SpeakerRatio);
+		// if (isTestButtonPressed()) SpeakerRatio = SetSpeakerFreq(SpeakerRatio);
 
 		if (inductance >= 500) {
 			SpeakerEnabled = 1;

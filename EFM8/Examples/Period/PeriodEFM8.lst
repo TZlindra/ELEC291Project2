@@ -15,7 +15,7 @@
 0000             15            R_OSEG    segment data overlay
 0000             16            BIT_BANK  segment data overlay
 0000             17            R_HOME    segment code
-0000             18            R_GSINIT  segment code
+0000             18            R_Gs_0  segment code
 0000             19            R_IXSEG   segment xdata
 0000             20            R_CONST   segment code
 0000             21            R_XINIT   segment code
@@ -396,7 +396,7 @@
 0000            396   _F1             BIT 0xd1
 0000            397   _OV             BIT 0xd2
 0000            398   _RS0            BIT 0xd3
-0000            399   _RS1            BIT 0xd4
+0000            399   _Rs_1            BIT 0xd4
 0000            400   _F0             BIT 0xd5
 0000            401   _AC             BIT 0xd6
 0000            402   _CY             BIT 0xd7
@@ -513,7 +513,7 @@
 0000            513   ;--------------------------------------------------------
 0000            514            rseg R_IXSEG
 0000            515            rseg R_HOME
-0000            516            rseg R_GSINIT
+0000            516            rseg R_Gs_0
 0000            517            rseg R_CSEG
 0000            518   ;--------------------------------------------------------
 0000            519   ; Reset entry point and interrupt vectors
@@ -524,8 +524,8 @@
 0003            524   ; global & static initialisations
 0003            525   ;--------------------------------------------------------
 0000            526            rseg R_HOME
-0000            527            rseg R_GSINIT
-0000            528            rseg R_GSINIT
+0000            527            rseg R_Gs_0
+0000            528            rseg R_Gs_0
 0000            529   ;--------------------------------------------------------
 0000            530   ; data variables initialization
 0000            531   ;--------------------------------------------------------

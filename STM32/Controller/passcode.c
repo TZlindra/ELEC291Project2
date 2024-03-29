@@ -29,8 +29,8 @@
 #define BUTTON_C BIT6
 #define BUTTON_D BIT7
 
-volatile enum State state = sinit;
-int correct = 1;
+static enum State state;
+static int correct_combination;
 
 void passcode_wait_1ms(void) {
 	// For SysTick info check the STM32L0xxx Cortex-M0 programming manual page 85.
@@ -46,42 +46,60 @@ void passcode_waitms(unsigned int ms) {
 	for(j=0; j<ms; j++) passcode_wait_1ms();
 }
 
-
-int IsButtonPressed(int ButtonPin) {
+int isButtonPressed(int ButtonPin) {
 	return !(GPIOA->IDR & ButtonPin);
 }
 
-void passcodeButtons() {
-    if (state == sinit) correct &= IsButtonPressed(BUTTON_A);
-    else if (state == s1) correct &= IsButtonPressed(BUTTON_B);
-    else if (state == s2) correct &= IsButtonPressed(BUTTON_C);
-    else if (state == s3) correct &= IsButtonPressed(BUTTON_D);
+void resetCombination(void) {
+    printf("\x1b[2J\x1b[1;1H"); // Clear screen using ANSI escape sequence.
+    printf("Enter Combination...\r\n");
+    state = s_0;
+    correct_combination = 1;
+}
 
-    if (IsButtonPressed(BUTTON_A) || IsButtonPressed(BUTTON_B) || IsButtonPressed(BUTTON_C) || IsButtonPressed(BUTTON_D))
-    {
-        passcode_waitms(DEBOUNCE);
-        if (IsButtonPressed(BUTTON_A) || IsButtonPressed(BUTTON_B) || IsButtonPressed(BUTTON_C) || IsButtonPressed(BUTTON_D))
-        {
-            state++;
-            printf("%d %d\n", state, correct);
+int getPasscodeButton(void) {
+    if (isButtonPressed(BIT12) || isButtonPressed(BIT12) || isButtonPressed(BIT12) || isButtonPressed(BIT12)) {
+        passcode_waitms(DEBOUNCE); // Debounce
 
-            while (!IsButtonPressed(BUTTON_A) && !IsButtonPressed(BUTTON_B) && !IsButtonPressed(BUTTON_C) && !IsButtonPressed(BUTTON_D));
-        }
+        if (isButtonPressed(BIT12)) return s_0; // Button A
+        else if (isButtonPressed(BIT12)) return s_1; // Button B
+        else if (isButtonPressed(BIT12)) return s_2; // Button C
+        else if (isButtonPressed(BIT12)) return s_3; // Button D
+        else return -1;
+    } else {
+        return -1;
     }
 }
 
-int passcodeMain(void)
-{
-    printf("Passcode Main\n");
-    // while(state != sfinal && correct == 0)
-    // {
-    //     if (state == sfinal)
-    //     {
-    //         state = sinit;
-    //         if (correct == 0) correct = 1;
-    //     }
+void checkCombination(void) {
+    int button = getPasscodeButton();
+    if (button != -1) {
+        if (state != button) correct_combination = 0;
+        state++;
+        printf("State:%d Button:%d Correct:%d\r\n", state, button, correct_combination);
+    }
+}
 
-    //     passcodeButtons();
-    // }
-    return 0;
+void checkPasscode(void) {
+    resetCombination();
+
+    while (state != s_success) {
+        // printf("Button A: %d\r\n", isButtonPressed(BIT12));
+        // printf("Button B: %d\r\n", isButtonPressed(BIT12));
+        // printf("Button C: %d\r\n", isButtonPressed(BIT12));
+        // printf("Button D: %d\r\n", isButtonPressed(BIT12));
+
+        passcode_waitms(500); // Wait 500ms
+
+        if (state != s_check) checkCombination();
+        else if (correct_combination == 1) {
+            state = s_success;
+            printf("Ready to Operate!\r\n");
+        } else {
+            printf("Combination Fail...Reset...\r\n");
+            passcode_waitms(500); // Wait 1s
+            resetCombination();
+        }
+    }
+    return;
 }

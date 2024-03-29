@@ -58,7 +58,7 @@ Controller that support both I2C and SMBUS are ok.
 
 If you are interested on details about SMBUS protocol, you can download
 the current specs from
-	http://smbus.org/specs/smbus20.pdf
+	http://smbus.org/specs/smbus_20.pdf
 and you can read the files in Linux source code
 	./Documentation/i2c/i2c-protocol
 	./Documentation/i2c/smbus-protocol

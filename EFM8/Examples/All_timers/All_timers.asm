@@ -14,7 +14,7 @@ $optc51 --model-small
 	R_OSEG    segment data overlay
 	BIT_BANK  segment data overlay
 	R_HOME    segment code
-	R_GSINIT  segment code
+	R_Gs_0  segment code
 	R_IXSEG   segment xdata
 	R_CONST   segment code
 	R_XINIT   segment code
@@ -398,7 +398,7 @@ _PARITY         BIT 0xd0
 _F1             BIT 0xd1
 _OV             BIT 0xd2
 _RS0            BIT 0xd3
-_RS1            BIT 0xd4
+_Rs_1            BIT 0xd4
 _F0             BIT 0xd5
 _AC             BIT 0xd6
 _CY             BIT 0xd7
@@ -481,7 +481,7 @@ _TFRQ           BIT 0xdf
 ;--------------------------------------------------------
 	rseg R_DSEG
 ;--------------------------------------------------------
-; overlayable items in internal ram 
+; overlayable items in internal ram
 ;--------------------------------------------------------
 	rseg	R_OSEG
 ;--------------------------------------------------------
@@ -513,7 +513,7 @@ _TFRQ           BIT 0xdf
 ;--------------------------------------------------------
 	rseg R_IXSEG
 	rseg R_HOME
-	rseg R_GSINIT
+	rseg R_Gs_0
 	rseg R_CSEG
 ;--------------------------------------------------------
 ; Reset entry point and interrupt vectors
@@ -538,8 +538,8 @@ _TFRQ           BIT 0xdf
 ; global & static initialisations
 ;--------------------------------------------------------
 	rseg R_HOME
-	rseg R_GSINIT
-	rseg R_GSINIT
+	rseg R_Gs_0
+	rseg R_Gs_0
 ;--------------------------------------------------------
 ; data variables initialization
 ;--------------------------------------------------------
@@ -598,7 +598,7 @@ L002004?:
 	mov	_P1MDOUT,#0xFF
 ;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\All_timers\All_timers.c:90: P2MDOUT|=0b_0000_0001;
 	orl	_P2MDOUT,#0x01
-;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\All_timers\All_timers.c:92: XBR0     = 0x00;                     
+;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\All_timers\All_timers.c:92: XBR0     = 0x00;
 	mov	_XBR0,#0x00
 ;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\All_timers\All_timers.c:93: XBR1     = 0X00;
 	mov	_XBR1,#0x00
@@ -874,7 +874,7 @@ _Timer5_ISR:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'PCA_ISR'
 ;------------------------------------------------------------
-;j                         Allocated to registers r2 r3 
+;j                         Allocated to registers r2 r3
 ;------------------------------------------------------------
 ;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\All_timers\All_timers.c:227: void PCA_ISR (void) interrupt INTERRUPT_PCA0
 ;	-----------------------------------------
@@ -1121,7 +1121,7 @@ L009010?:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'main'
 ;------------------------------------------------------------
-;j                         Allocated to registers r2 r3 
+;j                         Allocated to registers r2 r3
 ;------------------------------------------------------------
 ;	C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\All_timers\All_timers.c:277: void main (void)
 ;	-----------------------------------------

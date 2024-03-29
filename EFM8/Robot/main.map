@@ -137,7 +137,7 @@ Base Segments:
    R_CSEG=C:0132, size=1137
    R_DINIT=C:0074, size=0015
    R_DSEG=D:0000, size=0017
-   R_GSINIT=C:0003, size=0071
+   R_Gs_0=C:0003, size=0071
    R_HOME=C:0000, size=0000
    R_ISEG=I:003B, size=0042
    R_IXSEG=X:0000, size=0000
@@ -153,7 +153,7 @@ Module Segments:
    JDY40:R_CSEG=C:04C0, size=0285
    JDY40:R_ISEG=I:004F, size=0028
    bp:R_DSEG=D:0008, size=0001
-   crt0:R_GSINIT=C:0003, size=0071
+   crt0:R_Gs_0=C:0003, size=0071
    divulong:R_CSEG=C:0745, size=0065
    divulong:R_OSEG=D:0037, size=0004
    fsadd:R_CSEG=C:084D, size=0059
@@ -207,8 +207,8 @@ Public symbols:
    _R_CSEG_start=L:0132
    _R_DINIT_size=L:0015
    _R_DINIT_start=L:0074
-   _R_GSINIT_size=L:0071
-   _R_GSINIT_start=L:0003
+   _R_Gs_0_size=L:0071
+   _R_Gs_0_start=L:0003
    _R_HOME_size=L:0000
    _R_HOME_start=L:0000
    _R_ISEG_size=L:0042

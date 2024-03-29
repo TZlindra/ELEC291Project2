@@ -14,12 +14,12 @@
 0000             14            R_OSEG    segment data overlay
 0000             15            BIT_BANK  segment data overlay
 0000             16            R_HOME    segment code
-0000             17            R_GSINIT  segment code
+0000             17            R_Gs_0  segment code
 0000             18            R_IXSEG   segment xdata
 0000             19            R_CONST   segment code
 0000             20            R_XINIT   segment code
 0000             21            R_DINIT   segment code
-0000             22   
+0000             22
 0000             23   ;--------------------------------------------------------
 0000             24   ; Public variables in this module
 0000             25   ;--------------------------------------------------------
@@ -404,7 +404,7 @@
 0000            404   _F1             BIT 0xd1
 0000            405   _OV             BIT 0xd2
 0000            406   _RS0            BIT 0xd3
-0000            407   _RS1            BIT 0xd4
+0000            407   _Rs_1            BIT 0xd4
 0000            408   _F0             BIT 0xd5
 0000            409   _AC             BIT 0xd6
 0000            410   _CY             BIT 0xd7
@@ -488,14 +488,14 @@
 0000            488            rseg BIT_BANK
 0000            489   bits:
 0000            490            ds 1
-0001            491            b0 equ  bits.0 
-0001            492            b1 equ  bits.1 
-0001            493            b2 equ  bits.2 
-0001            494            b3 equ  bits.3 
-0001            495            b4 equ  bits.4 
-0001            496            b5 equ  bits.5 
-0001            497            b6 equ  bits.6 
-0001            498            b7 equ  bits.7 
+0001            491            b0 equ  bits.0
+0001            492            b1 equ  bits.1
+0001            493            b2 equ  bits.2
+0001            494            b3 equ  bits.3
+0001            495            b4 equ  bits.4
+0001            496            b5 equ  bits.5
+0001            497            b6 equ  bits.6
+0001            498            b7 equ  bits.7
 0001            499   ;--------------------------------------------------------
 0001            500   ; internal ram data
 0001            501   ;--------------------------------------------------------
@@ -521,7 +521,7 @@
 0018            521   _PWM_manager_sloc0_1_0:
 0018            522            ds 2
 001A            523   ;--------------------------------------------------------
-001A            524   ; overlayable items in internal ram 
+001A            524   ; overlayable items in internal ram
 001A            525   ;--------------------------------------------------------
 0000            526            rseg R_OSEG
 0000            527   ;--------------------------------------------------------
@@ -553,7 +553,7 @@
 0000            553   ;--------------------------------------------------------
 0000            554            rseg R_IXSEG
 0000            555            rseg R_HOME
-0000            556            rseg R_GSINIT
+0000            556            rseg R_Gs_0
 0000            557            rseg R_CSEG
 0000            558   ;--------------------------------------------------------
 0000            559   ; Reset entry point and interrupt vectors
@@ -566,8 +566,8 @@
 008E            566   ; global & static initialisations
 008E            567   ;--------------------------------------------------------
 0000            568            rseg R_HOME
-0000            569            rseg R_GSINIT
-0000            570            rseg R_GSINIT
+0000            569            rseg R_Gs_0
+0000            570            rseg R_Gs_0
 0000            571   ;--------------------------------------------------------
 0000            572   ; data variables initialization
 0000            573   ;--------------------------------------------------------
@@ -816,7 +816,7 @@
 0111            816   ;Allocation info for local variables in function 'PWM_manager'
 0111            817   ;------------------------------------------------------------
 0111            818   ;y_value                   Allocated with name '_PWM_manager_PARM_2'
-0111            819   ;x_value                   Allocated to registers r2 r3 r4 r5 
+0111            819   ;x_value                   Allocated to registers r2 r3 r4 r5
 0111            820   ;sloc0                     Allocated with name '_PWM_manager_sloc0_1_0'
 0111            821   ;------------------------------------------------------------
 0111            822   ;        C:\UBC\SECOND YEAR\ELEC 291\Project 2\ELEC291Project2\EFM8\Examples\Uart1\EFM8_uart1_test.c:311: void PWM_manager(float x_value, float y_value)
@@ -864,7 +864,7 @@
 0156 C003       864            push    ar3
 0158 C004       865            push    ar4
 015A C005       866            push    ar5
-015C 120000     867            lcall   ___fs2sint
+015C 120000     867            lcall   ___fs_2sint
 015F 8582A8     868            mov     _PWM_manager_sloc0_1_0,dpl
 0162 8583A9     869            mov  (_PWM_manager_sloc0_1_0 + 1),dph
 0165 120000     870            lcall   _abs
@@ -882,7 +882,7 @@
 0180 8B83       882            mov     dph,r3
 0182 8CF0       883            mov     b,r4
 0184 ED         884            mov     a,r5
-0185 120000     885            lcall   ___fs2sint
+0185 120000     885            lcall   ___fs_2sint
 0188 120000     886            lcall   _abs
 018B A982       887            mov     r1,dpl
 018D AF83       888            mov     r7,dph
@@ -930,7 +930,7 @@
 01DB 8B83       930            mov     dph,r3
 01DD 8CF0       931            mov     b,r4
 01DF ED         932            mov     a,r5
-01E0 120000     933            lcall   ___fs2sint
+01E0 120000     933            lcall   ___fs_2sint
 01E3 120000     934            lcall   _abs
 01E6 AA82       935            mov     r2,dpl
 01E8 AB83       936            mov     r3,dph
@@ -947,7 +947,7 @@
 01FB E57B       947            mov     a,(_PWM_manager_PARM_2 + 3)
 01FD C002       948            push    ar2
 01FF C003       949            push    ar3
-0201 120000     950            lcall   ___fs2sint
+0201 120000     950            lcall   ___fs_2sint
 0204 AC82       951            mov     r4,dpl
 0206 AD83       952            mov  r5,dph
 0208 C004       953            push    ar4
@@ -1043,9 +1043,9 @@
 02AF 120000    1043            lcall   _PWM_manager
 02B2 8000      1044            sjmp    L007002?
 02B4           1045            rseg R_CSEG
-02B4           1046   
+02B4           1046
 0000           1047            rseg R_XINIT
-0000           1048   
+0000           1048
 0000           1049            rseg R_CONST
 0000           1050   __str_0:
 0000 0D        1051            db 0x0D
@@ -1056,7 +1056,7 @@
 000D 0D        1054            db 0x0D
 000E 0A        1055            db 0x0A
 000F 00        1056            db 0x00
-0010           1057   
+0010           1057
 008E           1058            CSEG
-008E           1059   
+008E           1059
 008E           1060   end

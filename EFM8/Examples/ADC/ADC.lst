@@ -15,12 +15,12 @@
 0000             15            R_OSEG    segment data overlay
 0000             16            BIT_BANK  segment data overlay
 0000             17            R_HOME    segment code
-0000             18            R_GSINIT  segment code
+0000             18            R_Gs_0  segment code
 0000             19            R_IXSEG   segment xdata
 0000             20            R_CONST   segment code
 0000             21            R_XINIT   segment code
 0000             22            R_DINIT   segment code
-0000             23   
+0000             23
 0000             24   ;--------------------------------------------------------
 0000             25   ; Public variables in this module
 0000             26   ;--------------------------------------------------------
@@ -399,7 +399,7 @@
 0000            399   _F1             BIT 0xd1
 0000            400   _OV             BIT 0xd2
 0000            401   _RS0            BIT 0xd3
-0000            402   _RS1            BIT 0xd4
+0000            402   _Rs_1            BIT 0xd4
 0000            403   _F0             BIT 0xd5
 0000            404   _AC             BIT 0xd6
 0000            405   _CY             BIT 0xd7
@@ -484,7 +484,7 @@
 0000            484   _main_v_1_59:
 0000            485            ds 16
 0010            486   ;--------------------------------------------------------
-0010            487   ; overlayable items in internal ram 
+0010            487   ; overlayable items in internal ram
 0010            488   ;--------------------------------------------------------
 0000            489            rseg    R_OSEG
 0000            490            rseg    R_OSEG
@@ -520,7 +520,7 @@
 0000            520   ;--------------------------------------------------------
 0000            521            rseg R_IXSEG
 0000            522            rseg R_HOME
-0000            523            rseg R_GSINIT
+0000            523            rseg R_Gs_0
 0000            524            rseg R_CSEG
 0000            525   ;--------------------------------------------------------
 0000            526   ; Reset entry point and interrupt vectors
@@ -531,8 +531,8 @@
 0003            531   ; global & static initialisations
 0003            532   ;--------------------------------------------------------
 0000            533            rseg R_HOME
-0000            534            rseg R_GSINIT
-0000            535            rseg R_GSINIT
+0000            534            rseg R_Gs_0
+0000            535            rseg R_Gs_0
 0000            536   ;--------------------------------------------------------
 0000            537   ; data variables initialization
 0000            538   ;--------------------------------------------------------
@@ -640,8 +640,8 @@
 006B            640   ;------------------------------------------------------------
 006B            641   ;Allocation info for local variables in function 'Timer3us'
 006B            642   ;------------------------------------------------------------
-006B            643   ;us                        Allocated to registers r2 
-006B            644   ;i                         Allocated to registers r3 
+006B            643   ;us                        Allocated to registers r2
+006B            644   ;i                         Allocated to registers r3
 006B            645   ;------------------------------------------------------------
 006B            646   ;        ADC.c:125: void Timer3us(unsigned char us)
 006B            647   ;        -----------------------------------------
@@ -682,9 +682,9 @@
 0095            682   ;------------------------------------------------------------
 0095            683   ;Allocation info for local variables in function 'waitms'
 0095            684   ;------------------------------------------------------------
-0095            685   ;ms                        Allocated to registers r2 r3 
-0095            686   ;j                         Allocated to registers r4 r5 
-0095            687   ;k                         Allocated to registers r6 
+0095            685   ;ms                        Allocated to registers r2 r3
+0095            686   ;j                         Allocated to registers r4 r5
+0095            687   ;k                         Allocated to registers r6
 0095            688   ;------------------------------------------------------------
 0095            689   ;        ADC.c:144: void waitms (unsigned int ms)
 0095            690   ;        -----------------------------------------
@@ -735,8 +735,8 @@
 00D0            735   ;Allocation info for local variables in function 'InitPinADC'
 00D0            736   ;------------------------------------------------------------
 00D0            737   ;pin_num                   Allocated with name '_InitPinADC_PARM_2'
-00D0            738   ;portno                    Allocated to registers r2 
-00D0            739   ;mask                      Allocated to registers r3 
+00D0            738   ;portno                    Allocated to registers r2
+00D0            739   ;mask                      Allocated to registers r3
 00D0            740   ;------------------------------------------------------------
 00D0            741   ;        ADC.c:154: void InitPinADC (unsigned char portno, unsigned char pin_num)
 00D0            742   ;        -----------------------------------------
@@ -807,7 +807,7 @@
 0113            807   ;------------------------------------------------------------
 0113            808   ;Allocation info for local variables in function 'ADC_at_Pin'
 0113            809   ;------------------------------------------------------------
-0113            810   ;pin                       Allocated to registers 
+0113            810   ;pin                       Allocated to registers
 0113            811   ;------------------------------------------------------------
 0113            812   ;        ADC.c:181: unsigned int ADC_at_Pin(unsigned char pin)
 0113            813   ;        -----------------------------------------
@@ -829,7 +829,7 @@
 0124            829   ;------------------------------------------------------------
 0124            830   ;Allocation info for local variables in function 'Volts_at_Pin'
 0124            831   ;------------------------------------------------------------
-0124            832   ;pin                       Allocated to registers r2 
+0124            832   ;pin                       Allocated to registers r2
 0124            833   ;------------------------------------------------------------
 0124            834   ;        ADC.c:190: float Volts_at_Pin(unsigned char pin)
 0124            835   ;        -----------------------------------------
@@ -1033,9 +1033,9 @@
 0286 120000    1033            lcall   _waitms
 0289 020000    1034            ljmp    L009002?
 028C           1035            rseg R_CSEG
-028C           1036   
+028C           1036
 0000           1037            rseg R_XINIT
-0000           1038   
+0000           1038
 0000           1039            rseg R_CONST
 0000           1040   __str_0:
 0000 1B        1041            db 0x1B
@@ -1088,7 +1088,7 @@
      6656
 0087 0D        1064            db 0x0D
 0088 00        1065            db 0x00
-0089           1066   
+0089           1066
 0003           1067            CSEG
-0003           1068   
+0003           1068
 0003           1069   end

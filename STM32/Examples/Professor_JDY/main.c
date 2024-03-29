@@ -68,8 +68,8 @@ void SendATCommand (char * s)
 	printf("Command: %s", s);
 	GPIOA->ODR &= ~(BIT13); // 'set' pin to 0 is 'AT' mode.
 	waitms(10);
-	eputs2(s);
-	egets2(buff, sizeof(buff)-1);
+	eputs_2(s);
+	egets_2(buff, sizeof(buff)-1);
 	GPIOA->ODR |= BIT13; // 'set' pin to 1 is normal operation mode.
 	waitms(10);
 	printf("Response: %s", buff);
@@ -108,13 +108,13 @@ int main(void)
 		if((GPIOA->IDR&BIT8)==0)
 		{
 			sprintf(buff, "JDY40 test %d\r\n", cnt++);
-			eputs2(buff);
+			eputs_2(buff);
 			printf(".");
 			waitms(200);
 		}
-		if(ReceivedBytes2()>0) // Something has arrived
+		if(ReceivedBytes_2()>0) // Something has arrived
 		{
-			egets2(buff, sizeof(buff)-1);
+			egets_2(buff, sizeof(buff)-1);
 			printf("RX: %s", buff);
 		}
 	}

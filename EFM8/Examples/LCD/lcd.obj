@@ -7,7 +7,7 @@ lcd
 </OPTC51>
 
 <SEGMENTS>
-R_GSINIT,code,0000,NO
+R_Gs_0,code,0000,NO
 R_BSEG,bit,0001,NO
 R_XSEG,xdata,0000,NO
 BIT_BANK,data,0000,OV
@@ -64,7 +64,7 @@ __gptrget,any,0000,0000
 <CODE R_HOME>
 </CODE>
 
-<CODE R_GSINIT>
+<CODE R_Gs_0>
 </CODE>
 
 <CODE R_CSEG>
@@ -73,10 +73,10 @@ __gptrget,any,0000,0000
 <CODE R_HOME>
 </CODE>
 
-<CODE R_GSINIT>
+<CODE R_Gs_0>
 </CODE>
 
-<CODE R_GSINIT>
+<CODE R_Gs_0>
 </CODE>
 
 <CODE R_DINIT>
@@ -121,7 +121,7 @@ C0 03
 C0 04
 C0 05
 C0 06
-12 addr16(_Timer3us;)  
+12 addr16(_Timer3us;)
 D0 06
 D0 05
 D0 04
@@ -136,7 +136,7 @@ BC 00 rel3(L003005?;)
 22
 D2 A5
 75 82 28
-12 addr16(_Timer3us;)  
+12 addr16(_Timer3us;)
 C2 A5
 22
 AA 82
@@ -150,9 +150,9 @@ A2 E5
 A2 E4
 92 A4
 C0 02
-12 addr16(_LCD_pulse;)  
+12 addr16(_LCD_pulse;)
 75 82 28
-12 addr16(_Timer3us;)  
+12 addr16(_Timer3us;)
 D0 02
 8A E0
 A2 E3
@@ -163,32 +163,32 @@ A2 E1
 92 A3
 A2 E0
 92 A4
-02 addr16(_LCD_pulse;)  
+02 addr16(_LCD_pulse;)
 D2 A6
-12 addr16(_LCD_byte;)  
+12 addr16(_LCD_byte;)
 90 00 02
-02 addr16(_waitms;)  
+02 addr16(_waitms;)
 C2 A6
-12 addr16(_LCD_byte;)  
+12 addr16(_LCD_byte;)
 90 00 05
-02 addr16(_waitms;)  
+02 addr16(_waitms;)
 C2 A5
 90 00 14
-12 addr16(_waitms;)  
+12 addr16(_waitms;)
 75 82 33
-12 addr16(_WriteCommand;)  
+12 addr16(_WriteCommand;)
 75 82 33
-12 addr16(_WriteCommand;)  
+12 addr16(_WriteCommand;)
 75 82 32
-12 addr16(_WriteCommand;)  
+12 addr16(_WriteCommand;)
 75 82 28
-12 addr16(_WriteCommand;)  
+12 addr16(_WriteCommand;)
 75 82 0C
-12 addr16(_WriteCommand;)  
+12 addr16(_WriteCommand;)
 75 82 01
-12 addr16(_WriteCommand;)  
+12 addr16(_WriteCommand;)
 90 00 14
-02 addr16(_waitms;)  
+02 addr16(_waitms;)
 AA 82
 AB 83
 AC F0
@@ -201,9 +201,9 @@ B5 data8(_LCDprint_PARM_2;) rel3(L009013?;)
 C0 02
 C0 03
 C0 04
-12 addr16(_WriteCommand;)  
+12 addr16(_WriteCommand;)
 90 00 05
-12 addr16(_waitms;)  
+12 addr16(_waitms;)
 D0 04
 D0 03
 D0 02
@@ -219,7 +219,7 @@ F8
 8F 82
 88 83
 89 F0
-12 addr16(__gptrget;)  
+12 addr16(__gptrget;)
 FF
 60 rel2(L009006?;)
 8F 82
@@ -228,7 +228,7 @@ C0 03
 C0 04
 C0 05
 C0 06
-12 addr16(_WriteData;)  
+12 addr16(_WriteData;)
 D0 06
 D0 05
 D0 04
@@ -251,7 +251,7 @@ EB
 75 82 20
 C0 02
 C0 03
-12 addr16(_WriteData;)  
+12 addr16(_WriteData;)
 D0 03
 D0 02
 0A

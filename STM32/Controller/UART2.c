@@ -194,7 +194,7 @@ unsigned int GetBufCount2(ComBuffer2 *Buf)
     return Buf->Count;
 }
 
-int eputs2(char *s)
+int eputs_2(char *s)
 {
 	// only writes to the comms port at the moment
 	if (!ComOpen2) return -1;
@@ -212,7 +212,7 @@ char egetc2(void)
 	return GetBuf2(&ComRX_BUFFer2);
 }
 
-int egets2(char *s, int Max)
+int egets_2(char *s, int Max)
 {
 	// read from the comms port until end of string
 	// or newline is encountered.  Buffer is terminated with null
@@ -237,7 +237,7 @@ int egets2(char *s, int Max)
 	return Len;
 }
 
-int ReceivedBytes2 (void)
+int ReceivedBytes_2 (void)
 {
 	return GetBufCount2(&ComRX_BUFFer2);
 }

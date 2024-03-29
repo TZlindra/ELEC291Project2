@@ -1486,7 +1486,7 @@ typedef struct
 #define GPIO_BSRR_BS_1             ((uint32_t)0x00000002)
 #define GPIO_BSRR_BS_2             ((uint32_t)0x00000004)
 #define GPIO_BSRR_BS_3             ((uint32_t)0x00000008)
-#define GPIO_BSRR_BS_4             ((uint32_t)0x00000010)
+#define GPIO_BSRR_Bs_check             ((uint32_t)0x00000010)
 #define GPIO_BSRR_BS_5             ((uint32_t)0x00000020)
 #define GPIO_BSRR_BS_6             ((uint32_t)0x00000040)
 #define GPIO_BSRR_BS_7             ((uint32_t)0x00000080)
@@ -2838,12 +2838,12 @@ typedef struct
 #define  TIM_CR2_MMS_2                       ((uint32_t)0x00000040)            /*!<Bit 2 */
 
 #define  TIM_CR2_TI1S                        ((uint32_t)0x00000080)            /*!<TI1 Selection */
-#define  TIM_CR2_OIS1                        ((uint32_t)0x00000100)            /*!<Output Idle state 1 (OC1 output) */
-#define  TIM_CR2_OIS1N                       ((uint32_t)0x00000200)            /*!<Output Idle state 1 (OC1N output) */
-#define  TIM_CR2_OIS2                        ((uint32_t)0x00000400)            /*!<Output Idle state 2 (OC2 output) */
-#define  TIM_CR2_OIS2N                       ((uint32_t)0x00000800)            /*!<Output Idle state 2 (OC2N output) */
-#define  TIM_CR2_OIS3                        ((uint32_t)0x00001000)            /*!<Output Idle state 3 (OC3 output) */
-#define  TIM_CR2_OIS3N                       ((uint32_t)0x00002000)            /*!<Output Idle state 3 (OC3N output) */
+#define  TIM_CR2_OIs_1                        ((uint32_t)0x00000100)            /*!<Output Idle state 1 (OC1 output) */
+#define  TIM_CR2_OIs_1N                       ((uint32_t)0x00000200)            /*!<Output Idle state 1 (OC1N output) */
+#define  TIM_CR2_OIs_2                        ((uint32_t)0x00000400)            /*!<Output Idle state 2 (OC2 output) */
+#define  TIM_CR2_OIs_2N                       ((uint32_t)0x00000800)            /*!<Output Idle state 2 (OC2N output) */
+#define  TIM_CR2_OIs_3                        ((uint32_t)0x00001000)            /*!<Output Idle state 3 (OC3 output) */
+#define  TIM_CR2_OIs_3N                       ((uint32_t)0x00002000)            /*!<Output Idle state 3 (OC3N output) */
 #define  TIM_CR2_OIS4                        ((uint32_t)0x00004000)            /*!<Output Idle state 4 (OC4 output) */
 
 /*******************  Bit definition for TIM_SMCR register  *******************/

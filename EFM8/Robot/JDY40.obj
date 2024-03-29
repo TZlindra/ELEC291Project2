@@ -76,7 +76,7 @@ _searchI,R_CSEG,0261,0000
 _getstr1,R_CSEG,00EE,0000
 _RX_XY,R_CSEG,022D,0000
 _Update_I,R_CSEG,01F4,0000
-_JDY_Timer3us,R_CSEG,0000,0000
+_Timer3_us,R_CSEG,0000,0000
 _getchar1_with_timeout,R_CSEG,00B2,0000
 </PUBLICS>
 
@@ -150,7 +150,7 @@ C0 03
 C0 04
 C0 05
 C0 06
-12 addr16(_JDY_Timer3us;)
+12 addr16(_Timer3_us;)
 D0 06
 D0 05
 D0 04
@@ -207,7 +207,7 @@ BA 00 rel3(L005001?;)
 75 82 14
 C0 02
 C0 03
-12 addr16(_JDY_Timer3us;)
+12 addr16(_Timer3_us;)
 D0 03
 D0 02
 75 A7 20
@@ -288,7 +288,7 @@ C0 03
 C0 04
 C0 05
 C0 06
-12 addr16(_JDY_Timer3us;)
+12 addr16(_Timer3_us;)
 D0 06
 D0 05
 D0 04

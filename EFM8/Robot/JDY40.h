@@ -2,8 +2,7 @@
 
 #define SYSCLK 72000000
 
-void JDY_Timer3us(unsigned char us);
-void JDY_Delayms(unsigned int ms);
+void Timer3_us(unsigned char us);
 
 void putchar1(char c);
 void sendstr1(char * s);

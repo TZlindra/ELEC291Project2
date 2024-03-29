@@ -4,7 +4,7 @@ idata char TX_BUFF[20];
 idata char RX_BUFF[20];
 
 // Uses Timer3 to delay <us> micro-seconds.
-void JDY_Timer3us(unsigned char us) {
+void Timer3_us(unsigned char us) {
 	unsigned char i;               // usec counter
 
 	// The input for Timer 3 is selected as SYSCLK by setting T3ML (bit 6) of CKCON0:
@@ -20,13 +20,6 @@ void JDY_Timer3us(unsigned char us) {
 		TMR3CN0 &= ~(0x80);         // Clear overflow indicator
 	}
 	TMR3CN0 = 0 ;                   // Stop Timer3 and clear overflow flag
-}
-
-void JDY_Delayms(unsigned int ms) {
-	unsigned int j;
-	unsigned char k;
-	for(j=0; j<ms; j++)
-		for (k=0; k<4; k++) JDY_Timer3us(250);
 }
 
 void putchar1(char c) {
@@ -64,7 +57,7 @@ char getchar1_with_timeout(void) {
     timeout = 0;
 	while(!RI1) {
 		SFRPAGE = 0x00;
-		JDY_Timer3us(20);
+		Timer3_us(20);
 		SFRPAGE = 0x20;
 		timeout++;
 		if (timeout==25000) {
@@ -111,7 +104,7 @@ void waitms_or_RI1(unsigned int ms) {
 		for (k=0; k<4; k++)
 		{
 			if(RXU1()) return;
-			JDY_Timer3us(250);
+			Timer3_us(250);
 		}
 	}
 }
@@ -119,10 +112,10 @@ void waitms_or_RI1(unsigned int ms) {
 void SendATCommand(char* s) {
 	printf("Command: %s", s);
 	P2_0=0; // 'set' pin to 0 is 'AT' mode.
-	JDY_Delayms(5);
+	Delay_ms(5);
 	sendstr1(s);
 	getstr1(TX_BUFF);
-	JDY_Delayms(10);
+	Delay_ms(10);
 	P2_0=1; // 'set' pin to 1 is normal operation mode.
 	printf("Response: %s\r\n", TX_BUFF);
 }
@@ -146,7 +139,7 @@ void RX_XY(void) {
 		}
 
 		timeout_count++;
-		JDY_Delayms(1); // Delay For Response
+		Delay_ms(1); // Delay For Response
 	}
 }
 

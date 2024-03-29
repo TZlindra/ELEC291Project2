@@ -194,7 +194,7 @@ Public symbols:
    _GetMovement_PARM_2=D:0015
    _JDYInit=C:022F
    _JDY_Delayms=C:04EA
-   _JDY_Timer3us=C:04C0
+   _Timer3_us=C:04C0
    _RX5Count=D:000B
    _RXU1=C:05E3
    _RX_BUFF=I:0063

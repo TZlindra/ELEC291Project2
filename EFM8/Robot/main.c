@@ -2,8 +2,8 @@
 #include "JDY40.h"
 #include "movement_integration.h"
 
-volatile float x;
-volatile float y;
+float x;
+float y;
 
 char _c51_external_startup (void) {
 	// Disable Watchdog with key sequence
@@ -69,11 +69,11 @@ char _c51_external_startup (void) {
 	TMOD |=  0x20;
 	TR1 = 1; // START Timer1
 	TI = 1;  // Indicate TX0 ready
-	P1MDOUT |= 0b0000_0100;
+	P1MDOUT |= 0b0000_1100;
 	EA=1;
 
 	// PWM Pins
-	P2MDOUT |= 0x000
+	P2MDOUT |= 0b0001_1110;
 
 	return 0;
 }
@@ -89,6 +89,13 @@ void UART1_Init(unsigned long baudrate) {
     SFRPAGE = 0x00;
 }
 
+void test_print(float x, float y)
+{
+		int test_x = x;
+		int test_y = y;
+        printf("PWM_percent x: %f, PWM_percent y: %f\r\n", x, y);
+}
+
 void main (void) {
 	waitms(500);
 	printf("\r\nJDY-40 test\r\n");
@@ -102,7 +109,8 @@ void main (void) {
 		RX_XY();
 		x = return_x();
 		y = return_y();
-		printf("x: %f, y: %f\r\n", x, y);
-		// movement_loop(x, y);
+		printf("JDY passed in x: %f, JDY passed in y: %f\r\n", x, y);
+		movement_loop(x, y);
+		// test_print(x, y);
 	}
 }

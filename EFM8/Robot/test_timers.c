@@ -13,6 +13,7 @@
 #define MAX_8_BIT 256.0 // 8-Bit Maximum Value
 #define TIMER_4_FREQ 1000L
 #define TIMER_5_FREQ 1000L
+#define TIMER_3_FREQ 10000L
 
 /* Clock Frequency and Baud Rate */
 // Baudrate of UART in BPS
@@ -97,7 +98,7 @@ char _c51_external_startup (void)
 	TMOD |=  0x20;
 	TR1 = 1; // START Timer1
 	TI = 1;  // Indicate TX0 ready
-	P1MDOUT |= 0b0000_0100;
+	P1MDOUT |= 0b0000_1100;
 	EA=1;
 	return 0;
 }
@@ -126,6 +127,36 @@ void Timer4_ISR (void) interrupt INTERRUPT_TIMER4
 		flag == 0;
 	}
 	P1_2=!P1_2;
+}
+
+void Timer3_ISR (void) interrupt INTERRUPT_TIMER3
+{
+	SFRPAGE=0x0;
+	TMR3CN0&=0b_0011_1111; // Clear Timer3 interrupt flags
+
+    //P1_2 = !P1_2;
+    P1_3 = !P1_3;
+    //P2_1 = !P2_1;
+
+    // if (count > 100)
+    // {
+    //     count = 0;
+    // }
+    // if (PWM_percent_y >= 0)
+    // {
+    //     LEFT_MOTOR_LHS = (count > left_wheel ) ? 0:1;
+    //     RIGHT_MOTOR_LHS = (count > new_right_wheel) ? 0:1;
+    // }
+    // else
+    // {
+    //     LEFT_MOTOR_LHS = (count > left_wheel) ? 1:0;
+    //     RIGHT_MOTOR_LHS = (count > new_right_wheel) ? 1:0;
+    // }
+
+
+    // count++;
+
+
 }
 
 
@@ -430,6 +461,18 @@ void JDY40Init(void){
 	SendATCommand("AT+CLSS\r\n");
 }
 
+void TIMER3Init(void)
+{
+	// Initialize timer 3 for periodic interrupts
+	TMR3CN0=0x00;   // Stop Timer3; Clear TF3;
+	CKCON0|=0b_0100_0000; // Timer 3 uses the system clock
+	TMR3RL=(0x10000L-(SYSCLK/(2*TIMER_3_FREQ))); // Initialize reload value
+	TMR3=0xffff;   // Set to reload immediately
+	EIE1|=0b_1000_0000;     // Enable Timer3 interrupts
+	TMR3CN0|=0b_0000_0100;  // Start Timer3 (TMR3CN0 is not bit addressable)
+    EA = 1;
+}
+
 void main (void)
 {
 
@@ -443,6 +486,7 @@ void main (void)
 	printf("\r\nJDY-40 test\r\n");
 	UART1_Init(9600);
 	JDY40Init();
+    TIMER3Init();
 	TIMER4_Init();
 	// movement_init();
 

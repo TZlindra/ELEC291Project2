@@ -29,6 +29,8 @@ volatile int inductance = 0;
 #define RIGHT_MOTOR_RHS P2_1    //red
 
 #define TIMER_3_FREQ 10000L
+#define TIMER_5_FREQ 10000L
+
 //#define TIMER_4_FREQ 10000L
 
 int count = 0;
@@ -129,6 +131,7 @@ void TIMER0_Init(void) {
 )\
 */
 // Uses Timer3 to delay <us> micro-seconds.
+/*
 void Timer3us(unsigned char us)
 {
 	unsigned char i;               // usec counter
@@ -156,6 +159,7 @@ void waitms (unsigned int ms)
 		for (k=0; k<4; k++) Timer3us(250);
 }
 
+
 void Serial_Init(void) {
 	waitms(500); // Give Putty a chance to start.
 	printf("\x1b[2J"); // Clear screen using ANSI escape sequence.
@@ -172,7 +176,7 @@ void UART1_Init (unsigned long baudrate)
 	SBCON1 |= 0x40;   // enable baud rate generator
 	SFRPAGE = 0x00;
 }
-
+*/
 void idle(void)
 {
     LEFT_MOTOR_LHS = 0;
@@ -219,6 +223,19 @@ enum State
     straight_enum,
     backward_enum
 };
+
+void TIMER5Init(void)
+{
+    // Initialize timer 5 for periodic interrupts
+	SFRPAGE=0x10;
+	TMR5CN0=0x00;   // Stop Timer5; Clear TF5; WARNING: lives in SFR page 0x10
+	CKCON1|=0b_0000_0100; // Timer 5 uses the system clock
+	TMR5RL=(0x10000L-(SYSCLK/(2*TIMER_5_FREQ))); // Initialize reload value
+	TMR5=0xffff;   // Set to reload immediately
+	EIE2|=0b_0000_1000; // Enable Timer5 interrupts
+	TR5=1;         // Start Timer5 (TMR5CN0 is bit addressable)
+    EA = 1;
+}
 
 
 void TIMER3Init(void)
@@ -297,9 +314,40 @@ enum State movement_manager(float PWM_percent_x, float PWM_percent_y, float prev
 
 }
 
+void Timer5_ISR (void) interrupt INTERRUPT_TIMER5
+{
+	SFRPAGE=0x10;
+	TF5H = 0; // Clear Timer5 interrupt flag
+
+    P1_2 = !P1_2;
+    //P1_3 = !P1_3;
+    //P2_1 = !P2_1;
+
+
+
+    if (count > 100)
+    {
+        count = 0;
+    }
+    if (PWM_percent_y >= 0)
+    {
+        LEFT_MOTOR_LHS = (count > left_wheel ) ? 0:1;
+        RIGHT_MOTOR_LHS = (count > new_right_wheel) ? 0:1;
+    }
+    else
+    {
+        LEFT_MOTOR_LHS = (count > left_wheel) ? 1:0;
+        RIGHT_MOTOR_LHS = (count > new_right_wheel) ? 1:0;
+    }
+
+
+    count++;
+}
+
 void Timer3_ISR (void) interrupt INTERRUPT_TIMER3
 {
-	SFRPAGE=0x0;
+
+    SFRPAGE=0x0;
 	TMR3CN0&=0b_0011_1111; // Clear Timer3 interrupt flags
 
     P1_2 = !P1_2;
@@ -331,11 +379,12 @@ void Timer3_ISR (void) interrupt INTERRUPT_TIMER3
 
 void main (void)
 {
-	float freq;
-	TIMER0_Init();
-	Serial_Init();
-	UART1_Init(9600);
-	TIMER3Init();
+	//float freq;
+	//TIMER0_Init();
+	//Serial_Init();
+	//UART1_Init(9600);
+	//TIMER3Init();
+    TIMER5Init();
     new_right_wheel = left_wheel;
     idle();
 	while(1){
@@ -345,7 +394,6 @@ void main (void)
         prev_PWM_percent_y = PWM_percent_y;
 		//printf("Left Wheel: %f\n", left_wheel);
 		//printf("Right Wheel: %f\n", right_wheel);
-
 
         if (P2_6 == 0)
         {

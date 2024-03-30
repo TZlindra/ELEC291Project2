@@ -7,7 +7,6 @@
 
 volatile int count = 0;
 
-enum State state;
 int PWM_percent_y = 0;
 int PWM_percent_x = 0;
 float left_wheel = 0;
@@ -16,12 +15,11 @@ float new_right_wheel;
 int prev_PWM_percent_x = 0;
 int prev_PWM_percent_y = 0;
 
-
 void idle(void)
 {
     LEFT_MOTOR_LHS = 0;
-    LEFT_MOTOR_RHS = 0;
     RIGHT_MOTOR_LHS = 0;
+    LEFT_MOTOR_RHS = 0;
     RIGHT_MOTOR_RHS = 0;
 }
 
@@ -37,35 +35,6 @@ void backward(void)
     RIGHT_MOTOR_RHS = 1;
 }
 
-void horizontal(float PWM_percent_x)
-{
-
-    if (PWM_percent_x > 0)
-    {
-        LEFT_MOTOR_RHS = 0;
-        RIGHT_MOTOR_RHS = 0;
-    }
-    else
-    {
-        LEFT_MOTOR_LHS = 0;
-        LEFT_MOTOR_RHS = 1;
-        RIGHT_MOTOR_LHS = 0;
-        RIGHT_MOTOR_RHS = 1;
-    }
-
-}
-
-void TIMER3Init(void)
-{
-	// Initialize timer 3 for periodic interrupts
-	TMR3CN0=0x00;   // Stop Timer3; Clear TF3;
-	CKCON0|=0b_0100_0000; // Timer 3 uses the system clock
-	TMR3RL=(0x10000L-(SYSCLK/(2*TIMER_3_FREQ))); // Initialize reload value
-	TMR3=0xffff;   // Set to reload immediately
-	EIE1|=0b_1000_0000;     // Enable Timer3 interrupts
-	TMR3CN0|=0b_0000_0100;  // Start Timer3 (TMR3CN0 is not bit addressable)
-    EA = 1;
-}
 
 void TIMER5Init(void)
 {
@@ -106,71 +75,22 @@ void PWM_manager(float x_value, float y_value)
         new_right_wheel = 0.95*right_wheel;
 }
 
-enum State movement_manager(float PWM_percent_x, float PWM_percent_y, float prev_PWM_percent_x, float prev_PWM_percent_y, enum State state)
+void movement_manager(float PWM_percent_y, float prev_PWM_percent_y)
 {
-    if (prev_PWM_percent_x != PWM_percent_x || prev_PWM_percent_y != PWM_percent_y)
+    if (prev_PWM_percent_y != PWM_percent_y)
     {
-        if (PWM_percent_y == 0 && PWM_percent_x == 0)
+        if (PWM_percent_y >= 0)
         {
-            state = idle_enum;
-            idle();
-        }
-        else if (PWM_percent_x < 0)
-        {
-            state = left_enum;
-            horizontal(PWM_percent_y);
-        }
-        else if (PWM_percent_x > 0)
-        {
-            state = right_enum;
-            horizontal(PWM_percent_y);
-        }
-        else if (PWM_percent_y > 0)
-        {
-            state = straight_enum;
             straight();
         }
         else
         {
-            state = backward_enum;
             backward();
         }
     }
 
-    return state;
-
 }
-/*
-void Timer3_ISR (void) interrupt INTERRUPT_TIMER3
-{
-	SFRPAGE=0x0;
-	TMR3CN0&=0b_0011_1111; // Clear Timer3 interrupt flags
 
-    //P1_2 = !P1_2;
-    P1_3 = !P1_3;
-    //P2_1 = !P2_1;
-
-    if (count > 100)
-    {
-        count = 0;
-    }
-    if (PWM_percent_y >= 0)
-    {
-        LEFT_MOTOR_LHS = (count > left_wheel ) ? 0:1;
-        RIGHT_MOTOR_LHS = (count > new_right_wheel) ? 0:1;
-    }
-    else
-    {
-        LEFT_MOTOR_LHS = (count > left_wheel) ? 1:0;
-        RIGHT_MOTOR_LHS = (count > new_right_wheel) ? 1:0;
-    }
-
-
-    count++;
-
-
-}
-*/
 void Timer5_ISR (void) interrupt INTERRUPT_TIMER5
 {
 	SFRPAGE=0x10;
@@ -204,7 +124,6 @@ void Timer5_ISR (void) interrupt INTERRUPT_TIMER5
 void movement_init(void)
 {
     idle();
-    state = idle_enum;
     TIMER5Init();
 }
 void movement_loop(float x, float y)
@@ -214,7 +133,7 @@ void movement_loop(float x, float y)
         PWM_percent_y = y;
         printf("PWM_percent x: %f, PWM_percent y: %f\r\n", x, y);
 
-        state = movement_manager(PWM_percent_x, PWM_percent_y, prev_PWM_percent_x, prev_PWM_percent_y, state);
+        movement_manager(PWM_percent_y, prev_PWM_percent_y);
 		PWM_manager(PWM_percent_x, PWM_percent_y);
         prev_PWM_percent_x = PWM_percent_x;
         prev_PWM_percent_y = PWM_percent_y;

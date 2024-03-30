@@ -25,3 +25,7 @@ void waitms (unsigned int ms) {
 	for(j=0; j<ms; j++)
 		for (k=0; k<4; k++) Timer3us(250);
 }
+
+float squared(float x) {
+	return x*x;
+}

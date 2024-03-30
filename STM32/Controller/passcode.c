@@ -34,7 +34,7 @@ static int correct_combination;
 
 char PASSCODE_BUFF[CHARS_PER_LINE]; // Buffer for Passcode
 
-int isButtonPressed(int ButtonPin) {
+int isPasscodeButtonPressed(int ButtonPin) {
 	return !(GPIOB->IDR & ButtonPin);
 }
 
@@ -52,28 +52,28 @@ void resetPasscode(void) {
 
 int getPasscodeButton(void) {
     int pressed = -1;
-    if (isButtonPressed(BUTTON_S0) || isButtonPressed(BUTTON_S1) || isButtonPressed(BUTTON_S2) || isButtonPressed(BUTTON_S3)) {
+    if (isPasscodeButtonPressed(BUTTON_S0) || isPasscodeButtonPressed(BUTTON_S1) || isPasscodeButtonPressed(BUTTON_S2) || isPasscodeButtonPressed(BUTTON_S3)) {
         waitms(DEBOUNCE); // Debounce
 
-        if (isButtonPressed(BUTTON_S0))
+        if (isPasscodeButtonPressed(BUTTON_S0))
         {
             pressed = s_0; // Button A
             GPIOA->ODR &= ~BIT6;
             GPIOA->ODR &= ~BIT7;
         }
-        else if (isButtonPressed(BUTTON_S1))
+        else if (isPasscodeButtonPressed(BUTTON_S1))
         {
             pressed = s_1; // Button B
             GPIOA->ODR &= ~BIT6;
             GPIOA->ODR |= BIT7;
         }
-        else if (isButtonPressed(BUTTON_S2))
+        else if (isPasscodeButtonPressed(BUTTON_S2))
         {
             pressed = s_2; // Button C
             GPIOA->ODR |= BIT6;
             GPIOA->ODR &= ~BIT7;
         }
-        else if (isButtonPressed(BUTTON_S3))
+        else if (isPasscodeButtonPressed(BUTTON_S3))
         {
             pressed = s_3; // Button D
             GPIOA->ODR |= BIT6;
@@ -83,7 +83,7 @@ int getPasscodeButton(void) {
         {
             pressed = -1;
         }
-        while (isButtonPressed(BUTTON_S0) || isButtonPressed(BUTTON_S1) || isButtonPressed(BUTTON_S2) || isButtonPressed(BUTTON_S3)); // Wait for button release
+        while (isPasscodeButtonPressed(BUTTON_S0) || isPasscodeButtonPressed(BUTTON_S1) || isPasscodeButtonPressed(BUTTON_S2) || isPasscodeButtonPressed(BUTTON_S3)); // Wait for button release
         return pressed;
     } else {
         return -1;
@@ -105,10 +105,10 @@ void getPasscode(void) {
     resetPasscode();
 
     while (state != s_success) {
-        // printf("Button S_0: %d\r\n", isButtonPressed(BUTTON_S0));
-        // printf("Button S_1: %d\r\n", isButtonPressed(BUTTON_S1));
-        // printf("Button S_2: %d\r\n", isButtonPressed(BUTTON_S2));
-        // printf("Button S_3: %d\r\n", isButtonPressed(BUTTON_S3));
+        // printf("Button S_0: %d\r\n", isPasscodeButtonPressed(BUTTON_S0));
+        // printf("Button S_1: %d\r\n", isPasscodeButtonPressed(BUTTON_S1));
+        // printf("Button S_2: %d\r\n", isPasscodeButtonPressed(BUTTON_S2));
+        // printf("Button S_3: %d\r\n", isPasscodeButtonPressed(BUTTON_S3));
 
         // waitms(250); // Wait 500ms
 

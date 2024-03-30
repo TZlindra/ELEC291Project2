@@ -317,12 +317,34 @@ void RX_XY() {
 		}
 }
 
-float return_x(void)
-{
+float get_x_direction(void) {
     return commands[0];
 }
 
-float return_y(void)
-{
+float get_y_direction(void) {
     return commands[1];
 }
+
+// void PrintNumber(long int val, int Base, int digits)
+// {
+// 	code const char HexDigit[]="0123456789ABCDEF";
+// 	int j;
+// 	#define NBITS 32
+// 	xdata char buff[NBITS+1];
+// 	buff[NBITS]=0;
+
+// 	if(val<0)
+// 	{
+// 		putchar('-');
+// 		val*=-1;
+// 	}
+
+// 	j=NBITS-1;
+// 	while ( (val>0) | (digits>0) )
+// 	{
+// 		buff[j--]=HexDigit[val%Base];
+// 		val/=Base;
+// 		if(digits!=0) digits--;
+// 	}
+// 	eputs(&buff[j+1]);
+// }

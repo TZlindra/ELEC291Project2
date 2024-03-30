@@ -13,9 +13,9 @@ printf_float
 <SEGMENTS>
 R_GSINIT,code,0000,NO
 R_BSEG,bit,0000,NO
-R_XSEG,xdata,0014,NO
+R_XSEG,xdata,000C,NO
 BIT_BANK,data,0000,OV
-R_CONST,code,0054,NO
+R_CONST,code,002D,NO
 rbank0,data,0000,OV
 R_PSEG,xdata,0000,NO
 R_DINIT,code,0000,NO
@@ -25,42 +25,38 @@ R_IXSEG,xdata,0000,NO
 R_ISEG,idata,0000,NO
 R_HOME,code,0000,NO
 R_XINIT,code,0000,NO
-R_CSEG,code,01FA,NO
+R_CSEG,code,01AB,NO
 </SEGMENTS>
 
 <LOCALS>
 L002004?,R_CSEG,0029,0000
 L002001?,R_CSEG,001E,0000
-L005002?,R_CSEG,015E,0000
-_test_print_x_1_111,R_XSEG,0010,0004
+L004002?,R_CSEG,010F,0000
 __str_0,R_CONST,0000,0000
-__str_1,R_CONST,0027,0000
-__str_2,R_CONST,0037,0000
-_UART1_Init_baudrate_1_109,R_XSEG,0008,0004
+__str_1,R_CONST,0010,0000
+_UART1_Init_baudrate_1_118,R_XSEG,0008,0004
 </LOCALS>
 
 <PUBLICS>
-_main,R_CSEG,0131,0000
-_test_print,R_CSEG,00E2,0000
+_main,R_CSEG,00E2,0000
 __c51_external_startup,R_CSEG,0000,0000
 _UART1_Init,R_CSEG,005C,0000
 _x,R_XSEG,0000,0004
 _y,R_XSEG,0004,0004
-_test_print_PARM_2,R_XSEG,000C,0004
 </PUBLICS>
 
 <EXTERNALS>
 __divulong,any,0000,0000
+_get_y_direction,any,0000,0000
 _TX_I,any,0000,0000
 _TIMER4_Init,any,0000,0000
 _JDY40Init,any,0000,0000
 _movement_loop_PARM_2,any,0000,0000
 _RX_XY,any,0000,0000
 _printf,any,0000,0000
+_get_x_direction,any,0000,0000
 __divulong_PARM_2,any,0000,0000
 _movement_init,any,0000,0000
-_return_x,any,0000,0000
-_return_y,any,0000,0000
 _movement_loop,any,0000,0000
 _crt0,any,0000,0000
 _waitms,any,0000,0000
@@ -132,7 +128,7 @@ AA 82
 AB 83
 AC F0
 FD
-90 data16(_UART1_Init_baudrate_1_109;)  
+90 data16(_UART1_Init_baudrate_1_118;)  
 EA
 F0
 A3
@@ -148,7 +144,7 @@ F0
 75 93 0C
 75 C8 10
 75 94 00
-90 data16(_UART1_Init_baudrate_1_109;)  
+90 data16(_UART1_Init_baudrate_1_118;)  
 E0
 FA
 A3
@@ -216,62 +212,11 @@ D2 C9
 43 94 40
 75 A7 00
 22
-AA 82
-AB 83
-AC F0
-FD
-90 data16(_test_print_x_1_111;)  
-EA
-F0
-A3
-EB
-F0
-A3
-EC
-F0
-A3
-ED
-F0
-90 data16(_test_print_PARM_2;)  
-E0
-C0 E0
-A3
-E0
-C0 E0
-A3
-E0
-C0 E0
-A3
-E0
-C0 E0
-90 data16(_test_print_x_1_111;)  
-E0
-C0 E0
-A3
-E0
-C0 E0
-A3
-E0
-C0 E0
-A3
-E0
-C0 E0
+90 01 F4
+12 addr16(_waitms;)  
 74 data8(__str_0;)
 C0 E0
 74 data8(__str_0;0x0008;>>;)
-C0 E0
-74 80
-C0 E0
-12 addr16(_printf;)  
-E5 81
-24 F5
-F5 81
-22
-90 01 F4
-12 addr16(_waitms;)  
-74 data8(__str_1;)
-C0 E0
-74 data8(__str_1;0x0008;>>;)
 C0 E0
 74 80
 C0 E0
@@ -288,7 +233,7 @@ F5 F0
 12 addr16(_movement_init;)  
 12 addr16(_TX_I;)  
 12 addr16(_RX_XY;)  
-12 addr16(_return_x;)  
+12 addr16(_get_x_direction;)  
 AA 82
 AB 83
 AC F0
@@ -305,7 +250,7 @@ F0
 A3
 ED
 F0
-12 addr16(_return_y;)  
+12 addr16(_get_y_direction;)  
 AA 82
 AB 83
 AC F0
@@ -338,9 +283,9 @@ C0 E0
 A3
 E0
 C0 E0
-74 data8(__str_2;)
+74 data8(__str_1;)
 C0 E0
-74 data8(__str_2;0x0008;>>;)
+74 data8(__str_1;0x0008;>>;)
 C0 E0
 74 80
 C0 E0
@@ -389,7 +334,7 @@ F0
 8C F0
 ED
 12 addr16(_movement_loop;)  
-02 addr16(L005002?;)  
+02 addr16(L004002?;)  
 </CODE>
 
 <CODE R_CSEG>
@@ -399,12 +344,6 @@ ED
 </CODE>
 
 <CODE R_CONST>
-50 57 4D 5F 70 65 72 63 65 6E 74 20 78 3A 20 25 66
-2C 20 50 57 4D 5F 70 65 72 63 65 6E 74 20 79 3A
-20 25 66 
-0D
-0A
-00
 0D
 0A
 4A 44 59 2D 34 30 20 74 65 73 74 

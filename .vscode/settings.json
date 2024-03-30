@@ -19,7 +19,11 @@
         "WPS.C": "cpp",
         "passcode.h": "c",
         "movement_integration.h": "c",
-        "ctype.h": "c"
+        "ctype.h": "c",
+        "inductance.h": "c",
+        "bit": "c",
+        "cmath": "c",
+        "*.tcc": "c"
     },
     "makefile.makePath": "C:\\mingw\\bin",
     "cmake.configureOnOpen": false

@@ -21,5 +21,5 @@ void Trim(char *str, int *xin, int *yin);
 void TX_I(void);
 void RX_XY(void);
 
-float return_x(void);
-float return_y(void);
+float get_x_direction(void);
+float get_y_direction(void);

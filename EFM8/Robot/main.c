@@ -1,6 +1,7 @@
 #include "global.h"
 #include "JDY40.h"
 #include "movement_integration.h"
+#include "inductance.h"
 
 float x;
 float y;
@@ -89,12 +90,12 @@ void UART1_Init(unsigned long baudrate) {
     SFRPAGE = 0x00;
 }
 
-void test_print(float x, float y)
-{
-		int test_x = x;
-		int test_y = y;
-        printf("PWM_percent x: %f, PWM_percent y: %f\r\n", x, y);
-}
+// void test_print(float x, float y)
+// {
+// 		int test_x = x;
+// 		int test_y = y;
+//         printf("PWM_percent x: %f, PWM_percent y: %f\r\n", x, y);
+// }
 
 void main (void) {
 	waitms(500);
@@ -107,8 +108,8 @@ void main (void) {
 	while(1) {
 		TX_I();
 		RX_XY();
-		x = return_x();
-		y = return_y();
+		x = get_x_direction();
+		y = get_y_direction();
 		printf("Parsed x: %f, Parsed y: %f\r\n", x, y);
 		movement_loop(x, y);
 		// test_print(x, y);

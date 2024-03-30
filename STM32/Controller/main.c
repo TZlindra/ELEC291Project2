@@ -39,6 +39,8 @@ volatile int SpeakerEnabled = 0;
 
 float x = 0, y = 0;
 int standardized_x = 0, standardized_y = 0;
+int sensitivity_state_x = 0;
+int sensitivity_timer_flag = 0;
 
 void ConfigPinsLCD(void);
 void ConfigPinButton(void);
@@ -74,6 +76,9 @@ void TIM21_Handler(void) {
 		TX21Count = 0;
 		TX_XY();
 	}
+
+	//if (sensitivity_timer_flag && TX21Count == 249)
+	//	sensitivity_timer_flag = 0;
 }
 
 void ConfigPinsLCD(void) {
@@ -167,8 +172,8 @@ void ConfigPasscodeButtonPins(void) {
 	GPIOB->PUPDR &= ~(BIT7);
 }
 
-int isTestButtonPressed(void) {
-	return !(GPIOA->IDR & BIT12);
+int isButtonPressed(int ButtonPin) {
+	return !(GPIOB->IDR & ButtonPin);
 }
 
 void display_x_y(int x, int y) {
@@ -220,6 +225,24 @@ void main(void) {
 
 		standardized_x = standardize_x(x);
 		standardized_y = standardize_y(y);
+
+		/*
+		if (isButtonPressed(BIT7))
+		{
+			if (!sensitivity_timer_flag)
+				waitms(30);
+			if (isButtonPressed(BIT7))
+			{
+				sensitivity_timer_flag = 1;
+				if (!sensitivity_timer_flag)
+					sensitivity_state_x = !sensitivity_state_x;
+				while(isButtonPressed(BIT7));
+			}
+		}
+		if (sensitivity_state_x == 1)
+			standardized_x /= 2;
+		*/
+
 		Update_XY(standardized_x, standardized_y);
 		RX_I(); // Receive Inductance Value
 

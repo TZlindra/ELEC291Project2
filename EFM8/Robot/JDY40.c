@@ -278,6 +278,9 @@ void Trim(char *str, int *xin, int *yin) {
     *xin = stringToInt(x);
     *yin = stringToInt(y);
 
+    free(x);
+    free(y);
+
     //printf("%d \n", *xin);
 
    // printf("%d \n", *yin);
@@ -302,13 +305,14 @@ void RX_XY() {
 			getstr1(buff);
 			clearUART1Buffer();
 			length = strlen(buff);
+            printf("Buff: %s\r\n", buff);
 			Trim(buff, &commands[0],&commands[1]);
 			if(length >= 11){
 				printf("X: %d \r\n", commands[0]);
 				printf("Y: %d \r\n", commands[1]);
 			}
 			else{
-				printf("test\r\n");
+				// printf("test\r\n");
 			}
 		}
 }

@@ -109,7 +109,7 @@ void main (void) {
 		RX_XY();
 		x = return_x();
 		y = return_y();
-		printf("JDY passed in x: %f, JDY passed in y: %f\r\n", x, y);
+		printf("Parsed x: %f, Parsed y: %f\r\n", x, y);
 		movement_loop(x, y);
 		// test_print(x, y);
 	}

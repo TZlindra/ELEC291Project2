@@ -19,23 +19,26 @@ R_CONST,code,003E,NO
 rbank0,data,0000,OV
 R_PSEG,xdata,0000,NO
 R_DINIT,code,0000,NO
-R_DSEG,data,0008,NO
+R_DSEG,data,0014,NO
 R_OSEG,data,0000,OV
 R_IXSEG,xdata,0012,NO
 R_ISEG,idata,0000,NO
 R_HOME,code,0000,NO
 R_XINIT,code,0012,NO
-R_CSEG,code,07F1,NO
+R_CSEG,code,0929,NO
 </SEGMENTS>
 
 <LOCALS>
+_movement_loop_sloc0_1_0,R_DSEG,0008,0004
 _Timer5_ISR_sloc0_1_0,R_BSEG,0000,0001
 bits,BIT_BANK,0000,0001
 __xinit__left_wheel,R_XINIT,0006,0000
 _movement_manager_PWM_percent_x_1_103,R_XSEG,001E,0004
+_movement_loop_sloc1_1_0,R_DSEG,000C,0004
 L010011?,R_CSEG,05E3,0000
 __xinit__count,R_XINIT,0000,0000
 _movement_manager_sloc0_1_0,R_DSEG,0004,0004
+_movement_loop_sloc2_1_0,R_DSEG,0010,0004
 L008016?,R_CSEG,02B9,0000
 L008013?,R_CSEG,0315,0000
 L008010?,R_CSEG,0371,0000
@@ -1321,6 +1324,191 @@ C0 E0
 E5 81
 24 F5
 F5 81
+90 data16(_PWM_percent_x;)  
+E0
+FA
+A3
+E0
+FB
+8A 82
+8B 83
+12 addr16(___sint2fs;)  
+AA 82
+AB 83
+AC F0
+FD
+90 data16(_PWM_percent_y;)  
+E0
+FE
+A3
+E0
+FF
+8E 82
+8F 83
+C0 02
+C0 03
+C0 04
+C0 05
+12 addr16(___sint2fs;)  
+85 82 data8(_movement_loop_sloc0_1_0;)
+85 83 data8(_movement_loop_sloc0_1_0;0x0001;+;)
+85 F0 data8(_movement_loop_sloc0_1_0;0x0002;+;)
+F5 data8(_movement_loop_sloc0_1_0;0x0003;+;)
+90 data16(_prev_PWM_percent_x;)  
+E0
+FE
+A3
+E0
+FF
+8E 82
+8F 83
+12 addr16(___sint2fs;)  
+85 82 data8(_movement_loop_sloc1_1_0;)
+85 83 data8(_movement_loop_sloc1_1_0;0x0001;+;)
+85 F0 data8(_movement_loop_sloc1_1_0;0x0002;+;)
+F5 data8(_movement_loop_sloc1_1_0;0x0003;+;)
+90 data16(_prev_PWM_percent_y;)  
+E0
+FE
+A3
+E0
+FF
+8E 82
+8F 83
+12 addr16(___sint2fs;)  
+85 82 data8(_movement_loop_sloc2_1_0;)
+85 83 data8(_movement_loop_sloc2_1_0;0x0001;+;)
+85 F0 data8(_movement_loop_sloc2_1_0;0x0002;+;)
+F5 data8(_movement_loop_sloc2_1_0;0x0003;+;)
+D0 05
+D0 04
+D0 03
+D0 02
+90 data16(_state;)  
+E0
+FE
+90 data16(_movement_manager_PARM_2;)  
+E5 data8(_movement_loop_sloc0_1_0;)
+F0
+A3
+E5 data8(_movement_loop_sloc0_1_0;0x0001;+;)
+F0
+A3
+E5 data8(_movement_loop_sloc0_1_0;0x0002;+;)
+F0
+A3
+E5 data8(_movement_loop_sloc0_1_0;0x0003;+;)
+F0
+90 data16(_movement_manager_PARM_3;)  
+E5 data8(_movement_loop_sloc1_1_0;)
+F0
+A3
+E5 data8(_movement_loop_sloc1_1_0;0x0001;+;)
+F0
+A3
+E5 data8(_movement_loop_sloc1_1_0;0x0002;+;)
+F0
+A3
+E5 data8(_movement_loop_sloc1_1_0;0x0003;+;)
+F0
+90 data16(_movement_manager_PARM_4;)  
+E5 data8(_movement_loop_sloc2_1_0;)
+F0
+A3
+E5 data8(_movement_loop_sloc2_1_0;0x0001;+;)
+F0
+A3
+E5 data8(_movement_loop_sloc2_1_0;0x0002;+;)
+F0
+A3
+E5 data8(_movement_loop_sloc2_1_0;0x0003;+;)
+F0
+90 data16(_movement_manager_PARM_5;)  
+EE
+F0
+8A 82
+8B 83
+8C F0
+ED
+12 addr16(_movement_manager;)  
+E5 82
+90 data16(_state;)  
+F0
+90 data16(_PWM_percent_x;)  
+E0
+FA
+A3
+E0
+FB
+8A 82
+8B 83
+12 addr16(___sint2fs;)  
+AA 82
+AB 83
+AC F0
+FD
+90 data16(_PWM_percent_y;)  
+E0
+FE
+A3
+E0
+FF
+8E 82
+8F 83
+C0 02
+C0 03
+C0 04
+C0 05
+12 addr16(___sint2fs;)  
+AE 82
+AF 83
+A8 F0
+F9
+D0 05
+D0 04
+D0 03
+D0 02
+90 data16(_PWM_manager_PARM_2;)  
+EE
+F0
+A3
+EF
+F0
+A3
+E8
+F0
+A3
+E9
+F0
+8A 82
+8B 83
+8C F0
+ED
+12 addr16(_PWM_manager;)  
+90 data16(_PWM_percent_x;)  
+E0
+FA
+A3
+E0
+FB
+90 data16(_prev_PWM_percent_x;)  
+EA
+F0
+A3
+EB
+F0
+90 data16(_PWM_percent_y;)  
+E0
+FA
+A3
+E0
+FB
+90 data16(_prev_PWM_percent_y;)  
+EA
+F0
+A3
+EB
+F0
 22
 </CODE>
 

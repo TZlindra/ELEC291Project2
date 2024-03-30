@@ -214,8 +214,8 @@ void movement_loop(float x, float y)
         PWM_percent_y = y;
         printf("PWM_percent x: %f, PWM_percent y: %f\r\n", x, y);
 
-        // state = movement_manager(PWM_percent_x, PWM_percent_y, prev_PWM_percent_x, prev_PWM_percent_y, state);
-		// PWM_manager(PWM_percent_x, PWM_percent_y);
-        // prev_PWM_percent_x = PWM_percent_x;
-        // prev_PWM_percent_y = PWM_percent_y;
+        state = movement_manager(PWM_percent_x, PWM_percent_y, prev_PWM_percent_x, prev_PWM_percent_y, state);
+		PWM_manager(PWM_percent_x, PWM_percent_y);
+        prev_PWM_percent_x = PWM_percent_x;
+        prev_PWM_percent_y = PWM_percent_y;
 }

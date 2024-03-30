@@ -244,7 +244,7 @@ void Timer3_ISR (void) interrupt INTERRUPT_TIMER3
 
 void movement_init(void)
 {
-	TIMER3Init();
+	// TIMER3Init();
     idle();
     state = idle_enum;
 }

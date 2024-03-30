@@ -71,6 +71,10 @@ char _c51_external_startup (void) {
 	TI = 1;  // Indicate TX0 ready
 	P1MDOUT |= 0b0000_0100;
 	EA=1;
+
+	// PWM Pins
+	P2MDOUT |= 0x000
+
 	return 0;
 }
 
@@ -98,6 +102,7 @@ void main (void) {
 		RX_XY();
 		x = return_x();
 		y = return_y();
-		movement_loop(x, y);
+		printf("x: %f, y: %f\r\n", x, y);
+		// movement_loop(x, y);
 	}
 }

@@ -32,11 +32,10 @@ char LCD_BUFF[CHARS_PER_LINE]; // Buffer for LCD Display
 
 volatile int Timer2Count = 0;
 volatile int TX21Count = 0;
-volatile int SensitivityCount = 0;
 volatile float SpeakerRatio = 5;
+volatile int SpeakerEnabled = 0;
 
 volatile int inductance = 0;
-volatile int SpeakerEnabled = 0;
 
 float x = 0, y = 0;
 int standardized_x = 0, standardized_y = 0;
@@ -71,7 +70,6 @@ void TIM2_Handler(void) {
 void TIM21_Handler(void) {
 	TIM21->SR &= ~BIT0; // Clear Update Interrupt Flag
 	TX21Count++;
-	SensitivityCount++;
 
 	if (TX21Count > 250) {
 		TX21Count = 0;
@@ -194,27 +192,43 @@ void display_inductance(float inductance) {
 }
 
 void update_sensitivity_x(void) {
+	int sensitivity_count = 0;
+
 	if (isButtonPressedGPIOB(BUTTON_S0)) {
 		waitms(DEBOUNCE);
 		if (isButtonPressedGPIOB(BUTTON_S0)) {
-			printf("Sensitivity X: %d\r\n", sensitivity_x);
+			// printf("Sensitivity X: %d\r\n", sensitivity_x);
 			sensitivity_x = !sensitivity_x;
 
-			SensitivityCount = 0;
-			while(isButtonPressedGPIOB(BUTTON_S0) && SensitivityCount < 500) SensitivityCount++;
+			while(isButtonPressedGPIOB(BUTTON_S0) && sensitivity_count < 500) sensitivity_count++;
 		}
 	}
 }
 
 void update_sensitivity_y(void) {
+	int sensitivity_count = 0;
+
 	if (isButtonPressedGPIOB(BUTTON_S1)) {
 		waitms(DEBOUNCE);
 		if (isButtonPressedGPIOB(BUTTON_S1)) {
-			printf("Sensitivity Y: %d\r\n", sensitivity_x);
+			// printf("Sensitivity Y: %d\r\n", sensitivity_x);
 			sensitivity_y = !sensitivity_y;
 
-			SensitivityCount = 0;
-			while(isButtonPressedGPIOB(BUTTON_S1) && SensitivityCount < 500) SensitivityCount++;
+			sensitivity_count = 0;
+			while(isButtonPressedGPIOB(BUTTON_S1) && sensitivity_count < 500) sensitivity_count++;
+		}
+	}
+}
+
+void checkLock(void) {
+	if (isButtonPressedGPIOB(BUTTON_S3)) {
+		waitms(DEBOUNCE);
+		if (isButtonPressedGPIOB(BUTTON_S3) && isButtonPressedGPIOB(BUTTON_S0)) {
+    		printf("LOCKED!\r\n");
+    		LCDprint("LOCKED!", 1, 1);
+    		LCDprint("", 2, 1);
+    		waitms(1000); // Wait 1s
+    		getPasscode();
 		}
 	}
 }
@@ -243,6 +257,8 @@ void main(void) {
     getPasscode();
 
 	while (1) {
+		checkLock();
+
 		x = -1*(readADC(ADC_CHSELR_CHSEL8)-X_MIDPOINT);
 		y = -1*(readADC(ADC_CHSELR_CHSEL9)-Y_MIDPOINT);
 

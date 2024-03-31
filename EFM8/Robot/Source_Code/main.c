@@ -97,8 +97,8 @@ void test_print(float x, float y) {
 }
 
 void main (void) {
-	long int period = 1000;
 	float freq = 0.0;
+	float inductance = 0.0;
 	waitms(500);
 	UART1_Init(9600);
 	JDY40Init();
@@ -106,15 +106,16 @@ void main (void) {
 	movement_init();
 
 	while(1) {
-		Update_TX_Buff(period);
+		Update_TX_Buff(100);
 
 		TX_I();
 		RX_XY();
 
-		// period = GetPeriod(10);
-		// freq = GetFrequency();
-		period++;
-		// printf("Period: %ld, Frequency: %f\r\n", period, freq);
+		freq = GetFrequency_Hz();
+		printf("Frequency: %.0f\r\n", freq);
+
+		inductance = GetInductance_mH();
+		printf("Inductance: %f\r\n", inductance);
 
 		x = get_x_direction();
 		y = get_y_direction();

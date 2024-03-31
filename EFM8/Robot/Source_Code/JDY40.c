@@ -9,7 +9,6 @@ volatile int TXcount=0;
 volatile int flag = 0;
 volatile int commands[2];
 
-unsigned int tx_val = 0;
 int length;
 
 void JDY40Init(void) {
@@ -288,8 +287,7 @@ void Trim(char *str, int *xin, int *yin) {
    // printf("%d \n", *yin);
 }
 
-void Update_TX_Buff(int inductance) {
-	tx_val = inductance;
+void Update_TX_Buff(long inductance) {
 	sprintf(TXbuff, "%08d\r\n", inductance);
 }
 

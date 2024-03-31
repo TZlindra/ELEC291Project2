@@ -49,11 +49,11 @@ L002007?,R_CSEG,003F,0000
 </LOCALS>
 
 <PUBLICS>
-_GetFrequency,R_CSEG,010F,0000
+_GetInductance_mH,R_CSEG,0225,0000
 _C2_nF,R_IXSEG,0002,0002
 _GetCapacitance_mF,R_CSEG,0187,0000
-_GetInductance_microH,R_CSEG,0225,0000
 _C1_nF,R_IXSEG,0000,0002
+_GetFrequency_Hz,R_CSEG,010F,0000
 _GetPeriod,R_CSEG,0000,0000
 </PUBLICS>
 
@@ -412,7 +412,7 @@ F5 81
 8C F0
 ED
 22
-12 addr16(_GetFrequency;)  
+12 addr16(_GetFrequency_Hz;)  
 AA 82
 AB 83
 AC F0
@@ -466,9 +466,9 @@ C0 02
 C0 03
 C0 04
 C0 05
-90 96 80
-75 F0 18
-74 4B
+90 24 00
+75 F0 74
+74 49
 12 addr16(___fsdiv;)  
 AA 82
 AB 83

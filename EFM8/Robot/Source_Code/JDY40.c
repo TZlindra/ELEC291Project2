@@ -290,7 +290,7 @@ void Trim(char *str, int *xin, int *yin) {
 
 void Update_TX_Buff(int inductance) {
 	tx_val = inductance;
-	sprintf(TXbuff, "%05d\r\n", inductance);
+	sprintf(TXbuff, "%08d\r\n", inductance);
 }
 
 void TX_I(void) {

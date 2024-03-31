@@ -9,7 +9,7 @@ volatile int TXcount=0;
 volatile int flag = 0;
 volatile int commands[2];
 
-// unsigned int cnt =0;
+unsigned int tx_val = 0;
 int length;
 
 void JDY40Init(void) {
@@ -289,7 +289,8 @@ void Trim(char *str, int *xin, int *yin) {
 }
 
 void Update_TX_Buff(int inductance) {
-	sprintf(TXbuff, "%08d\r\n", inductance);
+	tx_val = inductance;
+	sprintf(TXbuff, "%05d\r\n", inductance);
 }
 
 void TX_I(void) {
@@ -297,9 +298,10 @@ void TX_I(void) {
 		{
 			flag == 1;
 			sendstr1(TXbuff);
-			// printf("%s\r\n",buff);
+			// printf("%s\r\n",TXbuff);
 			clearUART1Buffer();
 			waitms_or_RI1(200);
+
 		}
 }
 

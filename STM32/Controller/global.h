@@ -19,10 +19,10 @@
 
 #define DEBOUNCE 30
 
-#define BUTTON_A BIT3
-#define BUTTON_B BIT5
-#define BUTTON_C BIT6
-#define BUTTON_D BIT7
+#define BUTTON_S0 BIT7
+#define BUTTON_S1 BIT6
+#define BUTTON_S2 BIT5
+#define BUTTON_S3 BIT3
 
 void wait_1ms(void);
 void waitms(unsigned int ms);

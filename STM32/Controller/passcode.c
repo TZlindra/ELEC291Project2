@@ -22,13 +22,6 @@
 //             VSS -|16      17|- VDD
 //                    ----------
 
-#define DEBOUNCE 30
-
-#define BUTTON_S0 BIT7
-#define BUTTON_S1 BIT6
-#define BUTTON_S2 BIT5
-#define BUTTON_S3 BIT3
-
 static enum State state;
 static int correct_combination;
 
@@ -55,34 +48,29 @@ int getPasscodeButton(void) {
     if (isPasscodeButtonPressed(BUTTON_S0) || isPasscodeButtonPressed(BUTTON_S1) || isPasscodeButtonPressed(BUTTON_S2) || isPasscodeButtonPressed(BUTTON_S3)) {
         waitms(DEBOUNCE); // Debounce
 
-        if (isPasscodeButtonPressed(BUTTON_S0))
-        {
-            pressed = s_0; // Button A
+        if (isPasscodeButtonPressed(BUTTON_S0)) pressed = s_0; // Button A
+        else if (isPasscodeButtonPressed(BUTTON_S1)) pressed = s_1; // Button B
+        else if (isPasscodeButtonPressed(BUTTON_S2)) pressed = s_2; // Button C
+        else if (isPasscodeButtonPressed(BUTTON_S3)) pressed = s_3; // Button D
+        else pressed = -1;
+
+        if (pressed == s_0) {
             GPIOA->ODR &= ~BIT6;
             GPIOA->ODR &= ~BIT7;
         }
-        else if (isPasscodeButtonPressed(BUTTON_S1))
-        {
-            pressed = s_1; // Button B
+        else if (pressed == s_1) {
             GPIOA->ODR &= ~BIT6;
             GPIOA->ODR |= BIT7;
         }
-        else if (isPasscodeButtonPressed(BUTTON_S2))
-        {
-            pressed = s_2; // Button C
+        else if (pressed == s_2) {
             GPIOA->ODR |= BIT6;
             GPIOA->ODR &= ~BIT7;
         }
-        else if (isPasscodeButtonPressed(BUTTON_S3))
-        {
-            pressed = s_3; // Button D
+        else if (pressed == s_3) {
             GPIOA->ODR |= BIT6;
             GPIOA->ODR |= BIT7;
         }
-        else
-        {
-            pressed = -1;
-        }
+
         while (isPasscodeButtonPressed(BUTTON_S0) || isPasscodeButtonPressed(BUTTON_S1) || isPasscodeButtonPressed(BUTTON_S2) || isPasscodeButtonPressed(BUTTON_S3)); // Wait for button release
         return pressed;
     } else {

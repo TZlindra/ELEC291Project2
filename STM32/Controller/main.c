@@ -32,6 +32,7 @@ char LCD_BUFF[CHARS_PER_LINE]; // Buffer for LCD Display
 
 volatile int Timer2Count = 0;
 volatile int TX21Count = 0;
+volatile int SensitivityCount = 0;
 volatile float SpeakerRatio = 5;
 
 volatile int inductance = 0;
@@ -39,8 +40,7 @@ volatile int SpeakerEnabled = 0;
 
 float x = 0, y = 0;
 int standardized_x = 0, standardized_y = 0;
-int sensitivity_state_x = 0;
-int sensitivity_timer_flag = 0;
+int sensitivity_x = 0, sensitivity_y = 0;
 
 void ConfigPinsLCD(void);
 void ConfigPinButton(void);
@@ -71,14 +71,12 @@ void TIM2_Handler(void) {
 void TIM21_Handler(void) {
 	TIM21->SR &= ~BIT0; // Clear Update Interrupt Flag
 	TX21Count++;
+	SensitivityCount++;
 
 	if (TX21Count > 250) {
 		TX21Count = 0;
 		TX_XY();
 	}
-
-	//if (sensitivity_timer_flag && TX21Count == 249)
-	//	sensitivity_timer_flag = 0;
 }
 
 void ConfigPinsLCD(void) {
@@ -143,8 +141,7 @@ void ConfigPinSpeaker(void) {
     GPIOA->MODER = (GPIOA->MODER & ~(BIT17|BIT16)) | BIT16; // PA8
 }
 
-void ConfigLEDPins(void)
-{
+void ConfigLEDPins(void) {
     GPIOA->MODER = (GPIOA->MODER & ~(BIT12|BIT13)) | BIT12; // PA6
 	GPIOA->OTYPER &= ~BIT6; // Push-pull
 
@@ -172,7 +169,7 @@ void ConfigPasscodeButtonPins(void) {
 	GPIOB->PUPDR &= ~(BIT7);
 }
 
-int isButtonPressed(int ButtonPin) {
+int isButtonPressedGPIOB(int ButtonPin) {
 	return !(GPIOB->IDR & ButtonPin);
 }
 
@@ -194,6 +191,32 @@ void display_adc(float x, int standardized_x, float y, int standardized_y) {
 void display_inductance(float inductance) {
 	sprintf(LCD_BUFF, "I: %d", (int) inductance);
 	LCDprint(LCD_BUFF, 1, 1);
+}
+
+void update_sensitivity_x(void) {
+	if (isButtonPressedGPIOB(BUTTON_S0)) {
+		waitms(DEBOUNCE);
+		if (isButtonPressedGPIOB(BUTTON_S0)) {
+			printf("Sensitivity X: %d\r\n", sensitivity_x);
+			sensitivity_x = !sensitivity_x;
+
+			SensitivityCount = 0;
+			while(isButtonPressedGPIOB(BUTTON_S0) && SensitivityCount < 500) SensitivityCount++;
+		}
+	}
+}
+
+void update_sensitivity_y(void) {
+	if (isButtonPressedGPIOB(BUTTON_S1)) {
+		waitms(DEBOUNCE);
+		if (isButtonPressedGPIOB(BUTTON_S1)) {
+			printf("Sensitivity Y: %d\r\n", sensitivity_x);
+			sensitivity_y = !sensitivity_y;
+
+			SensitivityCount = 0;
+			while(isButtonPressedGPIOB(BUTTON_S1) && SensitivityCount < 500) SensitivityCount++;
+		}
+	}
 }
 
 void main(void) {
@@ -223,25 +246,11 @@ void main(void) {
 		x = -1*(readADC(ADC_CHSELR_CHSEL8)-X_MIDPOINT);
 		y = -1*(readADC(ADC_CHSELR_CHSEL9)-Y_MIDPOINT);
 
-		standardized_x = standardize_x(x);
-		standardized_y = standardize_y(y);
+		update_sensitivity_x();
+		update_sensitivity_y();
 
-		/*
-		if (isButtonPressed(BIT7))
-		{
-			if (!sensitivity_timer_flag)
-				waitms(30);
-			if (isButtonPressed(BIT7))
-			{
-				sensitivity_timer_flag = 1;
-				if (!sensitivity_timer_flag)
-					sensitivity_state_x = !sensitivity_state_x;
-				while(isButtonPressed(BIT7));
-			}
-		}
-		if (sensitivity_state_x == 1)
-			standardized_x /= 2;
-		*/
+		standardized_x = standardize_x(x, sensitivity_x);
+		standardized_y = standardize_y(y, sensitivity_y);
 
 		Update_XY(standardized_x, standardized_y);
 		RX_I(); // Receive Inductance Value

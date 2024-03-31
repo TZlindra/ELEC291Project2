@@ -98,7 +98,7 @@ void test_print(float x, float y) {
 
 void main (void) {
 	float freq = 0.0;
-	float inductance = 0.0;
+	int inductance = MILLI_MULTIPLIER;
 	waitms(500);
 	UART1_Init(9600);
 	JDY40Init();
@@ -106,16 +106,16 @@ void main (void) {
 	movement_init();
 
 	while(1) {
-		Update_TX_Buff(100);
+		Update_TX_Buff(inductance);
 
 		TX_I();
 		RX_XY();
 
 		freq = GetFrequency_Hz();
-		printf("Frequency: %.0f\r\n", freq);
+		printf("Frequency (Hz): %.0f\r\n", freq);
 
-		inductance = GetInductance_mH();
-		printf("Inductance: %f\r\n", inductance);
+		inductance = GetInductance_microH();
+		printf("Inductance (MicroH): %d\r\n", inductance);
 
 		x = get_x_direction();
 		y = get_y_direction();

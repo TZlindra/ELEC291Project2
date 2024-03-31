@@ -273,11 +273,11 @@ void main(void) {
 
 		// display_buffs();
 		inductance = Update_I(inductance);
-		// printf("I: %d\r\n", inductance);
+		printf("I: %d\r\n", inductance);
 
 		// if (isTestButtonPressed()) SpeakerRatio = SetSpeakerFreq(inductance, SpeakerRatio);
 
-		if (inductance >= 500) {
+		if (inductance <= 850) {
 			SpeakerEnabled = 1;
 			SpeakerRatio = SetSpeakerFreq(inductance, SpeakerRatio);
 		} else {

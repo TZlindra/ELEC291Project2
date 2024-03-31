@@ -287,8 +287,8 @@ void Trim(char *str, int *xin, int *yin) {
    // printf("%d \n", *yin);
 }
 
-void Update_TX_Buff(long inductance) {
-	sprintf(TXbuff, "%08d\r\n", inductance);
+void Update_TX_Buff(int inductance) {
+	sprintf(TXbuff, "%05d\r\n", inductance);
 }
 
 void TX_I(void) {

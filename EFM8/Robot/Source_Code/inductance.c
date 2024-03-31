@@ -86,9 +86,10 @@ float GetCapacitance_mF(void) {
     return ((C1_nF*C2_nF)/(C1_nF+C2_nF)) / MILLI_MULTIPLIER / MILLI_MULTIPLIER;
 }
 
-float GetInductance_mH(void) {
+int GetInductance_microH(void) {
     float freq = GetFrequency_Hz();
     float CT_mF = GetCapacitance_mF();
+	float I_kH = MILLI_MULTIPLIER/(squared(2*PI*freq) * CT_mF);
 
-    return 1000000/(squared(2*PI*freq) * CT_mF);
+    return (int)(MILLI_MULTIPLIER * MILLI_MULTIPLIER * I_kH);
 }

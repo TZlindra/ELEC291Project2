@@ -47,13 +47,18 @@ float SetSpeakerFreq(int inductance, float current_ratio) {
     // else new_ratio = current_ratio + 1;
 
     // Inductance Thresholds for Speaker Frequency
-    if (inductance >= 350) new_ratio = 5;
-    else if (inductance >= 340) new_ratio = 4;
-    else if (inductance >= 330) new_ratio = 3;
-    else if (inductance >= 320) new_ratio = 2;
+    // if (inductance >= 350) new_ratio = 5;
+    // else if (inductance >= 340) new_ratio = 4;
+    // else if (inductance >= 330) new_ratio = 3;
+    // else if (inductance >= 320) new_ratio = 2;
+
+    if (inductance < 850) new_ratio = 5;
+    else if (inductance < 750) new_ratio = 4;
+    else if (inductance < 650) new_ratio = 3;
+    else if (inductance < 550) new_ratio = 2;
     else new_ratio = 1;
 
-    new_freq = TICK_FREQ_TIM2 / new_ratio;
+    // new_freq = TICK_FREQ_TIM2 / new_ratio;
     // printf("Current Frequency: %f\r\n", new_freq);
 
     return new_ratio;

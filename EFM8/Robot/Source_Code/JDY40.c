@@ -2,13 +2,14 @@
 
 #define TIMER_4_FREQ 1000L
 
-idata char buff[80];
+xdata char RXbuff[80];
+xdata char TXbuff[80];
 
 volatile int TXcount=0;
 volatile int flag = 0;
 volatile int commands[2];
 
-unsigned int cnt =0;
+// unsigned int cnt =0;
 int length;
 
 void JDY40Init(void) {
@@ -49,7 +50,8 @@ void Timer4_ISR (void) interrupt INTERRUPT_TIMER4 {
 	SFRPAGE=0x10;
 	TF4H = 0; // Clear Timer4 interrupt flag
 	TXcount++;
-	if(TXcount >= 1000){
+	// if(TXcount >= 1000){
+	if(TXcount >= 2500){
 		TXcount=0;
 		P1_2=!P1_2;
 		flag == 0;
@@ -165,10 +167,10 @@ void SendATCommand(char * s) {
 	P2_0=0; // 'set' pin to 0 is 'AT' mode.
 	waitms(5);
 	sendstr1(s);
-	getstr1(buff);
+	getstr1(RXbuff);
 	waitms(10);
 	P2_0=1; // 'set' pin to 1 is normal operation mode.
-	printf("Response: %s\r\n", buff);
+	printf("Response: %s\r\n", RXbuff);
 }
 
 int stringToInt(char *str) {
@@ -286,12 +288,15 @@ void Trim(char *str, int *xin, int *yin) {
    // printf("%d \n", *yin);
 }
 
+void Update_TX_Buff(int inductance) {
+	sprintf(TXbuff, "%08d\r\n", inductance);
+}
+
 void TX_I(void) {
     if(flag == 0)
 		{
 			flag == 1;
-			sprintf(buff, " %04d\r\n", cnt++);
-			sendstr1(buff);
+			sendstr1(TXbuff);
 			// printf("%s\r\n",buff);
 			clearUART1Buffer();
 			waitms_or_RI1(200);
@@ -302,11 +307,11 @@ void RX_XY() {
     if(RXU1())
 		{
 
-			getstr1(buff);
+			getstr1(RXbuff);
 			clearUART1Buffer();
-			length = strlen(buff);
+			length = strlen(RXbuff);
             // printf("Buff: %s\r\n", buff);
-			Trim(buff, &commands[0],&commands[1]);
+			Trim(RXbuff, &commands[0],&commands[1]);
 			// if(length >= 11){
 			// 	printf("X: %d \r\n", commands[0]);
 			// 	printf("Y: %d \r\n", commands[1]);

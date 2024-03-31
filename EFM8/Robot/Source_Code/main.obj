@@ -6,37 +6,47 @@ main
 --model-large
 </OPTC51>
 
+<PRINTF_FLOAT>
+printf_float
+</PRINTF_FLOAT>
+
 <SEGMENTS>
 R_GSINIT,code,0000,NO
 R_BSEG,bit,0000,NO
-R_XSEG,xdata,000C,NO
+R_XSEG,xdata,0014,NO
 BIT_BANK,data,0000,OV
-R_CONST,code,0000,NO
+R_CONST,code,0017,NO
 rbank0,data,0000,OV
 R_PSEG,xdata,0000,NO
 R_DINIT,code,0000,NO
-R_DSEG,data,0000,NO
+R_DSEG,data,0004,NO
 R_OSEG,data,0000,OV
 R_IXSEG,xdata,0000,NO
 R_ISEG,idata,0000,NO
 R_HOME,code,0000,NO
 R_XINIT,code,0000,NO
-R_CSEG,code,015C,NO
+R_CSEG,code,0230,NO
 </SEGMENTS>
 
 <LOCALS>
 L002004?,R_CSEG,0029,0000
 L002001?,R_CSEG,001E,0000
-L004002?,R_CSEG,00FE,0000
-_UART1_Init_baudrate_1_119,R_XSEG,0008,0004
+_main_sloc0_1_0,R_DSEG,0000,0004
+L005007?,R_CSEG,017F,0000
+L005002?,R_CSEG,0151,0000
+_test_print_x_1_122,R_XSEG,0010,0004
+__str_0,R_CONST,0000,0000
+_UART1_Init_baudrate_1_120,R_XSEG,0008,0004
 </LOCALS>
 
 <PUBLICS>
-_main,R_CSEG,00E2,0000
+_main,R_CSEG,0131,0000
+_test_print,R_CSEG,00E2,0000
 __c51_external_startup,R_CSEG,0000,0000
 _UART1_Init,R_CSEG,005C,0000
 _x,R_XSEG,0000,0004
 _y,R_XSEG,0004,0004
+_test_print_PARM_2,R_XSEG,000C,0004
 </PUBLICS>
 
 <EXTERNALS>
@@ -47,6 +57,8 @@ _TIMER4_Init,any,0000,0000
 _JDY40Init,any,0000,0000
 _movement_loop_PARM_2,any,0000,0000
 _RX_XY,any,0000,0000
+_printf,any,0000,0000
+_Update_TX_Buff,any,0000,0000
 _get_x_direction,any,0000,0000
 __divulong_PARM_2,any,0000,0000
 _movement_init,any,0000,0000
@@ -121,7 +133,7 @@ AA 82
 AB 83
 AC F0
 FD
-90 data16(_UART1_Init_baudrate_1_119;)  
+90 data16(_UART1_Init_baudrate_1_120;)  
 EA
 F0
 A3
@@ -137,7 +149,7 @@ F0
 75 93 0C
 75 C8 10
 75 94 00
-90 data16(_UART1_Init_baudrate_1_119;)  
+90 data16(_UART1_Init_baudrate_1_120;)  
 E0
 FA
 A3
@@ -205,6 +217,57 @@ D2 C9
 43 94 40
 75 A7 00
 22
+AA 82
+AB 83
+AC F0
+FD
+90 data16(_test_print_x_1_122;)  
+EA
+F0
+A3
+EB
+F0
+A3
+EC
+F0
+A3
+ED
+F0
+90 data16(_test_print_PARM_2;)  
+E0
+C0 E0
+A3
+E0
+C0 E0
+A3
+E0
+C0 E0
+A3
+E0
+C0 E0
+90 data16(_test_print_x_1_122;)  
+E0
+C0 E0
+A3
+E0
+C0 E0
+A3
+E0
+C0 E0
+A3
+E0
+C0 E0
+74 data8(__str_0;)
+C0 E0
+74 data8(__str_0;0x0008;>>;)
+C0 E0
+74 80
+C0 E0
+12 addr16(_printf;)  
+E5 81
+24 F5
+F5 81
+22
 90 01 F4
 12 addr16(_waitms;)  
 90 25 80
@@ -214,44 +277,69 @@ F5 F0
 12 addr16(_JDY40Init;)  
 12 addr16(_TIMER4_Init;)  
 12 addr16(_movement_init;)  
-74 03
-E4
-E4
+7A E8
+7B 03
+7C 00
+7D 00
+8A 06
+8B 07
+8E 82
+8F 83
+C0 02
+C0 03
+C0 04
+C0 05
+12 addr16(_Update_TX_Buff;)  
 12 addr16(_TX_I;)  
 12 addr16(_RX_XY;)  
+D0 05
+D0 04
+D0 03
+D0 02
+0A
+BA 00 rel3(L005007?;)
+0B
+BB 00 rel3(L005007?;)
+0C
+BC 00 rel3(L005007?;)
+0D
+C0 02
+C0 03
+C0 04
+C0 05
 12 addr16(_get_x_direction;)  
-AA 82
-AB 83
-AC F0
-FD
+AE 82
+AF 83
+A8 F0
+F9
 90 data16(_x;)  
-EA
+EE
 F0
 A3
-EB
+EF
 F0
 A3
-EC
+E8
 F0
 A3
-ED
+E9
 F0
 12 addr16(_get_y_direction;)  
-AA 82
-AB 83
-AC F0
-FD
+85 82 data8(_main_sloc0_1_0;)
+85 83 data8(_main_sloc0_1_0;0x0001;+;)
+85 F0 data8(_main_sloc0_1_0;0x0002;+;)
+F5 data8(_main_sloc0_1_0;0x0003;+;)
 90 data16(_y;)  
-EA
+E5 data8(_main_sloc0_1_0;)
 F0
 A3
-EB
+E5 data8(_main_sloc0_1_0;0x0001;+;)
 F0
 A3
-EC
+E5 data8(_main_sloc0_1_0;0x0002;+;)
 F0
 A3
-ED
+E5 data8(_main_sloc0_1_0;0x0003;+;)
 F0
 90 data16(_x;)  
 E0
@@ -266,23 +354,68 @@ A3
 E0
 F9
 90 data16(_movement_loop_PARM_2;)  
-EA
+E5 data8(_main_sloc0_1_0;)
 F0
 A3
-EB
+E5 data8(_main_sloc0_1_0;0x0001;+;)
 F0
 A3
-EC
+E5 data8(_main_sloc0_1_0;0x0002;+;)
 F0
 A3
-ED
+E5 data8(_main_sloc0_1_0;0x0003;+;)
 F0
 8E 82
 8F 83
 88 F0
 E9
 12 addr16(_movement_loop;)  
-80 rel2(L004002?;)
+90 data16(_x;)  
+E0
+F5 data8(_main_sloc0_1_0;)
+A3
+E0
+F5 data8(_main_sloc0_1_0;0x0001;+;)
+A3
+E0
+F5 data8(_main_sloc0_1_0;0x0002;+;)
+A3
+E0
+F5 data8(_main_sloc0_1_0;0x0003;+;)
+90 data16(_y;)  
+E0
+FE
+A3
+E0
+FF
+A3
+E0
+F8
+A3
+E0
+F9
+90 data16(_test_print_PARM_2;)  
+EE
+F0
+A3
+EF
+F0
+A3
+E8
+F0
+A3
+E9
+F0
+85 data8(_main_sloc0_1_0;) 82
+85 data8(_main_sloc0_1_0;0x0001;+;) 83
+85 data8(_main_sloc0_1_0;0x0002;+;) F0
+E5 data8(_main_sloc0_1_0;0x0003;+;)
+12 addr16(_test_print;)  
+D0 05
+D0 04
+D0 03
+D0 02
+02 addr16(L005002?;)  
 </CODE>
 
 <CODE R_CSEG>
@@ -292,6 +425,11 @@ E9
 </CODE>
 
 <CODE R_CONST>
+50 57 4D 20 58 3A 20 25 66 2C 20 50 57 4D 20 59 3A
+20 25 66 
+0D
+0A
+00
 </CODE>
 
 <CODE AT 0003>

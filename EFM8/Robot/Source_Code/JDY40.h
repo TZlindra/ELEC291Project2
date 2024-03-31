@@ -18,6 +18,7 @@ int stringToInt(char *str);
 void splitString(const char *str, char *part1, char *part2);
 void Trim(char *str, int *xin, int *yin);
 
+void Update_TX_Buff(int inductance);
 void TX_I(void);
 void RX_XY(void);
 

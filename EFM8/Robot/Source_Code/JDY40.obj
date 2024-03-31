@@ -9,81 +9,80 @@ JDY40
 <SEGMENTS>
 R_GSINIT,code,0000,NO
 R_BSEG,bit,0001,NO
-R_XSEG,xdata,005F,NO
+R_XSEG,xdata,0101,NO
 BIT_BANK,data,0000,OV
-R_CONST,code,00CB,NO
+R_CONST,code,00CA,NO
 rbank0,data,0000,OV
 R_PSEG,xdata,0000,NO
 R_DINIT,code,0000,NO
 R_DSEG,data,0021,NO
 R_OSEG,data,0000,OV
-R_IXSEG,xdata,0006,NO
-R_ISEG,idata,0050,NO
+R_IXSEG,xdata,0004,NO
+R_ISEG,idata,0000,NO
 R_HOME,code,0000,NO
-R_XINIT,code,0006,NO
-R_CSEG,code,0A7C,NO
+R_XINIT,code,0004,NO
+R_CSEG,code,0A79,NO
 </SEGMENTS>
 
 <LOCALS>
-_stringToInt_i_1_130,R_XSEG,001B,0002
+_stringToInt_i_1_131,R_XSEG,00BB,0002
 _splitString_sloc0_1_0,R_DSEG,0000,0001
-_Trim_str_1_146,R_XSEG,0030,0003
-L021010?,R_CSEG,08F9,0000
-L015008?,R_CSEG,0478,0000
-L015007?,R_CSEG,04AA,0000
-L015004?,R_CSEG,04A1,0000
+_Trim_str_1_147,R_XSEG,00D0,0003
+L015008?,R_CSEG,0477,0000
+L015007?,R_CSEG,04A9,0000
+L015004?,R_CSEG,04A0,0000
 L006010?,R_CSEG,0110,0000
-L022019?,R_CSEG,0A65,0000
-L022018?,R_CSEG,0A60,0000
-L022017?,R_CSEG,09C5,0000
-L022016?,R_CSEG,09BC,0000
-L022012?,R_CSEG,0966,0000
 _splitString_sloc1_1_0,R_DSEG,0001,0003
-L016007?,R_CSEG,0728,0000
-L016006?,R_CSEG,071D,0000
-L016004?,R_CSEG,0694,0000
-L016001?,R_CSEG,06E5,0000
-_PrintNumber_buff_1_163,R_XSEG,003E,0021
-_stringToInt_result_1_130,R_XSEG,0017,0002
+L022010?,R_CSEG,08F6,0000
+L016007?,R_CSEG,0727,0000
+L016006?,R_CSEG,071C,0000
+L016004?,R_CSEG,0693,0000
+L016001?,R_CSEG,06E4,0000
+_PrintNumber_buff_1_166,R_XSEG,00E0,0021
+_stringToInt_result_1_131,R_XSEG,00B7,0002
 __str_10,R_CONST,006C,0000
 __str_11,R_CONST,007B,0000
 __str_12,R_CONST,00A7,0000
 __str_13,R_CONST,00B2,0000
 L004003?,R_CSEG,00AE,0000
 _Trim_sloc4_1_0,R_DSEG,0012,0003
+L023019?,R_CSEG,0A62,0000
+L023018?,R_CSEG,0A5D,0000
+L023017?,R_CSEG,09C2,0000
+L023016?,R_CSEG,09B9,0000
 _splitString_sloc3_1_0,R_DSEG,0006,0003
+L023012?,R_CSEG,0963,0000
 _splitString_sloc2_1_0,R_DSEG,0004,0002
 L011019?,R_CSEG,0212,0000
 L011011?,R_CSEG,0254,0000
 L008012?,R_CSEG,015F,0000
-_splitString_isNegative1_1_136,R_XSEG,0026,0002
-L017003?,R_CSEG,0852,0000
+_splitString_isNegative1_1_137,R_XSEG,00C6,0002
 L005008?,R_CSEG,00C9,0000
 L005001?,R_CSEG,00C4,0000
 _Trim_sloc3_1_0,R_DSEG,0011,0001
-_RXU1_mybit_1_119,R_BSEG,0000,0001
-L021008?,R_CSEG,0906,0000
+_RXU1_mybit_1_120,R_BSEG,0000,0001
 _PrintNumber_sloc3_1_0,R_DSEG,001D,0004
-L021001?,R_CSEG,08D7,0000
-L018003?,R_CSEG,089D,0000
+L018003?,R_CSEG,084F,0000
 L006008?,R_CSEG,011D,0000
 L006001?,R_CSEG,00EE,0000
-_splitString_str_1_135,R_XSEG,0023,0003
-_SendATCommand_s_1_127,R_XSEG,0011,0003
-L022007?,R_CSEG,0A68,0000
-L022005?,R_CSEG,097C,0000
+_splitString_str_1_136,R_XSEG,00C3,0003
+_SendATCommand_s_1_128,R_XSEG,00B1,0003
+L022008?,R_CSEG,0903,0000
+L022001?,R_CSEG,08D4,0000
+L019003?,R_CSEG,089A,0000
 L007008?,R_CSEG,0131,0000
-__xinit__cnt,R_XINIT,0004,0000
 L007001?,R_CSEG,012C,0000
 _Trim_sloc2_1_0,R_DSEG,000E,0003
-_putchar1_c_1_103,R_XSEG,0006,0001
-_clearUART1Buffer_dummy_2_126,R_XSEG,000F,0002
-_PrintNumber_val_1_162,R_XSEG,003A,0004
+_putchar1_c_1_104,R_XSEG,00A6,0001
+_clearUART1Buffer_dummy_2_127,R_XSEG,00AF,0002
+_PrintNumber_val_1_165,R_XSEG,00DC,0004
 _PrintNumber_sloc0_1_0,R_DSEG,0015,0004
-L014017?,R_CSEG,033A,0000
-_sendstr1_s_1_105,R_XSEG,0007,0003
+L014017?,R_CSEG,0339,0000
+_sendstr1_s_1_106,R_XSEG,00A7,0003
+L023007?,R_CSEG,0A65,0000
+L023005?,R_CSEG,0979,0000
 __xinit__TXcount,R_XINIT,0000,0000
-L014010?,R_CSEG,03D0,0000
+L014010?,R_CSEG,03CF,0000
 L011009?,R_CSEG,024D,0000
 L011007?,R_CSEG,0206,0000
 __str_0,R_CONST,0000,0000
@@ -98,73 +97,75 @@ __str_8,R_CONST,0056,0000
 __str_9,R_CONST,0060,0000
 L011003?,R_CSEG,020F,0000
 L011002?,R_CSEG,0230,0000
+_Update_TX_Buff_inductance_1_151,R_XSEG,00D3,0002
 L008005?,R_CSEG,016C,0000
 L008003?,R_CSEG,0143,0000
-L014023?,R_CSEG,03CD,0000
-L014020?,R_CSEG,035A,0000
+L014023?,R_CSEG,03CC,0000
+L014020?,R_CSEG,0359,0000
 _Trim_sloc1_1_0,R_DSEG,000C,0002
-L015015?,R_CSEG,05F2,0000
-L015013?,R_CSEG,0576,0000
-L015012?,R_CSEG,0526,0000
-L015010?,R_CSEG,04B1,0000
+L015015?,R_CSEG,05F1,0000
+L015013?,R_CSEG,0575,0000
+L015012?,R_CSEG,0525,0000
+L015010?,R_CSEG,04B0,0000
 L012003?,R_CSEG,0265,0000
 L012001?,R_CSEG,0257,0000
 L009004?,R_CSEG,0194,0000
 L009002?,R_CSEG,01C8,0000
-L015023?,R_CSEG,0472,0000
+L015023?,R_CSEG,0471,0000
 _Trim_sloc0_1_0,R_DSEG,0009,0003
-_eputs_String_1_159,R_XSEG,0033,0003
+_eputs_String_1_162,R_XSEG,00D5,0003
 _PrintNumber_sloc2_1_0,R_DSEG,001B,0002
-L016019?,R_CSEG,0725,0000
-L016018?,R_CSEG,06EE,0000
-L016014?,R_CSEG,06B7,0000
-_waitms_or_RI1_ms_1_120,R_XSEG,000D,0002
+L016019?,R_CSEG,0724,0000
+L016018?,R_CSEG,06ED,0000
+L016014?,R_CSEG,06B6,0000
+_waitms_or_RI1_ms_1_121,R_XSEG,00AD,0002
 __xinit__flag,R_XINIT,0002,0000
-_stringToInt_str_1_129,R_XSEG,0014,0003
-_getstr1_s_1_114,R_XSEG,000A,0003
+_stringToInt_str_1_130,R_XSEG,00B4,0003
+_getstr1_s_1_115,R_XSEG,00AA,0003
 _PrintNumber_sloc1_1_0,R_DSEG,0019,0002
-L014009?,R_CSEG,03C8,0000
-L014007?,R_CSEG,0342,0000
-L014004?,R_CSEG,03C4,0000
-_splitString_isNegative2_1_136,R_XSEG,0028,0002
-_stringToInt_sign_1_130,R_XSEG,0019,0002
+L014009?,R_CSEG,03C7,0000
+L014007?,R_CSEG,0341,0000
+L014004?,R_CSEG,03C3,0000
+_splitString_isNegative2_1_137,R_XSEG,00C8,0002
+_stringToInt_sign_1_131,R_XSEG,00B9,0002
 </LOCALS>
 
 <PUBLICS>
 _waitms_or_RI1,R_CSEG,01EF,0000
 _SendATCommand,R_CSEG,0268,0000
-_get_y_direction,R_CSEG,08AD,0000
-_buff,R_ISEG,0000,0050
-_TX_I,R_CSEG,07F7,0000
+_get_y_direction,R_CSEG,08AA,0000
+_TX_I,R_CSEG,082C,0000
 _TIMER4_Init,R_CSEG,0051,0000
 _JDY40Init,R_CSEG,0000,0000
 _sendstr1,R_CSEG,00D3,0000
-_eputs,R_CSEG,08BC,0000
+_eputs,R_CSEG,08B9,0000
 _getchar1,R_CSEG,0129,0000
-_RX_XY,R_CSEG,0853,0000
+_RX_XY,R_CSEG,0850,0000
 _putchar1,R_CSEG,00BB,0000
-_cnt,R_IXSEG,0004,0002
+_RXbuff,R_XSEG,0000,0050
+_Update_TX_Buff,R_CSEG,07F6,0000
 _TXcount,R_IXSEG,0000,0002
-_get_x_direction,R_CSEG,089E,0000
+_get_x_direction,R_CSEG,089B,0000
 _RXU1,R_CSEG,01E4,0000
-_Trim,R_CSEG,0646,0000
+_Trim,R_CSEG,0645,0000
 _Timer4_ISR,R_CSEG,006C,0000
-_PrintNumber,R_CSEG,0912,0000
-_PrintNumber_HexDigit_1_163,R_CONST,00BA,0000
-_length,R_XSEG,0004,0002
+_PrintNumber,R_CSEG,090F,0000
+_PrintNumber_HexDigit_1_166,R_CONST,00B9,0000
+_length,R_XSEG,00A4,0002
 _getstr1,R_CSEG,0179,0000
-_PrintNumber_PARM_2,R_XSEG,0036,0002
-_PrintNumber_PARM_3,R_XSEG,0038,0002
-_commands,R_XSEG,0000,0004
+_PrintNumber_PARM_2,R_XSEG,00D8,0002
+_PrintNumber_PARM_3,R_XSEG,00DA,0002
+_commands,R_XSEG,00A0,0004
 _clearUART1Buffer,R_CSEG,0255,0000
-_stringToInt,R_CSEG,02EA,0000
+_TXbuff,R_XSEG,0050,0050
+_stringToInt,R_CSEG,02E9,0000
 _flag,R_IXSEG,0002,0002
 _getchar1_with_timeout,R_CSEG,013C,0000
-_splitString,R_CSEG,03EF,0000
-_splitString_PARM_2,R_XSEG,001D,0003
-_splitString_PARM_3,R_XSEG,0020,0003
-_Trim_PARM_2,R_XSEG,002A,0003
-_Trim_PARM_3,R_XSEG,002D,0003
+_splitString,R_CSEG,03EE,0000
+_splitString_PARM_2,R_XSEG,00BD,0003
+_splitString_PARM_3,R_XSEG,00C0,0003
+_Trim_PARM_2,R_XSEG,00CA,0003
+_Trim_PARM_3,R_XSEG,00CD,0003
 </PUBLICS>
 
 <EXTERNALS>
@@ -282,10 +283,10 @@ E0
 FB
 C3
 EA
-94 E8
+94 C4
 EB
 64 80
-94 83
+94 89
 40 rel2(L004003?;)
 90 data16(_TXcount;)  
 E4
@@ -305,12 +306,12 @@ D0 82
 D0 E0
 32
 E5 82
-90 data16(_putchar1_c_1_103;)  
+90 data16(_putchar1_c_1_104;)  
 F0
 75 A7 20
 10 C9 rel3(L005008?;)
 80 rel2(L005001?;)
-90 data16(_putchar1_c_1_103;)  
+90 data16(_putchar1_c_1_104;)  
 E0
 F5 92
 75 A7 00
@@ -318,7 +319,7 @@ F5 92
 AA F0
 AB 83
 E5 82
-90 data16(_sendstr1_s_1_105;)  
+90 data16(_sendstr1_s_1_106;)  
 F0
 A3
 EB
@@ -326,7 +327,7 @@ F0
 A3
 EA
 F0
-90 data16(_sendstr1_s_1_105;)  
+90 data16(_sendstr1_s_1_106;)  
 E0
 FA
 A3
@@ -352,7 +353,7 @@ D0 02
 0A
 BA 00 rel3(L006010?;)
 0B
-90 data16(_sendstr1_s_1_105;)  
+90 data16(_sendstr1_s_1_106;)  
 EA
 F0
 A3
@@ -362,7 +363,7 @@ A3
 EC
 F0
 80 rel2(L006001?;)
-90 data16(_sendstr1_s_1_105;)  
+90 data16(_sendstr1_s_1_106;)  
 EA
 F0
 A3
@@ -409,7 +410,7 @@ AA 92
 AA F0
 AB 83
 E5 82
-90 data16(_getstr1_s_1_114;)  
+90 data16(_getstr1_s_1_115;)  
 F0
 A3
 EB
@@ -417,7 +418,7 @@ F0
 A3
 EA
 F0
-90 data16(_getstr1_s_1_114;)  
+90 data16(_getstr1_s_1_115;)  
 E0
 FA
 A3
@@ -435,7 +436,7 @@ D0 04
 D0 03
 D0 02
 BD 0A rel3(L009002?;)
-90 data16(_getstr1_s_1_114;)  
+90 data16(_getstr1_s_1_115;)  
 EA
 F0
 A3
@@ -444,7 +445,7 @@ F0
 A3
 EC
 F0
-90 data16(_getstr1_s_1_114;)  
+90 data16(_getstr1_s_1_115;)  
 EA
 F0
 A3
@@ -466,7 +467,7 @@ ED
 A3
 AA 82
 AB 83
-90 data16(_getstr1_s_1_114;)  
+90 data16(_getstr1_s_1_115;)  
 EA
 F0
 A3
@@ -478,17 +479,17 @@ F0
 80 rel2(L009004?;)
 75 A7 20
 A2 C8
-92 data8(_RXU1_mybit_1_119;)
+92 data8(_RXU1_mybit_1_120;)
 75 A7 00
 22
 AA 83
 E5 82
-90 data16(_waitms_or_RI1_ms_1_120;)  
+90 data16(_waitms_or_RI1_ms_1_121;)  
 F0
 A3
 EA
 F0
-90 data16(_waitms_or_RI1_ms_1_120;)  
+90 data16(_waitms_or_RI1_ms_1_121;)  
 E0
 FA
 A3
@@ -541,7 +542,7 @@ BC 00 rel3(L011007?;)
 22
 C2 CC
 30 C8 rel3(L012003?;)
-90 data16(_clearUART1Buffer_dummy_2_126;)  
+90 data16(_clearUART1Buffer_dummy_2_127;)  
 E5 92
 F0
 A3
@@ -553,7 +554,7 @@ D2 CC
 AA F0
 AB 83
 E5 82
-90 data16(_SendATCommand_s_1_127;)  
+90 data16(_SendATCommand_s_1_128;)  
 F0
 A3
 EB
@@ -561,7 +562,7 @@ F0
 A3
 EA
 F0
-90 data16(_SendATCommand_s_1_127;)  
+90 data16(_SendATCommand_s_1_128;)  
 E0
 C0 E0
 A3
@@ -583,7 +584,7 @@ F5 81
 C2 A0
 90 00 05
 12 addr16(_waitms;)  
-90 data16(_SendATCommand_s_1_127;)  
+90 data16(_SendATCommand_s_1_128;)  
 E0
 FA
 A3
@@ -596,17 +597,17 @@ FC
 8B 83
 8C F0
 12 addr16(_sendstr1;)  
-90 data16(_buff;)  
-75 F0 40
+90 data16(_RXbuff;)  
+75 F0 00
 12 addr16(_getstr1;)  
 90 00 0A
 12 addr16(_waitms;)  
 D2 A0
-74 data8(_buff;)
+74 data8(_RXbuff;)
 C0 E0
-74 data8(_buff;0x0008;>>;)
+74 data8(_RXbuff;0x0008;>>;)
 C0 E0
-74 40
+E4
 C0 E0
 74 data8(__str_10;)
 C0 E0
@@ -622,7 +623,7 @@ F5 81
 AA F0
 AB 83
 E5 82
-90 data16(_stringToInt_str_1_129;)  
+90 data16(_stringToInt_str_1_130;)  
 F0
 A3
 EB
@@ -630,23 +631,23 @@ F0
 A3
 EA
 F0
-90 data16(_stringToInt_result_1_130;)  
+90 data16(_stringToInt_result_1_131;)  
 E4
 F0
 A3
 F0
-90 data16(_stringToInt_sign_1_130;)  
+90 data16(_stringToInt_sign_1_131;)  
 74 01
 F0
 E4
 A3
 F0
-90 data16(_stringToInt_i_1_130;)  
+90 data16(_stringToInt_i_1_131;)  
 E4
 F0
 A3
 F0
-90 data16(_stringToInt_str_1_129;)  
+90 data16(_stringToInt_str_1_130;)  
 E0
 FA
 A3
@@ -661,18 +662,18 @@ FC
 12 addr16(__gptrget;)  
 FD
 BD 2D rel3(L014017?;)
-90 data16(_stringToInt_sign_1_130;)  
+90 data16(_stringToInt_sign_1_131;)  
 74 FF
 F0
 A3
 F0
-90 data16(_stringToInt_i_1_130;)  
+90 data16(_stringToInt_i_1_131;)  
 74 01
 F0
 E4
 A3
 F0
-90 data16(_stringToInt_i_1_130;)  
+90 data16(_stringToInt_i_1_131;)  
 E0
 FD
 A3
@@ -705,7 +706,7 @@ EF
 C0 02
 C0 03
 C0 04
-90 data16(_stringToInt_result_1_130;)  
+90 data16(_stringToInt_result_1_131;)  
 E0
 F8
 A3
@@ -743,7 +744,7 @@ FF
 EA
 34 FF
 FA
-90 data16(_stringToInt_result_1_130;)  
+90 data16(_stringToInt_result_1_131;)  
 EF
 28
 F0
@@ -761,13 +762,13 @@ D0 02
 BD 00 rel3(L014023?;)
 0E
 02 addr16(L014007?;)  
-90 data16(_stringToInt_result_1_130;)  
+90 data16(_stringToInt_result_1_131;)  
 E0
 FA
 A3
 E0
 FB
-90 data16(_stringToInt_sign_1_130;)  
+90 data16(_stringToInt_sign_1_131;)  
 E0
 FC
 A3
@@ -785,7 +786,7 @@ F0
 AA F0
 AB 83
 E5 82
-90 data16(_splitString_str_1_135;)  
+90 data16(_splitString_str_1_136;)  
 F0
 A3
 EB
@@ -793,7 +794,7 @@ F0
 A3
 EA
 F0
-90 data16(_splitString_str_1_135;)  
+90 data16(_splitString_str_1_136;)  
 E0
 FA
 A3
@@ -808,17 +809,17 @@ FC
 12 addr16(_strlen;)  
 85 82 data8(_splitString_sloc2_1_0;)
 85 83 data8(_splitString_sloc2_1_0;0x0001;+;)
-90 data16(_splitString_isNegative1_1_136;)  
+90 data16(_splitString_isNegative1_1_137;)  
 E4
 F0
 A3
 F0
-90 data16(_splitString_isNegative2_1_136;)  
+90 data16(_splitString_isNegative2_1_137;)  
 E4
 F0
 A3
 F0
-90 data16(_splitString_str_1_135;)  
+90 data16(_splitString_str_1_136;)  
 E0
 FC
 A3
@@ -877,14 +878,14 @@ E8
 B5 05 rel3(L015004?;)
 E9
 B5 06 rel3(L015004?;)
-90 data16(_splitString_isNegative1_1_136;)  
+90 data16(_splitString_isNegative1_1_137;)  
 74 01
 F0
 E4
 A3
 F0
 80 rel2(L015007?;)
-90 data16(_splitString_isNegative2_1_136;)  
+90 data16(_splitString_isNegative2_1_137;)  
 74 01
 F0
 E4
@@ -894,7 +895,7 @@ F0
 BF 00 rel3(L015008?;)
 08
 80 rel2(L015008?;)
-90 data16(_splitString_isNegative1_1_136;)  
+90 data16(_splitString_isNegative1_1_137;)  
 E0
 FF
 A3
@@ -1017,7 +1018,7 @@ F8
 89 F0
 E4
 12 addr16(__gptrput;)  
-90 data16(_splitString_isNegative2_1_136;)  
+90 data16(_splitString_isNegative2_1_137;)  
 E0
 FF
 A3
@@ -1153,7 +1154,7 @@ E4
 AA F0
 AB 83
 E5 82
-90 data16(_Trim_str_1_146;)  
+90 data16(_Trim_str_1_147;)  
 F0
 A3
 EB
@@ -1179,7 +1180,7 @@ D0 02
 8D data8(_Trim_sloc4_1_0;)
 8E data8(_Trim_sloc4_1_0;0x0001;+;)
 75 data8(_Trim_sloc4_1_0;0x0002;+;) 00
-90 data16(_Trim_str_1_146;)  
+90 data16(_Trim_str_1_147;)  
 E0
 F5 data8(_Trim_sloc0_1_0;)
 A3
@@ -1373,6 +1374,36 @@ E9
 85 data8(_Trim_sloc4_1_0;0x0001;+;) 83
 85 data8(_Trim_sloc4_1_0;0x0002;+;) F0
 02 addr16(_free;)  
+AA 83
+E5 82
+90 data16(_Update_TX_Buff_inductance_1_151;)  
+F0
+A3
+EA
+F0
+90 data16(_Update_TX_Buff_inductance_1_151;)  
+E0
+C0 E0
+A3
+E0
+C0 E0
+74 data8(__str_13;)
+C0 E0
+74 data8(__str_13;0x0008;>>;)
+C0 E0
+74 80
+C0 E0
+74 data8(_TXbuff;)
+C0 E0
+74 data8(_TXbuff;0x0008;>>;)
+C0 E0
+E4
+C0 E0
+12 addr16(_sprintf;)  
+E5 81
+24 F8
+F5 81
+22
 90 data16(_flag;)  
 E0
 FA
@@ -1380,58 +1411,26 @@ A3
 E0
 FB
 4A
-70 rel2(L017003?;)
+70 rel2(L018003?;)
 90 data16(_flag;)  
 E0
 A3
 E0
-90 data16(_cnt;)  
-E0
-FA
-A3
-E0
-FB
-90 data16(_cnt;)  
-74 01
-2A
-F0
-E4
-3B
-A3
-F0
-C0 02
-C0 03
-74 data8(__str_13;)
-C0 E0
-74 data8(__str_13;0x0008;>>;)
-C0 E0
-74 80
-C0 E0
-74 data8(_buff;)
-C0 E0
-74 data8(_buff;0x0008;>>;)
-C0 E0
-74 40
-C0 E0
-12 addr16(_sprintf;)  
-E5 81
-24 F8
-F5 81
-90 data16(_buff;)  
-75 F0 40
+90 data16(_TXbuff;)  
+75 F0 00
 12 addr16(_sendstr1;)  
 12 addr16(_clearUART1Buffer;)  
 90 00 C8
 02 addr16(_waitms_or_RI1;)  
 22
 12 addr16(_RXU1;)  
-50 rel2(L018003?;)
-90 data16(_buff;)  
-75 F0 40
+50 rel2(L019003?;)
+90 data16(_RXbuff;)  
+75 F0 00
 12 addr16(_getstr1;)  
 12 addr16(_clearUART1Buffer;)  
-90 data16(_buff;)  
-75 F0 40
+90 data16(_RXbuff;)  
+75 F0 00
 12 addr16(_strlen;)  
 E5 82
 85 83 F0
@@ -1458,8 +1457,8 @@ F0
 A3
 E4
 F0
-90 data16(_buff;)  
-75 F0 40
+90 data16(_RXbuff;)  
+75 F0 00
 02 addr16(_Trim;)  
 22
 90 data16(_commands;)  
@@ -1483,7 +1482,7 @@ FB
 AA F0
 AB 83
 E5 82
-90 data16(_eputs_String_1_159;)  
+90 data16(_eputs_String_1_162;)  
 F0
 A3
 EB
@@ -1491,7 +1490,7 @@ F0
 A3
 EA
 F0
-90 data16(_eputs_String_1_159;)  
+90 data16(_eputs_String_1_162;)  
 E0
 FA
 A3
@@ -1505,7 +1504,7 @@ FC
 8C F0
 12 addr16(__gptrget;)  
 FD
-60 rel2(L021008?;)
+60 rel2(L022008?;)
 8D 82
 C0 02
 C0 03
@@ -1515,9 +1514,9 @@ D0 04
 D0 03
 D0 02
 0A
-BA 00 rel3(L021010?;)
+BA 00 rel3(L022010?;)
 0B
-90 data16(_eputs_String_1_159;)  
+90 data16(_eputs_String_1_162;)  
 EA
 F0
 A3
@@ -1526,8 +1525,8 @@ F0
 A3
 EC
 F0
-80 rel2(L021001?;)
-90 data16(_eputs_String_1_159;)  
+80 rel2(L022001?;)
+90 data16(_eputs_String_1_162;)  
 EA
 F0
 A3
@@ -1541,7 +1540,7 @@ AA 82
 AB 83
 AC F0
 FD
-90 data16(_PrintNumber_val_1_162;)  
+90 data16(_PrintNumber_val_1_165;)  
 EA
 F0
 A3
@@ -1553,10 +1552,10 @@ F0
 A3
 ED
 F0
-90 data16(_PrintNumber_buff_1_163;0x0020;+;)  
+90 data16(_PrintNumber_buff_1_166;0x0020;+;)  
 E4
 F0
-90 data16(_PrintNumber_val_1_162;)  
+90 data16(_PrintNumber_val_1_165;)  
 E0
 FA
 A3
@@ -1568,7 +1567,7 @@ FC
 A3
 E0
 FD
-30 E7 rel3(L022012?;)
+30 E7 rel3(L023012?;)
 75 82 2D
 C0 02
 C0 03
@@ -1579,7 +1578,7 @@ D0 05
 D0 04
 D0 03
 D0 02
-90 data16(_PrintNumber_val_1_162;)  
+90 data16(_PrintNumber_val_1_165;)  
 C3
 E4
 9A
@@ -1610,7 +1609,7 @@ FE
 A3
 E0
 FF
-90 data16(_PrintNumber_val_1_162;)  
+90 data16(_PrintNumber_val_1_165;)  
 E0
 F5 data8(_PrintNumber_sloc0_1_0;)
 A3
@@ -1649,18 +1648,18 @@ E4
 33
 F9
 48
-70 rel2(L022016?;)
-02 addr16(L022007?;)  
+70 rel2(L023016?;)
+02 addr16(L023007?;)  
 8C 00
 8D 01
 1C
-BC FF rel3(L022017?;)
+BC FF rel3(L023017?;)
 1D
 E8
-24 data8(_PrintNumber_buff_1_163;)
+24 data8(_PrintNumber_buff_1_166;)
 F5 data8(_PrintNumber_sloc2_1_0;)
 E9
-34 data8(_PrintNumber_buff_1_163;0x0008;>>;)
+34 data8(_PrintNumber_buff_1_166;0x0008;>>;)
 F5 data8(_PrintNumber_sloc2_1_0;0x0001;+;)
 85 data8(_PrintNumber_sloc1_1_0;) data8(_PrintNumber_sloc3_1_0;)
 E5 data8(_PrintNumber_sloc1_1_0;0x0001;+;)
@@ -1693,10 +1692,10 @@ C0 07
 AA 82
 AB 83
 EA
-24 data8(_PrintNumber_HexDigit_1_163;)
+24 data8(_PrintNumber_HexDigit_1_166;)
 F5 82
 EB
-34 data8(_PrintNumber_HexDigit_1_163;0x0008;>>;)
+34 data8(_PrintNumber_HexDigit_1_166;0x0008;>>;)
 F5 83
 E4
 93
@@ -1728,7 +1727,7 @@ D0 07
 D0 06
 D0 05
 D0 04
-90 data16(_PrintNumber_val_1_162;)  
+90 data16(_PrintNumber_val_1_165;)  
 EA
 F0
 A3
@@ -1742,18 +1741,18 @@ E9
 F0
 EE
 4F
-70 rel2(L022018?;)
-02 addr16(L022005?;)  
+70 rel2(L023018?;)
+02 addr16(L023005?;)  
 1E
-BE FF rel3(L022019?;)
+BE FF rel3(L023019?;)
 1F
-02 addr16(L022005?;)  
+02 addr16(L023005?;)  
 EC
 04
-24 data8(_PrintNumber_buff_1_163;)
+24 data8(_PrintNumber_buff_1_166;)
 FA
 E4
-34 data8(_PrintNumber_buff_1_163;0x0008;>>;)
+34 data8(_PrintNumber_buff_1_166;0x0008;>>;)
 FB
 7C 00
 8A 82
@@ -1766,8 +1765,6 @@ FB
 </CODE>
 
 <CODE R_XINIT>
-00
-00
 00
 00
 00
@@ -1826,7 +1823,7 @@ FB
 0D
 0A
 00
-20 25 30 34 64 
+25 30 38 64 
 0D
 0A
 00

@@ -90,11 +90,11 @@ void UART1_Init(unsigned long baudrate) {
     SFRPAGE = 0x00;
 }
 
-// void test_print(float x, float y) {
-// 	int test_x = x;
-// 	int test_y = y;
-//     printf("PWM_percent x: %f, PWM_percent y: %f\r\n", x, y);
-// }
+void test_print(float x, float y) {
+	int test_x = x;
+	int test_y = y;
+    printf("PWM X: %f, PWM Y: %f\r\n", x, y);
+}
 
 void main (void) {
 	long int period = 1000;
@@ -106,18 +106,20 @@ void main (void) {
 	movement_init();
 
 	while(1) {
+		Update_TX_Buff(period);
+
 		TX_I();
 		RX_XY();
 
 		// period = GetPeriod(10);
 		// freq = GetFrequency();
-		period ++;
+		period++;
 		// printf("Period: %ld, Frequency: %f\r\n", period, freq);
 
 		x = get_x_direction();
 		y = get_y_direction();
 		// printf("Parsed x: %f, Parsed y: %f\r\n", x, y);
 		movement_loop(x, y);
-		// test_print(x, y);
+		test_print(x, y);
 	}
 }

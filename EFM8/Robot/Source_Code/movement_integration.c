@@ -15,6 +15,53 @@ float new_right_wheel;
 int prev_PWM_percent_x = 0;
 int prev_PWM_percent_y = 0;
 
+void TIMER5Init(void)
+{
+    // Initialize timer 5 for periodic interrupts
+	SFRPAGE=0x10;
+	TMR5CN0=0x00;   // Stop Timer5; Clear TF5; WARNING: lives in SFR page 0x10
+	CKCON1|=0b_0000_0100; // Timer 5 uses the system clock
+	TMR5RL=(0x10000L-(SYSCLK/(2*TIMER_5_FREQ))); // Initialize reload value
+	TMR5=0xffff;   // Set to reload immediately
+	EIE2|=0b_0000_1000; // Enable Timer5 interrupts
+	TR5=1;         // Start Timer5 (TMR5CN0 is bit addressable)
+}
+
+void Timer5_ISR (void) interrupt INTERRUPT_TIMER5
+{
+    int current_state = TR0;
+	TR0 = 0;
+
+	SFRPAGE=0x10;
+	TF5H = 0; // Clear Timer5 interrupt flag
+
+    P1_2 = !P1_2;
+    //P1_3 = !P1_3;
+    //P2_1 = !P2_1;
+
+
+
+    if (count > 100)
+    {
+        count = 0;
+    }
+    if (PWM_percent_y >= 0)
+    {
+        LEFT_MOTOR_LHS = (count > left_wheel ) ? 0:1;
+        RIGHT_MOTOR_LHS = (count > new_right_wheel) ? 0:1;
+    }
+    else
+    {
+        LEFT_MOTOR_LHS = (count > left_wheel) ? 1:0;
+        RIGHT_MOTOR_LHS = (count > new_right_wheel) ? 1:0;
+    }
+
+
+    count++;
+
+    if (current_state == 1) TR0 = 1;
+}
+
 void idle(void)
 {
     LEFT_MOTOR_LHS = 0;
@@ -33,19 +80,6 @@ void backward(void)
 {
     LEFT_MOTOR_RHS = 1;
     RIGHT_MOTOR_RHS = 1;
-}
-
-
-void TIMER5Init(void)
-{
-    // Initialize timer 5 for periodic interrupts
-	SFRPAGE=0x10;
-	TMR5CN0=0x00;   // Stop Timer5; Clear TF5; WARNING: lives in SFR page 0x10
-	CKCON1|=0b_0000_0100; // Timer 5 uses the system clock
-	TMR5RL=(0x10000L-(SYSCLK/(2*TIMER_5_FREQ))); // Initialize reload value
-	TMR5=0xffff;   // Set to reload immediately
-	EIE2|=0b_0000_1000; // Enable Timer5 interrupts
-	TR5=1;         // Start Timer5 (TMR5CN0 is bit addressable)
 }
 
 void PWM_manager(float x_value, float y_value)
@@ -88,40 +122,6 @@ void movement_manager(float PWM_percent_y, float prev_PWM_percent_y)
         }
     }
 
-}
-
-void Timer5_ISR (void) interrupt INTERRUPT_TIMER5
-{
-	TR0 = 0;
-
-	SFRPAGE=0x10;
-	TF5H = 0; // Clear Timer5 interrupt flag
-
-    P1_2 = !P1_2;
-    //P1_3 = !P1_3;
-    //P2_1 = !P2_1;
-
-
-
-    if (count > 100)
-    {
-        count = 0;
-    }
-    if (PWM_percent_y >= 0)
-    {
-        LEFT_MOTOR_LHS = (count > left_wheel ) ? 0:1;
-        RIGHT_MOTOR_LHS = (count > new_right_wheel) ? 0:1;
-    }
-    else
-    {
-        LEFT_MOTOR_LHS = (count > left_wheel) ? 1:0;
-        RIGHT_MOTOR_LHS = (count > new_right_wheel) ? 1:0;
-    }
-
-
-    count++;
-
-	TR0 = 1;
 }
 
 void movement_init(void)

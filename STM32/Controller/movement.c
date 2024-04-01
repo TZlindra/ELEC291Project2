@@ -13,6 +13,7 @@ int standardize_y(float y_value, int sensitivity_y) {
             if (y_value >= 0) standardized = (int)(100 * y_value / (4095 - Y_MIDPOINT));
             else if (y_value < 0) standardized = (int)(100 * y_value / (Y_MIDPOINT));
             if (sensitivity_y == 1) standardized /= 2;
+            else if (sensitivity_y == 2) standardized /= 4;
     }
 
     return standardized;
@@ -27,6 +28,7 @@ int standardize_x(float x_value, int sensitivity_x) {
         else if (x_value < 0) standardized = (int)(100 * x_value / (4095 - X_MIDPOINT));
 
         if (sensitivity_x == 1) standardized /= 2;
+        else if (sensitivity_x == 2) standardized /= 4;
     }
 
     return standardized;

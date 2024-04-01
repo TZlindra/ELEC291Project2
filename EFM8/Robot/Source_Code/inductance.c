@@ -78,7 +78,11 @@ unsigned long GetPeriod (int n) {
 
 unsigned long GetFrequency_Hz(void) {
 	long int count = GetPeriod(30);
-	if (count>0) return (SYSCLK*30.0)/(count*12);
+	long int frequency = (SYSCLK*30.0)/(count*12);
+
+	printf("Frequency: %ld Hz\n", frequency);
+
+	if (count>0) return frequency;
 	else return 0;
 }
 

@@ -11,7 +11,7 @@ R_GSINIT,code,0000,NO
 R_BSEG,bit,0000,NO
 R_XSEG,xdata,0004,NO
 BIT_BANK,data,0000,OV
-R_CONST,code,0000,NO
+R_CONST,code,0013,NO
 rbank0,data,0000,OV
 R_PSEG,xdata,0000,NO
 R_DINIT,code,0000,NO
@@ -21,12 +21,12 @@ R_IXSEG,xdata,0004,NO
 R_ISEG,idata,0000,NO
 R_HOME,code,0000,NO
 R_XINIT,code,0004,NO
-R_CSEG,code,02E8,NO
+R_CSEG,code,032C,NO
 </SEGMENTS>
 
 <LOCALS>
 L002005?,R_CSEG,0023,0000
-L003002?,R_CSEG,0182,0000
+L003002?,R_CSEG,01C6,0000
 L002056?,R_CSEG,005C,0000
 L002055?,R_CSEG,0057,0000
 L002051?,R_CSEG,0030,0000
@@ -36,6 +36,7 @@ L002061?,R_CSEG,00AB,0000
 _GetPeriod_n_1_81,R_XSEG,0000,0002
 __xinit__C1_nF,R_XINIT,0000,0000
 L002017?,R_CSEG,00A3,0000
+__str_0,R_CONST,0000,0000
 L002014?,R_CSEG,006B,0000
 L002012?,R_CSEG,004F,0000
 L002028?,R_CSEG,00CC,0000
@@ -50,8 +51,8 @@ L002007?,R_CSEG,003F,0000
 
 <PUBLICS>
 _C2_nF,R_IXSEG,0002,0002
-_GetCapacitance_mF,R_CSEG,0189,0000
-_GetInductance_microH,R_CSEG,0227,0000
+_GetCapacitance_mF,R_CSEG,01CD,0000
+_GetInductance_microH,R_CSEG,026B,0000
 _C1_nF,R_IXSEG,0000,0002
 _GetFrequency_Hz,R_CSEG,010F,0000
 _GetPeriod,R_CSEG,0000,0000
@@ -60,10 +61,11 @@ _GetPeriod,R_CSEG,0000,0000
 <EXTERNALS>
 __mullong,any,0000,0000
 ___fs2sint,any,0000,0000
+___fs2slong,any,0000,0000
 ___fsmul,any,0000,0000
 __mulint,any,0000,0000
 __mullong_PARM_2,any,0000,0000
-___fs2ulong,any,0000,0000
+_printf,any,0000,0000
 __mulint_PARM_2,any,0000,0000
 ___slong2fs,any,0000,0000
 __divsint,any,0000,0000
@@ -262,23 +264,6 @@ AA 82
 AB 83
 AC F0
 FD
-8A 06
-8B 07
-8C 00
-8D 01
-C3
-E4
-9E
-E4
-9F
-E4
-98
-E4
-64 80
-89 F0
-63 F0 80
-95 F0
-50 rel2(L003002?;)
 90 data16(__mullong_PARM_2;)  
 EA
 F0
@@ -294,32 +279,84 @@ F0
 90 00 0C
 E4
 F5 F0
-12 addr16(__mullong;)  
-12 addr16(___slong2fs;)  
-AA 82
-AB 83
-AC F0
-FD
 C0 02
 C0 03
 C0 04
 C0 05
+12 addr16(__mullong;)  
+12 addr16(___slong2fs;)  
+AE 82
+AF 83
+A8 F0
+F9
+C0 06
+C0 07
+C0 00
+C0 01
 90 BE FC
 75 F0 00
 74 4F
 12 addr16(___fsdiv;)  
-AA 82
-AB 83
-AC F0
-FD
+AE 82
+AF 83
+A8 F0
+F9
 E5 81
 24 FC
 F5 81
-8A 82
-8B 83
-8C F0
-ED
-02 addr16(___fs2ulong;)  
+8E 82
+8F 83
+88 F0
+E9
+12 addr16(___fs2slong;)  
+AE 82
+AF 83
+A8 F0
+F9
+C0 06
+C0 07
+C0 00
+C0 01
+C0 06
+C0 07
+C0 00
+C0 01
+74 data8(__str_0;)
+C0 E0
+74 data8(__str_0;0x0008;>>;)
+C0 E0
+74 80
+C0 E0
+12 addr16(_printf;)  
+E5 81
+24 F9
+F5 81
+D0 01
+D0 00
+D0 07
+D0 06
+D0 05
+D0 04
+D0 03
+D0 02
+C3
+E4
+9A
+E4
+9B
+E4
+9C
+E4
+64 80
+8D F0
+63 F0 80
+95 F0
+50 rel2(L003002?;)
+8E 82
+8F 83
+88 F0
+E9
+22
 90 00 00
 E4
 F5 F0
@@ -521,6 +558,10 @@ ED
 </CODE>
 
 <CODE R_CONST>
+46 72 65 71 75 65 6E 63 79 3A 20 25 6C 64 20 48 7A
+
+0A
+00
 </CODE>
 
 <CODE AT 0000>

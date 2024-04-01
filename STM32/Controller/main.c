@@ -198,7 +198,8 @@ void update_sensitivity_x(void) {
 		waitms(DEBOUNCE);
 		if (isButtonPressedGPIOB(BUTTON_S0)) {
 			// printf("Sensitivity X: %d\r\n", sensitivity_x);
-			sensitivity_x = !sensitivity_x;
+			sensitivity_x++;
+			if (sensitivity_x == 3) sensitivity_x = 0;
 
 			while(isButtonPressedGPIOB(BUTTON_S0) && sensitivity_count < 500) sensitivity_count++;
 		}
@@ -212,7 +213,8 @@ void update_sensitivity_y(void) {
 		waitms(DEBOUNCE);
 		if (isButtonPressedGPIOB(BUTTON_S1)) {
 			// printf("Sensitivity Y: %d\r\n", sensitivity_x);
-			sensitivity_y = !sensitivity_y;
+			sensitivity_y++;
+			if (sensitivity_y == 3) sensitivity_y = 0;
 
 			sensitivity_count = 0;
 			while(isButtonPressedGPIOB(BUTTON_S1) && sensitivity_count < 500) sensitivity_count++;

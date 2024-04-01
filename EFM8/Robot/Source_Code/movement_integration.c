@@ -29,8 +29,8 @@ void TIMER5Init(void)
 
 void Timer5_ISR (void) interrupt INTERRUPT_TIMER5
 {
-    int current_state = TR0;
-	TR0 = 0;
+    int current_TR0 = TR0, current_TR5 = TR5;
+	TR0 = 0, TR5 = 0;
 
 	SFRPAGE=0x10;
 	TF5H = 0; // Clear Timer5 interrupt flag
@@ -59,7 +59,8 @@ void Timer5_ISR (void) interrupt INTERRUPT_TIMER5
 
     count++;
 
-    if (current_state == 1) TR0 = 1;
+    if (current_TR0 == 1) TR0 = 1;
+    if (current_TR5 == 1) TR5 = 1;
 }
 
 void idle(void)

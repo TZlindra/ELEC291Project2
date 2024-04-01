@@ -46,8 +46,8 @@ void TIMER4_Init(void) {
 }
 
 void Timer4_ISR (void) interrupt INTERRUPT_TIMER4 {
-	int current_state = TR0;
-	TR0 = 0;
+	int current_TR0 = TR0, current_TR5 = TR5;
+	TR0 = 0, TR5 = 0;
 
 	SFRPAGE=0x10;
 	TF4H = 0; // Clear Timer4 interrupt flag
@@ -59,7 +59,8 @@ void Timer4_ISR (void) interrupt INTERRUPT_TIMER4 {
 		flag == 0;
 	}
 
-	if (current_state == 1) TR0 = 1;
+	if (current_TR0 == 1) TR0 = 1;
+	if (current_TR5 == 1) TR5 = 1;
 }
 
 void putchar1(char c) {

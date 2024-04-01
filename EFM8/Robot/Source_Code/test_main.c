@@ -117,8 +117,6 @@ void TIMER4_Init(void)
 
 void Timer4_ISR (void) interrupt INTERRUPT_TIMER4
 {
-	TR0 = 0;
-
 	SFRPAGE=0x10;
 	TF4H = 0; // Clear Timer4 interrupt flag
 	TXcount++;
@@ -128,8 +126,6 @@ void Timer4_ISR (void) interrupt INTERRUPT_TIMER4
 		flag == 0;
 	}
 	P1_2=!P1_2;
-
-	TR0=1;
 }
 
 

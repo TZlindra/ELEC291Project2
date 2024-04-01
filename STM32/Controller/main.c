@@ -282,7 +282,7 @@ void main(void) {
 		// if (isTestButtonPressed()) SpeakerRatio = SetSpeakerFreq(inductance, SpeakerRatio);
 
 		if ((inductance_mH <= 0.85) && (inductance_mH >= 0.40)) {
-			if (success_count++ >= 3) {
+			if (success_count++ >= 10) {
 				SpeakerEnabled = 1;
 				SpeakerRatio = SetSpeakerFreq(inductance_mH, SpeakerRatio);
 			}

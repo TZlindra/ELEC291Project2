@@ -415,12 +415,13 @@ void main (void)
 		// Not very good for high frequencies because of all the interrupts in the background
 		// but decent for low frequencies around 10kHz.
 		count=GetPeriod(30);
+		printf("count=%ld          \r", count);
 
 		if(count>0)
 		{
 			f=(SYSCLK*30.0)/(count*12);
-			printf("f=%ld Hz, count=%ld          \r", f, count);
-			eputs("Hz, count=");
+			printf("f=%ld Hz, count=%ld\r\n", f, count);
+			// eputs("Hz, count=");
 		}
 		else
 		{

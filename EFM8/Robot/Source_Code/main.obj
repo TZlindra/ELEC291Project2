@@ -15,7 +15,7 @@ R_GSINIT,code,0000,NO
 R_BSEG,bit,0000,NO
 R_XSEG,xdata,0016,NO
 BIT_BANK,data,0000,OV
-R_CONST,code,0047,NO
+R_CONST,code,0055,NO
 rbank0,data,0000,OV
 R_PSEG,xdata,0000,NO
 R_DINIT,code,0000,NO
@@ -25,26 +25,27 @@ R_IXSEG,xdata,0000,NO
 R_ISEG,idata,0000,NO
 R_HOME,code,0000,NO
 R_XINIT,code,0000,NO
-R_CSEG,code,0244,NO
+R_CSEG,code,0271,NO
 </SEGMENTS>
 
 <LOCALS>
 L002004?,R_CSEG,0029,0000
 L002001?,R_CSEG,001E,0000
 _main_inductance_1_125,R_XSEG,0014,0002
-L005002?,R_CSEG,0153,0000
+L005002?,R_CSEG,0156,0000
 _test_print_x_1_122,R_XSEG,0010,0004
 __str_0,R_CONST,0000,0000
 __str_1,R_CONST,0017,0000
-__str_2,R_CONST,002D,0000
+__str_2,R_CONST,0025,0000
+__str_3,R_CONST,003B,0000
 _UART1_Init_baudrate_1_120,R_XSEG,0008,0004
 </LOCALS>
 
 <PUBLICS>
-_main,R_CSEG,0131,0000
-_test_print,R_CSEG,00E2,0000
+_main,R_CSEG,012F,0000
+_test_print,R_CSEG,00E0,0000
 __c51_external_startup,R_CSEG,0000,0000
-_UART1_Init,R_CSEG,005C,0000
+_UART1_Init,R_CSEG,005A,0000
 _x,R_XSEG,0000,0004
 _y,R_XSEG,0004,0004
 _test_print_PARM_2,R_XSEG,000C,0004
@@ -67,6 +68,8 @@ _movement_init,any,0000,0000
 _GetFrequency_Hz,any,0000,0000
 _movement_loop,any,0000,0000
 _crt0,any,0000,0000
+_GetPeriod,any,0000,0000
+_TIMER5Init,any,0000,0000
 _waitms,any,0000,0000
 </EXTERNALS>
 
@@ -128,7 +131,6 @@ E5 A9
 D2 8E
 D2 99
 43 A5 0C
-D2 AF
 43 A6 1E
 75 82 00
 22
@@ -284,8 +286,10 @@ E4
 F5 F0
 12 addr16(_UART1_Init;)  
 12 addr16(_JDY40Init;)  
-12 addr16(_TIMER4_Init;)  
 12 addr16(_movement_init;)  
+12 addr16(_TIMER4_Init;)  
+12 addr16(_TIMER5Init;)  
+D2 AF
 90 data16(_main_inductance_1_125;)  
 E0
 FA
@@ -297,7 +301,8 @@ FB
 12 addr16(_Update_TX_Buff;)  
 12 addr16(_TX_I;)  
 12 addr16(_RX_XY;)  
-12 addr16(_GetFrequency_Hz;)  
+90 00 01
+12 addr16(_GetPeriod;)  
 AA 82
 AB 83
 AC F0
@@ -316,6 +321,25 @@ C0 E0
 E5 81
 24 F9
 F5 81
+12 addr16(_GetFrequency_Hz;)  
+AA 82
+AB 83
+AC F0
+FD
+C0 02
+C0 03
+C0 04
+C0 05
+74 data8(__str_2;)
+C0 E0
+74 data8(__str_2;0x0008;>>;)
+C0 E0
+74 80
+C0 E0
+12 addr16(_printf;)  
+E5 81
+24 F9
+F5 81
 12 addr16(_GetInductance_microH;)  
 AA 82
 AB 83
@@ -327,9 +351,9 @@ EB
 F0
 C0 02
 C0 03
-74 data8(__str_2;)
+74 data8(__str_3;)
 C0 E0
-74 data8(__str_2;0x0008;>>;)
+74 data8(__str_3;0x0008;>>;)
 C0 E0
 74 80
 C0 E0
@@ -453,6 +477,10 @@ ED
 <CODE R_CONST>
 50 57 4D 20 58 3A 20 25 66 2C 20 50 57 4D 20 59 3A
 20 25 66 
+0D
+0A
+00
+50 65 72 69 6F 64 3A 20 25 6C 64 
 0D
 0A
 00

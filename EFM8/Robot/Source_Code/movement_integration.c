@@ -46,7 +46,6 @@ void TIMER5Init(void)
 	TMR5=0xffff;   // Set to reload immediately
 	EIE2|=0b_0000_1000; // Enable Timer5 interrupts
 	TR5=1;         // Start Timer5 (TMR5CN0 is bit addressable)
-    EA = 1;
 }
 
 void PWM_manager(float x_value, float y_value)
@@ -93,6 +92,8 @@ void movement_manager(float PWM_percent_y, float prev_PWM_percent_y)
 
 void Timer5_ISR (void) interrupt INTERRUPT_TIMER5
 {
+	TR0 = 0;
+
 	SFRPAGE=0x10;
 	TF5H = 0; // Clear Timer5 interrupt flag
 
@@ -119,12 +120,13 @@ void Timer5_ISR (void) interrupt INTERRUPT_TIMER5
 
 
     count++;
+
+	TR0 = 1;
 }
 
 void movement_init(void)
 {
     idle();
-    TIMER5Init();
 }
 void movement_loop(float x, float y)
 {

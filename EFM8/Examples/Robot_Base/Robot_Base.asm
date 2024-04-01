@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
 ; File Created by C51
 ; Version 1.0.0 #1170 (Feb 16 2022) (MSVC)
-; This file was generated Mon Apr 01 12:54:44 2024
+; This file was generated Mon Apr 01 14:19:52 2024
 ;--------------------------------------------------------
 $name Robot_Base
 $optc51 --model-small
@@ -1368,7 +1368,30 @@ L012005?:
 	mov	r3,dph
 	mov	r4,b
 	mov	r5,a
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:419: if(count>0)
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:418: printf("count=%ld          \r", count);
+	push	ar2
+	push	ar3
+	push	ar4
+	push	ar5
+	push	ar2
+	push	ar3
+	push	ar4
+	push	ar5
+	mov	a,#__str_1
+	push	acc
+	mov	a,#(__str_1 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	mov	a,sp
+	add	a,#0xf9
+	mov	sp,a
+	pop	ar5
+	pop	ar4
+	pop	ar3
+	pop	ar2
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:420: if(count>0)
 	clr	c
 	clr	a
 	subb	a,r2
@@ -1384,7 +1407,7 @@ L012005?:
 	jc	L012011?
 	ljmp	L012002?
 L012011?:
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:421: f=(SYSCLK*30.0)/(count*12);
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:422: f=(SYSCLK*30.0)/(count*12);
 	mov	__mullong_PARM_2,r2
 	mov	(__mullong_PARM_2 + 1),r3
 	mov	(__mullong_PARM_2 + 2),r4
@@ -1426,14 +1449,14 @@ L012011?:
 	mov	r7,dph
 	mov	r0,b
 	mov	r1,a
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:422: printf("f=%ld Hz, count=%ld          \r", f, count);
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:423: printf("f=%ld Hz, count=%ld\r\n", f, count);
 	push	ar6
 	push	ar7
 	push	ar0
 	push	ar1
-	mov	a,#__str_1
+	mov	a,#__str_2
 	push	acc
-	mov	a,#(__str_1 >> 8)
+	mov	a,#(__str_2 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -1441,13 +1464,9 @@ L012011?:
 	mov	a,sp
 	add	a,#0xf5
 	mov	sp,a
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:423: eputs("Hz, count=");
-	mov	dptr,#__str_2
-	mov	b,#0x80
-	lcall	_eputs
 	sjmp	L012003?
 L012002?:
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:427: printf("NO SIGNAL                     \r");
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:428: printf("NO SIGNAL                     \r");
 	mov	a,#__str_3
 	push	acc
 	mov	a,#(__str_3 >> 8)
@@ -1459,7 +1478,7 @@ L012002?:
 	dec	sp
 	dec	sp
 L012003?:
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:491: waitms(200);
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:492: waitms(200);
 	mov	dptr,#0x00C8
 	lcall	_waitms
 	ljmp	L012005?
@@ -1472,11 +1491,13 @@ _PrintNumber_HexDigit_1_81:
 	db '0123456789ABCDEF'
 	db 0x00
 __str_1:
-	db 'f=%ld Hz, count=%ld          '
+	db 'count=%ld          '
 	db 0x0D
 	db 0x00
 __str_2:
-	db 'Hz, count='
+	db 'f=%ld Hz, count=%ld'
+	db 0x0D
+	db 0x0A
 	db 0x00
 __str_3:
 	db 'NO SIGNAL                     '

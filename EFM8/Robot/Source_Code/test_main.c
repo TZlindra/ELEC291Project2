@@ -109,13 +109,15 @@ void TIMER4_Init(void)
 	TMR4CN0=0x00;   // Stop Timer4; Clear TF4; WARNING: lives in SFR page 0x10
 	CKCON1|=0b_0000_0001; // Timer 4 uses the system clock
 	TMR4RL=(0x10000L-(SYSCLK/(2*TIMER_4_FREQ))); // Initialize reload value
-	TMR4=0xffff;   // Set to reload immediately
+	// TMR4=0xffff;   // Set to reload immediately
+	TMR4=0x0000;   // Set to reload immediately
 	EIE2|=0b_0000_0100;     // Enable Timer4 interrupts
 	TR4=1;
 }
 
 void Timer4_ISR (void) interrupt INTERRUPT_TIMER4
 {
+	TR0 = 0;
 
 	SFRPAGE=0x10;
 	TF4H = 0; // Clear Timer4 interrupt flag
@@ -126,6 +128,8 @@ void Timer4_ISR (void) interrupt INTERRUPT_TIMER4
 		flag == 0;
 	}
 	P1_2=!P1_2;
+
+	TR0=1;
 }
 
 

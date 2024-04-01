@@ -97,7 +97,7 @@ void test_print(float x, float y) {
 }
 
 void main (void) {
-	float freq = 0.0;
+	long int freq = 0;
 	int inductance = MILLI_MULTIPLIER;
 	waitms(500);
 	UART1_Init(9600);
@@ -112,7 +112,7 @@ void main (void) {
 		RX_XY();
 
 		freq = GetFrequency_Hz();
-		printf("Frequency (Hz): %.0f\r\n", freq);
+		printf("Frequency (Hz): %ld\r\n", freq);
 
 		inductance = GetInductance_microH();
 		printf("Inductance (MicroH): %d\r\n", inductance);

@@ -9,7 +9,8 @@ volatile unsigned char servo1=150, servo2=150;
 #define SERVO1     P1_4
 // #define SERVO2     P1_7
 #define SERVO2     P1_4
-#define PERIOD_PIN P1_5
+// #define PERIOD_PIN P1_5
+#define PERIOD_PIN P1_0
 // #define OUTPIN1    P1_0
 #define OUTPIN1    P1_4
 // #define OUTPIN2    P1_1
@@ -354,9 +355,9 @@ void PrintNumber(long int val, int Base, int digits)
 
 void main (void)
 {
-    long int j, v;
+    // long int j, v;
 	long int count, f;
-	unsigned char LED_toggle=0; // Used to test the outputs
+	// unsigned char LED_toggle=0; // Used to test the outputs
 
 	// InitPinADC(2, 2); // Configure P2.2 as analog input
 	// InitPinADC(2, 3); // Configure P2.3 as analog input
@@ -379,8 +380,8 @@ void main (void)
 	// OUTPIN4=0;
 	// OUTPIN5=0;
 
-	// while (1)
-	// {
+	while (1)
+	{
 	// 	j=ADC_at_Pin(QFP32_MUX_P2_2);
 	// 	v=(j*33000)/0x3fff;
 	// 	eputs("ADC[P2.2]=0x");
@@ -414,6 +415,18 @@ void main (void)
 		// Not very good for high frequencies because of all the interrupts in the background
 		// but decent for low frequencies around 10kHz.
 		count=GetPeriod(30);
+
+		if(count>0)
+		{
+			f=(SYSCLK*30.0)/(count*12);
+			printf("f=%ld Hz, count=%ld          \r", f, count);
+			eputs("Hz, count=");
+		}
+		else
+		{
+			printf("NO SIGNAL                     \r");
+		}
+
 	// 	if(count>0)
 	// 	{
 	// 		f=(SYSCLK*30.0)/(count*12);
@@ -475,6 +488,6 @@ void main (void)
 	// 		servo2=200;
 	// 	}
 
-	// 	waitms(200);
-	// }
+		waitms(200);
+	}
 }

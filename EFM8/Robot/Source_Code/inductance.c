@@ -76,7 +76,7 @@ unsigned long GetPeriod (int n) {
 	return (overflow_count*65536+TH0*256+TL0);
 }
 
-float GetFrequency_Hz(void) {
+unsigned long GetFrequency_Hz(void) {
 	long int count = GetPeriod(30);
 	if (count>0) return (SYSCLK*30.0)/(count*12);
 	else return 0;
@@ -87,7 +87,7 @@ float GetCapacitance_mF(void) {
 }
 
 int GetInductance_microH(void) {
-    float freq = GetFrequency_Hz();
+    long int freq = GetFrequency_Hz();
     float CT_mF = GetCapacitance_mF();
 	float I_kH = MILLI_MULTIPLIER/(squared(2*PI*freq) * CT_mF);
 

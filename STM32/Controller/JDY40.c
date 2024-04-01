@@ -105,10 +105,14 @@ void Update_XY(int x_value, int y_value) {
 }
 
 float Update_I(float inductance_mH) {
-	if (strlen(RX_BUFF) < 4) return inductance_mH; //ToDo : Check Length
-
-	int parsed = atoi(RX_BUFF);
-	return (parsed != 0) ? parsed / MILLI_MULTIPLIER : inductance_mH;
+	int rx_length = strlen(RX_BUFF);
+	// printf("Length: %d\r\n", rx_length);
+	if (rx_length == 7) {
+		int parsed = atoi(RX_BUFF);
+		return (parsed != 0) ? parsed / MILLI_MULTIPLIER : inductance_mH;
+	} else {
+		return inductance_mH;
+	}
 }
 
 void display_buffs(void) {

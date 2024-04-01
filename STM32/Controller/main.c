@@ -285,6 +285,7 @@ void main(void) {
 				SpeakerRatio = SetSpeakerFreq(inductance_mH, SpeakerRatio);
 			}
 		} else {
+			success_count = 0;
 			SpeakerEnabled = 0;
 		}
 

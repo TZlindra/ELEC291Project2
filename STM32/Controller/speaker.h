@@ -6,5 +6,5 @@
 
 void InitTimer2(void);
 void ToggleSpeaker(void);
-float SetSpeakerFreq(int inductance, float current_ratio);
+float SetSpeakerFreq(float inductance_mH, float current_ratio);
 void ConfigSpeaker(float ratio);

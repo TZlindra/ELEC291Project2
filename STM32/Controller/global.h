@@ -13,6 +13,8 @@
 #define MAX_16_BIT 65536.0 // 16-Bit Maximum Value
 #define MAX_8_BIT 256.0 // 8-Bit Maximum Value
 
+#define MILLI_MULTIPLIER 1000.0
+
 #define Y_MIDPOINT 2044.0
 #define X_MIDPOINT 2136.0
 #define MINIMUM_PERCENT_ACTIVE 0.05

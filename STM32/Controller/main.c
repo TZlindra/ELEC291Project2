@@ -35,7 +35,7 @@ volatile int TX21Count = 0;
 volatile float SpeakerRatio = 5;
 volatile int SpeakerEnabled = 0;
 
-volatile int inductance = 0;
+volatile float inductance_mH = 0;
 
 float x = 0, y = 0;
 int standardized_x = 0, standardized_y = 0;
@@ -50,7 +50,7 @@ void ConfigPasscodeButtonPins(void);
 
 void display_x_y(int x, int y);
 void display_adc(float x, int standardized_x, float y, int standardized_y);
-void display_inductance(float inductance);
+void display_inductance_mH(float inductance_mH);
 
 // Interrupt service routines are the same as normal
 // subroutines (or C funtions) in Cortex-M microcontrollers.
@@ -186,8 +186,8 @@ void display_adc(float x, int standardized_x, float y, int standardized_y) {
 	LCDprint(LCD_BUFF, 2, 1);
 }
 
-void display_inductance(float inductance) {
-	sprintf(LCD_BUFF, "I: %d", (int) inductance);
+void display_inductance_mH(float inductance_mH) {
+	sprintf(LCD_BUFF, "I: %.2f mH", inductance_mH);
 	LCDprint(LCD_BUFF, 1, 1);
 }
 
@@ -234,6 +234,8 @@ void checkLock(void) {
 }
 
 void main(void) {
+	int success_count = 0; // Used to Filter Inductance RX Noise
+
 	ConfigPinsUART2();
 	InitUART2(9600);
 	ConfigJDY40();
@@ -272,21 +274,23 @@ void main(void) {
 		RX_I(); // Receive Inductance Value
 
 		// display_buffs();
-		inductance = Update_I(inductance);
-		printf("I: %d\r\n", inductance);
+		inductance_mH = Update_I(inductance_mH);
+		printf("I: %.2f\r\n", inductance_mH);
 
 		// if (isTestButtonPressed()) SpeakerRatio = SetSpeakerFreq(inductance, SpeakerRatio);
 
-		if (inductance <= 850) {
-			SpeakerEnabled = 1;
-			SpeakerRatio = SetSpeakerFreq(inductance, SpeakerRatio);
+		if ((inductance_mH <= 0.85) && (inductance_mH >= 0.40)) {
+			if (success_count++ >= 3) {
+				SpeakerEnabled = 1;
+				SpeakerRatio = SetSpeakerFreq(inductance_mH, SpeakerRatio);
+			}
 		} else {
 			SpeakerEnabled = 0;
 		}
 
 		// Display the ADC values on the LCD
 
-		display_inductance(inductance);
+		display_inductance_mH(inductance_mH);
 		display_x_y(standardized_x, standardized_y);
 
 		fflush(stdout); // GCC printf wants a \n in order to send something.  If \n is not present, we fflush(stdout)

@@ -18,6 +18,6 @@ void TX_XY(void);
 void RX_I(void);
 
 void Update_XY(int x_value, int y_value);
-int Update_I(int inductance);
+float Update_I(float inductance_mH);
 
 void display_buffs(void);

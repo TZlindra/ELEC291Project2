@@ -104,11 +104,11 @@ void Update_XY(int x_value, int y_value) {
 	sprintf(TX_BUFF, "X%+04dY%+04d\r\n", x_value, y_value);
 }
 
-int Update_I(int inductance) {
-	if (strlen(RX_BUFF) < 4) return inductance;
+float Update_I(float inductance_mH) {
+	if (strlen(RX_BUFF) < 4) return inductance_mH; //ToDo : Check Length
 
 	int parsed = atoi(RX_BUFF);
-	return (parsed != 0) ? parsed : inductance;
+	return (parsed != 0) ? parsed / MILLI_MULTIPLIER : inductance_mH;
 }
 
 void display_buffs(void) {

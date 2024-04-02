@@ -32,10 +32,12 @@ char LCD_BUFF[CHARS_PER_LINE]; // Buffer for LCD Display
 
 volatile int Timer2Count = 0;
 volatile int TX21Count = 0;
+// volatile float SpeakerRatio = 5;
 volatile float SpeakerRatio = 1;
+// volatile int SpeakerEnabled = 0;
 volatile int SpeakerEnabled = 1;
 
-volatile float inductance_mH = 0;
+volatile float inductance_microH = 0;
 
 float x = 0, y = 0;
 int standardized_x = 0, standardized_y = 0;
@@ -187,7 +189,7 @@ void display_adc(float x, int standardized_x, float y, int standardized_y) {
 }
 
 void display_inductance_mH(float inductance_mH) {
-	sprintf(LCD_BUFF, "I: %.2f mH", inductance_mH);
+	sprintf(LCD_BUFF, "I: %.1f mH", inductance_mH / MILLI_MULTIPLIER);
 	LCDprint(LCD_BUFF, 1, 1);
 }
 
@@ -276,25 +278,25 @@ void main(void) {
 		RX_I(); // Receive Inductance Value
 
 		// display_buffs();
-		//inductance_mH = Update_I(inductance_mH);
-		inductance_mH = 0.85;
-		printf("I: %.2f\r\n", inductance_mH);
+		// inductance_mH = Update_I(inductance_mH);
+		inductance_microH = 850.0;
+		printf("I: %0f\r\n", inductance_microH);
 
-		// if (isTestButtonPressed()) SpeakerRatio = SetSpeakerFreq(inductance, SpeakerRatio);
-		/*
-		if ((inductance_mH <= 0.85) && (inductance_mH >= 0.40)) {
-			if (success_count++ >= 10) {
-				SpeakerEnabled = 1;
-				SpeakerRatio = SetSpeakerFreq(inductance_mH, SpeakerRatio);
-			}
-		} else {
-			success_count = 0;
-			SpeakerEnabled = 0;
-		}
-		*/
+		if (isButtonPressedGPIOB(BUTTON_S2)) SpeakerRatio = SetSpeakerFreq(inductance_microH, SpeakerRatio);
+
+		// if ((inductance_microH <= 850.0) && (inductance_microH >= 400.0)) {
+		// 	if (success_count++ >= 10) {
+		// 		SpeakerEnabled = 1;
+		// 		SpeakerRatio = SetSpeakerFreq(inductance_microH, SpeakerRatio);
+		// 	}
+		// } else {
+		// 	success_count = 0;
+		// 	SpeakerEnabled = 0;
+		// }
+
 		// Display the ADC values on the LCD
 
-		display_inductance_mH(inductance_mH);
+		display_inductance_mH(inductance_microH);
 		display_x_y(standardized_x, standardized_y);
 
 		fflush(stdout); // GCC printf wants a \n in order to send something.  If \n is not present, we fflush(stdout)

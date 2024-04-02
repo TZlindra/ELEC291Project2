@@ -104,14 +104,14 @@ void Update_XY(int x_value, int y_value) {
 	sprintf(TX_BUFF, "X%+04dY%+04d\r\n", x_value, y_value);
 }
 
-float Update_I(float inductance_mH) {
+int Update_I(float inductance_microH) {
 	int rx_length = strlen(RX_BUFF);
 	// printf("Length: %d\r\n", rx_length);
 	if (rx_length == 7) {
 		int parsed = atoi(RX_BUFF);
-		return (parsed != 0) ? parsed / MILLI_MULTIPLIER : inductance_mH;
+		return (parsed != 0) ? parsed : inductance_microH;
 	} else {
-		return inductance_mH;
+		return inductance_microH;
 	}
 }
 

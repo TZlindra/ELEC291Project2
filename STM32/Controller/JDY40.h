@@ -9,8 +9,8 @@ void JDS_Delay_us(unsigned char us);
 void JDY_Delay_msJDY(unsigned int ms);
 
 void ConfigPinsUART2(void);
-void SendATCommand (char * s);
-void SendCommand(char * s, int value);
+void SendATCommand (char* s);
+void SendCommand(char* s, int value);
 void ReceiveCommand(void);
 void ConfigJDY40(void);
 
@@ -18,6 +18,6 @@ void TX_XY(void);
 void RX_I(void);
 
 void Update_XY(int x_value, int y_value);
-float Update_I(float inductance_mH);
+int Update_I(float inductance_microH);
 
 void display_buffs(void);

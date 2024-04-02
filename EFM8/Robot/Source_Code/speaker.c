@@ -1,6 +1,8 @@
 #include <EFM8LB1.h>
 #include "speaker.h"
+#define TIMER_2_FREQ 4096L
 
+#define SPEAKER_OUT P0_6
 
 void TIMER2Init(void)
 {
@@ -15,7 +17,7 @@ void TIMER2Init(void)
 
 void Timer2_ISR (void) interrupt INTERRUPT_TIMER2
 {
-	SFRPAGE=0x0;
+	SFRPAGE=0x00;
 	TF2H = 0; // Clear Timer2 interrupt flag
 	SPEAKER_OUT=!SPEAKER_OUT;
 }

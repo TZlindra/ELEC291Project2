@@ -112,7 +112,9 @@ void main (void) {
 		Update_TX_Buff(inductance);
 
 		TX_I();
-		RX_XY();
+		RX_XYZ();
+
+		// display_buffs();
 
 		inductance = GetInductance_microH();
 		printf("Inductance (MicroH): %d\r\n", inductance);

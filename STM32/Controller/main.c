@@ -140,6 +140,9 @@ void ConfigPinSpeaker(void) {
 }
 
 void ConfigLEDPins(void) {
+	// GPIOA->MODER = (GPIOA->MODER & ~(BIT22|BIT23)) | BIT22; // PA11
+	// GPIOA->OTYPER &= ~BIT11; // Push-pull
+
     GPIOA->MODER = (GPIOA->MODER & ~(BIT12|BIT13)) | BIT12; // PA6
 	GPIOA->OTYPER &= ~BIT6; // Push-pull
 
@@ -232,6 +235,7 @@ void checkLock(void) {
 		if (isButtonPressedGPIOB(BUTTON_S3) && isButtonPressedGPIOB(BUTTON_S0)) {
     		printf("LOCKED!\r\n");
     		LCDprint("LOCKED!", 1, 1);
+			SpeakerEnabled = 0;
     		LCDprint("", 2, 1);
     		waitms(1000); // Wait 1s
     		getPasscode();
@@ -292,7 +296,7 @@ void main(void) {
 		display_buffs();
 		// inductance_microH = 850.0;
 		inductance_microH = Update_I(inductance_microH);
-		printf("I: %0f\r\n", inductance_microH);
+		// printf("I: %0f\r\n", inductance_microH);
 
 		// if (isButtonPressedGPIOB(BUTTON_S2)) SpeakerRatio = SetSpeakerFreq(inductance_microH, SpeakerRatio);
 

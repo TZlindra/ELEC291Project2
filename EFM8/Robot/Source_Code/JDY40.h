@@ -15,14 +15,15 @@ void clearUART1Buffer(void);
 void SendATCommand(char * s);
 
 int stringToInt(char *str);
-void splitString(const char *str, char *part1, char *part2);
-void Trim(char *str, int *xin, int *yin);
+void splitString(const char *str, char *part1, char *part2, char *part3);
+void Trim(char *str, int *xin, int *yin, int *zyn);
 
 void Update_TX_Buff(int inductance);
 void TX_I(void);
-void RX_XY(void);
+void RX_XYZ(void);
 
 float get_x_direction(void);
 float get_y_direction(void);
 
 void PrintNumber(long int val, int Base, int digits);
+void display_buffs(void);

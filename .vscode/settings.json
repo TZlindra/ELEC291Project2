@@ -23,7 +23,8 @@
         "inductance.h": "c",
         "bit": "c",
         "cmath": "c",
-        "*.tcc": "c"
+        "*.tcc": "c",
+        "limits": "c"
     },
     "makefile.makePath": "C:\\mingw\\bin",
     "cmake.configureOnOpen": false

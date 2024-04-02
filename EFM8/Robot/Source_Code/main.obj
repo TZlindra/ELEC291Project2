@@ -31,12 +31,12 @@ R_CSEG,code,0223,NO
 <LOCALS>
 L002004?,R_CSEG,0029,0000
 L002001?,R_CSEG,001E,0000
-_main_inductance_1_130,R_XSEG,0014,0002
+_main_inductance_1_131,R_XSEG,0014,0002
 L005002?,R_CSEG,0159,0000
-_test_print_x_1_127,R_XSEG,0010,0004
+_test_print_x_1_128,R_XSEG,0010,0004
 __str_0,R_CONST,0000,0000
 __str_1,R_CONST,0017,0000
-_UART1_Init_baudrate_1_125,R_XSEG,0008,0004
+_UART1_Init_baudrate_1_126,R_XSEG,0008,0004
 </LOCALS>
 
 <PUBLICS>
@@ -56,7 +56,7 @@ _TX_I,any,0000,0000
 _TIMER4_Init,any,0000,0000
 _JDY40Init,any,0000,0000
 _movement_loop_PARM_2,any,0000,0000
-_RX_XY,any,0000,0000
+_RX_XYZ,any,0000,0000
 _printf,any,0000,0000
 _Update_TX_Buff,any,0000,0000
 _get_x_direction,any,0000,0000
@@ -135,7 +135,7 @@ AA 82
 AB 83
 AC F0
 FD
-90 data16(_UART1_Init_baudrate_1_125;)  
+90 data16(_UART1_Init_baudrate_1_126;)  
 EA
 F0
 A3
@@ -151,7 +151,7 @@ F0
 75 93 0C
 75 C8 10
 75 94 00
-90 data16(_UART1_Init_baudrate_1_125;)  
+90 data16(_UART1_Init_baudrate_1_126;)  
 E0
 FA
 A3
@@ -223,7 +223,7 @@ AA 82
 AB 83
 AC F0
 FD
-90 data16(_test_print_x_1_127;)  
+90 data16(_test_print_x_1_128;)  
 EA
 F0
 A3
@@ -247,7 +247,7 @@ C0 E0
 A3
 E0
 C0 E0
-90 data16(_test_print_x_1_127;)  
+90 data16(_test_print_x_1_128;)  
 E0
 C0 E0
 A3
@@ -270,7 +270,7 @@ E5 81
 24 F5
 F5 81
 22
-90 data16(_main_inductance_1_130;)  
+90 data16(_main_inductance_1_131;)  
 74 E8
 F0
 A3
@@ -288,7 +288,7 @@ F5 F0
 12 addr16(_TIMER4_Init;)  
 12 addr16(_TIMER5Init;)  
 D2 AF
-90 data16(_main_inductance_1_130;)  
+90 data16(_main_inductance_1_131;)  
 E0
 FA
 A3
@@ -298,11 +298,11 @@ FB
 8B 83
 12 addr16(_Update_TX_Buff;)  
 12 addr16(_TX_I;)  
-12 addr16(_RX_XY;)  
+12 addr16(_RX_XYZ;)  
 12 addr16(_GetInductance_microH;)  
 AA 82
 AB 83
-90 data16(_main_inductance_1_130;)  
+90 data16(_main_inductance_1_131;)  
 EA
 F0
 A3

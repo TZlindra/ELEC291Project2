@@ -20,4 +20,8 @@ void RX_I(void);
 void Update_XYZ(int x_value, int y_value, int z_value);
 int Update_I(float inductance_microH);
 
+void get_x_direction(void);
+void get_y_direction(void);
+void get_z_direction(void);
+
 void display_buffs(void);

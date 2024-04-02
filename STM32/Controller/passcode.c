@@ -55,25 +55,31 @@ int getPasscodeButton(void) {
         else pressed = -1;
 
         if (pressed == s_0) {
+            // GPIOA->ODR &= ~BIT11;
             GPIOA->ODR &= ~BIT6;
             GPIOA->ODR &= ~BIT7;
         }
         else if (pressed == s_1) {
+            // GPIOA->ODR &= ~BIT11;
             GPIOA->ODR &= ~BIT6;
             GPIOA->ODR |= BIT7;
         }
         else if (pressed == s_2) {
+            // GPIOA->ODR &= ~BIT11;
             GPIOA->ODR |= BIT6;
             GPIOA->ODR &= ~BIT7;
         }
         else if (pressed == s_3) {
+            // GPIOA->ODR &= ~BIT11;
             GPIOA->ODR |= BIT6;
             GPIOA->ODR |= BIT7;
         }
 
         while (isPasscodeButtonPressed(BUTTON_S0) || isPasscodeButtonPressed(BUTTON_S1) || isPasscodeButtonPressed(BUTTON_S2) || isPasscodeButtonPressed(BUTTON_S3)); // Wait for button release
+        // GPIOA->ODR |= BIT11;
         return pressed;
     } else {
+        // GPIOA->ODR |= BIT11;
         return -1;
     }
 }

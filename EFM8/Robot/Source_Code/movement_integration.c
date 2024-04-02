@@ -14,6 +14,7 @@ float right_wheel = 0;
 float new_right_wheel;
 int prev_PWM_percent_x = 0;
 int prev_PWM_percent_y = 0;
+int state = 0;
 
 void TIMER5Init(void)
 {
@@ -40,22 +41,23 @@ void Timer5_ISR (void) interrupt INTERRUPT_TIMER5
     //P2_1 = !P2_1;
 
 
-
-    if (count > 100)
+    if (!state)
     {
-        count = 0;
+        if (count > 100)
+        {
+            count = 0;
+        }
+        if (PWM_percent_y >= 0)
+        {
+            LEFT_MOTOR_LHS = (count > left_wheel ) ? 0:1;
+            RIGHT_MOTOR_LHS = (count > new_right_wheel) ? 0:1;
+        }
+        else
+        {
+            LEFT_MOTOR_LHS = (count > left_wheel) ? 1:0;
+            RIGHT_MOTOR_LHS = (count > new_right_wheel) ? 1:0;
+        }
     }
-    if (PWM_percent_y >= 0)
-    {
-        LEFT_MOTOR_LHS = (count > left_wheel ) ? 0:1;
-        RIGHT_MOTOR_LHS = (count > new_right_wheel) ? 0:1;
-    }
-    else
-    {
-        LEFT_MOTOR_LHS = (count > left_wheel) ? 1:0;
-        RIGHT_MOTOR_LHS = (count > new_right_wheel) ? 1:0;
-    }
-
 
     count++;
 
@@ -141,3 +143,21 @@ void movement_loop(float x, float y)
         prev_PWM_percent_x = PWM_percent_x;
         prev_PWM_percent_y = PWM_percent_y;
 }
+/*
+void parking(float x)
+{
+    if (x > 0)
+    {
+
+    }
+    else if (x < 0)
+    {
+
+    }
+    else
+    {
+
+    }
+
+}
+*/

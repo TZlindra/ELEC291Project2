@@ -32,19 +32,17 @@ char LCD_BUFF[CHARS_PER_LINE]; // Buffer for LCD Display
 
 volatile int Timer2Count = 0;
 volatile int TX21Count = 0;
-// volatile float SpeakerRatio = 5;
 volatile float SpeakerRatio = 1;
-// volatile int SpeakerEnabled = 0;
 volatile int SpeakerEnabled = 1;
 
 volatile float inductance_microH = 0;
 
-float x = 0, y = 0;
+float x = 0, y = 0, z = 0;
 int standardized_x = 0, standardized_y = 0;
 int sensitivity_x = 0, sensitivity_y = 0;
 
 void ConfigPinsLCD(void);
-void ConfigPinButton(void);
+void ConfigPinButtonZ(void);
 void ConfigPinADC(void);
 void ConfigPinsUART2(void);
 void ConfigPinSpeaker(void);
@@ -102,7 +100,7 @@ void ConfigPinsLCD(void) {
 	GPIOA->OTYPER &= ~BIT5; // Push-pull
 }
 
-void ConfigPinButton() {
+void ConfigPinButtonZ() {
 	RCC->IOPENR |= RCC_IOPENR_GPIOAEN; // Peripheral Clock Enable for Port A
 	GPIOA->MODER &= ~(BIT24 | BIT25); // Make Pin PA12 Input
 
@@ -167,6 +165,10 @@ void ConfigPasscodeButtonPins(void) {
     GPIOB->MODER &= ~(BIT6 | BIT7); // Make Pin PB3 Input
 	GPIOB->PUPDR |= BIT6;
 	GPIOB->PUPDR &= ~(BIT7);
+}
+
+int isButtonPressedGPIOA(int ButtonPin) {
+	return !(GPIOA->IDR & ButtonPin);
 }
 
 int isButtonPressedGPIOB(int ButtonPin) {
@@ -239,6 +241,7 @@ void checkLock(void) {
 
 void main(void) {
 	int success_count = 0; // Used to Filter Inductance RX Noise
+	int z_count = 0; // Used to Filter Button Z Noise
 
 	ConfigPinsUART2();
 	InitUART2(9600);
@@ -246,7 +249,7 @@ void main(void) {
 
 	ConfigPinsLCD();
 	LCD_4BIT();
-	ConfigPinButton();
+	ConfigPinButtonZ();
 	ConfigPinADC();
 	ConfigPinSpeaker();
 	ConfigPasscodeButtonPins();
@@ -268,31 +271,40 @@ void main(void) {
 		x = -1*(readADC(ADC_CHSELR_CHSEL8)-X_MIDPOINT);
 		y = -1*(readADC(ADC_CHSELR_CHSEL9)-Y_MIDPOINT);
 
+		z = 0;
+		if (isButtonPressedGPIOA(BUTTON_Z)) {
+			waitms(DEBOUNCE);
+			if (isButtonPressedGPIOA(BUTTON_Z)) z = 1;
+
+			z_count = 0;
+			while(isButtonPressedGPIOA(BUTTON_Z) && z_count < 500) z_count++;
+		}
+
 		update_sensitivity_x();
 		update_sensitivity_y();
 
 		standardized_x = standardize_x(x, sensitivity_x);
 		standardized_y = standardize_y(y, sensitivity_y);
 
-		Update_XY(standardized_x, standardized_y);
+		Update_XYZ(standardized_x, standardized_y, z);
 		RX_I(); // Receive Inductance Value
 
-		// display_buffs();
-		// inductance_mH = Update_I(inductance_mH);
-		inductance_microH = 850.0;
+		display_buffs();
+		// inductance_microH = 850.0;
+		inductance_microH = Update_I(inductance_microH);
 		printf("I: %0f\r\n", inductance_microH);
 
-		if (isButtonPressedGPIOB(BUTTON_S2)) SpeakerRatio = SetSpeakerFreq(inductance_microH, SpeakerRatio);
+		// if (isButtonPressedGPIOB(BUTTON_S2)) SpeakerRatio = SetSpeakerFreq(inductance_microH, SpeakerRatio);
 
-		// if ((inductance_microH <= 850.0) && (inductance_microH >= 400.0)) {
-		// 	if (success_count++ >= 10) {
-		// 		SpeakerEnabled = 1;
-		// 		SpeakerRatio = SetSpeakerFreq(inductance_microH, SpeakerRatio);
-		// 	}
-		// } else {
-		// 	success_count = 0;
-		// 	SpeakerEnabled = 0;
-		// }
+		if ((inductance_microH <= 850.0) && (inductance_microH >= 400.0)) {
+			if (success_count++ >= 10) {
+				SpeakerEnabled = 1;
+				SpeakerRatio = SetSpeakerFreq(inductance_microH, SpeakerRatio);
+			}
+		} else {
+			success_count = 0;
+			SpeakerEnabled = 0;
+		}
 
 		// Display the ADC values on the LCD
 

@@ -26,6 +26,8 @@
 #define BUTTON_S2 BIT5
 #define BUTTON_S3 BIT3
 
+#define BUTTON_Z BIT12
+
 void wait_1ms(void);
 void waitms(unsigned int ms);
 

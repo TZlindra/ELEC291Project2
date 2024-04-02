@@ -33,7 +33,7 @@ char LCD_BUFF[CHARS_PER_LINE]; // Buffer for LCD Display
 volatile int Timer2Count = 0;
 volatile int TX21Count = 0;
 volatile float SpeakerRatio = 1;
-volatile int SpeakerEnabled = 1;
+volatile int SpeakerEnabled = 0;
 
 volatile float inductance_microH = 0;
 
@@ -191,7 +191,7 @@ void display_adc(float x, int standardized_x, float y, int standardized_y) {
 }
 
 void display_inductance_mH(float inductance_mH) {
-	sprintf(LCD_BUFF, "I: %.1f mH", inductance_mH / MILLI_MULTIPLIER);
+	sprintf(LCD_BUFF, "I: %.3f mH", inductance_mH / MILLI_MULTIPLIER);
 	LCDprint(LCD_BUFF, 1, 1);
 }
 
@@ -296,7 +296,7 @@ void main(void) {
 
 		// if (isButtonPressedGPIOB(BUTTON_S2)) SpeakerRatio = SetSpeakerFreq(inductance_microH, SpeakerRatio);
 
-		if ((inductance_microH <= 850.0) && (inductance_microH >= 400.0)) {
+		if ((inductance_microH <= 485.0) && (inductance_microH >= 400.0)) {
 			if (success_count++ >= 10) {
 				SpeakerEnabled = 1;
 				SpeakerRatio = SetSpeakerFreq(inductance_microH, SpeakerRatio);

@@ -43,23 +43,23 @@ void ToggleSpeaker(void) {
 float SetSpeakerFreq(float inductance_mH, float current_ratio) {
     float new_ratio, new_freq;
 
-    // if (current_ratio >= 5) new_ratio = 1;
-    // else new_ratio = current_ratio + 1;
+    if (current_ratio >= 64) new_ratio = 1;
+    else new_ratio = current_ratio * 2;
 
     // Inductance Thresholds for Speaker Frequency
     // if (inductance >= 350) new_ratio = 5;
     // else if (inductance >= 340) new_ratio = 4;
     // else if (inductance >= 330) new_ratio = 3;
     // else if (inductance >= 320) new_ratio = 2;
-
-    if (inductance_mH < 0.85) new_ratio = 5;
+    /*
+    if (inductance_mH < 0.85) new_ratio = 2;
     else if (inductance_mH < 0.75) new_ratio = 4;
-    else if (inductance_mH < 0.65) new_ratio = 3;
-    else if (inductance_mH < 0.55) new_ratio = 2;
+    else if (inductance_mH < 0.65) new_ratio = 8;
+    else if (inductance_mH < 0.55) new_ratio = 16;
     else new_ratio = 1;
-
-    // new_freq = TICK_FREQ_TIM2 / new_ratio;
-    // printf("Current Frequency: %f\r\n", new_freq);
+    */
+    new_freq = TICK_FREQ_TIM2 / new_ratio;
+    printf("Current Frequency: %f\r\n", new_freq);
 
     return new_ratio;
 }

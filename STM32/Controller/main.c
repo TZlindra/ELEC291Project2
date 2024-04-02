@@ -32,8 +32,8 @@ char LCD_BUFF[CHARS_PER_LINE]; // Buffer for LCD Display
 
 volatile int Timer2Count = 0;
 volatile int TX21Count = 0;
-volatile float SpeakerRatio = 5;
-volatile int SpeakerEnabled = 0;
+volatile float SpeakerRatio = 1;
+volatile int SpeakerEnabled = 1;
 
 volatile float inductance_mH = 0;
 
@@ -276,11 +276,12 @@ void main(void) {
 		RX_I(); // Receive Inductance Value
 
 		// display_buffs();
-		inductance_mH = Update_I(inductance_mH);
+		//inductance_mH = Update_I(inductance_mH);
+		inductance_mH = 0.85;
 		printf("I: %.2f\r\n", inductance_mH);
 
 		// if (isTestButtonPressed()) SpeakerRatio = SetSpeakerFreq(inductance, SpeakerRatio);
-
+		/*
 		if ((inductance_mH <= 0.85) && (inductance_mH >= 0.40)) {
 			if (success_count++ >= 10) {
 				SpeakerEnabled = 1;
@@ -290,7 +291,7 @@ void main(void) {
 			success_count = 0;
 			SpeakerEnabled = 0;
 		}
-
+		*/
 		// Display the ADC values on the LCD
 
 		display_inductance_mH(inductance_mH);

@@ -25,7 +25,7 @@ R_CSEG,code,003B,NO
 </SEGMENTS>
 
 <LOCALS>
-_ToggleSpeaker_enable_1_82,R_XSEG,0000,0002
+_ToggleSpeaker_enable_1_83,R_XSEG,0000,0002
 L004002?,R_CSEG,0038,0000
 </LOCALS>
 
@@ -69,8 +69,8 @@ _TIMER2Init,R_CSEG,0000,0000
 <CODE R_CSEG>
 75 C8 00
 43 8E 10
-75 CA 56
-75 CB BB
+75 CA AB
+75 CB DD
 75 CE FF
 75 CF FF
 D2 AD
@@ -82,12 +82,12 @@ B2 86
 32
 AA 83
 E5 82
-90 data16(_ToggleSpeaker_enable_1_82;)  
+90 data16(_ToggleSpeaker_enable_1_83;)  
 F0
 A3
 EA
 F0
-90 data16(_ToggleSpeaker_enable_1_82;)  
+90 data16(_ToggleSpeaker_enable_1_83;)  
 E0
 FA
 A3

@@ -1,7 +1,7 @@
 0000              1   ;--------------------------------------------------------
 0000              2   ; File Created by C51
 0000              3   ; Version 1.0.0 #1170 (Feb 16 2022) (MSVC)
-0000              4   ; This file was generated Mon Apr 01 14:19:52 2024
+0000              4   ; This file was generated Tue Apr 02 12:46:24 2024
 0000              5   ;--------------------------------------------------------
                   5   $name Robot_Base
                   6   $optc51 --model-small
@@ -961,557 +961,530 @@
 0193            961   _GetPeriod:
 0193 AA82       962            mov     r2,dpl
 0195 AB83       963            mov     r3,dph
-0197            964   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:253: TR0=0; // Stop Timer/Counter 0
-0197 C28C       965            clr     _TR0
-0199            966   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:254: TMOD&=0b_1111_0000; // Set the bits of Timer/Counter 0 to zero
-0199 5389F0     967            anl     _TMOD,#0xF0
-019C            968   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:255: TMOD|=0b_0000_0001; // Timer/Counter 0 used as a 16-bit timer
-019C 438901     969            orl     _TMOD,#0x01
-019F            970   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:258: TR0=0;
-019F C28C       971            clr     _TR0
-01A1            972   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:259: TL0=0; TH0=0; TF0=0; overflow_count=0;
-01A1 758A00     973            mov     _TL0,#0x00
-01A4 758C00     974            mov     _TH0,#0x00
-01A7 C28D       975            clr     _TF0
-01A9            976   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:260: TR0=1;
-01A9 D28C       977            setb    _TR0
-01AB            978   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:261: while(PERIOD_PIN!=0) // Wait for the signal to be zero
-01AB 7C00       979            mov     r4,#0x00
-01AD 7D00       980            mov     r5,#0x00
-01AF            981   L009005?:
-01AF 309060     982            jnb     _P1_0,L009007?
-01B2            983   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:263: if(TF0==1) // Did the 16-bit timer overflow?
-01B2            984   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:265: TF0=0;
-01B2 108DA0     985            jbc     _TF0,L009050?
-01B5 8000       986            sjmp    L009005?
-01B7            987   L009050?:
-01B7            988   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:266: overflow_count++;
-01B7 0C         989            inc     r4
-01B8 BC00E0     990            cjne    r4,#0x00,L009051?
-01BB 0D         991            inc     r5
-01BC            992   L009051?:
-01BC            993   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:267: if(overflow_count==10) // If it overflows too many times assume no signal is present
-01BC BC0A20     994            cjne    r4,#0x0A,L009005?
-01BF BD0020     995            cjne    r5,#0x00,L009005?
-01C2            996   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:269: TR0=0;
-01C2 C28C       997            clr     _TR0
-01C4            998   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:270: return 0; // No signal
-01C4 900000     999            mov     dptr,#(0x00&0x00ff)
-01C7 E4        1000            clr     a
-01C8 F5F0      1001            mov     b,a
-01CA 22        1002            ret
-01CB           1003   L009007?:
-01CB           1004   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:276: TR0=0;
-01CB C28C      1005            clr     _TR0
-01CD           1006   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:277: TL0=0; TH0=0; TF0=0; overflow_count=0;
-01CD 758A00    1007            mov     _TL0,#0x00
-01D0 758C00    1008            mov     _TH0,#0x00
-01D3 C28D      1009            clr     _TF0
-01D5           1010   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:278: TR0=1;
-01D5 D28C      1011            setb    _TR0
-01D7           1012   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:279: while(PERIOD_PIN!=1) // Wait for the signal to be one
-01D7 7C00      1013            mov     r4,#0x00
-01D9 7D00      1014            mov     r5,#0x00
-01DB           1015   L009012?:
-01DB 209060    1016            jb      _P1_0,L009014?
-01DE           1017   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:281: if(TF0==1) // Did the 16-bit timer overflow?
-01DE           1018   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:283: TF0=0;
-01DE 108DA0    1019            jbc     _TF0,L009055?
-01E1 8000      1020            sjmp    L009012?
-01E3           1021   L009055?:
-01E3           1022   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:284: overflow_count++;
-01E3 0C        1023            inc     r4
-01E4 BC00E0    1024            cjne    r4,#0x00,L009056?
-01E7 0D        1025            inc     r5
-01E8           1026   L009056?:
-01E8           1027   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:285: if(overflow_count==10) // If it overflows too many times assume no signal is present
-01E8 BC0A20    1028            cjne    r4,#0x0A,L009012?
-01EB BD0020    1029            cjne    r5,#0x00,L009012?
-01EE           1030   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:287: TR0=0;
-01EE C28C      1031            clr     _TR0
-01F0           1032   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:288: return 0; // No signal
-01F0 900000    1033            mov     dptr,#(0x00&0x00ff)
-01F3 E4        1034            clr     a
-01F4 F5F0      1035            mov     b,a
-01F6 22        1036            ret
-01F7           1037   L009014?:
-01F7           1038   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:294: TR0=0;
-01F7 C28C      1039            clr     _TR0
-01F9           1040   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:295: TL0=0; TH0=0; TF0=0; overflow_count=0;
-01F9 758A00    1041            mov     _TL0,#0x00
-01FC 758C00    1042            mov     _TH0,#0x00
-01FF C28D      1043            clr     _TF0
-0201 7C00      1044            mov     r4,#0x00
-0203 7D00      1045            mov     r5,#0x00
-0205           1046   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:296: TR0=1; // Start the timer
-0205 D28C      1047            setb    _TR0
-0207           1048   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:297: for(i=0; i<n; i++) // Measure the time of 'n' periods
-0207 7E00      1049            mov     r6,#0x00
-0209           1050   L009025?:
-0209 8E07      1051            mov     ar7,r6
-020B 7800      1052            mov     r0,#0x00
-020D C3        1053            clr     c
-020E EF        1054            mov     a,r7
-020F 9A        1055            subb    a,r2
-0210 E8        1056            mov     a,r0
-0211 6480      1057            xrl     a,#0x80
-0213 8BF0      1058            mov     b,r3
-0215 63F080    1059            xrl     b,#0x80
-0218 95F0      1060            subb    a,b
-021A 5000      1061            jnc     L009028?
-021C           1062   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:299: while(PERIOD_PIN!=0) // Wait for the signal to be zero
-021C 8C07      1063            mov     ar7,r4
-021E 8D00      1064            mov     ar0,r5
-0220           1065   L009017?:
-0220 3090E8    1066            jnb     _P1_0,L009043?
-0223           1067   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:301: if(TF0==1) // Did the 16-bit timer overflow?
-0223           1068   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:303: TF0=0;
-0223 108D28    1069            jbc     _TF0,L009061?
-0226 8000      1070            sjmp    L009017?
-0228           1071   L009061?:
-0228           1072   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:304: overflow_count++;
-0228 0F        1073            inc     r7
-0229 BF00A0    1074            cjne    r7,#0x00,L009017?
-022C 08        1075            inc     r0
-022D           1076   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:307: while(PERIOD_PIN!=1) // Wait for the signal to be one
-022D 8000      1077            sjmp    L009017?
-022F           1078   L009043?:
-022F           1079   L009022?:
-022F 2090A8    1080            jb      _P1_0,L009047?
-0232           1081   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:309: if(TF0==1) // Did the 16-bit timer overflow?
-0232           1082   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:311: TF0=0;
-0232 108DE8    1083            jbc     _TF0,L009063?
-0235 8000      1084            sjmp    L009022?
-0237           1085   L009063?:
-0237           1086   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:312: overflow_count++;
-0237 0F        1087            inc     r7
-0238 BF0068    1088            cjne    r7,#0x00,L009022?
-023B 08        1089            inc     r0
-023C 8000      1090            sjmp    L009022?
-023E           1091   L009047?:
-023E 8F04      1092            mov     ar4,r7
-0240 8805      1093            mov     ar5,r0
-0242           1094   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:297: for(i=0; i<n; i++) // Measure the time of 'n' periods
-0242 0E        1095            inc     r6
-0243 8000      1096            sjmp    L009025?
-0245           1097   L009028?:
-0245           1098   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:316: TR0=0; // Stop timer 0, the 24-bit number [overflow_count-TH0-TL0] has the period in clock cycles!
-0245 C28C      1099            clr     _TR0
-0247           1100   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:318: return (overflow_count*65536+TH0*256+TL0);
-0247 8D03      1101            mov     ar3,r5
-0249 8C02      1102            mov     ar2,r4
-024B 7D00      1103            mov     r5,#0x00
-024D 7C00      1104            mov     r4,#0x00
-024F AF8C      1105            mov     r7,_TH0
-0251 7E00      1106            mov     r6,#0x00
-0253 EF        1107            mov     a,r7
-0254 33        1108            rlc     a
-0255 95E0      1109            subb    a,acc
-0257 F8        1110            mov     r0,a
-0258 F9        1111            mov     r1,a
-0259 EE        1112            mov     a,r6
-025A 2C        1113            add     a,r4
-025B FC        1114            mov     r4,a
-025C EF        1115            mov     a,r7
-025D 3D        1116            addc    a,r5
-025E FD        1117            mov     r5,a
-025F E8        1118            mov     a,r0
-0260 3A        1119            addc    a,r2
-0261 FA        1120            mov     r2,a
-0262 E9        1121            mov     a,r1
-0263 3B        1122            addc    a,r3
-0264 FB        1123            mov     r3,a
-0265 AE8A      1124            mov     r6,_TL0
-0267 E4        1125            clr     a
-0268 FF        1126            mov     r7,a
-0269 33        1127            rlc     a
-026A 95E0      1128            subb    a,acc
-026C F8        1129            mov     r0,a
-026D F9        1130            mov     r1,a
-026E EE        1131            mov     a,r6
-026F 2C        1132            add     a,r4
-0270 FC        1133            mov     r4,a
-0271 EF        1134            mov     a,r7
-0272 3D        1135            addc    a,r5
-0273 FD        1136            mov     r5,a
-0274 E8        1137            mov     a,r0
-0275 3A        1138            addc    a,r2
-0276 FA        1139            mov     r2,a
-0277 E9        1140            mov     a,r1
-0278 3B        1141            addc    a,r3
-0279 8C82      1142            mov     dpl,r4
-027B 8D83      1143            mov     dph,r5
-027D 8AF0      1144            mov     b,r2
-027F 22        1145            ret
-0280           1146   ;------------------------------------------------------------
-0280           1147   ;Allocation info for local variables in function 'eputs'
-0280           1148   ;------------------------------------------------------------
-0280           1149   ;String                    Allocated to registers r2 r3 r4 
-0280           1150   ;------------------------------------------------------------
-0280           1151   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:321: void eputs(char *String)
-0280           1152   ;        -----------------------------------------
-0280           1153   ;         function eputs
-0280           1154   ;        -----------------------------------------
-0280           1155   _eputs:
-0280 AA82      1156            mov     r2,dpl
-0282 AB83      1157            mov     r3,dph
-0284 ACF0      1158            mov     r4,b
-0286           1159   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:323: while(*String)
-0286           1160   L010001?:
-0286 8A82      1161            mov     dpl,r2
-0288 8B83      1162            mov     dph,r3
-028A 8CF0      1163            mov     b,r4
-028C 120000    1164            lcall   __gptrget
-028F FD        1165            mov     r5,a
-0290 6000      1166            jz      L010004?
-0292           1167   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:325: putchar(*String);
-0292 8D82      1168            mov     dpl,r5
-0294 C002      1169            push    ar2
-0296 C003      1170            push    ar3
-0298 C004      1171            push    ar4
-029A 120000    1172            lcall   _putchar
-029D D004      1173            pop     ar4
-029F D003      1174            pop     ar3
-02A1 D002      1175            pop     ar2
-02A3           1176   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:326: String++;
-02A3 0A        1177            inc     r2
-02A4 BA0028    1178            cjne    r2,#0x00,L010001?
-02A7 0B        1179            inc     r3
-02A8 8000      1180            sjmp    L010001?
-02AA           1181   L010004?:
-02AA 22        1182            ret
-02AB           1183   ;------------------------------------------------------------
-02AB           1184   ;Allocation info for local variables in function 'PrintNumber'
-02AB           1185   ;------------------------------------------------------------
-02AB           1186   ;Base                      Allocated with name '_PrintNumber_PARM_2'
-02AB           1187   ;digits                    Allocated with name '_PrintNumber_PARM_3'
-02AB           1188   ;val                       Allocated with name '_PrintNumber_val_1_80'
-02AB           1189   ;j                         Allocated with name '_PrintNumber_j_1_81'
-02AB           1190   ;sloc0                     Allocated with name '_PrintNumber_sloc0_1_0'
-02AB           1191   ;sloc1                     Allocated with name '_PrintNumber_sloc1_1_0'
-02AB           1192   ;buff                      Allocated with name '_PrintNumber_buff_1_81'
-02AB           1193   ;------------------------------------------------------------
-02AB           1194   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:330: void PrintNumber(long int val, int Base, int digits)
-02AB           1195   ;        -----------------------------------------
-02AB           1196   ;         function PrintNumber
-02AB           1197   ;        -----------------------------------------
-02AB           1198   _PrintNumber:
-02AB 8582A0    1199            mov     _PrintNumber_val_1_80,dpl
-02AE 8583A1    1200            mov     (_PrintNumber_val_1_80 + 1),dph
-02B1 85F0A2    1201            mov     (_PrintNumber_val_1_80 + 2),b
-02B4 F5A3      1202            mov     (_PrintNumber_val_1_80 + 3),a
-02B6           1203   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:336: buff[NBITS]=0;
-02B6 90B600    1204            mov     dptr,#(_PrintNumber_buff_1_81 + 0x0020)
-02B9 E4        1205            clr     a
-02BA F0        1206            movx    @dptr,a
-02BB           1207   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:338: if(val<0)
-02BB E5A3      1208            mov     a,(_PrintNumber_val_1_80 + 3)
-02BD 30E728    1209            jnb     acc.7,L011012?
-02C0           1210   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:340: putchar('-');
-02C0 75822D    1211            mov     dpl,#0x2D
-02C3 120000    1212            lcall   _putchar
-02C6           1213   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:341: val*=-1;
-02C6 C3        1214            clr     c
-02C7 E4        1215            clr     a
-02C8 95A0      1216            subb    a,_PrintNumber_val_1_80
-02CA F5A0      1217            mov     _PrintNumber_val_1_80,a
-02CC E4        1218            clr     a
-02CD 95A1      1219            subb    a,(_PrintNumber_val_1_80 + 1)
-02CF F5A1      1220            mov     (_PrintNumber_val_1_80 + 1),a
-02D1 E4        1221            clr     a
-02D2 95A2      1222            subb    a,(_PrintNumber_val_1_80 + 2)
-02D4 F5A2      1223            mov     (_PrintNumber_val_1_80 + 2),a
-02D6 E4        1224            clr     a
-02D7 95A3      1225            subb    a,(_PrintNumber_val_1_80 + 3)
-02D9 F5A3      1226            mov     (_PrintNumber_val_1_80 + 3),a
-02DB           1227   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:345: while ( (val>0) | (digits>0) )
-02DB           1228   L011012?:
-02DB 75F01F    1229            mov     _PrintNumber_j_1_81,#0x1F
-02DE E4        1230            clr     a
-02DF F5F1      1231            mov     (_PrintNumber_j_1_81 + 1),a
-02E1 A8D0      1232            mov     r0,_PrintNumber_PARM_3
-02E3 A9D1      1233            mov     r1,(_PrintNumber_PARM_3 + 1)
-02E5           1234   L011005?:
-02E5 C3        1235            clr     c
-02E6 E4        1236            clr     a
-02E7 95A0      1237            subb    a,_PrintNumber_val_1_80
-02E9 E4        1238            clr     a
-02EA 95A1      1239            subb    a,(_PrintNumber_val_1_80 + 1)
-02EC E4        1240            clr     a
-02ED 95A2      1241            subb    a,(_PrintNumber_val_1_80 + 2)
-02EF E4        1242            clr     a
-02F0 6480      1243            xrl     a,#0x80
-02F2 85A3F0    1244            mov     b,(_PrintNumber_val_1_80 + 3)
-02F5 63F080    1245            xrl     b,#0x80
-02F8 95F0      1246            subb    a,b
-02FA E4        1247            clr     a
-02FB 33        1248            rlc     a
-02FC FE        1249            mov     r6,a
-02FD C3        1250            clr     c
+0197            964   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:253: EA = 0; // Disable interrupts
+0197 C2AF       965            clr     _EA
+0199            966   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:254: TR0=0; // Stop Timer/Counter 0
+0199 C28C       967            clr     _TR0
+019B            968   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:255: TMOD&=0b_1111_0000; // Set the bits of Timer/Counter 0 to zero
+019B 5389F0     969            anl     _TMOD,#0xF0
+019E            970   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:256: TMOD|=0b_0000_0001; // Timer/Counter 0 used as a 16-bit timer
+019E 438901     971            orl     _TMOD,#0x01
+01A1            972   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:259: TR0=0;
+01A1 C28C       973            clr     _TR0
+01A3            974   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:260: TL0=0; TH0=0; TF0=0; overflow_count=0;
+01A3 758A00     975            mov     _TL0,#0x00
+01A6 758C00     976            mov     _TH0,#0x00
+01A9 C28D       977            clr     _TF0
+01AB            978   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:261: TR0=1;
+01AB D28C       979            setb    _TR0
+01AD            980   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:262: while(PERIOD_PIN!=0) // Wait for the signal to be zero
+01AD 7C00       981            mov     r4,#0x00
+01AF 7D00       982            mov     r5,#0x00
+01B1            983   L009005?:
+01B1 309060     984            jnb     _P1_0,L009007?
+01B4            985   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:264: if(TF0==1) // Did the 16-bit timer overflow?
+01B4            986   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:266: TF0=0;
+01B4 108DA0     987            jbc     _TF0,L009050?
+01B7 8000       988            sjmp    L009005?
+01B9            989   L009050?:
+01B9            990   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:267: overflow_count++;
+01B9 0C         991            inc     r4
+01BA BC00E0     992            cjne    r4,#0x00,L009051?
+01BD 0D         993            inc     r5
+01BE            994   L009051?:
+01BE            995   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:268: if(overflow_count==10) // If it overflows too many times assume no signal is present
+01BE BC0A20     996            cjne    r4,#0x0A,L009005?
+01C1 BD0020     997            cjne    r5,#0x00,L009005?
+01C4            998   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:270: TR0=0;
+01C4 C28C       999            clr     _TR0
+01C6           1000   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:271: return 0; // No signal
+01C6 900000    1001            mov     dptr,#(0x00&0x00ff)
+01C9 E4        1002            clr     a
+01CA F5F0      1003            mov     b,a
+01CC 22        1004            ret
+01CD           1005   L009007?:
+01CD           1006   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:277: TR0=0;
+01CD C28C      1007            clr     _TR0
+01CF           1008   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:278: TL0=0; TH0=0; TF0=0; overflow_count=0;
+01CF 758A00    1009            mov     _TL0,#0x00
+01D2 758C00    1010            mov     _TH0,#0x00
+01D5 C28D      1011            clr     _TF0
+01D7           1012   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:279: TR0=1;
+01D7 D28C      1013            setb    _TR0
+01D9           1014   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:280: while(PERIOD_PIN!=1) // Wait for the signal to be one
+01D9 7C00      1015            mov     r4,#0x00
+01DB 7D00      1016            mov     r5,#0x00
+01DD           1017   L009012?:
+01DD 209060    1018            jb      _P1_0,L009014?
+01E0           1019   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:282: if(TF0==1) // Did the 16-bit timer overflow?
+01E0           1020   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:284: TF0=0;
+01E0 108DA0    1021            jbc     _TF0,L009055?
+01E3 8000      1022            sjmp    L009012?
+01E5           1023   L009055?:
+01E5           1024   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:285: overflow_count++;
+01E5 0C        1025            inc     r4
+01E6 BC00E0    1026            cjne    r4,#0x00,L009056?
+01E9 0D        1027            inc     r5
+01EA           1028   L009056?:
+01EA           1029   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:286: if(overflow_count==10) // If it overflows too many times assume no signal is present
+01EA BC0A20    1030            cjne    r4,#0x0A,L009012?
+01ED BD0020    1031            cjne    r5,#0x00,L009012?
+01F0           1032   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:288: TR0=0;
+01F0 C28C      1033            clr     _TR0
+01F2           1034   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:289: return 0; // No signal
+01F2 900000    1035            mov     dptr,#(0x00&0x00ff)
+01F5 E4        1036            clr     a
+01F6 F5F0      1037            mov     b,a
+01F8 22        1038            ret
+01F9           1039   L009014?:
+01F9           1040   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:295: TR0=0;
+01F9 C28C      1041            clr     _TR0
+01FB           1042   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:296: TL0=0; TH0=0; TF0=0; overflow_count=0;
+01FB 758A00    1043            mov     _TL0,#0x00
+01FE 758C00    1044            mov     _TH0,#0x00
+0201 C28D      1045            clr     _TF0
+0203 7C00      1046            mov     r4,#0x00
+0205 7D00      1047            mov     r5,#0x00
+0207           1048   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:297: TR0=1; // Start the timer
+0207 D28C      1049            setb    _TR0
+0209           1050   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:298: for(i=0; i<n; i++) // Measure the time of 'n' periods
+0209 7E00      1051            mov     r6,#0x00
+020B           1052   L009025?:
+020B 8E07      1053            mov     ar7,r6
+020D 7800      1054            mov     r0,#0x00
+020F C3        1055            clr     c
+0210 EF        1056            mov     a,r7
+0211 9A        1057            subb    a,r2
+0212 E8        1058            mov     a,r0
+0213 6480      1059            xrl     a,#0x80
+0215 8BF0      1060            mov     b,r3
+0217 63F080    1061            xrl     b,#0x80
+021A 95F0      1062            subb    a,b
+021C 5000      1063            jnc     L009028?
+021E           1064   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:300: while(PERIOD_PIN!=0) // Wait for the signal to be zero
+021E 8C07      1065            mov     ar7,r4
+0220 8D00      1066            mov     ar0,r5
+0222           1067   L009017?:
+0222 3090E8    1068            jnb     _P1_0,L009043?
+0225           1069   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:302: if(TF0==1) // Did the 16-bit timer overflow?
+0225           1070   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:304: TF0=0;
+0225 108D28    1071            jbc     _TF0,L009061?
+0228 8000      1072            sjmp    L009017?
+022A           1073   L009061?:
+022A           1074   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:305: overflow_count++;
+022A 0F        1075            inc     r7
+022B BF00A0    1076            cjne    r7,#0x00,L009017?
+022E 08        1077            inc     r0
+022F           1078   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:308: while(PERIOD_PIN!=1) // Wait for the signal to be one
+022F 8000      1079            sjmp    L009017?
+0231           1080   L009043?:
+0231           1081   L009022?:
+0231 2090A8    1082            jb      _P1_0,L009047?
+0234           1083   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:310: if(TF0==1) // Did the 16-bit timer overflow?
+0234           1084   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:312: TF0=0;
+0234 108DE8    1085            jbc     _TF0,L009063?
+0237 8000      1086            sjmp    L009022?
+0239           1087   L009063?:
+0239           1088   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:313: overflow_count++;
+0239 0F        1089            inc     r7
+023A BF0068    1090            cjne    r7,#0x00,L009022?
+023D 08        1091            inc     r0
+023E 8000      1092            sjmp    L009022?
+0240           1093   L009047?:
+0240 8F04      1094            mov     ar4,r7
+0242 8805      1095            mov     ar5,r0
+0244           1096   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:298: for(i=0; i<n; i++) // Measure the time of 'n' periods
+0244 0E        1097            inc     r6
+0245 8000      1098            sjmp    L009025?
+0247           1099   L009028?:
+0247           1100   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:317: TR0=0; // Stop timer 0, the 24-bit number [overflow_count-TH0-TL0] has the period in clock cycles!
+0247 C28C      1101            clr     _TR0
+0249           1102   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:318: EA = 1; // Enable interrupts
+0249 D2AF      1103            setb    _EA
+024B           1104   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:320: return (overflow_count*65536+TH0*256+TL0);
+024B 8D03      1105            mov     ar3,r5
+024D 8C02      1106            mov     ar2,r4
+024F 7D00      1107            mov     r5,#0x00
+0251 7C00      1108            mov     r4,#0x00
+0253 AF8C      1109            mov     r7,_TH0
+0255 7E00      1110            mov     r6,#0x00
+0257 EF        1111            mov     a,r7
+0258 33        1112            rlc     a
+0259 95E0      1113            subb    a,acc
+025B F8        1114            mov     r0,a
+025C F9        1115            mov     r1,a
+025D EE        1116            mov     a,r6
+025E 2C        1117            add     a,r4
+025F FC        1118            mov     r4,a
+0260 EF        1119            mov     a,r7
+0261 3D        1120            addc    a,r5
+0262 FD        1121            mov     r5,a
+0263 E8        1122            mov     a,r0
+0264 3A        1123            addc    a,r2
+0265 FA        1124            mov     r2,a
+0266 E9        1125            mov     a,r1
+0267 3B        1126            addc    a,r3
+0268 FB        1127            mov     r3,a
+0269 AE8A      1128            mov     r6,_TL0
+026B E4        1129            clr     a
+026C FF        1130            mov     r7,a
+026D 33        1131            rlc     a
+026E 95E0      1132            subb    a,acc
+0270 F8        1133            mov     r0,a
+0271 F9        1134            mov     r1,a
+0272 EE        1135            mov     a,r6
+0273 2C        1136            add     a,r4
+0274 FC        1137            mov     r4,a
+0275 EF        1138            mov     a,r7
+0276 3D        1139            addc    a,r5
+0277 FD        1140            mov     r5,a
+0278 E8        1141            mov     a,r0
+0279 3A        1142            addc    a,r2
+027A FA        1143            mov     r2,a
+027B E9        1144            mov     a,r1
+027C 3B        1145            addc    a,r3
+027D 8C82      1146            mov     dpl,r4
+027F 8D83      1147            mov     dph,r5
+0281 8AF0      1148            mov     b,r2
+0283 22        1149            ret
+0284           1150   ;------------------------------------------------------------
+0284           1151   ;Allocation info for local variables in function 'eputs'
+0284           1152   ;------------------------------------------------------------
+0284           1153   ;String                    Allocated to registers r2 r3 r4 
+0284           1154   ;------------------------------------------------------------
+0284           1155   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:323: void eputs(char *String)
+0284           1156   ;        -----------------------------------------
+0284           1157   ;         function eputs
+0284           1158   ;        -----------------------------------------
+0284           1159   _eputs:
+0284 AA82      1160            mov     r2,dpl
+0286 AB83      1161            mov     r3,dph
+0288 ACF0      1162            mov     r4,b
+028A           1163   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:325: while(*String)
+028A           1164   L010001?:
+028A 8A82      1165            mov     dpl,r2
+028C 8B83      1166            mov     dph,r3
+028E 8CF0      1167            mov     b,r4
+0290 120000    1168            lcall   __gptrget
+0293 FD        1169            mov     r5,a
+0294 6000      1170            jz      L010004?
+0296           1171   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:327: putchar(*String);
+0296 8D82      1172            mov     dpl,r5
+0298 C002      1173            push    ar2
+029A C003      1174            push    ar3
+029C C004      1175            push    ar4
+029E 120000    1176            lcall   _putchar
+02A1 D004      1177            pop     ar4
+02A3 D003      1178            pop     ar3
+02A5 D002      1179            pop     ar2
+02A7           1180   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:328: String++;
+02A7 0A        1181            inc     r2
+02A8 BA0028    1182            cjne    r2,#0x00,L010001?
+02AB 0B        1183            inc     r3
+02AC 8000      1184            sjmp    L010001?
+02AE           1185   L010004?:
+02AE 22        1186            ret
+02AF           1187   ;------------------------------------------------------------
+02AF           1188   ;Allocation info for local variables in function 'PrintNumber'
+02AF           1189   ;------------------------------------------------------------
+02AF           1190   ;Base                      Allocated with name '_PrintNumber_PARM_2'
+02AF           1191   ;digits                    Allocated with name '_PrintNumber_PARM_3'
+02AF           1192   ;val                       Allocated with name '_PrintNumber_val_1_80'
+02AF           1193   ;j                         Allocated with name '_PrintNumber_j_1_81'
+02AF           1194   ;sloc0                     Allocated with name '_PrintNumber_sloc0_1_0'
+02AF           1195   ;sloc1                     Allocated with name '_PrintNumber_sloc1_1_0'
+02AF           1196   ;buff                      Allocated with name '_PrintNumber_buff_1_81'
+02AF           1197   ;------------------------------------------------------------
+02AF           1198   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:332: void PrintNumber(long int val, int Base, int digits)
+02AF           1199   ;        -----------------------------------------
+02AF           1200   ;         function PrintNumber
+02AF           1201   ;        -----------------------------------------
+02AF           1202   _PrintNumber:
+02AF 8582A0    1203            mov     _PrintNumber_val_1_80,dpl
+02B2 8583A1    1204            mov     (_PrintNumber_val_1_80 + 1),dph
+02B5 85F0A2    1205            mov     (_PrintNumber_val_1_80 + 2),b
+02B8 F5A3      1206            mov     (_PrintNumber_val_1_80 + 3),a
+02BA           1207   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:338: buff[NBITS]=0;
+02BA 90B600    1208            mov     dptr,#(_PrintNumber_buff_1_81 + 0x0020)
+02BD E4        1209            clr     a
+02BE F0        1210            movx    @dptr,a
+02BF           1211   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:340: if(val<0)
+02BF E5A3      1212            mov     a,(_PrintNumber_val_1_80 + 3)
+02C1 30E728    1213            jnb     acc.7,L011012?
+02C4           1214   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:342: putchar('-');
+02C4 75822D    1215            mov     dpl,#0x2D
+02C7 120000    1216            lcall   _putchar
+02CA           1217   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:343: val*=-1;
+02CA C3        1218            clr     c
+02CB E4        1219            clr     a
+02CC 95A0      1220            subb    a,_PrintNumber_val_1_80
+02CE F5A0      1221            mov     _PrintNumber_val_1_80,a
+02D0 E4        1222            clr     a
+02D1 95A1      1223            subb    a,(_PrintNumber_val_1_80 + 1)
+02D3 F5A1      1224            mov     (_PrintNumber_val_1_80 + 1),a
+02D5 E4        1225            clr     a
+02D6 95A2      1226            subb    a,(_PrintNumber_val_1_80 + 2)
+02D8 F5A2      1227            mov     (_PrintNumber_val_1_80 + 2),a
+02DA E4        1228            clr     a
+02DB 95A3      1229            subb    a,(_PrintNumber_val_1_80 + 3)
+02DD F5A3      1230            mov     (_PrintNumber_val_1_80 + 3),a
+02DF           1231   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:347: while ( (val>0) | (digits>0) )
+02DF           1232   L011012?:
+02DF 75F01F    1233            mov     _PrintNumber_j_1_81,#0x1F
+02E2 E4        1234            clr     a
+02E3 F5F1      1235            mov     (_PrintNumber_j_1_81 + 1),a
+02E5 A8D0      1236            mov     r0,_PrintNumber_PARM_3
+02E7 A9D1      1237            mov     r1,(_PrintNumber_PARM_3 + 1)
+02E9           1238   L011005?:
+02E9 C3        1239            clr     c
+02EA E4        1240            clr     a
+02EB 95A0      1241            subb    a,_PrintNumber_val_1_80
+02ED E4        1242            clr     a
+02EE 95A1      1243            subb    a,(_PrintNumber_val_1_80 + 1)
+02F0 E4        1244            clr     a
+02F1 95A2      1245            subb    a,(_PrintNumber_val_1_80 + 2)
+02F3 E4        1246            clr     a
+02F4 6480      1247            xrl     a,#0x80
+02F6 85A3F0    1248            mov     b,(_PrintNumber_val_1_80 + 3)
+02F9 63F080    1249            xrl     b,#0x80
+02FC 95F0      1250            subb    a,b
 02FE E4        1251            clr     a
-02FF 98        1252            subb    a,r0
-0300 E4        1253            clr     a
-0301 6480      1254            xrl     a,#0x80
-0303 89F0      1255            mov     b,r1
-0305 63F080    1256            xrl     b,#0x80
-0308 95F0      1257            subb    a,b
-030A E4        1258            clr     a
-030B 33        1259            rlc     a
-030C FF        1260            mov     r7,a
-030D 4E        1261            orl     a,r6
-030E 7000      1262            jnz     L011016?
-0310 020000    1263            ljmp    L011007?
-0313           1264   L011016?:
-0313           1265   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:347: buff[j--]=HexDigit[val%Base];
-0313 AEF0      1266            mov     r6,_PrintNumber_j_1_81
-0315 AFF1      1267            mov     r7,(_PrintNumber_j_1_81 + 1)
-0317 15F0      1268            dec     _PrintNumber_j_1_81
-0319 74FF      1269            mov     a,#0xff
-031B B5F028    1270            cjne    a,_PrintNumber_j_1_81,L011017?
-031E 15F1      1271            dec     (_PrintNumber_j_1_81 + 1)
-0320           1272   L011017?:
-0320 EE        1273            mov     a,r6
-0321 24E0      1274            add     a,#_PrintNumber_buff_1_81
-0323 F540      1275            mov     _PrintNumber_sloc0_1_0,a
-0325 EF        1276            mov     a,r7
-0326 34B5      1277            addc    a,#(_PrintNumber_buff_1_81 >> 8)
-0328 F541      1278            mov     (_PrintNumber_sloc0_1_0 + 1),a
-032A 852090    1279            mov     _PrintNumber_sloc1_1_0,_PrintNumber_PARM_2
-032D E521      1280            mov     a,(_PrintNumber_PARM_2 + 1)
-032F F591      1281            mov     (_PrintNumber_sloc1_1_0 + 1),a
-0331 33        1282            rlc     a
-0332 95E0      1283            subb    a,acc
-0334 F592      1284            mov     (_PrintNumber_sloc1_1_0 + 2),a
-0336 F593      1285            mov     (_PrintNumber_sloc1_1_0 + 3),a
-0338 859000    1286            mov     __modslong_PARM_2,_PrintNumber_sloc1_1_0
-033B 859101    1287            mov     (__modslong_PARM_2 + 1),(_PrintNumber_sloc1_1_0 + 1)
-033E 859202    1288            mov     (__modslong_PARM_2 + 2),(_PrintNumber_sloc1_1_0 + 2)
-0341 859303    1289            mov     (__modslong_PARM_2 + 3),(_PrintNumber_sloc1_1_0 + 3)
-0344 85A082    1290            mov     dpl,_PrintNumber_val_1_80
-0347 85A183    1291            mov     dph,(_PrintNumber_val_1_80 + 1)
-034A 85A2F0    1292            mov     b,(_PrintNumber_val_1_80 + 2)
-034D E5A3      1293            mov     a,(_PrintNumber_val_1_80 + 3)
-034F C000      1294            push    ar0
-0351 C001      1295            push    ar1
-0353 120000    1296            lcall   __modslong
-0356 AE82      1297            mov     r6,dpl
-0358 AF83      1298            mov     r7,dph
-035A EE        1299            mov     a,r6
-035B 24B0      1300            add     a,#_PrintNumber_HexDigit_1_81
-035D F582      1301            mov     dpl,a
-035F EF        1302            mov     a,r7
-0360 3411      1303            addc    a,#(_PrintNumber_HexDigit_1_81 >> 8)
-0362 F583      1304            mov     dph,a
-0364 E4        1305            clr     a
-0365 93        1306            movc    a,@a+dptr
-0366 854082    1307            mov     dpl,_PrintNumber_sloc0_1_0
-0369 854183    1308            mov     dph,(_PrintNumber_sloc0_1_0 + 1)
-036C F0        1309            movx    @dptr,a
-036D           1310   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:348: val/=Base;
-036D 859000    1311            mov     __divslong_PARM_2,_PrintNumber_sloc1_1_0
-0370 859101    1312            mov     (__divslong_PARM_2 + 1),(_PrintNumber_sloc1_1_0 + 1)
-0373 859202    1313            mov     (__divslong_PARM_2 + 2),(_PrintNumber_sloc1_1_0 + 2)
-0376 859303    1314            mov     (__divslong_PARM_2 + 3),(_PrintNumber_sloc1_1_0 + 3)
-0379 85A082    1315            mov     dpl,_PrintNumber_val_1_80
-037C 85A183    1316            mov     dph,(_PrintNumber_val_1_80 + 1)
-037F 85A2F0    1317            mov     b,(_PrintNumber_val_1_80 + 2)
-0382 E5A3      1318            mov     a,(_PrintNumber_val_1_80 + 3)
-0384 120000    1319            lcall   __divslong
-0387 8582A0    1320            mov     _PrintNumber_val_1_80,dpl
-038A 8583A1    1321            mov     (_PrintNumber_val_1_80 + 1),dph
-038D 85F0A2    1322            mov     (_PrintNumber_val_1_80 + 2),b
-0390 F5A3      1323            mov     (_PrintNumber_val_1_80 + 3),a
-0392 D001      1324            pop     ar1
-0394 D000      1325            pop     ar0
-0396           1326   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:349: if(digits!=0) digits--;
-0396 E8        1327            mov     a,r0
-0397 49        1328            orl     a,r1
-0398 7000      1329            jnz     L011018?
-039A 020000    1330            ljmp    L011005?
-039D           1331   L011018?:
-039D 18        1332            dec     r0
-039E B8FFC8    1333            cjne    r0,#0xff,L011019?
-03A1 19        1334            dec     r1
-03A2           1335   L011019?:
-03A2 020000    1336            ljmp    L011005?
-03A5           1337   L011007?:
-03A5           1338   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:351: eputs(&buff[j+1]);
-03A5 E5F0      1339            mov     a,_PrintNumber_j_1_81
-03A7 04        1340            inc     a
-03A8 24E0      1341            add     a,#_PrintNumber_buff_1_81
-03AA FA        1342            mov     r2,a
-03AB E4        1343            clr     a
-03AC 34B5      1344            addc    a,#(_PrintNumber_buff_1_81 >> 8)
-03AE FB        1345            mov     r3,a
-03AF 7C00      1346            mov     r4,#0x00
-03B1 8A82      1347            mov     dpl,r2
-03B3 8B83      1348            mov     dph,r3
-03B5 8CF0      1349            mov     b,r4
-03B7 020000    1350            ljmp    _eputs
-03BA           1351   ;------------------------------------------------------------
-03BA           1352   ;Allocation info for local variables in function 'main'
-03BA           1353   ;------------------------------------------------------------
-03BA           1354   ;count                     Allocated to registers r2 r3 r4 r5 
-03BA           1355   ;f                         Allocated to registers r6 r7 r0 r1 
-03BA           1356   ;------------------------------------------------------------
-03BA           1357   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:356: void main (void)
-03BA           1358   ;        -----------------------------------------
-03BA           1359   ;         function main
-03BA           1360   ;        -----------------------------------------
-03BA           1361   _main:
-03BA           1362   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:383: while (1)
-03BA           1363   L012005?:
-03BA           1364   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:417: count=GetPeriod(30);
-03BA 90001E    1365            mov     dptr,#0x001E
-03BD 120000    1366            lcall   _GetPeriod
-03C0 AA82      1367            mov     r2,dpl
-03C2 AB83      1368            mov     r3,dph
-03C4 ACF0      1369            mov     r4,b
-03C6 FD        1370            mov     r5,a
-03C7           1371   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:418: printf("count=%ld          \r", count);
-03C7 C002      1372            push    ar2
-03C9 C003      1373            push    ar3
-03CB C004      1374            push    ar4
-03CD C005      1375            push    ar5
-03CF C002      1376            push    ar2
-03D1 C003      1377            push    ar3
-03D3 C004      1378            push    ar4
-03D5 C005      1379            push    ar5
-03D7 7448      1380            mov     a,#__str_1
-03D9 C0E0      1381            push    acc
-03DB 74C5      1382            mov     a,#(__str_1 >> 8)
-03DD C0E0      1383            push    acc
-03DF 7480      1384            mov     a,#0x80
-03E1 C0E0      1385            push    acc
-03E3 120000    1386            lcall   _printf
-03E6 E581      1387            mov     a,sp
-03E8 24F9      1388            add     a,#0xf9
-03EA F581      1389            mov     sp,a
-03EC D005      1390            pop     ar5
-03EE D004      1391            pop     ar4
-03F0 D003      1392            pop     ar3
-03F2 D002      1393            pop     ar2
-03F4           1394   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:420: if(count>0)
-03F4 C3        1395            clr     c
-03F5 E4        1396            clr     a
-03F6 9A        1397            subb    a,r2
-03F7 E4        1398            clr     a
-03F8 9B        1399            subb    a,r3
-03F9 E4        1400            clr     a
-03FA 9C        1401            subb    a,r4
-03FB E4        1402            clr     a
-03FC 6480      1403            xrl     a,#0x80
-03FE 8DF0      1404            mov     b,r5
-0400 63F080    1405            xrl     b,#0x80
-0403 95F0      1406            subb    a,b
-0405 4000      1407            jc      L012011?
-0407 020000    1408            ljmp    L012002?
-040A           1409   L012011?:
-040A           1410   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:422: f=(SYSCLK*30.0)/(count*12);
-040A 8A00      1411            mov     __mullong_PARM_2,r2
-040C 8B01      1412            mov     (__mullong_PARM_2 + 1),r3
-040E 8C02      1413            mov     (__mullong_PARM_2 + 2),r4
-0410 8D03      1414            mov     (__mullong_PARM_2 + 3),r5
-0412 90000C    1415            mov     dptr,#(0x0C&0x00ff)
-0415 E4        1416            clr     a
-0416 F5F0      1417            mov     b,a
-0418 C002      1418            push    ar2
-041A C003      1419            push    ar3
-041C C004      1420            push    ar4
-041E C005      1421            push    ar5
-0420 120000    1422            lcall   __mullong
-0423 120000    1423            lcall   ___slong2fs
-0426 AE82      1424            mov     r6,dpl
-0428 AF83      1425            mov     r7,dph
-042A A8F0      1426            mov     r0,b
-042C F9        1427            mov     r1,a
-042D C006      1428            push    ar6
-042F C007      1429            push    ar7
-0431 C000      1430            push    ar0
-0433 C001      1431            push    ar1
-0435 90BEFC    1432            mov     dptr,#0xBEFC
-0438 75F000    1433            mov     b,#0x00
-043B 744F      1434            mov     a,#0x4F
-043D 120000    1435            lcall   ___fsdiv
-0440 AE82      1436            mov     r6,dpl
-0442 AF83      1437            mov     r7,dph
-0444 A8F0      1438            mov     r0,b
-0446 F9        1439            mov     r1,a
-0447 E581      1440            mov     a,sp
-0449 24FC      1441            add     a,#0xfc
-044B F581      1442            mov     sp,a
-044D 8E82      1443            mov     dpl,r6
-044F 8F83      1444            mov     dph,r7
-0451 88F0      1445            mov     b,r0
-0453 E9        1446            mov     a,r1
-0454 120000    1447            lcall   ___fs2slong
-0457 AE82      1448            mov     r6,dpl
-0459 AF83      1449            mov     r7,dph
-045B A8F0      1450            mov     r0,b
-045D F9        1451            mov     r1,a
-045E           1452   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:423: printf("f=%ld Hz, count=%ld\r\n", f, count);
-045E C006      1453            push    ar6
-0460 C007      1454            push    ar7
-0462 C000      1455            push    ar0
-0464 C001      1456            push    ar1
-0466 74D8      1457            mov     a,#__str_2
-0468 C0E0      1458            push    acc
-046A 74C7      1459            mov     a,#(__str_2 >> 8)
-046C C0E0      1460            push    acc
-046E 7480      1461            mov     a,#0x80
-0470 C0E0      1462            push    acc
-0472 120000    1463            lcall   _printf
-0475 E581      1464            mov     a,sp
-0477 24F5      1465            add     a,#0xf5
-0479 F581      1466            mov     sp,a
-047B 8000      1467            sjmp    L012003?
-047D           1468   L012002?:
-047D           1469   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:428: printf("NO SIGNAL                     \r");
-047D 7458      1470            mov     a,#__str_3
-047F C0E0      1471            push    acc
-0481 74C8      1472            mov     a,#(__str_3 >> 8)
-0483 C0E0      1473            push    acc
-0485 7480      1474            mov     a,#0x80
-0487 C0E0      1475            push    acc
-0489 120000    1476            lcall   _printf
-048C 1581      1477            dec     sp
-048E 1581      1478            dec     sp
-0490 1581      1479            dec     sp
-0492           1480   L012003?:
-0492           1481   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:492: waitms(200);
-0492 9000C8    1482            mov     dptr,#0x00C8
-0495 120000    1483            lcall   _waitms
-0498 020000    1484            ljmp    L012005?
-049B           1485            rseg R_CSEG
-049B           1486   
-0000           1487            rseg R_XINIT
-0000           1488   
-0000           1489            rseg R_CONST
-0000           1490   _PrintNumber_HexDigit_1_81:
-0000 30313233  1491            db '0123456789ABCDEF'
+02FF 33        1252            rlc     a
+0300 FE        1253            mov     r6,a
+0301 C3        1254            clr     c
+0302 E4        1255            clr     a
+0303 98        1256            subb    a,r0
+0304 E4        1257            clr     a
+0305 6480      1258            xrl     a,#0x80
+0307 89F0      1259            mov     b,r1
+0309 63F080    1260            xrl     b,#0x80
+030C 95F0      1261            subb    a,b
+030E E4        1262            clr     a
+030F 33        1263            rlc     a
+0310 FF        1264            mov     r7,a
+0311 4E        1265            orl     a,r6
+0312 7000      1266            jnz     L011016?
+0314 020000    1267            ljmp    L011007?
+0317           1268   L011016?:
+0317           1269   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:349: buff[j--]=HexDigit[val%Base];
+0317 AEF0      1270            mov     r6,_PrintNumber_j_1_81
+0319 AFF1      1271            mov     r7,(_PrintNumber_j_1_81 + 1)
+031B 15F0      1272            dec     _PrintNumber_j_1_81
+031D 74FF      1273            mov     a,#0xff
+031F B5F028    1274            cjne    a,_PrintNumber_j_1_81,L011017?
+0322 15F1      1275            dec     (_PrintNumber_j_1_81 + 1)
+0324           1276   L011017?:
+0324 EE        1277            mov     a,r6
+0325 24E0      1278            add     a,#_PrintNumber_buff_1_81
+0327 F540      1279            mov     _PrintNumber_sloc0_1_0,a
+0329 EF        1280            mov     a,r7
+032A 34B5      1281            addc    a,#(_PrintNumber_buff_1_81 >> 8)
+032C F541      1282            mov     (_PrintNumber_sloc0_1_0 + 1),a
+032E 852090    1283            mov     _PrintNumber_sloc1_1_0,_PrintNumber_PARM_2
+0331 E521      1284            mov     a,(_PrintNumber_PARM_2 + 1)
+0333 F591      1285            mov     (_PrintNumber_sloc1_1_0 + 1),a
+0335 33        1286            rlc     a
+0336 95E0      1287            subb    a,acc
+0338 F592      1288            mov     (_PrintNumber_sloc1_1_0 + 2),a
+033A F593      1289            mov     (_PrintNumber_sloc1_1_0 + 3),a
+033C 859000    1290            mov     __modslong_PARM_2,_PrintNumber_sloc1_1_0
+033F 859101    1291            mov     (__modslong_PARM_2 + 1),(_PrintNumber_sloc1_1_0 + 1)
+0342 859202    1292            mov     (__modslong_PARM_2 + 2),(_PrintNumber_sloc1_1_0 + 2)
+0345 859303    1293            mov     (__modslong_PARM_2 + 3),(_PrintNumber_sloc1_1_0 + 3)
+0348 85A082    1294            mov     dpl,_PrintNumber_val_1_80
+034B 85A183    1295            mov     dph,(_PrintNumber_val_1_80 + 1)
+034E 85A2F0    1296            mov     b,(_PrintNumber_val_1_80 + 2)
+0351 E5A3      1297            mov     a,(_PrintNumber_val_1_80 + 3)
+0353 C000      1298            push    ar0
+0355 C001      1299            push    ar1
+0357 120000    1300            lcall   __modslong
+035A AE82      1301            mov     r6,dpl
+035C AF83      1302            mov     r7,dph
+035E EE        1303            mov     a,r6
+035F 24B0      1304            add     a,#_PrintNumber_HexDigit_1_81
+0361 F582      1305            mov     dpl,a
+0363 EF        1306            mov     a,r7
+0364 3411      1307            addc    a,#(_PrintNumber_HexDigit_1_81 >> 8)
+0366 F583      1308            mov     dph,a
+0368 E4        1309            clr     a
+0369 93        1310            movc    a,@a+dptr
+036A 854082    1311            mov     dpl,_PrintNumber_sloc0_1_0
+036D 854183    1312            mov     dph,(_PrintNumber_sloc0_1_0 + 1)
+0370 F0        1313            movx    @dptr,a
+0371           1314   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:350: val/=Base;
+0371 859000    1315            mov     __divslong_PARM_2,_PrintNumber_sloc1_1_0
+0374 859101    1316            mov     (__divslong_PARM_2 + 1),(_PrintNumber_sloc1_1_0 + 1)
+0377 859202    1317            mov     (__divslong_PARM_2 + 2),(_PrintNumber_sloc1_1_0 + 2)
+037A 859303    1318            mov     (__divslong_PARM_2 + 3),(_PrintNumber_sloc1_1_0 + 3)
+037D 85A082    1319            mov     dpl,_PrintNumber_val_1_80
+0380 85A183    1320            mov     dph,(_PrintNumber_val_1_80 + 1)
+0383 85A2F0    1321            mov     b,(_PrintNumber_val_1_80 + 2)
+0386 E5A3      1322            mov     a,(_PrintNumber_val_1_80 + 3)
+0388 120000    1323            lcall   __divslong
+038B 8582A0    1324            mov     _PrintNumber_val_1_80,dpl
+038E 8583A1    1325            mov     (_PrintNumber_val_1_80 + 1),dph
+0391 85F0A2    1326            mov     (_PrintNumber_val_1_80 + 2),b
+0394 F5A3      1327            mov     (_PrintNumber_val_1_80 + 3),a
+0396 D001      1328            pop     ar1
+0398 D000      1329            pop     ar0
+039A           1330   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:351: if(digits!=0) digits--;
+039A E8        1331            mov     a,r0
+039B 49        1332            orl     a,r1
+039C 7000      1333            jnz     L011018?
+039E 020000    1334            ljmp    L011005?
+03A1           1335   L011018?:
+03A1 18        1336            dec     r0
+03A2 B8FFC8    1337            cjne    r0,#0xff,L011019?
+03A5 19        1338            dec     r1
+03A6           1339   L011019?:
+03A6 020000    1340            ljmp    L011005?
+03A9           1341   L011007?:
+03A9           1342   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:353: eputs(&buff[j+1]);
+03A9 E5F0      1343            mov     a,_PrintNumber_j_1_81
+03AB 04        1344            inc     a
+03AC 24E0      1345            add     a,#_PrintNumber_buff_1_81
+03AE FA        1346            mov     r2,a
+03AF E4        1347            clr     a
+03B0 34B5      1348            addc    a,#(_PrintNumber_buff_1_81 >> 8)
+03B2 FB        1349            mov     r3,a
+03B3 7C00      1350            mov     r4,#0x00
+03B5 8A82      1351            mov     dpl,r2
+03B7 8B83      1352            mov     dph,r3
+03B9 8CF0      1353            mov     b,r4
+03BB 020000    1354            ljmp    _eputs
+03BE           1355   ;------------------------------------------------------------
+03BE           1356   ;Allocation info for local variables in function 'main'
+03BE           1357   ;------------------------------------------------------------
+03BE           1358   ;count                     Allocated to registers r2 r3 r4 r5 
+03BE           1359   ;f                         Allocated to registers r6 r7 r0 r1 
+03BE           1360   ;------------------------------------------------------------
+03BE           1361   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:358: void main (void)
+03BE           1362   ;        -----------------------------------------
+03BE           1363   ;         function main
+03BE           1364   ;        -----------------------------------------
+03BE           1365   _main:
+03BE           1366   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:385: while (1)
+03BE           1367   L012005?:
+03BE           1368   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:419: count=GetPeriod(30);
+03BE 90001E    1369            mov     dptr,#0x001E
+03C1 120000    1370            lcall   _GetPeriod
+03C4 AA82      1371            mov     r2,dpl
+03C6 AB83      1372            mov     r3,dph
+03C8 ACF0      1373            mov     r4,b
+03CA FD        1374            mov     r5,a
+03CB           1375   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:422: if(count>0)
+03CB C3        1376            clr     c
+03CC E4        1377            clr     a
+03CD 9A        1378            subb    a,r2
+03CE E4        1379            clr     a
+03CF 9B        1380            subb    a,r3
+03D0 E4        1381            clr     a
+03D1 9C        1382            subb    a,r4
+03D2 E4        1383            clr     a
+03D3 6480      1384            xrl     a,#0x80
+03D5 8DF0      1385            mov     b,r5
+03D7 63F080    1386            xrl     b,#0x80
+03DA 95F0      1387            subb    a,b
+03DC 4000      1388            jc      L012011?
+03DE 020000    1389            ljmp    L012002?
+03E1           1390   L012011?:
+03E1           1391   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:424: f=(SYSCLK*30.0)/(count*12);
+03E1 8A00      1392            mov     __mullong_PARM_2,r2
+03E3 8B01      1393            mov     (__mullong_PARM_2 + 1),r3
+03E5 8C02      1394            mov     (__mullong_PARM_2 + 2),r4
+03E7 8D03      1395            mov     (__mullong_PARM_2 + 3),r5
+03E9 90000C    1396            mov     dptr,#(0x0C&0x00ff)
+03EC E4        1397            clr     a
+03ED F5F0      1398            mov     b,a
+03EF C002      1399            push    ar2
+03F1 C003      1400            push    ar3
+03F3 C004      1401            push    ar4
+03F5 C005      1402            push    ar5
+03F7 120000    1403            lcall   __mullong
+03FA 120000    1404            lcall   ___slong2fs
+03FD AE82      1405            mov     r6,dpl
+03FF AF83      1406            mov     r7,dph
+0401 A8F0      1407            mov     r0,b
+0403 F9        1408            mov     r1,a
+0404 C006      1409            push    ar6
+0406 C007      1410            push    ar7
+0408 C000      1411            push    ar0
+040A C001      1412            push    ar1
+040C 90BEFC    1413            mov     dptr,#0xBEFC
+040F 75F000    1414            mov     b,#0x00
+0412 744F      1415            mov     a,#0x4F
+0414 120000    1416            lcall   ___fsdiv
+0417 AE82      1417            mov     r6,dpl
+0419 AF83      1418            mov     r7,dph
+041B A8F0      1419            mov     r0,b
+041D F9        1420            mov     r1,a
+041E E581      1421            mov     a,sp
+0420 24FC      1422            add     a,#0xfc
+0422 F581      1423            mov     sp,a
+0424 8E82      1424            mov     dpl,r6
+0426 8F83      1425            mov     dph,r7
+0428 88F0      1426            mov     b,r0
+042A E9        1427            mov     a,r1
+042B 120000    1428            lcall   ___fs2slong
+042E AE82      1429            mov     r6,dpl
+0430 AF83      1430            mov     r7,dph
+0432 A8F0      1431            mov     r0,b
+0434 F9        1432            mov     r1,a
+0435           1433   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:425: printf("f=%ld Hz, count=%ld\r\n", f, count);
+0435 C006      1434            push    ar6
+0437 C007      1435            push    ar7
+0439 C000      1436            push    ar0
+043B C001      1437            push    ar1
+043D 7458      1438            mov     a,#__str_1
+043F C0E0      1439            push    acc
+0441 74C7      1440            mov     a,#(__str_1 >> 8)
+0443 C0E0      1441            push    acc
+0445 7480      1442            mov     a,#0x80
+0447 C0E0      1443            push    acc
+0449 120000    1444            lcall   _printf
+044C E581      1445            mov     a,sp
+044E 24F5      1446            add     a,#0xf5
+0450 F581      1447            mov     sp,a
+0452 8000      1448            sjmp    L012003?
+0454           1449   L012002?:
+0454           1450   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:430: printf("NO SIGNAL                     \r");
+0454 7418      1451            mov     a,#__str_2
+0456 C0E0      1452            push    acc
+0458 74C8      1453            mov     a,#(__str_2 >> 8)
+045A C0E0      1454            push    acc
+045C 7480      1455            mov     a,#0x80
+045E C0E0      1456            push    acc
+0460 120000    1457            lcall   _printf
+0463 1581      1458            dec     sp
+0465 1581      1459            dec     sp
+0467 1581      1460            dec     sp
+0469           1461   L012003?:
+0469           1462   ;        C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:494: waitms(200);
+0469 9000C8    1463            mov     dptr,#0x00C8
+046C 120000    1464            lcall   _waitms
+046F 020000    1465            ljmp    L012005?
+0472           1466            rseg R_CSEG
+0472           1467   
+0000           1468            rseg R_XINIT
+0000           1469   
+0000           1470            rseg R_CONST
+0000           1471   _PrintNumber_HexDigit_1_81:
+0000 30313233  1472            db '0123456789ABCDEF'
      34353637
      38394142
      43444546
-0010 00        1492            db 0x00
-0011           1493   __str_1:
-0011 636F756E  1494            db 'count=%ld          '
-     743D256C
-     64202020
-     20202020
-     202020
-0024 0D        1495            db 0x0D
-0025 00        1496            db 0x00
-0026           1497   __str_2:
-0026 663D256C  1498            db 'f=%ld Hz, count=%ld'
+0010 00        1473            db 0x00
+0011           1474   __str_1:
+0011 663D256C  1475            db 'f=%ld Hz, count=%ld'
      6420487A
      2C20636F
      756E743D
      256C64
-0039 0D        1499            db 0x0D
-003A 0A        1500            db 0x0A
-003B 00        1501            db 0x00
-003C           1502   __str_3:
-003C 4E4F2053  1503            db 'NO SIGNAL                     '
+0024 0D        1476            db 0x0D
+0025 0A        1477            db 0x0A
+0026 00        1478            db 0x00
+0027           1479   __str_2:
+0027 4E4F2053  1480            db 'NO SIGNAL                     '
      49474E41
      4C202020
      20202020
@@ -1519,9 +1492,9 @@
      20202020
      20202020
      2020
-005A 0D        1504            db 0x0D
-005B 00        1505            db 0x00
-005C           1506   
-0096           1507            CSEG
-0096           1508   
-0096           1509   end
+0045 0D        1481            db 0x0D
+0046 00        1482            db 0x00
+0047           1483   
+0096           1484            CSEG
+0096           1485   
+0096           1486   end

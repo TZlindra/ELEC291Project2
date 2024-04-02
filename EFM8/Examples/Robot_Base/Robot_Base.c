@@ -250,6 +250,7 @@ unsigned long GetPeriod (int n)
 	unsigned int overflow_count;
 	unsigned char i;
 
+	EA = 0; // Disable interrupts
 	TR0=0; // Stop Timer/Counter 0
 	TMOD&=0b_1111_0000; // Set the bits of Timer/Counter 0 to zero
 	TMOD|=0b_0000_0001; // Timer/Counter 0 used as a 16-bit timer
@@ -314,6 +315,7 @@ unsigned long GetPeriod (int n)
 		}
 	}
 	TR0=0; // Stop timer 0, the 24-bit number [overflow_count-TH0-TL0] has the period in clock cycles!
+	EA = 1; // Enable interrupts
 
 	return (overflow_count*65536+TH0*256+TL0);
 }
@@ -415,7 +417,7 @@ void main (void)
 		// Not very good for high frequencies because of all the interrupts in the background
 		// but decent for low frequencies around 10kHz.
 		count=GetPeriod(30);
-		printf("count=%ld          \r", count);
+		// printf("count=%ld          \r", count);
 
 		if(count>0)
 		{

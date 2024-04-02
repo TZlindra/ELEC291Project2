@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
 ; File Created by C51
 ; Version 1.0.0 #1170 (Feb 16 2022) (MSVC)
-; This file was generated Mon Apr 01 14:19:52 2024
+; This file was generated Tue Apr 02 12:46:24 2024
 ;--------------------------------------------------------
 $name Robot_Base
 $optc51 --model-small
@@ -961,91 +961,93 @@ L008011?:
 _GetPeriod:
 	mov	r2,dpl
 	mov	r3,dph
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:253: TR0=0; // Stop Timer/Counter 0
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:253: EA = 0; // Disable interrupts
+	clr	_EA
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:254: TR0=0; // Stop Timer/Counter 0
 	clr	_TR0
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:254: TMOD&=0b_1111_0000; // Set the bits of Timer/Counter 0 to zero
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:255: TMOD&=0b_1111_0000; // Set the bits of Timer/Counter 0 to zero
 	anl	_TMOD,#0xF0
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:255: TMOD|=0b_0000_0001; // Timer/Counter 0 used as a 16-bit timer
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:256: TMOD|=0b_0000_0001; // Timer/Counter 0 used as a 16-bit timer
 	orl	_TMOD,#0x01
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:258: TR0=0;
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:259: TR0=0;
 	clr	_TR0
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:259: TL0=0; TH0=0; TF0=0; overflow_count=0;
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:260: TL0=0; TH0=0; TF0=0; overflow_count=0;
 	mov	_TL0,#0x00
 	mov	_TH0,#0x00
 	clr	_TF0
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:260: TR0=1;
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:261: TR0=1;
 	setb	_TR0
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:261: while(PERIOD_PIN!=0) // Wait for the signal to be zero
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:262: while(PERIOD_PIN!=0) // Wait for the signal to be zero
 	mov	r4,#0x00
 	mov	r5,#0x00
 L009005?:
 	jnb	_P1_0,L009007?
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:263: if(TF0==1) // Did the 16-bit timer overflow?
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:265: TF0=0;
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:264: if(TF0==1) // Did the 16-bit timer overflow?
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:266: TF0=0;
 	jbc	_TF0,L009050?
 	sjmp	L009005?
 L009050?:
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:266: overflow_count++;
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:267: overflow_count++;
 	inc	r4
 	cjne	r4,#0x00,L009051?
 	inc	r5
 L009051?:
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:267: if(overflow_count==10) // If it overflows too many times assume no signal is present
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:268: if(overflow_count==10) // If it overflows too many times assume no signal is present
 	cjne	r4,#0x0A,L009005?
 	cjne	r5,#0x00,L009005?
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:269: TR0=0;
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:270: TR0=0;
 	clr	_TR0
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:270: return 0; // No signal
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:271: return 0; // No signal
 	mov	dptr,#(0x00&0x00ff)
 	clr	a
 	mov	b,a
 	ret
 L009007?:
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:276: TR0=0;
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:277: TR0=0;
 	clr	_TR0
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:277: TL0=0; TH0=0; TF0=0; overflow_count=0;
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:278: TL0=0; TH0=0; TF0=0; overflow_count=0;
 	mov	_TL0,#0x00
 	mov	_TH0,#0x00
 	clr	_TF0
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:278: TR0=1;
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:279: TR0=1;
 	setb	_TR0
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:279: while(PERIOD_PIN!=1) // Wait for the signal to be one
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:280: while(PERIOD_PIN!=1) // Wait for the signal to be one
 	mov	r4,#0x00
 	mov	r5,#0x00
 L009012?:
 	jb	_P1_0,L009014?
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:281: if(TF0==1) // Did the 16-bit timer overflow?
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:283: TF0=0;
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:282: if(TF0==1) // Did the 16-bit timer overflow?
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:284: TF0=0;
 	jbc	_TF0,L009055?
 	sjmp	L009012?
 L009055?:
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:284: overflow_count++;
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:285: overflow_count++;
 	inc	r4
 	cjne	r4,#0x00,L009056?
 	inc	r5
 L009056?:
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:285: if(overflow_count==10) // If it overflows too many times assume no signal is present
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:286: if(overflow_count==10) // If it overflows too many times assume no signal is present
 	cjne	r4,#0x0A,L009012?
 	cjne	r5,#0x00,L009012?
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:287: TR0=0;
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:288: TR0=0;
 	clr	_TR0
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:288: return 0; // No signal
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:289: return 0; // No signal
 	mov	dptr,#(0x00&0x00ff)
 	clr	a
 	mov	b,a
 	ret
 L009014?:
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:294: TR0=0;
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:295: TR0=0;
 	clr	_TR0
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:295: TL0=0; TH0=0; TF0=0; overflow_count=0;
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:296: TL0=0; TH0=0; TF0=0; overflow_count=0;
 	mov	_TL0,#0x00
 	mov	_TH0,#0x00
 	clr	_TF0
 	mov	r4,#0x00
 	mov	r5,#0x00
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:296: TR0=1; // Start the timer
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:297: TR0=1; // Start the timer
 	setb	_TR0
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:297: for(i=0; i<n; i++) // Measure the time of 'n' periods
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:298: for(i=0; i<n; i++) // Measure the time of 'n' periods
 	mov	r6,#0x00
 L009025?:
 	mov	ar7,r6
@@ -1059,31 +1061,31 @@ L009025?:
 	xrl	b,#0x80
 	subb	a,b
 	jnc	L009028?
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:299: while(PERIOD_PIN!=0) // Wait for the signal to be zero
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:300: while(PERIOD_PIN!=0) // Wait for the signal to be zero
 	mov	ar7,r4
 	mov	ar0,r5
 L009017?:
 	jnb	_P1_0,L009043?
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:301: if(TF0==1) // Did the 16-bit timer overflow?
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:303: TF0=0;
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:302: if(TF0==1) // Did the 16-bit timer overflow?
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:304: TF0=0;
 	jbc	_TF0,L009061?
 	sjmp	L009017?
 L009061?:
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:304: overflow_count++;
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:305: overflow_count++;
 	inc	r7
 	cjne	r7,#0x00,L009017?
 	inc	r0
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:307: while(PERIOD_PIN!=1) // Wait for the signal to be one
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:308: while(PERIOD_PIN!=1) // Wait for the signal to be one
 	sjmp	L009017?
 L009043?:
 L009022?:
 	jb	_P1_0,L009047?
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:309: if(TF0==1) // Did the 16-bit timer overflow?
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:311: TF0=0;
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:310: if(TF0==1) // Did the 16-bit timer overflow?
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:312: TF0=0;
 	jbc	_TF0,L009063?
 	sjmp	L009022?
 L009063?:
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:312: overflow_count++;
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:313: overflow_count++;
 	inc	r7
 	cjne	r7,#0x00,L009022?
 	inc	r0
@@ -1091,13 +1093,15 @@ L009063?:
 L009047?:
 	mov	ar4,r7
 	mov	ar5,r0
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:297: for(i=0; i<n; i++) // Measure the time of 'n' periods
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:298: for(i=0; i<n; i++) // Measure the time of 'n' periods
 	inc	r6
 	sjmp	L009025?
 L009028?:
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:316: TR0=0; // Stop timer 0, the 24-bit number [overflow_count-TH0-TL0] has the period in clock cycles!
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:317: TR0=0; // Stop timer 0, the 24-bit number [overflow_count-TH0-TL0] has the period in clock cycles!
 	clr	_TR0
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:318: return (overflow_count*65536+TH0*256+TL0);
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:318: EA = 1; // Enable interrupts
+	setb	_EA
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:320: return (overflow_count*65536+TH0*256+TL0);
 	mov	ar3,r5
 	mov	ar2,r4
 	mov	r5,#0x00
@@ -1148,7 +1152,7 @@ L009028?:
 ;------------------------------------------------------------
 ;String                    Allocated to registers r2 r3 r4 
 ;------------------------------------------------------------
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:321: void eputs(char *String)
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:323: void eputs(char *String)
 ;	-----------------------------------------
 ;	 function eputs
 ;	-----------------------------------------
@@ -1156,7 +1160,7 @@ _eputs:
 	mov	r2,dpl
 	mov	r3,dph
 	mov	r4,b
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:323: while(*String)
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:325: while(*String)
 L010001?:
 	mov	dpl,r2
 	mov	dph,r3
@@ -1164,7 +1168,7 @@ L010001?:
 	lcall	__gptrget
 	mov	r5,a
 	jz	L010004?
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:325: putchar(*String);
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:327: putchar(*String);
 	mov	dpl,r5
 	push	ar2
 	push	ar3
@@ -1173,7 +1177,7 @@ L010001?:
 	pop	ar4
 	pop	ar3
 	pop	ar2
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:326: String++;
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:328: String++;
 	inc	r2
 	cjne	r2,#0x00,L010001?
 	inc	r3
@@ -1191,7 +1195,7 @@ L010004?:
 ;sloc1                     Allocated with name '_PrintNumber_sloc1_1_0'
 ;buff                      Allocated with name '_PrintNumber_buff_1_81'
 ;------------------------------------------------------------
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:330: void PrintNumber(long int val, int Base, int digits)
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:332: void PrintNumber(long int val, int Base, int digits)
 ;	-----------------------------------------
 ;	 function PrintNumber
 ;	-----------------------------------------
@@ -1200,17 +1204,17 @@ _PrintNumber:
 	mov	(_PrintNumber_val_1_80 + 1),dph
 	mov	(_PrintNumber_val_1_80 + 2),b
 	mov	(_PrintNumber_val_1_80 + 3),a
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:336: buff[NBITS]=0;
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:338: buff[NBITS]=0;
 	mov	dptr,#(_PrintNumber_buff_1_81 + 0x0020)
 	clr	a
 	movx	@dptr,a
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:338: if(val<0)
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:340: if(val<0)
 	mov	a,(_PrintNumber_val_1_80 + 3)
 	jnb	acc.7,L011012?
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:340: putchar('-');
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:342: putchar('-');
 	mov	dpl,#0x2D
 	lcall	_putchar
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:341: val*=-1;
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:343: val*=-1;
 	clr	c
 	clr	a
 	subb	a,_PrintNumber_val_1_80
@@ -1224,7 +1228,7 @@ _PrintNumber:
 	clr	a
 	subb	a,(_PrintNumber_val_1_80 + 3)
 	mov	(_PrintNumber_val_1_80 + 3),a
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:345: while ( (val>0) | (digits>0) )
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:347: while ( (val>0) | (digits>0) )
 L011012?:
 	mov	_PrintNumber_j_1_81,#0x1F
 	clr	a
@@ -1262,7 +1266,7 @@ L011005?:
 	jnz	L011016?
 	ljmp	L011007?
 L011016?:
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:347: buff[j--]=HexDigit[val%Base];
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:349: buff[j--]=HexDigit[val%Base];
 	mov	r6,_PrintNumber_j_1_81
 	mov	r7,(_PrintNumber_j_1_81 + 1)
 	dec	_PrintNumber_j_1_81
@@ -1307,7 +1311,7 @@ L011017?:
 	mov	dpl,_PrintNumber_sloc0_1_0
 	mov	dph,(_PrintNumber_sloc0_1_0 + 1)
 	movx	@dptr,a
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:348: val/=Base;
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:350: val/=Base;
 	mov	__divslong_PARM_2,_PrintNumber_sloc1_1_0
 	mov	(__divslong_PARM_2 + 1),(_PrintNumber_sloc1_1_0 + 1)
 	mov	(__divslong_PARM_2 + 2),(_PrintNumber_sloc1_1_0 + 2)
@@ -1323,7 +1327,7 @@ L011017?:
 	mov	(_PrintNumber_val_1_80 + 3),a
 	pop	ar1
 	pop	ar0
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:349: if(digits!=0) digits--;
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:351: if(digits!=0) digits--;
 	mov	a,r0
 	orl	a,r1
 	jnz	L011018?
@@ -1335,7 +1339,7 @@ L011018?:
 L011019?:
 	ljmp	L011005?
 L011007?:
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:351: eputs(&buff[j+1]);
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:353: eputs(&buff[j+1]);
 	mov	a,_PrintNumber_j_1_81
 	inc	a
 	add	a,#_PrintNumber_buff_1_81
@@ -1354,44 +1358,21 @@ L011007?:
 ;count                     Allocated to registers r2 r3 r4 r5 
 ;f                         Allocated to registers r6 r7 r0 r1 
 ;------------------------------------------------------------
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:356: void main (void)
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:358: void main (void)
 ;	-----------------------------------------
 ;	 function main
 ;	-----------------------------------------
 _main:
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:383: while (1)
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:385: while (1)
 L012005?:
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:417: count=GetPeriod(30);
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:419: count=GetPeriod(30);
 	mov	dptr,#0x001E
 	lcall	_GetPeriod
 	mov	r2,dpl
 	mov	r3,dph
 	mov	r4,b
 	mov	r5,a
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:418: printf("count=%ld          \r", count);
-	push	ar2
-	push	ar3
-	push	ar4
-	push	ar5
-	push	ar2
-	push	ar3
-	push	ar4
-	push	ar5
-	mov	a,#__str_1
-	push	acc
-	mov	a,#(__str_1 >> 8)
-	push	acc
-	mov	a,#0x80
-	push	acc
-	lcall	_printf
-	mov	a,sp
-	add	a,#0xf9
-	mov	sp,a
-	pop	ar5
-	pop	ar4
-	pop	ar3
-	pop	ar2
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:420: if(count>0)
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:422: if(count>0)
 	clr	c
 	clr	a
 	subb	a,r2
@@ -1407,7 +1388,7 @@ L012005?:
 	jc	L012011?
 	ljmp	L012002?
 L012011?:
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:422: f=(SYSCLK*30.0)/(count*12);
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:424: f=(SYSCLK*30.0)/(count*12);
 	mov	__mullong_PARM_2,r2
 	mov	(__mullong_PARM_2 + 1),r3
 	mov	(__mullong_PARM_2 + 2),r4
@@ -1449,14 +1430,14 @@ L012011?:
 	mov	r7,dph
 	mov	r0,b
 	mov	r1,a
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:423: printf("f=%ld Hz, count=%ld\r\n", f, count);
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:425: printf("f=%ld Hz, count=%ld\r\n", f, count);
 	push	ar6
 	push	ar7
 	push	ar0
 	push	ar1
-	mov	a,#__str_2
+	mov	a,#__str_1
 	push	acc
-	mov	a,#(__str_2 >> 8)
+	mov	a,#(__str_1 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -1466,10 +1447,10 @@ L012011?:
 	mov	sp,a
 	sjmp	L012003?
 L012002?:
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:428: printf("NO SIGNAL                     \r");
-	mov	a,#__str_3
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:430: printf("NO SIGNAL                     \r");
+	mov	a,#__str_2
 	push	acc
-	mov	a,#(__str_3 >> 8)
+	mov	a,#(__str_2 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -1478,7 +1459,7 @@ L012002?:
 	dec	sp
 	dec	sp
 L012003?:
-;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:492: waitms(200);
+;	C:\Muntakim_Files\School\School_Work\Engineering_Bachelors\2023\ELEC_291\Projects\Project_2\ELEC291Project2\EFM8\Examples\Robot_Base\Robot_Base.c:494: waitms(200);
 	mov	dptr,#0x00C8
 	lcall	_waitms
 	ljmp	L012005?
@@ -1491,15 +1472,11 @@ _PrintNumber_HexDigit_1_81:
 	db '0123456789ABCDEF'
 	db 0x00
 __str_1:
-	db 'count=%ld          '
-	db 0x0D
-	db 0x00
-__str_2:
 	db 'f=%ld Hz, count=%ld'
 	db 0x0D
 	db 0x0A
 	db 0x00
-__str_3:
+__str_2:
 	db 'NO SIGNAL                     '
 	db 0x0D
 	db 0x00

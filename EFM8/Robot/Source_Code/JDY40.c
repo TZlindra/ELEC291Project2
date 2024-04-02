@@ -1,4 +1,5 @@
 #include "JDY40.h"
+#include "inductance.h"
 
 #define TIMER_4_FREQ 1000L
 
@@ -6,6 +7,8 @@ xdata char RXbuff[80];
 xdata char TXbuff[80];
 
 volatile int TXcount=0;
+volatile int Periodcount=0;
+
 volatile int flag = 0;
 volatile int commands[2];
 
@@ -46,20 +49,29 @@ void TIMER4_Init(void) {
 }
 
 void Timer4_ISR (void) interrupt INTERRUPT_TIMER4 {
-	int current_TR0 = TR0, current_TR5 = TR5;
-	TR0 = 0, TR5 = 0;
+	// int current_TR0 = TR0, current_TR5 = TR5;
+	// TR0 = 0, TR5 = 0;
+	int current_TR5 = TR5;
+	TR5 = 0;
 
 	SFRPAGE=0x10;
 	TF4H = 0; // Clear Timer4 interrupt flag
 	TXcount++;
-	// if(TXcount >= 1000){
+	Periodcount++;
+
 	if(TXcount >= 2500){
 		TXcount=0;
 		P1_2=!P1_2;
 		flag == 0;
 	}
 
-	if (current_TR0 == 1) TR0 = 1;
+	if (Periodcount >= 500) {
+		Periodcount = 0;
+
+		// P0_6 = !P0_6;
+	}
+
+	// if (current_TR0 == 1) TR0 = 1;
 	if (current_TR5 == 1) TR5 = 1;
 }
 

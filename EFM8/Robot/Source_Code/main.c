@@ -2,6 +2,7 @@
 #include "JDY40.h"
 #include "movement_integration.h"
 #include "inductance.h"
+#include "speaker.h"
 
 float x;
 float y;
@@ -71,7 +72,7 @@ char _c51_external_startup (void) {
 	TR1 = 1; // START Timer1
 	TI = 1;  // Indicate TX0 ready
 	P1MDOUT |= 0b0000_1100;
-	P2MDOUT |= 0b0001_1110; // PWM Pins
+	P2MDOUT |= 0b0001_1111; // PWM Pins + speaker
 
 	return 0;
 }
@@ -95,12 +96,14 @@ void test_print(float x, float y) {
 
 void main (void) {
 	long int freq = 0;
+
 	int inductance = MILLI_MULTIPLIER;
 	waitms(500);
 	UART1_Init(9600);
 	JDY40Init();
 	movement_init();
 
+	TIMER2Init();
 	TIMER4_Init();
 	TIMER5Init();
     EA = 1;

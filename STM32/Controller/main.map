@@ -193,7 +193,7 @@ LOAD C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-
 LOAD C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libm.a
 END GROUP
 
-.text           0x08000000     0x953c
+.text           0x08000000     0x952c
  *(.vectors)
  .vectors       0x08000000       0xb8 startup.o
                 0x08000000                Vectors
@@ -202,7 +202,7 @@ END GROUP
                 0x080000b8       0x28 startup.o
                 0x080000b8                ResetInit
  *(.text*)
- .text          0x080000e0      0x90c main.o
+ .text          0x080000e0      0x908 main.o
                 0x080000e0                TIM2_Handler
                 0x08000154                TIM21_Handler
                 0x08000190                ConfigPinsLCD
@@ -221,86 +221,86 @@ END GROUP
                 0x080006c4                update_sensitivity_y
                 0x0800072c                checkLock
                 0x080007a0                main
- .text          0x080009ec      0x1a8 startup.o
-                0x08000a64                initClock
-                0x08000b6c                EXTI2_3_Handler
-                0x08000b6c                SysTick_Handler
-                0x08000b6c                I2C1_Handler
-                0x08000b6c                PendSV_Handler
-                0x08000b6c                NMI_Handler
-                0x08000b6c                WWDG_Handler
-                0x08000b6c                RTC_Handler
-                0x08000b6c                EXTI4_15_Handler
-                0x08000b6c                DMA_CH4_5_6_7_Handler
-                0x08000b6c                Default_Handler
-                0x08000b6c                LPUART1_Handler
-                0x08000b6c                FLASH_Handler
-                0x08000b6c                EXTI0_1_Handler
-                0x08000b6c                DMA_CH1_Handler
-                0x08000b6c                SPI2_Handler
-                0x08000b6c                DMA_CH2_3_Handler
-                0x08000b6c                I2C2_Handler
-                0x08000b6c                SVC_Handler
-                0x08000b6c                LPTIM1_Handler
-                0x08000b6c                SPI1_Handler
-                0x08000b6c                RCC_Handler
-                0x08000b6c                PVD_Handler
-                0x08000b6c                TIM6_Handler
-                0x08000b6c                TIM22_Handler
-                0x08000b6c                ADC_COMP_Handler
-                0x08000b80                Hard_Fault_Handler
- .text          0x08000b94      0x5b4 serial.o
-                0x08000b94                ReadCom
-                0x08000c08                WriteCom
-                0x08000ca8                initUART
-                0x08000df8                USART1_Handler
-                0x08000e24                usart_rx
-                0x08000e54                usart_tx
-                0x08000ebc                PutBuf
-                0x08000f1e                GetBuf
-                0x08000f74                GetBufCount
-                0x08000f88                eputs
-                0x08000fc4                eputc
-                0x08000fe2                egetc
-                0x08000ffc                egets
-                0x08001088                egetc_echo
-                0x080010ae                egets_echo
- .text          0x08001148      0x12c global.o
-                0x08001148                wait_1ms
-                0x08001180                waitms
-                0x080011aa                Delay_us
-                0x08001208                Delay_ms
-                0x08001254                delay
- .text          0x08001274      0x5c8 UART2.o
-                0x08001274                ReadCom2
-                0x080012e8                WriteCom2
-                0x08001388                InitUART2
-                0x080014d4                USART2_Handler
-                0x08001500                usart_rx2
-                0x08001530                usart_tx2
-                0x08001598                PutBuf2
-                0x080015fa                GetBuf2
-                0x08001650                GetBufCount2
-                0x08001664                eputs_2
-                0x080016a0                eputc2
-                0x080016be                egetc2
-                0x080016d8                egets_2
-                0x08001764                ReceivedBytes_2
-                0x0800177c                egetc_echo2
-                0x080017a2                egets_echo2
- .text          0x0800183c      0x37c JDY40.o
-                0x08001868                InitTimer21
-                0x080018c0                JDS_Delay_us
-                0x08001920                JDY_Delay_ms
-                0x0800196c                SendATCommand
-                0x080019e4                SendCommand
-                0x08001a18                ReceiveCommand
-                0x08001a38                TX_XY
-                0x08001a50                RX_I
-                0x08001a74                ConfigJDY40
-                0x08001aec                Update_XYZ
-                0x08001b1c                Update_I
-                0x08001b78                display_buffs
+ .text          0x080009e8      0x1a8 startup.o
+                0x08000a60                initClock
+                0x08000b68                EXTI2_3_Handler
+                0x08000b68                SysTick_Handler
+                0x08000b68                I2C1_Handler
+                0x08000b68                PendSV_Handler
+                0x08000b68                NMI_Handler
+                0x08000b68                WWDG_Handler
+                0x08000b68                RTC_Handler
+                0x08000b68                EXTI4_15_Handler
+                0x08000b68                DMA_CH4_5_6_7_Handler
+                0x08000b68                Default_Handler
+                0x08000b68                LPUART1_Handler
+                0x08000b68                FLASH_Handler
+                0x08000b68                EXTI0_1_Handler
+                0x08000b68                DMA_CH1_Handler
+                0x08000b68                SPI2_Handler
+                0x08000b68                DMA_CH2_3_Handler
+                0x08000b68                I2C2_Handler
+                0x08000b68                SVC_Handler
+                0x08000b68                LPTIM1_Handler
+                0x08000b68                SPI1_Handler
+                0x08000b68                RCC_Handler
+                0x08000b68                PVD_Handler
+                0x08000b68                TIM6_Handler
+                0x08000b68                TIM22_Handler
+                0x08000b68                ADC_COMP_Handler
+                0x08000b7c                Hard_Fault_Handler
+ .text          0x08000b90      0x5b4 serial.o
+                0x08000b90                ReadCom
+                0x08000c04                WriteCom
+                0x08000ca4                initUART
+                0x08000df4                USART1_Handler
+                0x08000e20                usart_rx
+                0x08000e50                usart_tx
+                0x08000eb8                PutBuf
+                0x08000f1a                GetBuf
+                0x08000f70                GetBufCount
+                0x08000f84                eputs
+                0x08000fc0                eputc
+                0x08000fde                egetc
+                0x08000ff8                egets
+                0x08001084                egetc_echo
+                0x080010aa                egets_echo
+ .text          0x08001144      0x12c global.o
+                0x08001144                wait_1ms
+                0x0800117c                waitms
+                0x080011a6                Delay_us
+                0x08001204                Delay_ms
+                0x08001250                delay
+ .text          0x08001270      0x5c8 UART2.o
+                0x08001270                ReadCom2
+                0x080012e4                WriteCom2
+                0x08001384                InitUART2
+                0x080014d0                USART2_Handler
+                0x080014fc                usart_rx2
+                0x0800152c                usart_tx2
+                0x08001594                PutBuf2
+                0x080015f6                GetBuf2
+                0x0800164c                GetBufCount2
+                0x08001660                eputs_2
+                0x0800169c                eputc2
+                0x080016ba                egetc2
+                0x080016d4                egets_2
+                0x08001760                ReceivedBytes_2
+                0x08001778                egetc_echo2
+                0x0800179e                egets_echo2
+ .text          0x08001838      0x380 JDY40.o
+                0x08001864                InitTimer21
+                0x080018bc                JDS_Delay_us
+                0x0800191c                JDY_Delay_ms
+                0x08001968                SendATCommand
+                0x080019e0                SendCommand
+                0x08001a14                ReceiveCommand
+                0x08001a34                TX_XY
+                0x08001a4c                RX_I
+                0x08001a70                ConfigJDY40
+                0x08001ae8                Update_XYZ
+                0x08001b18                Update_I
+                0x08001b8c                display_buffs
  .text          0x08001bb8      0x2e0 lcd.o
                 0x08001bb8                LCD_pulse
                 0x08001be8                LCD_byte
@@ -853,93 +853,93 @@ END GROUP
  .rodata        0x08008d88       0x5b main.o
  *fill*         0x08008de3        0x1 
  .rodata        0x08008de4       0x7c startup.o
- .rodata        0x08008e60       0xd2 JDY40.o
+ .rodata        0x08008e60       0xc2 JDY40.o
                 0x08008e68                RX_CMD
- *fill*         0x08008f32        0x2 
- .rodata        0x08008f34       0x79 passcode.o
- *fill*         0x08008fad        0x3 
- .rodata        0x08008fb0       0x80 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(divsf3.o)
- .rodata        0x08009030       0x40 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(mulsf3.o)
- .rodata        0x08009070       0x40 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(divdf3.o)
- .rodata        0x080090b0       0x40 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(muldf3.o)
+ *fill*         0x08008f22        0x2 
+ .rodata        0x08008f24       0x79 passcode.o
+ *fill*         0x08008f9d        0x3 
+ .rodata        0x08008fa0       0x80 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(divsf3.o)
+ .rodata        0x08009020       0x40 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(mulsf3.o)
+ .rodata        0x08009060       0x40 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(divdf3.o)
+ .rodata        0x080090a0       0x40 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\lib\gcc\arm-none-eabi\10.3.1\thumb\v6-m\nofp\libgcc.a(muldf3.o)
  .rodata.__sf_fake_stderr
-                0x080090f0       0x20 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-findfp.o)
-                0x080090f0                __sf_fake_stderr
+                0x080090e0       0x20 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-findfp.o)
+                0x080090e0                __sf_fake_stderr
  .rodata.__sf_fake_stdin
-                0x08009110       0x20 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-findfp.o)
-                0x08009110                __sf_fake_stdin
+                0x08009100       0x20 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-findfp.o)
+                0x08009100                __sf_fake_stdin
  .rodata.__sf_fake_stdout
-                0x08009130       0x20 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-findfp.o)
-                0x08009130                __sf_fake_stdout
+                0x08009120       0x20 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-findfp.o)
+                0x08009120                __sf_fake_stdout
  .rodata._global_impure_ptr
-                0x08009150        0x4 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-impure.o)
-                0x08009150                _global_impure_ptr
+                0x08009140        0x4 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-impure.o)
+                0x08009140                _global_impure_ptr
  .rodata._printf_float.str1.1
-                0x08009154       0x12 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-vfprintf_float.o)
+                0x08009144       0x12 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-vfprintf_float.o)
  .rodata._printf_i.str1.1
-                0x08009166       0x22 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-vfprintf_i.o)
+                0x08009156       0x22 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-vfprintf_i.o)
  .rodata._ctype_
-                0x08009188      0x101 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-ctype_.o)
-                0x08009188                _ctype_
+                0x08009178      0x101 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-ctype_.o)
+                0x08009178                _ctype_
  .rodata._dtoa_r.str1.1
-                0x08009289       0xb3 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-dtoa.o)
+                0x08009279       0xb3 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-dtoa.o)
                                  0xb5 (size before relaxing)
  .rodata._Balloc.str1.1
-                0x0800933c       0x7f C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
+                0x0800932c       0x7f C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
                                  0x96 (size before relaxing)
  .rodata.__multadd.str1.1
-                0x080093bb       0x11 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
- *fill*         0x080093bb        0x5 
+                0x080093ab       0x11 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
+ *fill*         0x080093ab        0x5 
  .rodata.__mprec_bigtens
-                0x080093c0       0x28 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
-                0x080093c0                __mprec_bigtens
+                0x080093b0       0x28 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
+                0x080093b0                __mprec_bigtens
  .rodata.__mprec_tens
-                0x080093e8       0xc8 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
-                0x080093e8                __mprec_tens
+                0x080093d8       0xc8 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
+                0x080093d8                __mprec_tens
  .rodata.__mprec_tinytens
-                0x080094b0       0x28 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
-                0x080094b0                __mprec_tinytens
- .rodata.p05.0  0x080094d8        0xc C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
+                0x080094a0       0x28 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
+                0x080094a0                __mprec_tinytens
+ .rodata.p05.0  0x080094c8        0xc C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-mprec.o)
  .rodata._svfprintf_r.str1.1
-                0x080094e4       0x11 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-svfprintf.o)
+                0x080094d4       0x11 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-svfprintf.o)
  .rodata._vfprintf_r.str1.1
-                0x080094f5       0x11 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-vfprintf.o)
+                0x080094e5       0x11 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-nano-vfprintf.o)
  .rodata.__assert_func.str1.1
-                0x080094f5       0x3c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-assert.o)
+                0x080094e5       0x3c C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-assert.o)
                                  0x3d (size before relaxing)
  .rodata._setlocale_r.str1.1
-                0x08009531        0x8 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-locale.o)
+                0x08009521        0x8 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-locale.o)
                                   0x9 (size before relaxing)
  .rodata.str1.1
-                0x08009539        0x2 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-locale.o)
-                0x0800953c                . = ALIGN (0x4)
- *fill*         0x0800953b        0x1 
-                0x0800953c                PROVIDE (__init_array_start = .)
+                0x08009529        0x2 C:\gcc-arm-none-eabi-10.3-2021.10-win32\gcc-arm-none-eabi-10.3-2021.10\arm-none-eabi\lib\thumb\v6-m\nofp\libc_nano.a(lib_a-locale.o)
+                0x0800952c                . = ALIGN (0x4)
+ *fill*         0x0800952b        0x1 
+                0x0800952c                PROVIDE (__init_array_start = .)
  *(SORT_BY_NAME(.init_array.*))
  *(.init_array)
-                0x0800953c                PROVIDE (__init_array_end = .)
-                0x0800953c                . = ALIGN (0x4)
-                0x0800953c                _etext = .
+                0x0800952c                PROVIDE (__init_array_end = .)
+                0x0800952c                . = ALIGN (0x4)
+                0x0800952c                _etext = .
 
-.glue_7         0x0800953c        0x0
- .glue_7        0x0800953c        0x0 linker stubs
+.glue_7         0x0800952c        0x0
+ .glue_7        0x0800952c        0x0 linker stubs
 
-.glue_7t        0x0800953c        0x0
- .glue_7t       0x0800953c        0x0 linker stubs
+.glue_7t        0x0800952c        0x0
+ .glue_7t       0x0800952c        0x0 linker stubs
 
-.vfp11_veneer   0x0800953c        0x0
- .vfp11_veneer  0x0800953c        0x0 linker stubs
+.vfp11_veneer   0x0800952c        0x0
+ .vfp11_veneer  0x0800952c        0x0 linker stubs
 
-.v4_bx          0x0800953c        0x0
- .v4_bx         0x0800953c        0x0 linker stubs
+.v4_bx          0x0800952c        0x0
+ .v4_bx         0x0800952c        0x0 linker stubs
 
-.iplt           0x0800953c        0x0
- .iplt          0x0800953c        0x0 main.o
+.iplt           0x0800952c        0x0
+ .iplt          0x0800952c        0x0 main.o
 
-.rel.dyn        0x0800953c        0x0
- .rel.iplt      0x0800953c        0x0 main.o
+.rel.dyn        0x0800952c        0x0
+ .rel.iplt      0x0800952c        0x0 main.o
 
-.data           0x20000000      0x1d8 load address 0x0800953c
+.data           0x20000000      0x1d8 load address 0x0800952c
                 0x20000000                . = ALIGN (0x4)
                 0x20000000                _data = .
  *(.data*)
@@ -1050,10 +1050,10 @@ END GROUP
                 0x200001d8                . = ALIGN (0x4)
                 0x200001d8                _edata = .
 
-.igot.plt       0x200001d8        0x0 load address 0x08009714
+.igot.plt       0x200001d8        0x0 load address 0x08009704
  .igot.plt      0x200001d8        0x0 main.o
 
-.bss            0x200001d8      0x280 load address 0x08009714
+.bss            0x200001d8      0x280 load address 0x08009704
                 0x200001d8                _bss = .
  *(.bss*)
  .bss           0x200001d8       0x3c main.o
@@ -1224,35 +1224,35 @@ END GROUP
 OUTPUT(main.elf elf32-littlearm)
 LOAD linker stubs
 
-.debug_info     0x00000000     0x4573
+.debug_info     0x00000000     0x4569
  .debug_info    0x00000000      0xf8d main.o
  .debug_info    0x00000f8d      0x3ad startup.o
  .debug_info    0x0000133a      0x82d serial.o
  .debug_info    0x00001b67      0x1c8 global.o
  .debug_info    0x00001d2f      0x84c UART2.o
- .debug_info    0x0000257b      0x83e JDY40.o
- .debug_info    0x00002db9      0x245 lcd.o
- .debug_info    0x00002ffe      0x31b adc.o
- .debug_info    0x00003319      0x67c speaker.o
- .debug_info    0x00003995       0xd6 frequency_calc.o
- .debug_info    0x00003a6b      0x291 passcode.o
- .debug_info    0x00003cfc      0x153 movement.o
- .debug_info    0x00003e4f      0x724 newlib_stubs.o
+ .debug_info    0x0000257b      0x834 JDY40.o
+ .debug_info    0x00002daf      0x245 lcd.o
+ .debug_info    0x00002ff4      0x31b adc.o
+ .debug_info    0x0000330f      0x67c speaker.o
+ .debug_info    0x0000398b       0xd6 frequency_calc.o
+ .debug_info    0x00003a61      0x291 passcode.o
+ .debug_info    0x00003cf2      0x153 movement.o
+ .debug_info    0x00003e45      0x724 newlib_stubs.o
 
-.debug_abbrev   0x00000000     0x12a7
+.debug_abbrev   0x00000000     0x129e
  .debug_abbrev  0x00000000      0x281 main.o
  .debug_abbrev  0x00000281      0x174 startup.o
  .debug_abbrev  0x000003f5      0x1f5 serial.o
  .debug_abbrev  0x000005ea       0xfb global.o
  .debug_abbrev  0x000006e5      0x206 UART2.o
- .debug_abbrev  0x000008eb      0x1f9 JDY40.o
- .debug_abbrev  0x00000ae4      0x104 lcd.o
- .debug_abbrev  0x00000be8      0x10c adc.o
- .debug_abbrev  0x00000cf4      0x1ab speaker.o
- .debug_abbrev  0x00000e9f       0x86 frequency_calc.o
- .debug_abbrev  0x00000f25      0x178 passcode.o
- .debug_abbrev  0x0000109d       0x8f movement.o
- .debug_abbrev  0x0000112c      0x17b newlib_stubs.o
+ .debug_abbrev  0x000008eb      0x1f0 JDY40.o
+ .debug_abbrev  0x00000adb      0x104 lcd.o
+ .debug_abbrev  0x00000bdf      0x10c adc.o
+ .debug_abbrev  0x00000ceb      0x1ab speaker.o
+ .debug_abbrev  0x00000e96       0x86 frequency_calc.o
+ .debug_abbrev  0x00000f1c      0x178 passcode.o
+ .debug_abbrev  0x00001094       0x8f movement.o
+ .debug_abbrev  0x00001123      0x17b newlib_stubs.o
 
 .debug_aranges  0x00000000      0x1a8
  .debug_aranges
@@ -1282,20 +1282,20 @@ LOAD linker stubs
  .debug_aranges
                 0x00000188       0x20 newlib_stubs.o
 
-.debug_line     0x00000000     0x2350
- .debug_line    0x00000000      0x4ff main.o
- .debug_line    0x000004ff      0x296 startup.o
- .debug_line    0x00000795      0x4d4 serial.o
- .debug_line    0x00000c69      0x222 global.o
- .debug_line    0x00000e8b      0x4bf UART2.o
- .debug_line    0x0000134a      0x2c7 JDY40.o
- .debug_line    0x00001611      0x288 lcd.o
- .debug_line    0x00001899      0x1cc adc.o
- .debug_line    0x00001a65      0x1f9 speaker.o
- .debug_line    0x00001c5e       0x5f frequency_calc.o
- .debug_line    0x00001cbd      0x2bb passcode.o
- .debug_line    0x00001f78      0x118 movement.o
- .debug_line    0x00002090      0x2c0 newlib_stubs.o
+.debug_line     0x00000000     0x2343
+ .debug_line    0x00000000      0x4fe main.o
+ .debug_line    0x000004fe      0x296 startup.o
+ .debug_line    0x00000794      0x4d4 serial.o
+ .debug_line    0x00000c68      0x222 global.o
+ .debug_line    0x00000e8a      0x4bf UART2.o
+ .debug_line    0x00001349      0x2bb JDY40.o
+ .debug_line    0x00001604      0x288 lcd.o
+ .debug_line    0x0000188c      0x1cc adc.o
+ .debug_line    0x00001a58      0x1f9 speaker.o
+ .debug_line    0x00001c51       0x5f frequency_calc.o
+ .debug_line    0x00001cb0      0x2bb passcode.o
+ .debug_line    0x00001f6b      0x118 movement.o
+ .debug_line    0x00002083      0x2c0 newlib_stubs.o
 
 .debug_str      0x00000000     0x1207
  .debug_str     0x00000000      0x7bb main.o
@@ -2188,7 +2188,6 @@ checkLock                                         main.o
 delay                                             global.o
 display_adc                                       main.o
 display_buffs                                     JDY40.o
-                                                  main.o
 display_inductance_mH                             main.o
 display_x_y                                       main.o
 egetc                                             serial.o

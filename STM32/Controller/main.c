@@ -290,7 +290,7 @@ void main(void) {
 		Update_XYZ(standardized_x, standardized_y, z);
 		RX_I(); // Receive Inductance Value
 
-		display_buffs();
+		// display_buffs();
 		// inductance_microH = 850.0;
 		inductance_microH = Update_I(inductance_microH);
 		// printf("I: %0f\r\n", inductance_microH);
@@ -298,7 +298,7 @@ void main(void) {
 		// if (isButtonPressedGPIOB(BUTTON_S2)) SpeakerRatio = SetSpeakerFreq(inductance_microH, SpeakerRatio);
 
 		if ((inductance_microH <= 480.0) && (inductance_microH >= 400.0)) {
-			if (success_count++ >= 3) {
+			if (success_count++ >= 0) {
 				SpeakerEnabled = 1;
 				SpeakerRatio = SetSpeakerFreq(inductance_microH, SpeakerRatio);
 			}

@@ -110,8 +110,8 @@ void Update_XYZ(int x_value, int y_value, int z_value) {
 
 int Update_I(float inductance_microH) {
 	int rx_length = strlen(RX_BUFF);
-	printf("Length: %d\r\n", rx_length);
-	// if (rx_length == 7) { //ToDo
+	// printf("Length: %d\r\n", rx_length);
+	// if (rx_length == 7) { // ToDo
 	int parsed = atoi(RX_BUFF);
 	return ((parsed >= 400) & (parsed <= 490)) ? parsed : inductance_microH;
 }

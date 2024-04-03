@@ -34,6 +34,7 @@ volatile int Timer2Count = 0;
 volatile int TX21Count = 0;
 volatile float SpeakerRatio = 1;
 volatile int SpeakerEnabled = 0;
+int ForceSpeakerOff = 0;
 
 volatile float inductance_microH = 0;
 
@@ -60,7 +61,7 @@ void display_inductance_mH(float inductance_mH);
 void TIM2_Handler(void) {
 	TIM2->SR &= ~BIT0; // Clear Update Interrupt Flag
 	Timer2Count++;
-	if ((Timer2Count >= SpeakerRatio) && (SpeakerEnabled == 1)) {
+	if ((Timer2Count >= SpeakerRatio) && (SpeakerEnabled == 1) && (ForceSpeakerOff == 0)) {
 		TIM2->CCR1 = (TIM2->CCR1+16)&0xFF;
 		Timer2Count = 0;
 		ToggleSpeaker(); // Toggle Speaker
@@ -226,6 +227,15 @@ void update_sensitivity_y(void) {
 	}
 }
 
+void CheckForceSpeakerOff(void) {
+	if (isButtonPressedGPIOB(BUTTON_S2)) {
+		waitms(DEBOUNCE);
+		if (isButtonPressedGPIOB(BUTTON_S2)) {
+			ForceSpeakerOff = !ForceSpeakerOff;
+		}
+	}
+}
+
 void checkLock(void) {
 	if (isButtonPressedGPIOB(BUTTON_S3)) {
 		waitms(DEBOUNCE);
@@ -306,6 +316,8 @@ void main(void) {
 			success_count = 0;
 			SpeakerEnabled = 0;
 		}
+
+		CheckForceSpeakerOff();
 
 		// Display the ADC values on the LCD
 

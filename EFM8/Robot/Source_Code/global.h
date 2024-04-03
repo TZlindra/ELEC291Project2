@@ -22,6 +22,9 @@
 #define VSS 5 // The measured value of VSS in volts
 #define VDD 3.3035 // The measured value of VDD in volts
 
+#define LEDA_PIN P1_1 // LED Pin
+#define LEDB_PIN P1_2 // Button Pin
+
 void Timer3us(unsigned char us);
 void waitms(unsigned int ms);
 float squared(float x);

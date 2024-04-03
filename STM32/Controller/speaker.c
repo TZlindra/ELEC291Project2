@@ -54,12 +54,28 @@ float SetSpeakerFreq(float inductance_mH, float current_ratio) {
     // if (current_ratio >= 64) new_ratio = 1;
     // else new_ratio = current_ratio * 2;
 
+    // if (inductance_mH <= 455.0) new_ratio = 2;
+    // else if (inductance_mH < 460.0) new_ratio = 4;
+    // else if (inductance_mH < 465.0) new_ratio = 8;
+    // else if (inductance_mH < 470.0) new_ratio = 16;
+    // else new_ratio = 32;
+
+    // base inductance 0.475+
+    // Quarter inductance: ~0.463
+    // Loonie inducatnace ~0.465
+    // Two quarters: ~0.456-0.458
+    // Toonie: 0.463-0.465
+    // 2 tonnies: 0.453-0.456
+    // 3 tonnies 0.444-0.446
+    // 7+loonie: 0.437-0.432
+    // 0.432-0.435, 2 loon 3 toon
+
     // Inductance Thresholds for Speaker Frequency
-    if (inductance_mH <= 465.0) new_ratio = 2;
-    else if (inductance_mH < 473.0) new_ratio = 4;
-    else if (inductance_mH < 480.0) new_ratio = 8;
-    else if (inductance_mH < 483.0) new_ratio = 16;
-    else new_ratio = 32;
+    if (inductance_mH <= 435.0) new_ratio = 1;
+    else if (inductance_mH < 445.0) new_ratio = 2;
+    else if (inductance_mH < 455.0) new_ratio = 4;
+    else if (inductance_mH < 465.0) new_ratio = 8;
+    else new_ratio = 16;
 
     new_freq = TICK_FREQ_TIM2 / new_ratio;
     // printf("Current Frequency: %f\r\n", new_freq);

@@ -54,7 +54,7 @@ void Timer4_ISR (void) interrupt INTERRUPT_TIMER4 {
 	TF4H = 0; // Clear Timer4 interrupt flag
 	TXcount++;
 
-	if(TXcount >= 2500){
+	if(TXcount >= 250){
 		TXcount=0;
 		P1_2=!P1_2;
 		flag == 0;

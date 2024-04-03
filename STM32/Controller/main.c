@@ -298,7 +298,7 @@ void main(void) {
 		// if (isButtonPressedGPIOB(BUTTON_S2)) SpeakerRatio = SetSpeakerFreq(inductance_microH, SpeakerRatio);
 
 		if ((inductance_microH <= 480.0) && (inductance_microH >= 400.0)) {
-			if (success_count++ >= 3) {
+			if (success_count++ >= 0) {
 				SpeakerEnabled = 1;
 				SpeakerRatio = SetSpeakerFreq(inductance_microH, SpeakerRatio);
 			}

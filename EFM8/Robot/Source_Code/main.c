@@ -4,8 +4,8 @@
 #include "inductance.h"
 #include "speaker.h"
 
-float x;
-float y;
+float x = 0;
+float y = 0;
 
 char _c51_external_startup (void) {
 	// Disable Watchdog with key sequence
@@ -71,7 +71,7 @@ char _c51_external_startup (void) {
 	TMOD |=  0x20;
 	TR1 = 1; // START Timer1
 	TI = 1;  // Indicate TX0 ready
-	P1MDOUT |= 0b0000_1100;
+	P1MDOUT |= 0b0000_1110;
 	P2MDOUT |= 0b0001_1111; // PWM Pins + speaker
 
 	return 0;
@@ -119,6 +119,10 @@ void main (void) {
 
 		x = get_x_direction();
 		y = get_y_direction();
+
+		if (x == 0 && y == 0) LEDA_PIN = 0, LEDB_PIN = 0;
+		else LEDA_PIN = 1, LEDB_PIN = 1;
+
 		// printf("Parsed X: %f, Parsed Y: %f\r\n", x, y);
 		movement_loop(x, y);
 		// test_print(x, y);

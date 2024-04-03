@@ -36,7 +36,7 @@ void Timer5_ISR (void) interrupt INTERRUPT_TIMER5
 	SFRPAGE=0x10;
 	TF5H = 0; // Clear Timer5 interrupt flag
 
-    P1_2 = !P1_2;
+    // P1_2 = !P1_2;
     //P1_3 = !P1_3;
     //P2_1 = !P2_1;
 

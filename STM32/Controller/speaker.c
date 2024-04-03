@@ -51,11 +51,10 @@ float SetSpeakerFreq(float inductance_mH, float current_ratio) {
     else if (inductance_mH < 465.0) new_ratio = 4;
     else if (inductance_mH < 475.0) new_ratio = 8;
     else if (inductance_mH < 480.0) new_ratio = 16;
-    else if (inductance_mH <= 485.0) new_ratio = 32;
-    else new_ratio = 1;
+    else new_ratio = 32;
 
     new_freq = TICK_FREQ_TIM2 / new_ratio;
-    printf("Current Frequency: %f\r\n", new_freq);
+    // printf("Current Frequency: %f\r\n", new_freq);
 
     return new_ratio;
 }

@@ -23,8 +23,8 @@ void JDY40Init(void) {
 
 	// We should select an unique device ID.  The device ID can be a hex
 	// number from 0x0000 to 0xFFFF.  In this case is set to 0xABBA
-	SendATCommand("AT+DVIDAFAF\r\n");
-	SendATCommand("AT+RFIDFFBB\r\n");
+	SendATCommand("AT+DVIDKYDF\r\n");
+	SendATCommand("AT+RFIDFDYK\r\n");
 	// To check configuration
 	SendATCommand("AT+VER\r\n");
 	SendATCommand("AT+BAUD\r\n");
@@ -212,7 +212,7 @@ void splitString(const char *str, char *part1, char *part2) {
     int isNegative2 = 0; // Flag for negative second number
     const char *ptr = str;
 
-    //printf("str: %s\n", str);
+    printf("str: %s\n", str);
     //printf("part1: %p\n", (void*)part1);
     //printf("part2: %p\n", (void*)part2);
 
@@ -220,7 +220,7 @@ void splitString(const char *str, char *part1, char *part2) {
     // If it is, we cannot split the string as required
     if (length < 6) {
         printf("Error: Input string is too short to split.\n");
-        printf("STR: %s \r\n", str);
+       // printf("STR: %s \r\n", str);
         return;
     }
 
@@ -317,8 +317,10 @@ void RX_XY() {
 			getstr1(RXbuff);
 			clearUART1Buffer();
 			length = strlen(RXbuff);
-            // printf("Buff: %s\r\n", buff);
-			Trim(RXbuff, &commands[0],&commands[1]);
+            printf("UNPARSED RX: %s\r\n", RXbuff);
+			if(length >= 10 && length <= 12){
+				Trim(RXbuff, &commands[0],&commands[1]);
+			}
 			// if(length >= 11){
 			// 	printf("X: %d \r\n", commands[0]);
 			// 	printf("Y: %d \r\n", commands[1]);
@@ -328,6 +330,18 @@ void RX_XY() {
 			// }
 		}
 	// printf("Nothing Recieved\r\n");
+}
+
+int NumDigs (char * s){
+	int i = 0;
+	int count = 0;
+
+	for(i = 0; s[i] != '\0'; i++){
+		if(isdigit(s[i])){
+			count++;
+		}
+	}
+	return count;
 }
 
 float get_x_direction(void) {

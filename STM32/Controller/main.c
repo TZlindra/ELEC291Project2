@@ -71,7 +71,7 @@ void TIM21_Handler(void) {
 	TIM21->SR &= ~BIT0; // Clear Update Interrupt Flag
 	TX21Count++;
 
-	if (TX21Count > 250) {
+	if (TX21Count > 750) {
 		TX21Count = 0;
 		TX_XY();
 	}
@@ -230,6 +230,7 @@ void checkLock(void) {
 	if (isButtonPressedGPIOB(BUTTON_S3)) {
 		waitms(DEBOUNCE);
 		if (isButtonPressedGPIOB(BUTTON_S3) && isButtonPressedGPIOB(BUTTON_S0)) {
+			SpeakerEnabled = 0;
     		printf("LOCKED!\r\n");
     		LCDprint("LOCKED!", 1, 1);
     		LCDprint("", 2, 1);
@@ -292,12 +293,12 @@ void main(void) {
 		display_buffs();
 		// inductance_microH = 850.0;
 		inductance_microH = Update_I(inductance_microH);
-		printf("I: %0f\r\n", inductance_microH);
+		// printf("I: %0f\r\n", inductance_microH);
 
 		// if (isButtonPressedGPIOB(BUTTON_S2)) SpeakerRatio = SetSpeakerFreq(inductance_microH, SpeakerRatio);
 
-		if ((inductance_microH <= 485.0) && (inductance_microH >= 400.0)) {
-			if (success_count++ >= 10) {
+		if ((inductance_microH <= 480.0) && (inductance_microH >= 400.0)) {
+			if (success_count++ >= 3) {
 				SpeakerEnabled = 1;
 				SpeakerRatio = SetSpeakerFreq(inductance_microH, SpeakerRatio);
 			}

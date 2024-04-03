@@ -87,8 +87,8 @@ void RX_I(void) {
 }
 
 void ConfigJDY40(void) {
-	SendATCommand("AT+DVIDAFAF\r\n"); // Select a unique device ID from 0x0000 to 0xFFFF
-	SendATCommand("AT+RFIDFFBB\r\n");
+	SendATCommand("AT+DVIDKYDF\r\n"); // Select a unique device ID from 0x0000 to 0xFFFF
+	SendATCommand("AT+RFIDFDYK\r\n");
 
 	// Check Configuration
 	SendATCommand("AT+VER\r\n");

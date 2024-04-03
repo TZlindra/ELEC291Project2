@@ -290,7 +290,7 @@ void main(void) {
 		Update_XYZ(standardized_x, standardized_y, z);
 		RX_I(); // Receive Inductance Value
 
-		display_buffs();
+		// display_buffs();
 		// inductance_microH = 850.0;
 		inductance_microH = Update_I(inductance_microH);
 		// printf("I: %0f\r\n", inductance_microH);

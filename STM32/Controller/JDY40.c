@@ -82,7 +82,10 @@ void TX_XY(void) {
 }
 
 void RX_I(void) {
-	if (ReceivedBytes_2() > 0) egets_2(RX_BUFF, sizeof(RX_BUFF)-1);
+	if (ReceivedBytes_2() > 0){
+		egets_2(RX_BUFF, sizeof(RX_BUFF)-1);
+		printf("RX_BUFF: %s\r\n", RX_BUFF);
+	}
 	return;
 }
 
@@ -107,17 +110,14 @@ void Update_XYZ(int x_value, int y_value, int z_value) {
 
 int Update_I(float inductance_microH) {
 	int rx_length = strlen(RX_BUFF);
-	// printf("Length: %d\r\n", rx_length);
-	if (rx_length == 7) {
-		int parsed = atoi(RX_BUFF);
-		return (parsed != 0) ? parsed : inductance_microH;
-	} else {
-		return inductance_microH;
-	}
+	printf("Length: %d\r\n", rx_length);
+	// if (rx_length == 7) { //ToDo
+	int parsed = atoi(RX_BUFF);
+	return ((parsed >= 400) & (parsed <= 490)) ? parsed : inductance_microH;
 }
 
 void display_buffs(void) {
-	printf("TX_BUFF: %s\r\n", TX_BUFF);
+	// printf("TX_BUFF: %s\r\n", TX_BUFF);
 
 	if (strlen(RX_BUFF) >= 4) printf("RX_BUFF: %s\r\n", RX_BUFF);
 }

@@ -56,7 +56,6 @@ void Timer4_ISR (void) interrupt INTERRUPT_TIMER4 {
 
 	if(TXcount >= 250){
 		TXcount=0;
-		P1_2=!P1_2;
 		flag == 0;
 	}
 
@@ -303,7 +302,7 @@ void TX_I(void) {
 		{
 			flag == 1;
 			sendstr1(TXbuff);
-			// printf("%s\r\n",TXbuff);
+			// printf("Data Sent: %s\r\n",TXbuff);
 			clearUART1Buffer();
 			waitms_or_RI1(200);
 
@@ -317,7 +316,7 @@ void RX_XY() {
 			getstr1(RXbuff);
 			clearUART1Buffer();
 			length = strlen(RXbuff);
-            printf("UNPARSED RX: %s\r\n", RXbuff);
+            // printf("UNPARSED RX: %s\r\n", RXbuff);
 			if(length >= 10 && length <= 12){
 				Trim(RXbuff, &commands[0],&commands[1]);
 			}

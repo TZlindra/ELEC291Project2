@@ -119,7 +119,7 @@ void main (void) {
 
 		x = get_x_direction();
 		y = get_y_direction();
-		// printf("Parsed x: %f, Parsed y: %f\r\n", x, y);
+		// printf("Parsed X: %f, Parsed Y: %f\r\n", x, y);
 		movement_loop(x, y);
 		test_print(x, y);
 	}

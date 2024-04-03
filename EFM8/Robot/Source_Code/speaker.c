@@ -1,6 +1,7 @@
 #include <EFM8LB1.h>
 #include "speaker.h"
 
+int store;
 
 void TIMER2Init(void)
 {
@@ -15,13 +16,22 @@ void TIMER2Init(void)
 
 void Timer2_ISR (void) interrupt INTERRUPT_TIMER2
 {
+	EA = 0;
+	store = TR0;
+	TR0 = 0;
 	SFRPAGE=0x0;
 	TF2H = 0; // Clear Timer2 interrupt flag
+	TF2L = 0;
 	SPEAKER_OUT=!SPEAKER_OUT;
+	if(store == 1) TR0 = 1;
+	EA = 1;
 }
 
 void ToggleSpeaker(int enable)
 {
     if (enable) TR2 = 1;
-    else TR2 = 0;
+    else{
+		TR2 = 0;
+		SPEAKER_OUT = 0;
+	}
 }

@@ -120,6 +120,21 @@ void ConfigPinADC(void) {
 	GPIOB->MODER |= (BIT2|BIT3);  // Select analog mode for PB1 (pin 15 of LQFP32 package)
 }
 
+void InitUSART1(uint32_t baudrate) {
+    // Enable the USART1 clock
+    RCC->APB2ENR |= RCC_APB2ENR_USART1EN;
+
+    // Configure PA9 and PA10 for USART1 TX and RX functionality
+    GPIOA->MODER &= ~(GPIO_MODER_MODER9 | GPIO_MODER_MODER10); // Reset bits
+    GPIOA->MODER |= (GPIO_MODER_MODER9_1 | GPIO_MODER_MODER10_1); // Set to Alternate function mode
+    GPIOA->AFR[1] |= (0x07 << (1 * 4)) | (0x07 << (2 * 4)); // Set AF7 for USART1 on PA9 and PA10
+
+    // Configure USART1
+    USART1->BRR = SystemCoreClock / baudrate; // Baud rate
+    USART1->CR1 |= (USART_CR1_RE | USART_CR1_TE); // Enable Receiver and Transmitter
+    USART1->CR1 |= USART_CR1_UE; // Enable USART
+}
+
 void ConfigPinsUART2(void) {
 	GPIOA->OSPEEDR = 0xFFFFFFFF; // All pins of port A configured for very high speed! Page 201 of RM0451
 

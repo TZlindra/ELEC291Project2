@@ -17,3 +17,4 @@ void PWM_manager(float x_value, float y_value);
 void movement_manager(float PWM_percent_y, float prev_PWM_percent_y);
 void movement_init(void);
 void movement_loop(float x, float y);
+void parking(void);

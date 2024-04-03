@@ -106,6 +106,7 @@ void main (void) {
 	TIMER2Init();
 	TIMER4_Init();
 	TIMER5Init();
+	ToggleSpeaker(1);
     EA = 1;
 
 	while(1) {
@@ -126,5 +127,16 @@ void main (void) {
 		// printf("Parsed X: %f, Parsed Y: %f\r\n", x, y);
 		movement_loop(x, y);
 		// test_print(x, y);
+
+		if (P0_1 == 0)
+		{
+			waitms(30);
+			if (P0_1 == 0)
+			{
+				parking();
+				while (P0_1 == 0);
+			}
+		}
+
 	}
 }

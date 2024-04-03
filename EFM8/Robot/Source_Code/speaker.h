@@ -3,7 +3,7 @@
 
 #define TIMER_2_FREQ 4096L
 
-#define SPEAKER_OUT P0_6
+#define SPEAKER_OUT P1_7
 
 
 void TIMER2Init(void);

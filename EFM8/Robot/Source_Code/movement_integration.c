@@ -6,6 +6,7 @@
 #define RIGHT_MOTOR_RHS P2_1    //red
 
 volatile int count = 0;
+volatile long int timer = 0;
 
 int PWM_percent_y = 0;
 int PWM_percent_x = 0;
@@ -40,23 +41,41 @@ void Timer5_ISR (void) interrupt INTERRUPT_TIMER5
     //P1_3 = !P1_3;
     //P2_1 = !P2_1;
 
-
-    if (!state)
+    if (state)
     {
-        if (count > 100)
+        if (timer > 50000)
         {
-            count = 0;
+            state = 0;
+            timer = 0;
         }
-        if (PWM_percent_y >= 0)
+        else if (timer > 20000)
         {
-            LEFT_MOTOR_LHS = (count > left_wheel ) ? 0:1;
-            RIGHT_MOTOR_LHS = (count > new_right_wheel) ? 0:1;
+            PWM_percent_y = -100;
+            left_wheel = 100;
+            right_wheel = 100;
         }
         else
         {
-            LEFT_MOTOR_LHS = (count > left_wheel) ? 1:0;
-            RIGHT_MOTOR_LHS = (count > new_right_wheel) ? 1:0;
+            PWM_percent_y = -100;
+            left_wheel = 100;
+            right_wheel = 50;
         }
+        timer++;
+    }
+
+    if (count > 100)
+    {
+        count = 0;
+    }
+    if (PWM_percent_y >= 0)
+    {
+        LEFT_MOTOR_LHS = (count > left_wheel ) ? 0:1;
+        RIGHT_MOTOR_LHS = (count > new_right_wheel) ? 0:1;
+    }
+    else
+    {
+        LEFT_MOTOR_LHS = (count > left_wheel) ? 1:0;
+        RIGHT_MOTOR_LHS = (count > new_right_wheel) ? 1:0;
     }
 
     count++;
@@ -133,31 +152,19 @@ void movement_init(void)
 }
 void movement_loop(float x, float y)
 {
-        // printf("JDY x: %f, JDY y: %f\r\n", x, y);
-        PWM_percent_x = x;
-        PWM_percent_y = y;
-        // printf("PWM_percent x: %f, PWM_percent y: %f\r\n", x, y);
+    // printf("JDY x: %f, JDY y: %f\r\n", x, y);
+    PWM_percent_x = x;
+    PWM_percent_y = y;
+    // printf("PWM_percent x: %f, PWM_percent y: %f\r\n", x, y);
 
-        movement_manager(PWM_percent_y, prev_PWM_percent_y);
-		PWM_manager(PWM_percent_x, PWM_percent_y);
-        prev_PWM_percent_x = PWM_percent_x;
-        prev_PWM_percent_y = PWM_percent_y;
+    movement_manager(PWM_percent_y, prev_PWM_percent_y);
+    PWM_manager(PWM_percent_x, PWM_percent_y);
+    prev_PWM_percent_x = PWM_percent_x;
+    prev_PWM_percent_y = PWM_percent_y;
 }
-/*
-void parking(float x)
+
+void parking(void)
 {
-    if (x > 0)
-    {
-
-    }
-    else if (x < 0)
-    {
-
-    }
-    else
-    {
-
-    }
+    state = 1;
 
 }
-*/

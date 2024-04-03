@@ -43,6 +43,14 @@ void ToggleSpeaker(void) {
 float SetSpeakerFreq(float inductance_mH, float current_ratio) {
     float new_ratio, new_freq;
 
+    // Default : 490 mH
+    // 1 Quarter : ~483-485 mH
+    // 2 Quarter : ~475 mH
+    // 1 Loonie/Toonie : ~480 mH
+    // 1 Loonie/Toonie + 1 Loonie/Quarter : ~473-475 mH
+    // 1 Loonie/Toonie + 2 Loonie/Quarter : ~463-468 mH
+    // 3-4 Toonie : ~460 mH
+
     // if (current_ratio >= 64) new_ratio = 1;
     // else new_ratio = current_ratio * 2;
 
@@ -50,7 +58,7 @@ float SetSpeakerFreq(float inductance_mH, float current_ratio) {
     if (inductance_mH <= 460.0) new_ratio = 2;
     else if (inductance_mH < 465.0) new_ratio = 4;
     else if (inductance_mH < 475.0) new_ratio = 8;
-    else if (inductance_mH < 480.0) new_ratio = 16;
+    else if (inductance_mH < 485.0) new_ratio = 16;
     else new_ratio = 32;
 
     new_freq = TICK_FREQ_TIM2 / new_ratio;

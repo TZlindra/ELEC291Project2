@@ -51,7 +51,7 @@ void Timer5_ISR (void) interrupt INTERRUPT_TIMER5
             left_wheel = 0;
             new_right_wheel = 0;
         }
-        else if (timer > 26000)
+        else if (timer > 20000)
         {
             PWM_percent_y = 100;
             left_wheel = 75;

@@ -211,7 +211,7 @@ void splitString(const char *str, char *part1, char *part2) {
     int isNegative2 = 0; // Flag for negative second number
     const char *ptr = str;
 
-    printf("str: %s\n", str);
+    // printf("str: %s\n", str);
     //printf("part1: %p\n", (void*)part1);
     //printf("part2: %p\n", (void*)part2);
 

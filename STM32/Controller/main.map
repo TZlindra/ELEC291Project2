@@ -1284,7 +1284,7 @@ LOAD linker stubs
  .debug_aranges
                 0x00000188       0x20 newlib_stubs.o
 
-.debug_line     0x00000000     0x236d
+.debug_line     0x00000000     0x236f
  .debug_line    0x00000000      0x528 main.o
  .debug_line    0x00000528      0x296 startup.o
  .debug_line    0x000007be      0x4d4 serial.o
@@ -1293,11 +1293,11 @@ LOAD linker stubs
  .debug_line    0x00001373      0x2bb JDY40.o
  .debug_line    0x0000162e      0x288 lcd.o
  .debug_line    0x000018b6      0x1cc adc.o
- .debug_line    0x00001a82      0x1f9 speaker.o
- .debug_line    0x00001c7b       0x5f frequency_calc.o
- .debug_line    0x00001cda      0x2bb passcode.o
- .debug_line    0x00001f95      0x118 movement.o
- .debug_line    0x000020ad      0x2c0 newlib_stubs.o
+ .debug_line    0x00001a82      0x1fb speaker.o
+ .debug_line    0x00001c7d       0x5f frequency_calc.o
+ .debug_line    0x00001cdc      0x2bb passcode.o
+ .debug_line    0x00001f97      0x118 movement.o
+ .debug_line    0x000020af      0x2c0 newlib_stubs.o
 
 .debug_str      0x00000000     0x121c
  .debug_str     0x00000000      0x7d0 main.o

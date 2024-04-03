@@ -15,9 +15,14 @@ void TIMER2Init(void)
 
 void Timer2_ISR (void) interrupt INTERRUPT_TIMER2
 {
+	int current_TR0 = TR0;
+	EA = 0;
+	TR0 = 0;
 	SFRPAGE=0x0;
 	TF2H = 0; // Clear Timer2 interrupt flag
 	SPEAKER_OUT=!SPEAKER_OUT;
+	if (current_TR0 == 1) TR0 = 1;
+	EA = 1;
 }
 
 void ToggleSpeaker(int enable)

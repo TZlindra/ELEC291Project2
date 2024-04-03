@@ -106,21 +106,23 @@ void main (void) {
 	TIMER2Init();
 	TIMER4_Init();
 	TIMER5Init();
-    EA = 1;
+	EA = 1;
+	ToggleSpeaker(1);
 
 	while(1) {
-		Update_TX_Buff(inductance);
+		// Update_TX_Buff(inductance);
 
-		TX_I();
-		RX_XY();
+		// TX_I();
+		// RX_XY();
 
 		inductance = GetInductance_microH();
 		// printf("Inductance (MicroH): %d\r\n", inductance);
 
-		x = get_x_direction();
-		y = get_y_direction();
-		// printf("Parsed X: %f, Parsed Y: %f\r\n", x, y);
-		movement_loop(x, y);
+		// x = get_x_direction();
+		// y = get_y_direction();
+		// // printf("Parsed X: %f, Parsed Y: %f\r\n", x, y);
+		// movement_loop(x, y);
 		// test_print(x, y);
+		// waitms(500);
 	}
 }

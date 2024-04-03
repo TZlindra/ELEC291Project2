@@ -12,7 +12,7 @@ char _c51_external_startup (void)
 	WDTCN = 0xDE; //First key
 	WDTCN = 0xAD; //Second key
 
-	#if (SYSCLK == 48000000L)	
+	#if (SYSCLK == 48000000L)
 		SFRPAGE = 0x10;
 		PFE0CN  = 0x10; // SYSCLK < 50 MHz.
 		SFRPAGE = 0x00;
@@ -21,7 +21,7 @@ char _c51_external_startup (void)
 		PFE0CN  = 0x20; // SYSCLK < 75 MHz.
 		SFRPAGE = 0x00;
 	#endif
-	
+
 	#if (SYSCLK == 12250000L)
 		CLKSEL = 0x10;
 		CLKSEL = 0x10;
@@ -30,7 +30,7 @@ char _c51_external_startup (void)
 		CLKSEL = 0x00;
 		CLKSEL = 0x00;
 		while ((CLKSEL & 0x80) == 0);
-	#elif (SYSCLK == 48000000L)	
+	#elif (SYSCLK == 48000000L)
 		// Before setting clock to 48 MHz, must transition to 24.5 MHz first
 		CLKSEL = 0x00;
 		CLKSEL = 0x00;
@@ -63,7 +63,7 @@ char _c51_external_startup (void)
 	CKCON0|=0b_0000_0100; // Timer 0 uses the system clock
 	TMOD&=0xf0;
 	TMOD|=0x01; // Timer 0 in mode 1: 16-bit timer
-	
+
 	#if (SYSCLK/(TIMER_0_FREQ)>0xFFFFL)
 		#error Timer 0 reload value is incorrect because SYSCLK/(TIMER_0_FREQ) > 0xFFFFL
 	#endif
@@ -71,7 +71,7 @@ char _c51_external_startup (void)
 	ET0=1; // Enable Timer0 interrupts
 	TR0=1; // Start Timer0
 	EA=1;  // Enable global interrupts
-	
+
 	return 0;
 }
 
@@ -80,7 +80,7 @@ void Timer0_ISR (void) interrupt INTERRUPT_TIMER0
 	SFRPAGE=0x0;
 	// Timer 0 in 16-bit mode doesn't have auto reload, so reload here
 	TMR0=0x10000L-(SYSCLK/(TIMER_0_FREQ));
-	
+
 	TickCount++;
 	if(TickCount==1000)
 	{

@@ -1,16 +1,16 @@
 /* tetris.c
 ****************************************************************************
 	Tetris game for the 8052 microcontroller!
-	
+
 	Originally from:
 	http://my.execpc.com/~geezer/software/tetris.c
 	Christopher Giese <geezer[AT]execpc.com>
 	Release date 8/12/98. Distribute freely. ABSOLUTELY NO WARRANTY.
-	
+
 	Ported to the 8052 microcontroller using C51 by:
 	Jesus Calvino-Fraga <jesusc[AT]ece.ubc.ca>
 	Release date Dec/02/2005. Distribute freely. ABSOLUTELY NO WARRANTY.
-	
+
 ***************************************************************************/
 
 #include <stdio.h>
@@ -74,7 +74,7 @@ memory to do so.*/
 #define BKF_WTB "\x1B[0;30;47m"
 
 // Dummy entry point for single step and breakpoints needed by deb51
-void Timer1_ISR (void) interrupt INTERRUPT_TIMER1{} 
+void Timer1_ISR (void) interrupt INTERRUPT_TIMER1{}
 
 typedef struct
 {
@@ -162,7 +162,7 @@ char _c51_external_startup (void)
 	SFRPAGE = 0x00;
 	WDTCN = 0xDE; //First key
 	WDTCN = 0xAD; //Second key
-  
+
 	VDM0CN=0x80;       // enable VDD monitor
 	RSTSRC=0x02|0x04;  // Enable reset on missing clock detector and VDD
 
@@ -171,9 +171,9 @@ char _c51_external_startup (void)
 	CLKSEL  = 0x00;
 	CLKSEL  = 0x00;
 	while ((CLKSEL & 0x80) == 0);
-	
+
 	P0MDOUT |= 0x10; // Enable UART0 TX as push-pull output
-	XBR0     = 0x01; // Enable UART0 on P0.4(TX) and P0.5(RX)                     
+	XBR0     = 0x01; // Enable UART0 on P0.4(TX) and P0.5(RX)
 	XBR1     = 0X00;
 	XBR2     = 0x40; // Enable crossbar and weak pull-ups
 
@@ -183,17 +183,17 @@ char _c51_external_startup (void)
 	TH1 = 0x100-((SYSCLK/BAUDRATE)/2L);
 	TL1 = TH1;      // Init Timer1
 	TMOD &= ~0xf0;  // TMOD: timer 1 in 8-bit auto-reload
-	TMOD |=  0x20;                       
+	TMOD |=  0x20;
 	TR1 = 1; // START Timer1
 	TI = 1;  // Indicate TX0 ready
 
 	// Configure timer 0
 	TR0=0;
 	TMOD &= 0xf0;  // TMOD: timer 0 in 8-bit autoreload
-	TMOD |= 0x02;                       
+	TMOD |= 0x02;
 	TH0=TL0=0-91; //Use a prime number to generate 'ramdom' numbers
-	TR0=1;	
-	  	
+	TR0=1;
+
 	return 0;
 }
 
@@ -212,7 +212,7 @@ void putchar(char c)
 }
 
 /* ////////////////////////////////////////////////////////////////////////////
-	ANSI GRAPHIC OUTPUT 
+	ANSI GRAPHIC OUTPUT
 //////////////////////////////////////////////////////////////////////////// */
 
 /*****************************************************************************
@@ -242,7 +242,7 @@ void refresh(void)
 	/* Foreground black, Background white */
 	printf(BKF_WTB);
 }
-	
+
 /* ////////////////////////////////////////////////////////////////////////////
 			GRAPHIC CHUNK DRAW & HIT DETECT
 //////////////////////////////////////////////////////////////////////////// */
@@ -385,18 +385,18 @@ void collapse(void)
 	if(SolidRows == 0) return;
 
 	Score+=bonus[SolidRows]; /* Bonus! */
-	
+
     /* Collapse the solid rows */
 	for(Temp=Row=SCN_HT - 2; Row > 0; Row--, Temp--)
 	{
 		while(rscr(0, Temp)&0x80) Temp--;
 		if(Temp < 1)
-		{	
+		{
 			for(Col=1; Col < SCN_WID - 1; Col++)
 				wscr(Col, Row, COLOR_BLACK|0x80);
 		}
 		else
-		{	
+		{
 			for(Col=1; Col < SCN_WID - 1; Col++)
 				wscr(Col, Row, rscr(Col,Temp)|0x80);
 		}
@@ -407,7 +407,7 @@ void collapse(void)
 char getKey(void)
 {
 	if(!RI) return 0;
-	
+
 	RI=0;
 	switch(toupper(SBUF))
 	{
@@ -452,7 +452,7 @@ void main(void)
     char Fell, NewShape, NewX, NewY;
 	char Shape, X, Y;
 	char Key;
-	
+
 	#define TEXT_POS (SCN_WID*2+2)
 
     /* Banner screen */
@@ -472,7 +472,7 @@ NEW_GAME:
 		if(Key==KEY_QUIT) exit();
 	} while (Key!=KEY_BEGIN);
 	screenInit();
-	
+
 	Level=1;
 	Score=0;
 	printf(BKF_WTB GOTO_YX CLR_TO_END_LINE, 8, TEXT_POS);
@@ -492,9 +492,9 @@ NEW_GAME:
 			/*Level 42 is pretty hard already, so set it as the limit*/
 			wastetime(15000-((Level<42?Level:42)*300));
 		}
-		
+
 		if(RI) Key=getKey();
-		
+
 		if(Key != 0)
 		{
 			NewY=Y;

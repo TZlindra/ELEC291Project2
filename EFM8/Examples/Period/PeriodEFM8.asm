@@ -15,7 +15,7 @@ $printf_float
 	R_OSEG    segment data overlay
 	BIT_BANK  segment data overlay
 	R_HOME    segment code
-	R_GSINIT  segment code
+	R_Gs_0  segment code
 	R_IXSEG   segment xdata
 	R_CONST   segment code
 	R_XINIT   segment code
@@ -396,7 +396,7 @@ _PARITY         BIT 0xd0
 _F1             BIT 0xd1
 _OV             BIT 0xd2
 _RS0            BIT 0xd3
-_RS1            BIT 0xd4
+_Rs_1            BIT 0xd4
 _F0             BIT 0xd5
 _AC             BIT 0xd6
 _CY             BIT 0xd7
@@ -481,7 +481,7 @@ _TFRQ           BIT 0xdf
 _overflow_count:
 	ds 1
 ;--------------------------------------------------------
-; overlayable items in internal ram 
+; overlayable items in internal ram
 ;--------------------------------------------------------
 	rseg	R_OSEG
 ;--------------------------------------------------------
@@ -513,7 +513,7 @@ _overflow_count:
 ;--------------------------------------------------------
 	rseg R_IXSEG
 	rseg R_HOME
-	rseg R_GSINIT
+	rseg R_Gs_0
 	rseg R_CSEG
 ;--------------------------------------------------------
 ; Reset entry point and interrupt vectors
@@ -524,8 +524,8 @@ _overflow_count:
 ; global & static initialisations
 ;--------------------------------------------------------
 	rseg R_HOME
-	rseg R_GSINIT
-	rseg R_GSINIT
+	rseg R_Gs_0
+	rseg R_Gs_0
 ;--------------------------------------------------------
 ; data variables initialization
 ;--------------------------------------------------------
@@ -579,7 +579,7 @@ L002004?:
 	jnb	acc.7,L002004?
 ;	PeriodEFM8.c:64: P0MDOUT |= 0x10; // Enable UART0 TX as push-pull output
 	orl	_P0MDOUT,#0x10
-;	PeriodEFM8.c:65: XBR0     = 0x01; // Enable UART0 on P0.4(TX) and P0.5(RX)                     
+;	PeriodEFM8.c:65: XBR0     = 0x01; // Enable UART0 on P0.4(TX) and P0.5(RX)
 	mov	_XBR0,#0x01
 ;	PeriodEFM8.c:66: XBR1     = 0X00;
 	mov	_XBR1,#0x00
@@ -595,7 +595,7 @@ L002004?:
 	mov	_TL1,_TH1
 ;	PeriodEFM8.c:77: TMOD &= ~0xf0;  // TMOD: timer 1 in 8-bit auto-reload
 	anl	_TMOD,#0x0F
-;	PeriodEFM8.c:78: TMOD |=  0x20;                       
+;	PeriodEFM8.c:78: TMOD |=  0x20;
 	orl	_TMOD,#0x20
 ;	PeriodEFM8.c:79: TR1 = 1; // START Timer1
 	setb	_TR1
@@ -607,8 +607,8 @@ L002004?:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'Timer3us'
 ;------------------------------------------------------------
-;us                        Allocated to registers r2 
-;i                         Allocated to registers r3 
+;us                        Allocated to registers r2
+;i                         Allocated to registers r3
 ;------------------------------------------------------------
 ;	PeriodEFM8.c:86: void Timer3us(unsigned char us)
 ;	-----------------------------------------
@@ -649,8 +649,8 @@ L003007?:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'waitms'
 ;------------------------------------------------------------
-;ms                        Allocated to registers r2 r3 
-;j                         Allocated to registers r2 r3 
+;ms                        Allocated to registers r2 r3
+;j                         Allocated to registers r2 r3
 ;------------------------------------------------------------
 ;	PeriodEFM8.c:105: void waitms (unsigned int ms)
 ;	-----------------------------------------
@@ -706,9 +706,9 @@ _TIMER0_Init:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'main'
 ;------------------------------------------------------------
-;period                    Allocated to registers r2 r3 r4 r5 
+;period                    Allocated to registers r2 r3 r4 r5
 ;------------------------------------------------------------
-;	PeriodEFM8.c:124: void main (void) 
+;	PeriodEFM8.c:124: void main (void)
 ;	-----------------------------------------
 ;	 function main
 ;	-----------------------------------------
@@ -761,7 +761,7 @@ _main:
 	mov	sp,a
 ;	PeriodEFM8.c:138: while (1)
 L006018?:
-;	PeriodEFM8.c:141: TL0=0; 
+;	PeriodEFM8.c:141: TL0=0;
 	mov	_TL0,#0x00
 ;	PeriodEFM8.c:142: TH0=0;
 	mov	_TH0,#0x00

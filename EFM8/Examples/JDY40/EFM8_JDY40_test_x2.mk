@@ -7,7 +7,7 @@ OBJS=EFM8_JDY40_test.obj
 EFM8_JDY40_test.hex: $(OBJS)
 	$(CC) $(OBJS)
 	@echo Done!
-	
+
 EFM8_JDY40_test.obj: EFM8_JDY40_test.c
 	$(CC) -c EFM8_JDY40_test.c
 
@@ -16,7 +16,7 @@ clean:
 
 LoadFlash:
 	@Taskkill /IM putty.exe /F 2>NUL | wait 500
-	EFM8_prog.exe -ft230 -r -d0 EFM8_JDY40_test.hex
+	..\EFM8_prog\EFM8_prog.exe -ft230 -r -d0 EFM8_JDY40_test.hex
 	move COMPORT.inc COMPORT1.inc
 	EFM8_prog.exe -ft230 -r -d1 EFM8_JDY40_test.hex
 	cmd /c start putty -serial $(COMPORT1) -sercfg 115200,8,n,1,N
@@ -29,7 +29,6 @@ putty:
 
 Dummy: EFM8_JDY40_test.hex EFM8_JDY40_test.Map
 	@echo Nothing to see here!
-	
+
 explorer:
 	cmd /c start explorer .
-		

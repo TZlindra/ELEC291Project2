@@ -6,7 +6,7 @@ OBJS=ADC.obj
 ADC.hex: $(OBJS)
 	$(CC) $(OBJS)
 	@echo Done!
-	
+
 ADC.obj: ADC.c
 	$(CC) -c ADC.c
 
@@ -15,7 +15,7 @@ clean:
 
 LoadFlash:
 	@Taskkill /IM putty.exe /F 2>NUL | wait 500
-	EFM8_prog.exe -ft230 -r ADC.hex
+	..\EFM8_prog\EFM8_prog.exe -ft230 -r ADC.hex
 	cmd /c start putty -serial $(COMPORT) -sercfg 115200,8,n,1,N
 
 putty:
@@ -24,7 +24,6 @@ putty:
 
 Dummy: ADC.hex ADC.Map
 	@echo Nothing to see here!
-	
+
 explorer:
 	cmd /c start explorer .
-		

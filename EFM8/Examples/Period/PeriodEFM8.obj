@@ -11,7 +11,7 @@ printf_float
 </PRINTF_FLOAT>
 
 <SEGMENTS>
-R_GSINIT,code,0000,NO
+R_Gs_0,code,0000,NO
 R_BSEG,bit,0000,NO
 R_XSEG,xdata,0000,NO
 BIT_BANK,data,0000,OV
@@ -77,23 +77,23 @@ ___sint2fs,any,0000,0000
 <CODE R_HOME>
 </CODE>
 
-<CODE R_GSINIT>
+<CODE R_Gs_0>
 </CODE>
 
 <CODE R_CSEG>
 </CODE>
 
 <CODE AT 0000>
-02 addr16(_crt0;)  
+02 addr16(_crt0;)
 </CODE>
 
 <CODE R_HOME>
 </CODE>
 
-<CODE R_GSINIT>
+<CODE R_Gs_0>
 </CODE>
 
-<CODE R_GSINIT>
+<CODE R_Gs_0>
 </CODE>
 
 <CODE R_DINIT>
@@ -157,13 +157,13 @@ BB 00 rel3(L004010?;)
 75 82 F9
 C0 02
 C0 03
-12 addr16(_Timer3us;)  
+12 addr16(_Timer3us;)
 75 82 F9
-12 addr16(_Timer3us;)  
+12 addr16(_Timer3us;)
 75 82 F9
-12 addr16(_Timer3us;)  
+12 addr16(_Timer3us;)
 75 82 FA
-12 addr16(_Timer3us;)  
+12 addr16(_Timer3us;)
 D0 03
 D0 02
 1A
@@ -174,16 +174,16 @@ BA FF rel3(L004011?;)
 43 89 01
 C2 8C
 22
-12 addr16(_TIMER0_Init;)  
+12 addr16(_TIMER0_Init;)
 90 01 F4
-12 addr16(_waitms;)  
+12 addr16(_waitms;)
 74 data8(__str_0;)
 C0 E0
 74 data8(__str_0;0x0008;>>;)
 C0 E0
 74 80
 C0 E0
-12 addr16(_printf;)  
+12 addr16(_printf;)
 15 81
 15 81
 15 81
@@ -211,7 +211,7 @@ C0 E0
 C0 E0
 74 80
 C0 E0
-12 addr16(_printf;)  
+12 addr16(_printf;)
 E5 81
 24 F4
 F5 81
@@ -234,7 +234,7 @@ D2 8C
 80 rel2(L006014?;)
 C2 8C
 85 data8(_overflow_count;) 82
-12 addr16(___uchar2fs;)  
+12 addr16(___uchar2fs;)
 AA 82
 AB 83
 AC F0
@@ -246,7 +246,7 @@ C0 05
 90 00 00
 75 F0 80
 74 47
-12 addr16(___fsmul;)  
+12 addr16(___fsmul;)
 AA 82
 AB 83
 AC F0
@@ -259,7 +259,7 @@ C0 02
 C0 03
 C0 04
 C0 05
-12 addr16(___uchar2fs;)  
+12 addr16(___uchar2fs;)
 AE 82
 AF 83
 A8 F0
@@ -271,7 +271,7 @@ C0 01
 90 00 00
 75 F0 80
 74 43
-12 addr16(___fsmul;)  
+12 addr16(___fsmul;)
 AE 82
 AF 83
 A8 F0
@@ -291,7 +291,7 @@ C0 01
 8B 83
 8C F0
 ED
-12 addr16(___fsadd;)  
+12 addr16(___fsadd;)
 AA 82
 AB 83
 AC F0
@@ -307,7 +307,7 @@ C0 02
 C0 03
 C0 04
 C0 05
-12 addr16(___sint2fs;)  
+12 addr16(___sint2fs;)
 AE 82
 AF 83
 A8 F0
@@ -324,7 +324,7 @@ C0 01
 8B 83
 8C F0
 ED
-12 addr16(___fsadd;)  
+12 addr16(___fsadd;)
 AA 82
 AB 83
 AC F0
@@ -339,7 +339,7 @@ C0 05
 90 F4 FC
 75 F0 32
 74 34
-12 addr16(___fsmul;)  
+12 addr16(___fsmul;)
 AA 82
 AB 83
 AC F0
@@ -354,7 +354,7 @@ C0 05
 90 00 00
 75 F0 7A
 74 44
-12 addr16(___fsmul;)  
+12 addr16(___fsmul;)
 AA 82
 AB 83
 AC F0
@@ -372,11 +372,11 @@ C0 E0
 C0 E0
 74 80
 C0 E0
-12 addr16(_printf;)  
+12 addr16(_printf;)
 E5 81
 24 F9
 F5 81
-02 addr16(L006018?;)  
+02 addr16(L006018?;)
 </CODE>
 
 <CODE R_CSEG>
@@ -387,27 +387,27 @@ F5 81
 
 <CODE R_CONST>
 1B
-5B 32 4A 
+5B 32 4A
 00
 45 46 4D 38 20 50 65 72 69 6F 64 20 6D 65 61 73 75
 72 65 6D 65 6E 74 20 61 74 20 70 69 6E 20 50 30
 2E 31 20 75 73 69 6E 67 20 54 69 6D 65 72 20 30
-2E 
+2E
 0A
-46 69 6C 65 3A 20 25 73 
+46 69 6C 65 3A 20 25 73
 0A
-43 6F 6D 70 69 6C 65 64 3A 20 25 73 2C 20 25 73 
+43 6F 6D 70 69 6C 65 64 3A 20 25 73 2C 20 25 73
 0A
 0A
 00
-50 65 72 69 6F 64 45 46 4D 38 2E 63 
+50 65 72 69 6F 64 45 46 4D 38 2E 63
 00
-4D 61 72 20 31 38 20 32 30 32 34 
+4D 61 72 20 31 38 20 32 30 32 34
 00
-31 36 3A 33 39 3A 35 33 
+31 36 3A 33 39 3A 35 33
 00
 0D
-54 3D 25 66 20 6D 73 20 20 20 20 
+54 3D 25 66 20 6D 73 20 20 20 20
 00
 </CODE>
 

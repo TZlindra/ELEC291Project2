@@ -60,7 +60,7 @@ const void * Vectors[] __attribute__((section(".vectors"))) ={
 	0,                     /* -4:  Reserved */
 	0,                     /* -3:  Reserved */
 	PendSV_Handler,        /* -2:  PendSV */
-	SysTick_Handler,       /* -1:  SysTick */	
+	SysTick_Handler,       /* -1:  SysTick */
     /* External interrupt handlers follow */
 	WWDG_Handler,          /* 0:  WWDG */
 	PVD_Handler,           /* 1:  PVD */
@@ -123,49 +123,49 @@ static inline void crt0 (void)
 void initClock(void)
 {
 	// STEP1: Enable HSI16
-	RCC->CR |= ((uint32_t)RCC_CR_HSION);   
+	RCC->CR |= ((uint32_t)RCC_CR_HSION);
 	// Wait for HSI to be ready
 	while ((RCC->CR & RCC_CR_HSIRDY) == 0)
 	{
 	}
-	
+
 	// STEP2: Set HSI to System Clock
-	RCC->CFGR = RCC_CFGR_SW_HSI;   
+	RCC->CFGR = RCC_CFGR_SW_HSI;
 	// Wait for HSI to be used for the system clock
 	while ((RCC->CFGR & RCC_CFGR_SWS) != RCC_CFGR_SWS_HSI)
 	{
 	}
-	
+
 	// STEP3: Setup FLASH and PWR
 	FLASH->ACR |= FLASH_ACR_PRFTEN;        // Enable Prefetch Buffer
 	FLASH->ACR |= FLASH_ACR_LATENCY;       // Flash 1 wait state
 	RCC->APB1ENR |= RCC_APB1ENR_PWREN;     // Enable the PWR APB1 Clock
 	PWR->CR = PWR_CR_VOS_0;                // Select the Voltage Range 1 (1.8V)
 	while((PWR->CSR & PWR_CSR_VOSF) != 0); // Wait for Voltage Regulator Ready
-	
+
 	// STEP4: PLLCLK = (HSI * 4)/2 = 32 MHz
 	RCC->CFGR &= ~(RCC_CFGR_PLLSRC | RCC_CFGR_PLLMUL | RCC_CFGR_PLLDIV); // Clear
 	RCC->CFGR |=  (RCC_CFGR_PLLSRC_HSI | RCC_CFGR_PLLMUL4 | RCC_CFGR_PLLDIV2);
-	
+
 	// STEP5: Setup Peripheral Clock Divisors
 	// We can leave all the peripherals to have a Divisor of 1.
 	RCC->CFGR |= RCC_CFGR_HPRE_DIV1;  // HCLK = SYSCLK
 	RCC->CFGR |= RCC_CFGR_PPRE1_DIV1; // PCLK1 = HCLK
 	RCC->CFGR |= RCC_CFGR_PPRE2_DIV1; // PCLK2 = HCLK
-	
+
 	// STEP6: Set PLL as System Clock
 	RCC->CR &= ~RCC_CR_PLLON; // Disable PLL
 	RCC->CR |= RCC_CR_PLLON;  // Enable PLL
-    
+
     // Wait until the PLL is ready
 	while((RCC->CR & RCC_CR_PLLRDY) == 0)
 	{
 	}
-    
+
 	// Select PLL as system Clock
 	RCC->CFGR &= ~RCC_CFGR_SW;        // Clear
 	RCC->CFGR |=  RCC_CFGR_SW_PLL;    // Set
-    
+
 	// Wait for PLL to become system core clock
 	while ((RCC->CFGR & RCC_CFGR_SWS) != RCC_CFGR_SWS_PLL)
 	{
@@ -186,15 +186,15 @@ void ResetInit()
 
 	#ifdef SHOW_LD_SCRIPT_ASSIGMENTS
 	PRINTVAR(&_etext)
-	PRINTVAR(&_data)	    
-	PRINTVAR(&_edata)	    
-	PRINTVAR(&_bss)	    
+	PRINTVAR(&_data)
+	PRINTVAR(&_edata)
+	PRINTVAR(&_bss)
 	PRINTVAR(&_ebss)
 	PRINTVAR(&__init_array_start)
-	PRINTVAR(&__init_array_end)	    
+	PRINTVAR(&__init_array_end)
 	#endif
 #endif
-   
+
 	main();
 #ifdef USE_USART1
 	eputs("\r\nReturned from main().  System stop.");

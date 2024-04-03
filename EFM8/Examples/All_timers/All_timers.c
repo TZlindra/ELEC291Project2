@@ -42,11 +42,11 @@ char _c51_external_startup (void)
 	SFRPAGE = 0x00;
 	WDTCN = 0xDE; //First key
 	WDTCN = 0xAD; //Second key
-  
+
 	VDM0CN=0x80;       // enable VDD monitor
 	RSTSRC=0x02|0x04;  // Enable reset on missing clock detector and VDD
 
-	#if (SYSCLK == 48000000L)	
+	#if (SYSCLK == 48000000L)
 		SFRPAGE = 0x10;
 		PFE0CN  = 0x10; // SYSCLK < 50 MHz.
 		SFRPAGE = 0x00;
@@ -55,7 +55,7 @@ char _c51_external_startup (void)
 		PFE0CN  = 0x20; // SYSCLK < 75 MHz.
 		SFRPAGE = 0x00;
 	#endif
-	
+
 	#if (SYSCLK == 12250000L)
 		CLKSEL = 0x10;
 		CLKSEL = 0x10;
@@ -64,7 +64,7 @@ char _c51_external_startup (void)
 		CLKSEL = 0x00;
 		CLKSEL = 0x00;
 		while ((CLKSEL & 0x80) == 0);
-	#elif (SYSCLK == 48000000L)	
+	#elif (SYSCLK == 48000000L)
 		// Before setting clock to 48 MHz, must transition to 24.5 MHz first
 		CLKSEL = 0x00;
 		CLKSEL = 0x00;
@@ -88,11 +88,11 @@ char _c51_external_startup (void)
 	P0MDOUT|=0b_1100_0010;
 	P1MDOUT|=0b_1111_1111;
 	P2MDOUT|=0b_0000_0001;
-	
-	XBR0     = 0x00;                     
+
+	XBR0     = 0x00;
 	XBR1     = 0X00;
 	XBR2     = 0x40; // Enable crossbar and weak pull-ups
-	
+
 	// Initialize timer 0 for periodic interrupts
 	TR0=0;
 	TF0=0;
@@ -174,9 +174,9 @@ char _c51_external_startup (void)
 	PCA0CPH4=(SYSCLK/(2*PCA_4_FREQ))/0x100;
 	CR=1; // Enable PCA counter
 	EIE1|=0b_0001_0000; // Enable PCA interrupts
-	
+
 	EA=1; // Enable interrupts
-	
+
 	return 0;
 }
 
@@ -227,9 +227,9 @@ void Timer5_ISR (void) interrupt INTERRUPT_TIMER5
 void PCA_ISR (void) interrupt INTERRUPT_PCA0
 {
 	unsigned int j;
-	
+
 	SFRPAGE=0x0;
-	
+
 	if (CCF0)
 	{
 		j=(PCA0CPH0*0x100+PCA0CPL0)+(SYSCLK/(2L*PCA_0_FREQ));

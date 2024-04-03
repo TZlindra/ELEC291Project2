@@ -14,12 +14,12 @@
 0000             14            R_OSEG    segment data overlay
 0000             15            BIT_BANK  segment data overlay
 0000             16            R_HOME    segment code
-0000             17            R_GSINIT  segment code
+0000             17            R_Gs_0  segment code
 0000             18            R_IXSEG   segment xdata
 0000             19            R_CONST   segment code
 0000             20            R_XINIT   segment code
 0000             21            R_DINIT   segment code
-0000             22   
+0000             22
 0000             23   ;--------------------------------------------------------
 0000             24   ; Public variables in this module
 0000             25   ;--------------------------------------------------------
@@ -392,7 +392,7 @@
 0000            392   _F1             BIT 0xd1
 0000            393   _OV             BIT 0xd2
 0000            394   _RS0            BIT 0xd3
-0000            395   _RS1            BIT 0xd4
+0000            395   _Rs_1            BIT 0xd4
 0000            396   _F0             BIT 0xd5
 0000            397   _AC             BIT 0xd6
 0000            398   _CY             BIT 0xd7
@@ -475,7 +475,7 @@
 0000            475   ;--------------------------------------------------------
 0000            476            rseg R_DSEG
 0000            477   ;--------------------------------------------------------
-0000            478   ; overlayable items in internal ram 
+0000            478   ; overlayable items in internal ram
 0000            479   ;--------------------------------------------------------
 0000            480            rseg    R_OSEG
 0000            481   ;--------------------------------------------------------
@@ -507,7 +507,7 @@
 0000            507   ;--------------------------------------------------------
 0000            508            rseg R_IXSEG
 0000            509            rseg R_HOME
-0000            510            rseg R_GSINIT
+0000            510            rseg R_Gs_0
 0000            511            rseg R_CSEG
 0000            512   ;--------------------------------------------------------
 0000            513   ; Reset entry point and interrupt vectors
@@ -518,8 +518,8 @@
 0003            518   ; global & static initialisations
 0003            519   ;--------------------------------------------------------
 0000            520            rseg R_HOME
-0000            521            rseg R_GSINIT
-0000            522            rseg R_GSINIT
+0000            521            rseg R_Gs_0
+0000            522            rseg R_Gs_0
 0000            523   ;--------------------------------------------------------
 0000            524   ; data variables initialization
 0000            525   ;--------------------------------------------------------
@@ -581,8 +581,8 @@
 0038            581   ;------------------------------------------------------------
 0038            582   ;Allocation info for local variables in function 'delay'
 0038            583   ;------------------------------------------------------------
-0038            584   ;x                         Allocated to registers r2 r3 
-0038            585   ;j                         Allocated to registers r4 
+0038            584   ;x                         Allocated to registers r2 r3
+0038            585   ;j                         Allocated to registers r4
 0038            586   ;------------------------------------------------------------
 0038            587   ;        Blinky.c:35: void delay (unsigned int x)
 0038            588   ;        -----------------------------------------
@@ -625,11 +625,11 @@
 0051 120000     625            lcall   _delay
 0054 8000       626            sjmp    L004002?
 0056            627            rseg R_CSEG
-0056            628   
+0056            628
 0000            629            rseg R_XINIT
-0000            630   
+0000            630
 0000            631            rseg R_CONST
-0000            632   
+0000            632
 0003            633            CSEG
-0003            634   
+0003            634
 0003            635   end

@@ -15,12 +15,12 @@
 0000             15            R_OSEG    segment data overlay
 0000             16            BIT_BANK  segment data overlay
 0000             17            R_HOME    segment code
-0000             18            R_GSINIT  segment code
+0000             18            R_Gs_0  segment code
 0000             19            R_IXSEG   segment xdata
 0000             20            R_CONST   segment code
 0000             21            R_XINIT   segment code
 0000             22            R_DINIT   segment code
-0000             23   
+0000             23
 0000             24   ;--------------------------------------------------------
 0000             25   ; Public variables in this module
 0000             26   ;--------------------------------------------------------
@@ -396,7 +396,7 @@
 0000            396   _F1             BIT 0xd1
 0000            397   _OV             BIT 0xd2
 0000            398   _RS0            BIT 0xd3
-0000            399   _RS1            BIT 0xd4
+0000            399   _Rs_1            BIT 0xd4
 0000            400   _F0             BIT 0xd5
 0000            401   _AC             BIT 0xd6
 0000            402   _CY             BIT 0xd7
@@ -481,7 +481,7 @@
 0000            481   _overflow_count:
 0000            482            ds 1
 0001            483   ;--------------------------------------------------------
-0001            484   ; overlayable items in internal ram 
+0001            484   ; overlayable items in internal ram
 0001            485   ;--------------------------------------------------------
 0000            486            rseg    R_OSEG
 0000            487   ;--------------------------------------------------------
@@ -513,7 +513,7 @@
 0000            513   ;--------------------------------------------------------
 0000            514            rseg R_IXSEG
 0000            515            rseg R_HOME
-0000            516            rseg R_GSINIT
+0000            516            rseg R_Gs_0
 0000            517            rseg R_CSEG
 0000            518   ;--------------------------------------------------------
 0000            519   ; Reset entry point and interrupt vectors
@@ -524,8 +524,8 @@
 0003            524   ; global & static initialisations
 0003            525   ;--------------------------------------------------------
 0000            526            rseg R_HOME
-0000            527            rseg R_GSINIT
-0000            528            rseg R_GSINIT
+0000            527            rseg R_Gs_0
+0000            528            rseg R_Gs_0
 0000            529   ;--------------------------------------------------------
 0000            530   ; data variables initialization
 0000            531   ;--------------------------------------------------------
@@ -579,7 +579,7 @@
 002B 30E780     579            jnb     acc.7,L002004?
 002E            580   ;        PeriodEFM8.c:64: P0MDOUT |= 0x10; // Enable UART0 TX as push-pull output
 002E 43A410     581            orl     _P0MDOUT,#0x10
-0031            582   ;        PeriodEFM8.c:65: XBR0     = 0x01; // Enable UART0 on P0.4(TX) and P0.5(RX)                     
+0031            582   ;        PeriodEFM8.c:65: XBR0     = 0x01; // Enable UART0 on P0.4(TX) and P0.5(RX)
 0031 75E101     583            mov     _XBR0,#0x01
 0034            584   ;        PeriodEFM8.c:66: XBR1     = 0X00;
 0034 75E200     585            mov     _XBR1,#0x00
@@ -595,7 +595,7 @@
 0043 858D8B     595            mov     _TL1,_TH1
 0046            596   ;        PeriodEFM8.c:77: TMOD &= ~0xf0;  // TMOD: timer 1 in 8-bit auto-reload
 0046 53890F     597            anl     _TMOD,#0x0F
-0049            598   ;        PeriodEFM8.c:78: TMOD |=  0x20;                       
+0049            598   ;        PeriodEFM8.c:78: TMOD |=  0x20;
 0049 438920     599            orl     _TMOD,#0x20
 004C            600   ;        PeriodEFM8.c:79: TR1 = 1; // START Timer1
 004C D28E       601            setb    _TR1
@@ -607,8 +607,8 @@
 0054            607   ;------------------------------------------------------------
 0054            608   ;Allocation info for local variables in function 'Timer3us'
 0054            609   ;------------------------------------------------------------
-0054            610   ;us                        Allocated to registers r2 
-0054            611   ;i                         Allocated to registers r3 
+0054            610   ;us                        Allocated to registers r2
+0054            611   ;i                         Allocated to registers r3
 0054            612   ;------------------------------------------------------------
 0054            613   ;        PeriodEFM8.c:86: void Timer3us(unsigned char us)
 0054            614   ;        -----------------------------------------
@@ -649,8 +649,8 @@
 007E            649   ;------------------------------------------------------------
 007E            650   ;Allocation info for local variables in function 'waitms'
 007E            651   ;------------------------------------------------------------
-007E            652   ;ms                        Allocated to registers r2 r3 
-007E            653   ;j                         Allocated to registers r2 r3 
+007E            652   ;ms                        Allocated to registers r2 r3
+007E            653   ;j                         Allocated to registers r2 r3
 007E            654   ;------------------------------------------------------------
 007E            655   ;        PeriodEFM8.c:105: void waitms (unsigned int ms)
 007E            656   ;        -----------------------------------------
@@ -706,9 +706,9 @@
 00B9            706   ;------------------------------------------------------------
 00B9            707   ;Allocation info for local variables in function 'main'
 00B9            708   ;------------------------------------------------------------
-00B9            709   ;period                    Allocated to registers r2 r3 r4 r5 
+00B9            709   ;period                    Allocated to registers r2 r3 r4 r5
 00B9            710   ;------------------------------------------------------------
-00B9            711   ;        PeriodEFM8.c:124: void main (void) 
+00B9            711   ;        PeriodEFM8.c:124: void main (void)
 00B9            712   ;        -----------------------------------------
 00B9            713   ;         function main
 00B9            714   ;        -----------------------------------------
@@ -761,7 +761,7 @@
 010E F581       761            mov     sp,a
 0110            762   ;        PeriodEFM8.c:138: while (1)
 0110            763   L006018?:
-0110            764   ;        PeriodEFM8.c:141: TL0=0; 
+0110            764   ;        PeriodEFM8.c:141: TL0=0;
 0110 758A00     765            mov     _TL0,#0x00
 0113            766   ;        PeriodEFM8.c:142: TH0=0;
 0113 758C00     767            mov     _TH0,#0x00
@@ -949,9 +949,9 @@
 0262 F581       949            mov     sp,a
 0264 020000     950            ljmp    L006018?
 0267            951            rseg R_CSEG
-0267            952   
+0267            952
 0000            953            rseg R_XINIT
-0000            954   
+0000            954
 0000            955            rseg R_CONST
 0000            956   __str_0:
 0000 1B         957            db 0x1B
@@ -1002,7 +1002,7 @@
      206D7320
      202020
 0082 00         981            db 0x00
-0083            982   
+0083            982
 0003            983            CSEG
-0003            984   
+0003            984
 0003            985   end

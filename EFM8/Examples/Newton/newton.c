@@ -20,16 +20,16 @@ xdata float J[NEQS][NEQS+1], X[NEQS];
 
 // Constants used by the equations below.
 xdata float n=2.0; // Different for each version of the exam
-#define VS1 -8.0
-#define VS2 8.0
+#define Vs_1 -8.0
+#define Vs_2 8.0
 #define R1 1000
 #define R2 2000
 #define IS 8.32e-9
 #define VT 0.025
 
 // The equations to solve.  Remember: replace the '=' with '-' as required by the Newton-Rampson algorithm.
-float equ1 (void) { return ( ID1+ID2-((V1-VS1)/R1) ); }
-float equ2 (void) { return ( ID2-((VS2-V2)/R2) ); }
+float equ1 (void) { return ( ID1+ID2-((V1-Vs_1)/R1) ); }
+float equ2 (void) { return ( ID2-((Vs_2-V2)/R2) ); }
 float equ3 (void) { return ( ID1-IS*expf((0.0-V1)/(n*VT)) ); }
 float equ4 (void) { return ( ID2-IS*expf((V2-V1)/(n*VT)) ); }
 
@@ -39,7 +39,7 @@ void Jacobian (void)
 {
 	char i, j;
 	xdata float saved_X;
-	
+
 	for(i=0; i<NEQS; i++)
 	{
 		for(j=0; j<NEQS; j++)
@@ -56,7 +56,7 @@ void Gauss_Elimination (void)
 {
 	char i, j, k;
 	xdata float temp;
-	
+
 	// Apply Gauss Elimination to the augmented Jacobian matrix
 	for(i=0; i<NEQS; i++)
 	{
@@ -66,7 +66,7 @@ void Gauss_Elimination (void)
 			for(j=i; j<NEQS; j++)
 			{
 				if(J[j][i]!=0.0)
-				{ 
+				{
 				    // Swap rows
 					for(k=0; k<NEQS+1; k++)
 					{
@@ -74,7 +74,7 @@ void Gauss_Elimination (void)
 						J[j][k]=J[i][k];
 						J[i][k]=temp;
 					}
-					break;	
+					break;
 				}
 			}
 			if(j==NEQS) // Didn't find a non-zero pivot row to swap with
@@ -83,7 +83,7 @@ void Gauss_Elimination (void)
 				return;
 			}
 		}
-		
+
 		for(j=i+1; j<NEQS; j++)
 		{
 			temp = J[j][i]/J[i][i];
@@ -93,7 +93,7 @@ void Gauss_Elimination (void)
 			}
 		}
 	}
-	
+
 	// Perform back substitution
 	for (j = NEQS - 1; j >= 0; j--)
 	{
@@ -117,14 +117,14 @@ int Newton_Raphson (void)
 		for(k=0; k<NEQS; k++) J[k][NEQS]=-equation[k](); // Augment the Jacobian matrix with vector Y
 		Jacobian();     // Complete the augmented Jacobian using an approximate to the partial derivatives.
 		Gauss_Elimination(); // Solve the resulting system of equations (augmented J matrix)
-		
+
 		// Compute new approximation to the solution and check if it is good enough
 		for(k=0, notdone=0; k<NEQS; k++)
 		{
 			X[k]+=J[k][NEQS];
 			if (fabsf(J[k][NEQS])>TOL) notdone=1;
 		}
-		
+
 		if (notdone==0) break;
 	}
 

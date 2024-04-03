@@ -1,0 +1,468 @@
+<MODULE>
+EFM8_uart1_test
+</MODULE>
+
+<OPTC51>
+--model-small
+</OPTC51>
+
+<SEGMENTS>
+R_Gs_0,code,0000,NO
+R_BSEG,bit,0000,NO
+R_XSEG,xdata,0000,NO
+BIT_BANK,data,0001,OV
+R_CONST,code,0010,NO
+rbank0,data,0000,OV
+R_PSEG,xdata,0000,NO
+R_DINIT,code,0032,NO
+R_DSEG,data,001A,NO
+R_OSEG,data,0000,OV
+R_IXSEG,xdata,0000,NO
+R_ISEG,idata,0000,NO
+R_HOME,code,0000,NO
+R_XINIT,code,0000,NO
+R_CSEG,code,02B4,NO
+</SEGMENTS>
+
+<LOCALS>
+L002004?,R_CSEG,0029,0000
+L002001?,R_CSEG,001E,0000
+bits,BIT_BANK,0000,0001
+L006011?,R_CSEG,01D9,0000
+L006010?,R_CSEG,0149,0000
+b0,BIT_BANK,0000,870038
+b1,BIT_BANK,0000,0000
+b2,BIT_BANK,0000,0000
+b3,BIT_BANK,0000,0000
+b4,BIT_BANK,0000,0000
+b5,BIT_BANK,0000,0000
+b6,BIT_BANK,0000,0000
+b7,BIT_BANK,0000,0000
+L005005?,R_CSEG,00EC,0000
+L005004?,R_CSEG,00BD,0000
+L006004?,R_CSEG,01D5,0000
+L007002?,R_CSEG,0297,0000
+__str_0,R_CONST,0000,0000
+_PWM_manager_sloc0_1_0,R_DSEG,0018,0002
+L005012?,R_CSEG,00F4,0000
+</LOCALS>
+
+<PUBLICS>
+_PWM_manager_PARM_2,R_DSEG,0014,0004
+_main,R_CSEG,0261,0000
+_count,R_DSEG,0000,0002
+_left_wheel,R_DSEG,0008,0004
+__c51_external_startup,R_CSEG,0000,0000
+_PWM_percent_x,R_DSEG,0006,0002
+_PWM_percent_y,R_DSEG,0004,0002
+_PWM_manager,R_CSEG,0111,0000
+_Timer4_ISR,R_CSEG,007C,0000
+_right_wheel,R_DSEG,000C,0004
+_TIMER4Init,R_CSEG,0061,0000
+_TIMER3Init,R_CSEG,0046,0000
+_prev_PWM_percent_x,R_DSEG,0010,0002
+_prev_PWM_percent_y,R_DSEG,0012,0002
+_state,R_DSEG,0002,0002
+</PUBLICS>
+
+<EXTERNALS>
+___fsgt,any,0000,0000
+___fs_2sint,any,0000,0000
+___fslt,any,0000,0000
+_abs,any,0000,0000
+__mulint,any,0000,0000
+_printf,any,0000,0000
+__mulint_PARM_2,any,0000,0000
+__divsint,any,0000,0000
+_crt0,any,0000,0000
+___sint2fs,any,0000,0000
+__divsint_PARM_2,any,0000,0000
+</EXTERNALS>
+
+<CODE AT 0000>
+</CODE>
+
+<CODE R_HOME>
+</CODE>
+
+<CODE R_Gs_0>
+</CODE>
+
+<CODE R_CSEG>
+</CODE>
+
+<CODE AT 0000>
+02 addr16(_crt0;)
+</CODE>
+
+<CODE AT 008B>
+02 addr16(_Timer4_ISR;)
+</CODE>
+
+<CODE R_HOME>
+</CODE>
+
+<CODE R_Gs_0>
+</CODE>
+
+<CODE R_Gs_0>
+</CODE>
+
+<CODE R_DINIT>
+E4
+F5 data8(_count;)
+F5 data8(_count;0x0001;+;)
+E4
+F5 data8(_PWM_percent_y;)
+F5 data8(_PWM_percent_y;0x0001;+;)
+75 data8(_PWM_percent_x;) 50
+E4
+F5 data8(_PWM_percent_x;0x0001;+;)
+75 data8(_left_wheel;) 00
+75 data8(_left_wheel;0x0001;+;) 00
+75 data8(_left_wheel;0x0002;+;) 00
+75 data8(_left_wheel;0x0003;+;) 00
+75 data8(_right_wheel;) 00
+75 data8(_right_wheel;0x0001;+;) 00
+75 data8(_right_wheel;0x0002;+;) 00
+75 data8(_right_wheel;0x0003;+;) 00
+E4
+F5 data8(_prev_PWM_percent_x;)
+F5 data8(_prev_PWM_percent_x;0x0001;+;)
+E4
+F5 data8(_prev_PWM_percent_y;)
+F5 data8(_prev_PWM_percent_y;0x0001;+;)
+</CODE>
+
+<CODE R_CSEG>
+75 A7 00
+75 97 DE
+75 97 AD
+75 FF 80
+75 EF 06
+75 A7 10
+75 C1 20
+75 A7 00
+75 A9 00
+75 A9 00
+E5 A9
+30 E7 rel3(L002001?;)
+75 A9 03
+75 A9 03
+E5 A9
+30 E7 rel3(L002004?;)
+43 A4 C2
+E5 A5
+75 A5 FF
+43 A6 1F
+75 E1 00
+75 E2 00
+75 E3 40
+75 82 00
+22
+75 91 00
+43 8E 40
+75 92 F0
+75 93 F1
+75 94 FF
+75 95 FF
+43 E6 80
+43 91 04
+D2 AF
+22
+75 A7 10
+75 98 00
+43 A6 01
+75 A2 F0
+75 A3 F1
+75 A4 FF
+75 A5 FF
+43 F3 04
+D2 9A
+22
+C0 data8(bits;)
+C0 E0
+C0 F0
+C0 82
+C0 83
+C0 02
+C0 03
+C0 04
+C0 05
+C0 06
+C0 07
+C0 00
+C0 01
+C0 D0
+75 D0 00
+75 A7 10
+C2 9F
+B2 93
+C3
+74 64
+95 data8(_count;)
+E4
+64 80
+85 data8(_count;0x0001;+;) F0
+63 F0 80
+95 F0
+50 rel2(L005004?;)
+D2 A2
+E4
+F5 data8(_count;)
+F5 data8(_count;0x0001;+;)
+80 rel2(L005005?;)
+85 data8(_count;) 82
+85 data8(_count;0x0001;+;) 83
+12 addr16(___sint2fs;)
+AA 82
+AB 83
+AC F0
+FD
+C0 data8(_right_wheel;)
+C0 data8(_right_wheel;0x0001;+;)
+C0 data8(_right_wheel;0x0002;+;)
+C0 data8(_right_wheel;0x0003;+;)
+8A 82
+8B 83
+8C F0
+ED
+12 addr16(___fsgt;)
+AA 82
+E5 81
+24 FC
+F5 81
+EA
+60 rel2(L005005?;)
+C2 A2
+05 data8(_count;)
+E4
+B5 data8(_count;) rel3(L005012?;)
+05 data8(_count;0x0001;+;)
+D0 D0
+D0 01
+D0 00
+D0 07
+D0 06
+D0 05
+D0 04
+D0 03
+D0 02
+D0 83
+D0 82
+D0 F0
+D0 E0
+D0 data8(bits;)
+32
+AA 82
+AB 83
+AC F0
+FD
+C0 02
+C0 03
+C0 04
+C0 05
+E4
+C0 E0
+C0 E0
+C0 E0
+C0 E0
+8A 82
+8B 83
+8C F0
+ED
+12 addr16(___fslt;)
+AE 82
+E5 81
+24 FC
+F5 81
+D0 05
+D0 04
+D0 03
+D0 02
+EE
+60 rel2(L006010?;)
+02 addr16(L006004?;)
+85 data8(_PWM_manager_PARM_2;) 82
+85 data8(_PWM_manager_PARM_2;0x0001;+;) 83
+85 data8(_PWM_manager_PARM_2;0x0002;+;) F0
+E5 data8(_PWM_manager_PARM_2;0x0003;+;)
+C0 02
+C0 03
+C0 04
+C0 05
+12 addr16(___fs_2sint;)
+85 82 data8(_PWM_manager_sloc0_1_0;)
+85 83 data8(_PWM_manager_sloc0_1_0;0x0001;+;)
+12 addr16(_abs;)
+12 addr16(___sint2fs;)
+85 82 data8(_left_wheel;)
+85 83 data8(_left_wheel;0x0001;+;)
+85 F0 data8(_left_wheel;0x0002;+;)
+F5 data8(_left_wheel;0x0003;+;)
+D0 05
+D0 04
+D0 03
+D0 02
+8A 82
+8B 83
+8C F0
+ED
+12 addr16(___fs_2sint;)
+12 addr16(_abs;)
+A9 82
+AF 83
+74 64
+C3
+99
+F9
+E4
+9F
+FF
+85 data8(_PWM_manager_sloc0_1_0;) 82
+85 data8(_PWM_manager_sloc0_1_0;0x0001;+;) 83
+C0 07
+C0 01
+12 addr16(_abs;)
+85 82 data8(__mulint_PARM_2;)
+85 83 data8(__mulint_PARM_2;0x0001;+;)
+D0 01
+D0 07
+89 82
+8F 83
+12 addr16(__mulint;)
+AF 82
+A8 83
+75 data8(__divsint_PARM_2;) 64
+E4
+F5 data8(__divsint_PARM_2;0x0001;+;)
+8F 82
+88 83
+12 addr16(__divsint;)
+12 addr16(___sint2fs;)
+85 82 data8(_right_wheel;)
+85 83 data8(_right_wheel;0x0001;+;)
+85 F0 data8(_right_wheel;0x0002;+;)
+F5 data8(_right_wheel;0x0003;+;)
+22
+EE
+70 rel2(L006011?;)
+22
+8A 82
+8B 83
+8C F0
+ED
+12 addr16(___fs_2sint;)
+12 addr16(_abs;)
+AA 82
+AB 83
+74 64
+C3
+9A
+FA
+E4
+9B
+FB
+85 data8(_PWM_manager_PARM_2;) 82
+85 data8(_PWM_manager_PARM_2;0x0001;+;) 83
+85 data8(_PWM_manager_PARM_2;0x0002;+;) F0
+E5 data8(_PWM_manager_PARM_2;0x0003;+;)
+C0 02
+C0 03
+12 addr16(___fs_2sint;)
+AC 82
+AD 83
+C0 04
+C0 05
+12 addr16(_abs;)
+85 82 data8(__mulint_PARM_2;)
+85 83 data8(__mulint_PARM_2;0x0001;+;)
+D0 05
+D0 04
+D0 03
+D0 02
+8A 82
+8B 83
+C0 04
+C0 05
+12 addr16(__mulint;)
+AA 82
+AB 83
+75 data8(__divsint_PARM_2;) 64
+E4
+F5 data8(__divsint_PARM_2;0x0001;+;)
+8A 82
+8B 83
+12 addr16(__divsint;)
+12 addr16(___sint2fs;)
+85 82 data8(_left_wheel;)
+85 83 data8(_left_wheel;0x0001;+;)
+85 F0 data8(_left_wheel;0x0002;+;)
+F5 data8(_left_wheel;0x0003;+;)
+D0 05
+D0 04
+8C 82
+8D 83
+12 addr16(_abs;)
+12 addr16(___sint2fs;)
+85 82 data8(_right_wheel;)
+85 83 data8(_right_wheel;0x0001;+;)
+85 F0 data8(_right_wheel;0x0002;+;)
+F5 data8(_right_wheel;0x0003;+;)
+22
+85 data8(_PWM_percent_x;) 82
+85 data8(_PWM_percent_x;0x0001;+;) 83
+12 addr16(___sint2fs;)
+AA 82
+AB 83
+AC F0
+FD
+8A data8(_PWM_manager_PARM_2;)
+8B data8(_PWM_manager_PARM_2;0x0001;+;)
+8C data8(_PWM_manager_PARM_2;0x0002;+;)
+8D data8(_PWM_manager_PARM_2;0x0003;+;)
+12 addr16(_PWM_manager;)
+12 addr16(_TIMER3Init;)
+12 addr16(_TIMER4Init;)
+74 data8(__str_0;)
+C0 E0
+74 data8(__str_0;0x0008;>>;)
+C0 E0
+74 80
+C0 E0
+12 addr16(_printf;)
+15 81
+15 81
+15 81
+85 data8(_PWM_percent_x;) 82
+85 data8(_PWM_percent_x;0x0001;+;) 83
+12 addr16(___sint2fs;)
+AA 82
+AB 83
+AC F0
+FD
+8A data8(_PWM_manager_PARM_2;)
+8B data8(_PWM_manager_PARM_2;0x0001;+;)
+8C data8(_PWM_manager_PARM_2;0x0002;+;)
+8D data8(_PWM_manager_PARM_2;0x0003;+;)
+12 addr16(_PWM_manager;)
+80 rel2(L007002?;)
+</CODE>
+
+<CODE R_CSEG>
+</CODE>
+
+<CODE R_XINIT>
+</CODE>
+
+<CODE R_CONST>
+0D
+0A
+55 61 72 74 20 31 20 74 65 73 74
+0D
+0A
+00
+</CODE>
+
+<CODE AT 008E>
+</CODE>

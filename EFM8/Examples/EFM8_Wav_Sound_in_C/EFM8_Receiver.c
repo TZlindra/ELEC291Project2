@@ -1,9 +1,9 @@
 // EFM8LB1_Receiver.c:  This program implements a simple serial port
 // communication protocol to program, verify, and read SPI flash memories.  Since
-// the program was developed to store wav audio files, it also allows 
+// the program was developed to store wav audio files, it also allows
 // for the playback of said audio.  It is assumed that the wav sampling rate is
 // 22050Hz, 8-bit, mono.
-// ~C51~ 
+// ~C51~
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -14,7 +14,7 @@
 #define SYSCLK 72000000L
 #define BAUDRATE 115200L
 #define TIMER_2_FREQ 22050L  // Must match the frequency of the wav file store in external SPI flash
-#define F_SCK_MAX 20000000L  // Max SPI SCK freq (Hz) 
+#define F_SCK_MAX 20000000L  // Max SPI SCK freq (Hz)
 #define CS P0_3
 
 // Flash memory commands
@@ -47,11 +47,11 @@ char _c51_external_startup (void)
 	SFRPAGE = 0x00;
 	WDTCN = 0xDE; //First key
 	WDTCN = 0xAD; //Second key
-  
+
 	VDM0CN=0x80;       // enable VDD monitor
 	RSTSRC=0x02|0x04;  // Enable reset on missing clock detector and VDD
 
-	#if (SYSCLK == 48000000L)	
+	#if (SYSCLK == 48000000L)
 		SFRPAGE = 0x10;
 		PFE0CN  = 0x10; // SYSCLK < 50 MHz.
 		SFRPAGE = 0x00;
@@ -60,7 +60,7 @@ char _c51_external_startup (void)
 		PFE0CN  = 0x20; // SYSCLK < 75 MHz.
 		SFRPAGE = 0x00;
 	#endif
-	
+
 	#if (SYSCLK == 12250000L)
 		CLKSEL = 0x10;
 		CLKSEL = 0x10;
@@ -69,7 +69,7 @@ char _c51_external_startup (void)
 		CLKSEL = 0x00;
 		CLKSEL = 0x00;
 		while ((CLKSEL & 0x80) == 0);
-	#elif (SYSCLK == 48000000L)	
+	#elif (SYSCLK == 48000000L)
 		// Before setting clock to 48 MHz, must transition to 24.5 MHz first
 		CLKSEL = 0x00;
 		CLKSEL = 0x00;
@@ -96,26 +96,26 @@ char _c51_external_startup (void)
 	P3MDIN&=0b_1111_1110;
 	P3|=0b_0000_0001;
 	//P3SKIP|=0b_0000_0001; // P3 Pins Not Available on Crossbar
-	
+
 	P0MDOUT  = 0b_0001_1101;//SCK, MOSI, P0.3, TX0 are puspull, all others open-drain
 	XBR0     = 0b_0000_0011;//SPI0E=1, URT0E=1
 	XBR1     = 0X00;
 	XBR2     = 0x40; // Enable crossbar and weak pull-ups
 
 	#if ( ((SYSCLK/BAUDRATE)/(12L*2L)) > 0x100)
-		#error Can not configure baudrate using timer 1 
+		#error Can not configure baudrate using timer 1
 	#endif
 	// Configure Uart 0
 	SCON0 = 0x10;
 	TH1 = 0x100-((SYSCLK/BAUDRATE)/(12L*2L));
 	TL1 = TH1;      // Init Timer1
 	TMOD &= ~0xf0;  // TMOD: timer 1 in 8-bit auto-reload
-	TMOD |=  0x20;                       
+	TMOD |=  0x20;
 	TR1 = 1; // START Timer1
 	TI = 1;  // Indicate TX0 ready
-	
+
   	// Initialize DAC
-	SFRPAGE = 0x30; 
+	SFRPAGE = 0x30;
   	DACGCF0=0b_1000_1000; // 1:D23REFSL(VCC) 1:D3AMEN(NORMAL) 2:D3SRC(DAC3H:DAC3L) 1:D01REFSL(VCC) 1:D1AMEN(NORMAL) 1:D1SRC(DAC1H:DAC1L)
   	DACGCF1=0b_0000_0000;
   	DACGCF2=0b_0010_0010; // Reference buffer gain 1/3 for all channels
@@ -123,7 +123,7 @@ char _c51_external_startup (void)
   	DAC0CF1=0b_0000_0010; // DAC gain is 3.  Therefore the overall gain is 1.
   	DAC0=0x80<<4;
 
-	SFRPAGE = 0x00; 
+	SFRPAGE = 0x00;
 
 	// SPI inititialization
 	SPI0CKR = (SYSCLK/(2*F_SCK_MAX))-1;
@@ -140,7 +140,7 @@ char _c51_external_startup (void)
 	TR2=1;         // Start Timer2 (TMR2CN is bit addressable)
 
 	EA=1; // Enable interrupts
-  		
+
 	return 0;
 }
 
@@ -171,7 +171,7 @@ unsigned char SPIWrite (unsigned char x)
 void Timer2_ISR (void) interrupt INTERRUPT_TIMER2
 {
 	unsigned char x;
-	
+
 	SFRPAGE=0x0;
 	TF2H = 0; // Clear Timer2 interrupt flag
 
@@ -179,7 +179,7 @@ void Timer2_ISR (void) interrupt INTERRUPT_TIMER2
 	{
 		if(playcnt==0) // Done playing?
 		{
-			CS=1; 
+			CS=1;
 			play_flag=0;
 		}
 		else
@@ -279,7 +279,7 @@ void main (void)
 	playcnt=0;
 	play_flag=0;
 	CS=1;
-      
+
 	while(1)
 	{
 		c=uart_getc();
@@ -289,7 +289,7 @@ void main (void)
 			playcnt=0;
 			play_flag=0; // Stop previous playback if any
 			CS=1;
-					
+
 			c=uart_getc();
 			switch(c)
 			{
@@ -313,7 +313,7 @@ void main (void)
 				    Check_WIP();
 				    uart_putc(0x01);
 				break;
-				
+
 				case '2': // Load flash page (256 bytes or less)
 					Enable_Write();
 				    CS=0;
@@ -335,7 +335,7 @@ void main (void)
 				    Check_WIP();
 				    uart_putc(0x01);
 				break;
-				
+
 				case '3': // Read flash bytes (256 bytes or less)
 				    CS=0;
 				    SPIWrite(READ_BYTES);
@@ -354,7 +354,7 @@ void main (void)
 				    }
 				    CS=1;
 				break;
-				
+
 				case '4': // Playback a portion of the stored wav file
 					// Get the start position
 					c=uart_getc();
@@ -363,7 +363,7 @@ void main (void)
 					start=start*256L+c;
 					c=uart_getc();
 					start=start*256L+c;
-					
+
 					// Get the number of bytes to playback
 					c=uart_getc();
 					nbytes=c;
@@ -371,9 +371,9 @@ void main (void)
 					nbytes=nbytes*256L+c;
 					c=uart_getc();
 					nbytes=nbytes*256L+c;
-					
+
 					Start_Playback(start, nbytes);
-				
+
 				break;
 
 				// This version uses the fast hardware CRC calculator.
@@ -384,7 +384,7 @@ void main (void)
 					nbytes=nbytes*256L+c;
 					c=uart_getc();
 					nbytes=nbytes*256L+c;
-				
+
 				    CS=0;
 				    SPIWrite(READ_BYTES);
 				    SPIWrite(0x00); // Address bits 16 to 23
@@ -403,7 +403,7 @@ void main (void)
 					uart_putc(CRC0DAT);
 					CRC0CN0=0x00; // Clear bit to read hardware CRC low byte
 					uart_putc(CRC0DAT);
-					
+
 					SFRPAGE = 0x00;
 				break;
 
@@ -418,14 +418,14 @@ void main (void)
 					nbytes=nbytes*256L+c;
 					c=uart_getc();
 					nbytes=nbytes*256L+c;
-				
+
 					crc=0;
 				    CS=0; // Enable 25Q32 SPI flash memory.
 				    SPIWrite(READ_BYTES);
 				    SPIWrite(0x00); // Address bits 16 to 23
 				    SPIWrite(0x00); // Address bits 8 to 1
 				    SPIWrite(0x00); // Address bits 0 to 7
-				    
+
 					for(start=0; start<nbytes; start++)
 					{
 						c=SPIWrite(0x00);
@@ -458,5 +458,5 @@ void main (void)
 				break;
 			}
 		}
-    }  
-}	
+    }
+}

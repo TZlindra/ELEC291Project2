@@ -1,6 +1,5 @@
-#define Y_MIDPOINT 2044
-#define X_MIDPOINT 2136
-#define MINIMUM_PERCENT_ACTIVE 0.1
+#include "global.h"
 
-void standardized_joystick_values(float* x_value, float* y_value);
-float y_direction_to_PWM_percent(float y_value);
+void standardize_directions(float* x_value, float* y_value);
+int standardize_y(float y_value, int sensitivity_y);
+int standardize_x(float x_value, int sensitivity_x);

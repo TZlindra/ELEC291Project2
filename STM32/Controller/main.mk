@@ -1,7 +1,7 @@
 SHELL=cmd
-CC=arm-none-eabi-gcc
-AS=arm-none-eabi-as
-LD=arm-none-eabi-ld
+CC=arm-none-eabi-gcc # Need Added to Path
+AS=arm-none-eabi-as # Need Added to Path
+LD=arm-none-eabi-ld # Need Added to Path
 CCFLAGS=-mcpu=cortex-m0 -mthumb -g
 
 # Search for the path of the right libraries.  Works only on Windows.
@@ -10,7 +10,7 @@ LIBPATH1=$(subst \libgcc.a,,$(shell dir /s /b "$(GCCPATH)*libgcc.a" | find "v6-m
 LIBPATH2=$(subst \libc_nano.a,,$(shell dir /s /b "$(GCCPATH)*libc_nano.a" | find "v6-m"))
 LIBSPEC=-L"$(LIBPATH1)" -L"$(LIBPATH2)"
 
-OBJS=main.o startup.o serial.o lcd.o adc.o speaker.o movement.o newlib_stubs.o
+OBJS=main.o startup.o serial.o global.o UART2.o JDY40.o lcd.o adc.o speaker.o frequency_calc.o passcode.o movement.o newlib_stubs.o
 
 # Notice that floating point is enabled with printf (-u _printf_float)
 main.hex: $(OBJS)
@@ -18,20 +18,35 @@ main.hex: $(OBJS)
 	arm-none-eabi-objcopy -O ihex main.elf main.hex
 	@echo Success!
 
-main.o: main.c speaker.h lcd.h adc.h
+main.o: main.c
 	$(CC) -c $(CCFLAGS) main.c -o main.o
 
-adc.o: adc.c adc.h
+global.o: global.c
+	$(CC) -c $(CCFLAGS) global.c -o global.o
+
+adc.o: adc.c
 	$(CC) -c $(CCFLAGS) adc.c -o adc.o
 
-lcd.o: lcd.c lcd.h
+passcode.o: passcode.c
+	$(CC) -c $(CCFLAGS) passcode.c -o passcode.o
+
+lcd.o: lcd.c
 	$(CC) -c $(CCFLAGS) lcd.c -o lcd.o
 
-speaker.o: speaker.c speaker.h
+JDY40.o: JDY40.c
+	$(CC) -c $(CCFLAGS) JDY40.c -o JDY40.o
+
+speaker.o: speaker.c
 	$(CC) -c $(CCFLAGS) speaker.c -o speaker.o
 
-movement.o: movement.c movement.h
+frequency_calc.o: frequency_calc.c
+	$(CC) -c $(CCFLAGS) frequency_calc.c -o frequency_calc.o
+
+movement.o: movement.c
 	$(CC) -c $(CCFLAGS) movement.c -o movement.o
+
+UART2.o: UART2.c
+	$(CC) -c $(CCFLAGS) UART2.c -o UART2.o
 
 startup.o: ../Common/Source/startup.c
 	$(CC) -c $(CCFLAGS) -DUSE_USART1 ../Common/Source/startup.c -o startup.o

@@ -1,19 +1,19 @@
 /////////////////////////////////////////////////////////////////////////////
 //
 // Computer_Sender.c:  SPI Serial flash loader.
-// 
+//
 // Copyright (C) 2012-2021  Jesus Calvino-Fraga, jesusc (at) ece.ubc.ca
-// 
+//
 // This program is free software; you can redistribute it and/or modify it
 // under the terms of the GNU General Public License as published by the
 // Free Software Foundation; either version 2, or (at your option) any
 // later version.
-// 
+//
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
-// 
+//
 // You should have received a copy of the GNU General Public License
 // along with this program; if not, write to the Free Software
 // Foundation, 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
@@ -34,7 +34,7 @@
 	#define __unix__ 1
 #endif
 
-#ifdef __unix__ 
+#ifdef __unix__
 	#ifdef __APPLE__
 		#include <termios.h>
 	#else
@@ -55,9 +55,9 @@
 	#include <string.h>
 	#include <stdbool.h>
 	#include <limits.h>
-	
-	#define strnicmp strncasecmp 
-	#define _strnicmp strncasecmp 
+
+	#define strnicmp strncasecmp
+	#define _strnicmp strncasecmp
 	#define stricmp strcasecmp
 	#define _stricmp strcasecmp
 	#define TRUE true
@@ -65,7 +65,7 @@
 	#define MAX_PATH PATH_MAX
 	#define DWORD unsigned long int
 	#define BOOL bool
-	
+
 	#define WriteFile(X1, X2, X3, X4, X5) *(X4)=write(fd, X2, X3);
 	#define ReadFile(X1, X2, X3, X4, X5) *(X4)=read(fd, X2, X3);
 	#define FlushFileBuffers(X1) {unsigned char jj; while(read(fd, &jj, 1));}
@@ -126,17 +126,17 @@ int Select_Baud (int Baud_Rate)
 //CSTOPB Set two stop bits, rather than one.
 //PARENB Enable parity generation on output and parity checking for input.
 //PARODD If set, then parity for input and output is odd; otherwise even parity is used.
-#define ONESTOPBIT 0 
-#define TWOSTOPBITS CSTOPB 
+#define ONESTOPBIT 0
+#define TWOSTOPBITS CSTOPB
 #define NOPARITY 0
 
 int OpenSerialPort(char * devicename, int baud, int parity, int numbits, int numstop)
 {
     struct termios options;
 	speed_t BAUD;
-	
+
 	BAUD=Select_Baud(baud);
-	
+
 	//open the device(com port) to be non-blocking (read will return immediately)
 	fd = open(devicename, O_RDWR | O_NOCTTY | O_NDELAY );
 	if (fd < 0)
@@ -144,31 +144,31 @@ int OpenSerialPort(char * devicename, int baud, int parity, int numbits, int num
 		perror(devicename);
 		return(1);
 	}
-	
+
 	/*Reading data from a port is a little trickier. When you operate the port
 	in raw data mode, each read system call will return however many characters
 	are actually available in the serial input buffers. If no characters are
 	available, the call will block (wait) until characters come in, an interval
 	timer expires, or an error occurs. The read function can be made to return
-	immediately by doing the following:*/	
+	immediately by doing the following:*/
 
 	/* The FNDELAY option causes the read function to return 0 if no characters
 	are available on the port. To restore normal (blocking) behavior, call
 	fcntl() without the FNDELAY option:*/
-	
+
  	//fcntl(fd, F_SETFL, FNDELAY);
     fcntl(fd, F_SETFL, 0);
-	
+
 	/*This is also used after opening a serial port with the O_NDELAY option.*/
 
-	// Make the file descriptor asynchronous 
-	
+	// Make the file descriptor asynchronous
+
 	tcgetattr(fd, &comio);
-	
+
 	//newtio.sg_ispeed = newtio.sg_ospeed = BAUD;
 	cfsetospeed(&comio, (speed_t)BAUD);
 	cfsetispeed(&comio, (speed_t)BAUD);
-	
+
 	comio.c_cflag = BAUD | CS8 | CSTOPB | CLOCAL | CREAD;
 	comio.c_cflag &= ~(CRTSCTS); /* No hardware flow control */
 	comio.c_iflag = IGNPAR;
@@ -217,13 +217,13 @@ int OpenSerialPort (char * devicename, DWORD baud, BYTE parity, BYTE bits, BYTE 
 	COMMTIMEOUTS Timeouts;
 
 	sprintf(sPort, "\\\\.\\%s", devicename);
-	
+
 	hComm = CreateFile(sPort, GENERIC_READ | GENERIC_WRITE, 0, NULL, OPEN_EXISTING, 0, NULL);
 	if (hComm == INVALID_HANDLE_VALUE)
 	{
 		return -1;
 	}
-	
+
 	if (!GetCommState(hComm, &dcb))
 	{
 		printf("Failed in call to GetCommState()\n");
@@ -232,7 +232,7 @@ int OpenSerialPort (char * devicename, DWORD baud, BYTE parity, BYTE bits, BYTE 
 	}
 
 	dcb.fAbortOnError=FALSE;
-	dcb.BaudRate = baud; 
+	dcb.BaudRate = baud;
 	dcb.Parity = parity;
 	dcb.ByteSize = bits;
 	dcb.StopBits = stop;
@@ -248,7 +248,7 @@ int OpenSerialPort (char * devicename, DWORD baud, BYTE parity, BYTE bits, BYTE 
 		printf("Failed in call to SetCommState()\n");
 		fflush(stdout);
 		return -1;
-	}	
+	}
 
 	ZeroMemory(&Timeouts, sizeof(COMMTIMEOUTS));
 	Timeouts.ReadIntervalTimeout = 250;
@@ -293,7 +293,7 @@ long fsize(FILE *stream)
    return length;
 }
 
-int Write_Flash(int address, unsigned char * buff, int len) 
+int Write_Flash(int address, unsigned char * buff, int len)
 {
 	DWORD j;
 	unsigned char bufftx[0x200];
@@ -321,24 +321,24 @@ int Write_Flash(int address, unsigned char * buff, int len)
 		bufftx[3]=(address>>8)  & 0xff;
 		bufftx[4]=(address>>0)  & 0xff;
 		bufftx[5]=len & 0xff; // 0 means 256 bytes
-	
+
 		for (j=0; j<len; j++)
 		{
 			bufftx[6+j]=buff[j];
 			if (buff[j]!=0xff) empty=0; // Don't send empty lines
 		}
-	
+
 		if(empty==0)
-		{	
+		{
 			WriteFile(hComm, bufftx, len+6, &j, NULL);
-			
+
 			count=0;
 			do {
 				Sleep(1);
 				ReadFile(hComm, buffrx, 1, &j, NULL);
 				count++;
-			} while ( (j==0) && (count<10) );		
-			
+			} while ( (j==0) && (count<10) );
+
 			return j;
 		}
 	}
@@ -352,21 +352,21 @@ int Write_Flash(int address, unsigned char * buff, int len)
 		bufftx[5]=buff[0]; // value to fill page with
 
 		WriteFile(hComm, bufftx, 6, &j, NULL);
-		
+
 		count=0;
 		do {
 			Sleep(1);
 			ReadFile(hComm, buffrx, 1, &j, NULL);
 			count++;
-		} while ( (j==0) && (count<10) );		
-		
+		} while ( (j==0) && (count<10) );
+
 		return j;
 	}
-	
+
 	return 0;
 }
 
-int Read_Flash(int address, unsigned char * buff, int len) 
+int Read_Flash(int address, unsigned char * buff, int len)
 {
 	DWORD j;
 	unsigned char bufftx[0x10];
@@ -381,11 +381,11 @@ int Read_Flash(int address, unsigned char * buff, int len)
 
 	WriteFile(hComm, bufftx, 6, &j, NULL);
 	ReadFile(hComm, buff, len, &j, NULL);
-	
+
 	return j;
 }
 
-unsigned char Erase_Flash(void) 
+unsigned char Erase_Flash(void)
 {
 	DWORD j;
 	unsigned char bufftx[0x10];
@@ -395,15 +395,15 @@ unsigned char Erase_Flash(void)
 	bufftx[0]='#';
 	bufftx[1]='1';
 	WriteFile(hComm, bufftx, 2, &j, NULL);
-	
+
 	count=0;
 	do {
 		Sleep(100);
 		ReadFile(hComm, buffrx, 1, &j, NULL);
 		count++;
 		if(buffrx[0]==0x01) return 0x01;
-	} while ( (j==0) && (count<100) );	
-		
+	} while ( (j==0) && (count<100) );
+
 	return 0;
 }
 
@@ -419,9 +419,9 @@ BOOL Identify (void)
 	x[1]='0';
 	WriteFile(hComm, x, 2, &j, NULL);
 	Sleep(1);
-	
+
 	j=0;
-	ReadFile(hComm, c, 3, &j, NULL);	
+	ReadFile(hComm, c, 3, &j, NULL);
     if(j==3)
 	{
 		printf("Manufacturer: 0x%02x, Type: 0x%02x, Size: 0x%02x\n", c[0], c[1], c[2]); fflush(stdout);
@@ -443,7 +443,7 @@ void play_stored (int sound_start, int sound_length)
 	DWORD j;
 	unsigned char bufftx[0x10];
 	unsigned char empty=1;
-	    
+
 	FlushFileBuffers(hComm);
 
 	bufftx[0]='#';
@@ -458,15 +458,15 @@ void play_stored (int sound_start, int sound_length)
 	WriteFile(hComm, bufftx, 8, &j, NULL);
 }
 
-void Flash(unsigned char * wavbuff, int wavsize) 
+void Flash(unsigned char * wavbuff, int wavsize)
 {
 	unsigned char buff[0x100];
 	unsigned char buffrx[0x10];
 	int i, j, k, n;
 	int count;
-  
+
 	START; // Measure the time it takes to program the microcontroller
-	
+
 	printf("Erasing flash memory...\n"); fflush(stdout);
 	if(Erase_Flash()!=0x01)
 	{
@@ -493,16 +493,16 @@ void Flash(unsigned char * wavbuff, int wavsize)
 			k=0;
     		printf("\n");
 		}
-		fflush(stdout);	
+		fflush(stdout);
 	}
-	
+
     printf(" Done.\n");
-	
+
     printf("Actions completed in ");
     STOP;
 	PRINTTIME;
 	printf("\n");
-	    
+
 The_end:
 	fflush(stdout);
 
@@ -515,7 +515,7 @@ unsigned int get_crc16 (int length)
 	unsigned char bufftx[0x10];
 	unsigned char buffrx[0x10];
     clock_t start;
-	    
+
 	FlushFileBuffers(hComm);
 
 	bufftx[0]='#';
@@ -525,13 +525,13 @@ unsigned int get_crc16 (int length)
 	bufftx[4]=(length>>0)  & 0xff;
 
 	WriteFile(hComm, bufftx, 5, &j, NULL);
-	
+
 	// Assume it takes the microcontroller about 1 second for every 30k bytes of crc16 calculation
 	maxwait=length/30000.0;
 	maxwait+=0.5; // Some extra time just in case
 	if(maxwait<1.0) maxwait=1.0;
 	start = clock();
-	
+
 	j=0;
 	do
 	{
@@ -541,9 +541,9 @@ unsigned int get_crc16 (int length)
 		printf("."); fflush(stdout);
 		elapsed=(double)(clock() - start)/CLOCKS_PER_SEC;
 	} while ( (j!=2) && (elapsed<maxwait) );
-	
+
 	printf("\n"); fflush(stdout);
-    
+
     return buffrx[0]*0x100+buffrx[1];
 }
 
@@ -562,7 +562,7 @@ int Check_Wav (FILE * fp)
 	short int bitsPerSample;
 
 	fseek(fp,0,SEEK_SET);
-	
+
 	c[4] = 0;
 
 	nbRead=fread(c, sizeof(char), 4, fp);
@@ -583,7 +583,7 @@ int Check_Wav (FILE * fp)
 
 	// Not a "fmt " subchunk?
 	if (strcmp(c, "fmt ") != 0) return 0;
-	
+
 	nbRead=fread(&subChunk1Size, sizeof(int), 1, fp); // read size of chunk.
 	if (nbRead < 1) return 0; // EOF?
 
@@ -613,21 +613,21 @@ int Check_Wav (FILE * fp)
 
 	nbRead=fread(&bitsPerSample, sizeof(short int), 1, fp);
 	if (nbRead < 1) return 0; // EOF?
-	
+
 	if (bitsPerSample!=8)
 	{
 		printf("Only WAV files with 8-bit samples supported.\n");
 		return 0;
 	}
-	
+
 	fseek(fp,0,SEEK_SET);
-	
+
 	return 1; // This is a file we can work with.
 }
 
 void print_help (char * prn)
 {
-#ifdef __unix__ 
+#ifdef __unix__
 	#ifdef __APPLE__
 		char spn[]="/dev/cu.usbserial-DN05FVT8";
 	#else
@@ -645,7 +645,7 @@ void print_help (char * prn)
 	printf("%s -D%s -P0x20000,12540 (play the content of the flash memory starting at address 0x20000 for 12540 bytes)\n", prn, spn);
 	printf("%s -Amyindex.asm somefile.wav (generate asm index file 'myindex.asm' for 'somefile.wav')\n", prn);
 	printf("%s -Cmyindex.c somefile.wav (generate C index file 'myindex.c' for 'somefile.wav'.)\n", prn);
-	printf("%s -Cmyindex.c -S2000 somefile.wav (same as above but check for 2000 silence bytes.  Default is 512.)\n", prn);
+	printf("%s -Cmyindex.c -s_2000 somefile.wav (same as above but check for 2000 silence bytes.  Default is 512.)\n", prn);
 	fflush(stdout);
 }
 
@@ -722,10 +722,10 @@ int main(int argc, char **argv)
     BOOL b_ID=FALSE, b_write=FALSE, b_index_asm=FALSE, b_index_c=FALSE, b_read=FALSE, b_verify=FALSE, b_play=FALSE, b_test=FALSE, b_check=TRUE;
     int play_start, play_length;
     unsigned int crc;
-	
+
     printf("SPI flash memory programmer using serial protocol. (C) Jesus Calvino-Fraga (2012-2021)\n");
     fflush(stdout);
-	
+
     for(j=1; j<argc; j++)
     {
     	     if(EQ("-?", argv[j])) { print_help(argv[0]); exit(0); }
@@ -779,14 +779,14 @@ int main(int argc, char **argv)
     	}
     	else strcpy(InName, argv[j]);
 	}
-	
+
 	if(argc<2)
 	{
 		print_help(argv[0]);
 		exit(0);
 	}
-	
-	if(b_ID) // Display the three identification bytes for the memory and get out. 
+
+	if(b_ID) // Display the three identification bytes for the memory and get out.
 	{
 	    if(OpenSerialPort(SerialPort, 115200, NOPARITY, 8, ONESTOPBIT)!=0)
 	    {
@@ -798,7 +798,7 @@ int main(int argc, char **argv)
 		CloseSerialPort();
 		return 0;
 	}
-	   	
+
 	if(b_write || b_index_asm || b_index_c || b_verify || b_test)
 	{
 	    if(strlen(InName)==0)
@@ -806,17 +806,17 @@ int main(int argc, char **argv)
 	    	print_help(argv[0]);
 	    	return 1;
 	    }
-	       
+
 		fin = fopen(InName, "rb");
-		
+
 		if (fin == NULL)
 		{
 			printf("Invalid filename '%s'.\n", InName);
 			exit(1);
 		}
-		
+
 		if(b_check)
-		{	
+		{
 			if(Check_Wav(fin)==0)
 			{
 				printf("The format of '%s' is not supported.\n", InName);
@@ -824,31 +824,31 @@ int main(int argc, char **argv)
 				exit(1);
 			}
 		}
-			
+
 		filesize=fsize(fin);
-			
+
 		bigbuff = (unsigned char*) malloc(filesize);
 		if(bigbuff==NULL)
 		{
 			printf("Memory allocation for %d bytes failed.\n", filesize);
 			exit(2);
 		}
-			
+
 		n=fread(bigbuff, sizeof(unsigned char), filesize, fin);
-			
-			
+
+
 		if(n!=filesize)
 		{
 			printf("Error loading file.\n");
 			exit(2);
 		}
 		fclose(fin);
-			
+
 		printf("Loaded %d bytes from file '%s'.\n", n, InName); fflush(stdout);
 	}
-	
+
 	if(b_write || b_read || b_verify || b_play || b_test)
-	{	  
+	{
 	    if(OpenSerialPort(SerialPort, 115200, NOPARITY, 8, ONESTOPBIT)!=0)
 	    {
 	        printf("ERROR: Could not open serial port '%s'.\n", SerialPort);
@@ -856,11 +856,11 @@ int main(int argc, char **argv)
 	        exit(3);
 	    }
 	}
-	
+
 	if(b_write==TRUE)
 	{
 		if (m_memsize==0) Identify();
-		
+
 		if(filesize>m_memsize)
 		{
 	        printf("The SPI flash memory capacity of %d bytes is insufficient for file '%s' which has a size of %d bytes\n",
@@ -869,17 +869,17 @@ int main(int argc, char **argv)
 			CloseSerialPort();
 	        exit(3);
 		}
-		
+
 	    Flash(bigbuff, filesize);
 	}
-	
+
 	if(b_read==TRUE)
 	{
 	    int address, j;
 	    unsigned char received[0x200];
-	    
+
 		START;
-		
+
 		printf("Creating output file '%s'\n", OutNameRead); fflush(stdout);
 		fout = fopen(OutNameRead, "wb");
 
@@ -889,9 +889,9 @@ int main(int argc, char **argv)
 			free(bigbuff);
 			exit(1);
 		}
-		
+
 	    Identify();
-  
+
 		printf("Reading\n"); fflush(stdout);
 		for(address=0, j=0; address<m_memsize; address+=256)
 		{
@@ -906,20 +906,20 @@ int main(int argc, char **argv)
 			fflush(stdout);
 		}
 		fclose(fout);
-		
+
 		printf(" done\n");
 	    printf("\nActions completed in ");
 	    STOP;
 		PRINTTIME;
 		printf("\n"); fflush(stdout);
 	}
-	
+
 	if(b_verify==TRUE) // Faster verify method that uses a calculated crc
 	{
 		int flash_crc, calculated_crc, i, temp, n;
-		
+
 		n=filesize;
-		
+
 		START;
 		printf("Verifying SPI flash content"); fflush(stdout);
 
@@ -929,10 +929,10 @@ int main(int argc, char **argv)
 		//}
 
 		calculated_crc=crc16_ccitt(bigbuff, n, 0);
-        		
+
 		calculated_crc&=0xffff;
 		flash_crc=get_crc16(n)&0xffff;
-		
+
 		if( flash_crc == calculated_crc )
 		{
 			printf("The CRC of the file and the SPI flash memory is the same: 0x%04x.\n", flash_crc);
@@ -943,7 +943,7 @@ int main(int argc, char **argv)
 		}
 		fflush(stdout);
 	    printf("Actions completed in ");
-	    STOP;		
+	    STOP;
 		PRINTTIME;
 		printf("\n"); fflush(stdout);
 	}
@@ -953,13 +953,13 @@ int main(int argc, char **argv)
 		int address, j, k;
 	    unsigned char received[0x200];
 	    BOOL b_error=FALSE;
-		
+
 		START;
-		
+
 		printf("Comparing flash content to file '%s'... ", InName); fflush(stdout);
-		
+
 	    Identify();
-  
+
 		for(address=0, j=0; address<filesize; address+=256)
 		{
 			n=((filesize-address)>256)?256:(filesize-address);
@@ -983,19 +983,19 @@ int main(int argc, char **argv)
 			}
 			fflush(stdout);
 		}
-		
+
 		printf(b_error?"\nDone\n":"\nMemory and file match.\n");
 	    printf("\nActions completed in ");
 	    STOP;
 		PRINTTIME;
 		printf("\n"); fflush(stdout);
 	}
-	
+
 	if(b_play==TRUE)
 	{
 		if (m_memsize==0) Identify();
 	    fflush(stdout);
-	    
+
 	    if(play_length<=0) play_length=m_memsize-play_start;
 	    if(play_length>m_memsize) play_length=m_memsize;
 	    printf("Playing content of flash from 0x%06x to 0x%06x (%d bytes). \n", play_start, play_start+play_length, play_length);
@@ -1014,7 +1014,7 @@ int main(int argc, char **argv)
 			free(bigbuff);
 			exit(1);
 		}
-	
+
 		fprintf(fout, "// Approximate index of sounds in file '%s'\n", InName);
 		fprintf(fout, "code const unsigned long int wav_index[]={\n");
 		for (address = 0, j=0 ; address < filesize ; address++)
@@ -1028,7 +1028,7 @@ int main(int argc, char **argv)
 			{
 				silcnt=0;
 			}
-			
+
 			if(silcnt==silence)
 			{
 			    fprintf(fout, "    0x%06x, // %d \n", address-silcnt, j++);
@@ -1049,7 +1049,7 @@ int main(int argc, char **argv)
 	{
 		int index;
 		int address, previous, sound_size;
-		
+
 		printf("Creating 'asm' index file '%s'... ", OutNameAsm); fflush(stdout);
 		fout = fopen(OutNameAsm, "w");
 
@@ -1059,7 +1059,7 @@ int main(int argc, char **argv)
 			free(bigbuff);
 			exit(1);
 		}
-	
+
 		fprintf(fout, "; Approximate index of sounds in file '%s'\n", InName);
 		fprintf(fout, "sound_index:\n");
 		for (address = 0, j=0 ; address < filesize ; address++)
@@ -1073,7 +1073,7 @@ int main(int argc, char **argv)
 			{
 				silcnt=0;
 			}
-			
+
 			if(silcnt==silence)
 			{
 				index=address-silcnt;
@@ -1101,7 +1101,7 @@ int main(int argc, char **argv)
 			{
 				silcnt=0;
 			}
-			
+
 			if(silcnt==silence)
 			{
 				index=address-silcnt;
@@ -1129,7 +1129,7 @@ int main(int argc, char **argv)
 		fclose(fout);
 		printf("Done.\n"); fflush(stdout);
 	}
-    
+
     if(bigbuff!=NULL) free(bigbuff);
 
 	if(b_write || b_read || b_verify || b_play || b_test)

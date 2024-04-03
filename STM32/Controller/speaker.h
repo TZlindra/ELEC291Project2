@@ -1,8 +1,12 @@
-#define SYSCLK 32000000L
-#define TICK_FREQ 2048L
+#include "global.h"
+
+// #define TICK_FREQ_TIM2 4096L
+// #define TICK_FREQ_TIM2 5120L
+// #define TICK_FREQ_TIM2 3520L
+// #define TICK_FREQ_TIM2 7040L
+#define TICK_FREQ_TIM2 14080L
 
 void InitTimer2(void);
-void TIM2_Handler(void);
 void ToggleSpeaker(void);
-void ChangeSpeakerRatio(float new_ratio);
-void ToggleSpeakerTimer(void);
+float SetSpeakerFreq(float inductance_mH, float current_ratio);
+void ConfigSpeaker(float ratio);

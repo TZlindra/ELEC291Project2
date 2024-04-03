@@ -5,25 +5,25 @@ volatile int Count = 0;
 #define SYSCLK 32000000L
 #define TICK_FREQ 1000L
 
-void ToggleLED(void) 
-{    
-	GPIOA->ODR ^= BIT0; // Toggle PA0
+void ToggleLED(void)
+{
+	GPIOA->ODR ^= BIT8; // Toggle PA0
 }
 
 // Interrupt service routines are the same as normal
 // subroutines (or C funtions) in Cortex-M microcontrollers.
 // The following should happen at a rate of 1kHz.
-// The following function is associated with the TIM2 interrupt 
+// The following function is associated with the TIM2 interrupt
 // via the interrupt vector table defined in startup.s
-void TIM21_Handler(void) 
+void TIM21_Handler(void)
 {
 	TIM21->SR &= ~BIT0; // clear update interrupt flag
 	Count++;
-	if (Count > 500)
-	{ 
+	if (Count > 1000)
+	{
 		Count = 0;
 		ToggleLED(); // toggle the state of the LED every half second
-	}   
+	}
 }
 
 // LQFP32 pinout
@@ -50,15 +50,16 @@ void Hardware_Init(void)
 {
 	// Set up output port bit for blinking LED
 	RCC->IOPENR |= 0x00000001; // peripheral clock enable for port A
-    GPIOA->MODER = (GPIOA->MODER & 0xfffffffc) | 0x00000001; // Make pin PA0 output (page 172, two bits used to configure: bit0=1, bit1=0)
-	
+    GPIOA->MODER = (GPIOA->MODER & ~(BIT16|BIT17)) | BIT16; // Make pin PA13 output (page 200 of RM0451, two bits used to configure: bit0=1, bit1=0))
+	GPIOA->ODR |= BIT8; // 'set' pin to 1 is normal operation mode.
+
 	// Set up timer
 	RCC->APB2ENR |= BIT2;  // turn on clock for timer21 (UM: page 188)
-	TIM21->ARR = SYSCLK/TICK_FREQ;
+	TIM21->ARR = SYSCLK/(TICK_FREQ * 2);
 	NVIC->ISER[0] |= BIT20; // enable timer 21 interrupts in the NVIC
-	TIM21->CR1 |= BIT4;      // Downcounting    
-	TIM21->CR1 |= BIT0;      // enable counting    
-	TIM21->DIER |= BIT0;     // enable update event (reload event) interrupt  
+	TIM21->CR1 |= BIT4;      // Downcounting
+	TIM21->CR1 |= BIT0;      // enable counting
+	TIM21->DIER |= BIT0;     // enable update event (reload event) interrupt
 	__enable_irq();
 }
 
@@ -66,7 +67,7 @@ int main(void)
 {
 	Hardware_Init();
 	while(1)
-	{    
+	{
 	}
 	return 0;
 }

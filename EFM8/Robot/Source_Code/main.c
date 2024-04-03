@@ -126,5 +126,14 @@ void main (void) {
 		// printf("Parsed X: %f, Parsed Y: %f\r\n", x, y);
 		movement_loop(x, y);
 		// test_print(x, y);
+		if (P1_6 == 0)
+		{
+			waitms(30);
+			if (P1_6 == 0)
+			{
+				while (P1_6 == 0);
+				parking();
+			}
+		}
 	}
 }

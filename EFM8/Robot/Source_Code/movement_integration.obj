@@ -17,29 +17,29 @@ R_PSEG,xdata,0000,NO
 R_DINIT,code,0000,NO
 R_DSEG,data,0004,NO
 R_OSEG,data,0000,OV
-R_IXSEG,xdata,0014,NO
+R_IXSEG,xdata,0018,NO
 R_ISEG,idata,0000,NO
 R_HOME,code,0000,NO
-R_XINIT,code,0014,NO
-R_CSEG,code,06FD,NO
+R_XINIT,code,0018,NO
+R_CSEG,code,07E0,NO
 </SEGMENTS>
 
 <LOCALS>
 _Timer5_ISR_sloc0_1_0,R_BSEG,0000,0001
 bits,BIT_BANK,0000,0001
-L003009?,R_CSEG,01C1,0000
-__xinit__left_wheel,R_XINIT,0006,0000
-L003007?,R_CSEG,01AD,0000
-L003004?,R_CSEG,0121,0000
-L003002?,R_CSEG,007E,0000
-L007016?,R_CSEG,0418,0000
-L007013?,R_CSEG,0474,0000
-L007010?,R_CSEG,04D0,0000
+L003008?,R_CSEG,0138,0000
+__xinit__left_wheel,R_XINIT,000A,0000
+L003006?,R_CSEG,0122,0000
+L003005?,R_CSEG,00B3,0000
+L003002?,R_CSEG,00FF,0000
+L007016?,R_CSEG,04F1,0000
+L007013?,R_CSEG,054D,0000
+L007010?,R_CSEG,05A9,0000
 __xinit__count,R_XINIT,0000,0000
-_movement_manager_PWM_percent_y_1_103,R_XSEG,0010,0004
-L007027?,R_CSEG,02F6,0000
-L007026?,R_CSEG,0245,0000
-__xinit__state,R_XINIT,0012,0000
+_movement_manager_PWM_percent_y_1_107,R_XSEG,0010,0004
+L007027?,R_CSEG,03CF,0000
+L007026?,R_CSEG,031E,0000
+__xinit__state,R_XINIT,0016,0000
 b0,BIT_BANK,0000,0000
 b1,BIT_BANK,0000,0000
 b2,BIT_BANK,0000,0000
@@ -48,45 +48,52 @@ b4,BIT_BANK,0000,0000
 b5,BIT_BANK,0000,0000
 b6,BIT_BANK,0000,0000
 b7,BIT_BANK,0000,0000
-_movement_loop_x_1_110,R_XSEG,0018,0004
-__xinit__right_wheel,R_XINIT,000A,0000
-_PWM_manager_x_value_1_99,R_XSEG,0008,0004
-L007007?,R_CSEG,0524,0000
-L007005?,R_CSEG,03A6,0000
-L007004?,R_CSEG,02F0,0000
-L008006?,R_CSEG,05DE,0000
-L008002?,R_CSEG,05DB,0000
-L003019?,R_CSEG,005F,0000
-L003012?,R_CSEG,01C9,0000
-__xinit__PWM_percent_x,R_XINIT,0004,0000
-__xinit__PWM_percent_y,R_XINIT,0002,0000
-L003021?,R_CSEG,008C,0000
-__xinit__prev_PWM_percent_x,R_XINIT,000E,0000
-__xinit__prev_PWM_percent_y,R_XINIT,0010,0000
+_movement_loop_x_1_114,R_XSEG,0018,0004
+__xinit__right_wheel,R_XINIT,000E,0000
+__xinit__timer,R_XINIT,0002,0000
+L007007?,R_CSEG,05FD,0000
+L007005?,R_CSEG,047F,0000
+L007004?,R_CSEG,03C9,0000
+L008006?,R_CSEG,06B7,0000
+L008002?,R_CSEG,06B4,0000
+L003018?,R_CSEG,02A2,0000
+L003015?,R_CSEG,029A,0000
+L003013?,R_CSEG,0286,0000
+L003012?,R_CSEG,01FA,0000
+L003010?,R_CSEG,0157,0000
+L003027?,R_CSEG,005F,0000
+__xinit__PWM_percent_x,R_XINIT,0008,0000
+__xinit__PWM_percent_y,R_XINIT,0006,0000
+L003031?,R_CSEG,0165,0000
+_PWM_manager_x_value_1_103,R_XSEG,0008,0004
+__xinit__prev_PWM_percent_x,R_XINIT,0012,0000
+__xinit__prev_PWM_percent_y,R_XINIT,0014,0000
 _PWM_manager_sloc0_1_0,R_DSEG,0000,0004
 </LOCALS>
 
 <PUBLICS>
-_straight,R_CSEG,01EF,0000
+_straight,R_CSEG,02C8,0000
 _PWM_manager_PARM_2,R_XSEG,0004,0004
+_parking,R_CSEG,07D6,0000
 _count,R_IXSEG,0000,0002
 _movement_loop_PARM_2,R_XSEG,0014,0004
-_left_wheel,R_IXSEG,0006,0004
-_backward,R_CSEG,01F4,0000
-_PWM_percent_x,R_IXSEG,0004,0002
-_PWM_percent_y,R_IXSEG,0002,0002
-_PWM_manager,R_CSEG,01F9,0000
+_left_wheel,R_IXSEG,000A,0004
+_backward,R_CSEG,02CD,0000
+_PWM_percent_x,R_IXSEG,0008,0002
+_PWM_percent_y,R_IXSEG,0006,0002
+_PWM_manager,R_CSEG,02D2,0000
 _Timer5_ISR,R_CSEG,001B,0000
-_movement_init,R_CSEG,05DF,0000
-_right_wheel,R_IXSEG,000A,0004
-_movement_loop,R_CSEG,05E2,0000
+_timer,R_IXSEG,0002,0004
+_movement_init,R_CSEG,06B8,0000
+_right_wheel,R_IXSEG,000E,0004
+_movement_loop,R_CSEG,06BB,0000
 _new_right_wheel,R_XSEG,0000,0004
 _movement_manager_PARM_2,R_XSEG,000C,0004
-_movement_manager,R_CSEG,055D,0000
-_prev_PWM_percent_x,R_IXSEG,000E,0002
-_prev_PWM_percent_y,R_IXSEG,0010,0002
-_idle,R_CSEG,01E6,0000
-_state,R_IXSEG,0012,0002
+_movement_manager,R_CSEG,0636,0000
+_prev_PWM_percent_x,R_IXSEG,0012,0002
+_prev_PWM_percent_y,R_IXSEG,0014,0002
+_idle,R_CSEG,02BF,0000
+_state,R_IXSEG,0016,0002
 _TIMER5Init,R_CSEG,0000,0000
 </PUBLICS>
 
@@ -179,8 +186,167 @@ A3
 E0
 FF
 4E
-60 rel2(L003019?;)
-02 addr16(L003007?;)  
+70 rel2(L003027?;)
+02 addr16(L003008?;)  
+90 data16(_timer;)  
+E0
+FE
+A3
+E0
+FF
+A3
+E0
+F8
+A3
+E0
+F9
+C3
+74 50
+9E
+74 C3
+9F
+E4
+98
+E4
+64 80
+89 F0
+63 F0 80
+95 F0
+50 rel2(L003005?;)
+90 data16(_timer;)  
+E4
+F0
+A3
+F0
+A3
+F0
+A3
+F0
+90 data16(_state;)  
+E4
+F0
+A3
+F0
+90 data16(_PWM_percent_y;)  
+E4
+F0
+A3
+F0
+90 data16(_left_wheel;)  
+E4
+F0
+A3
+F0
+A3
+F0
+A3
+F0
+90 data16(_new_right_wheel;)  
+F0
+A3
+E4
+F0
+A3
+F0
+A3
+F0
+80 rel2(L003006?;)
+90 data16(_timer;)  
+E0
+FE
+A3
+E0
+FF
+A3
+E0
+F8
+A3
+E0
+F9
+C3
+74 60
+9E
+74 6D
+9F
+E4
+98
+E4
+64 80
+89 F0
+63 F0 80
+95 F0
+50 rel2(L003002?;)
+90 data16(_PWM_percent_y;)  
+74 64
+F0
+E4
+A3
+F0
+90 data16(_left_wheel;)  
+E4
+F0
+A3
+F0
+A3
+74 96
+F0
+A3
+74 42
+F0
+90 data16(_new_right_wheel;)  
+E4
+F0
+A3
+F0
+A3
+74 96
+F0
+A3
+74 42
+F0
+80 rel2(L003006?;)
+90 data16(_PWM_percent_y;)  
+74 64
+F0
+E4
+A3
+F0
+90 data16(_left_wheel;)  
+E4
+F0
+A3
+F0
+A3
+74 96
+F0
+A3
+74 42
+F0
+90 data16(_new_right_wheel;)  
+E4
+F0
+A3
+F0
+A3
+F0
+A3
+F0
+90 data16(_timer;)  
+E0
+24 01
+F0
+A3
+E0
+34 00
+F0
+A3
+E0
+34 00
+F0
+A3
+E0
+34 00
+F0
 90 data16(_count;)  
 E0
 FE
@@ -195,7 +361,7 @@ E4
 8F F0
 63 F0 80
 95 F0
-50 rel2(L003002?;)
+50 rel2(L003010?;)
 90 data16(_count;)  
 E4
 F0
@@ -207,8 +373,8 @@ FE
 A3
 E0
 FF
-30 E7 rel3(L003021?;)
-02 addr16(L003004?;)  
+30 E7 rel3(L003031?;)
+02 addr16(L003012?;)  
 90 data16(_count;)  
 E0
 FE
@@ -293,7 +459,7 @@ E5 82
 92 data8(_Timer5_ISR_sloc0_1_0;)
 B3
 92 A2
-02 addr16(L003007?;)  
+02 addr16(L003013?;)  
 90 data16(_count;)  
 E0
 FE
@@ -382,11 +548,11 @@ A3
 E0
 34 00
 F0
-BA 01 rel3(L003009?;)
-BB 00 rel3(L003009?;)
+BA 01 rel3(L003015?;)
+BB 00 rel3(L003015?;)
 D2 8C
-BC 01 rel3(L003012?;)
-BD 00 rel3(L003012?;)
+BC 01 rel3(L003018?;)
+BD 00 rel3(L003018?;)
 D2 C2
 D0 D0
 D0 01
@@ -418,7 +584,7 @@ AA 82
 AB 83
 AC F0
 FD
-90 data16(_PWM_manager_x_value_1_99;)  
+90 data16(_PWM_manager_x_value_1_103;)  
 EA
 F0
 A3
@@ -430,7 +596,7 @@ F0
 A3
 ED
 F0
-90 data16(_PWM_manager_x_value_1_99;)  
+90 data16(_PWM_manager_x_value_1_103;)  
 E0
 F5 data8(_PWM_manager_sloc0_1_0;)
 A3
@@ -934,7 +1100,7 @@ AA 82
 AB 83
 AC F0
 FD
-90 data16(_movement_manager_PWM_percent_y_1_103;)  
+90 data16(_movement_manager_PWM_percent_y_1_107;)  
 EA
 F0
 A3
@@ -958,7 +1124,7 @@ FC
 A3
 E0
 FD
-90 data16(_movement_manager_PWM_percent_y_1_103;)  
+90 data16(_movement_manager_PWM_percent_y_1_107;)  
 E0
 FE
 A3
@@ -1016,7 +1182,7 @@ AA 82
 AB 83
 AC F0
 FD
-90 data16(_movement_loop_x_1_110;)  
+90 data16(_movement_loop_x_1_114;)  
 EA
 F0
 A3
@@ -1028,7 +1194,7 @@ F0
 A3
 ED
 F0
-90 data16(_movement_loop_x_1_110;)  
+90 data16(_movement_loop_x_1_114;)  
 E0
 FA
 A3
@@ -1194,12 +1360,23 @@ A3
 EB
 F0
 22
+90 data16(_state;)  
+74 01
+F0
+E4
+A3
+F0
+22
 </CODE>
 
 <CODE R_CSEG>
 </CODE>
 
 <CODE R_XINIT>
+00
+00
+00
+00
 00
 00
 00

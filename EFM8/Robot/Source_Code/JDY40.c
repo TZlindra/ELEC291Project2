@@ -302,7 +302,7 @@ void TX_I(void) {
 		{
 			flag == 1;
 			sendstr1(TXbuff);
-			printf("Data Sent: %s\r\n", TXbuff);
+			// printf("Data Sent: %s\r\n", TXbuff);
 			clearUART1Buffer();
 			waitms_or_RI1(200);
 

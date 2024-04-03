@@ -84,7 +84,7 @@ void TX_XY(void) {
 void RX_I(void) {
 	if (ReceivedBytes_2() > 0){
 		egets_2(RX_BUFF, sizeof(RX_BUFF)-1);
-		printf("RX_BUFF: %s\r\n", RX_BUFF);
+		// printf("RX_BUFF: %s\r\n", RX_BUFF);
 	}
 	return;
 }

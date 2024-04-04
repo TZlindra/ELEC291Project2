@@ -104,8 +104,8 @@ void ConfigJDY40(void) {
 }
 
 void Update_XYZ(int x_value, int y_value, int z_value) {
-	// sprintf(TX_BUFF, "X%+04dY%+04dZ%01d\r\n", x_value, y_value, z_value);
-	sprintf(TX_BUFF, "X%+04dY%+04d\r\n", x_value, y_value, z_value);
+	sprintf(TX_BUFF, "X%+04dY%+04dZ%01d\r\n", x_value, y_value, z_value);
+	// sprintf(TX_BUFF, "X%+04dY%+04d\r\n", x_value, y_value, z_value);
 }
 
 int Update_I(float inductance_microH) {

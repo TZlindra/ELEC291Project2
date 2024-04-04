@@ -6,6 +6,7 @@
 
 float x = 0;
 float y = 0;
+float z = 0;
 
 char _c51_external_startup (void) {
 	// Disable Watchdog with key sequence
@@ -119,6 +120,9 @@ void main (void) {
 
 		x = get_x_direction();
 		y = get_y_direction();
+		z = get_z();
+
+		printf("X:%.1f, Y:%.1f, Z:%.1f\r\n", x, y, z);
 
 		if (x == 0 && y == 0) LEDA_PIN = 0, LEDB_PIN = 0;
 		else LEDA_PIN = 1, LEDB_PIN = 1;
@@ -126,5 +130,14 @@ void main (void) {
 		// printf("Parsed X: %f, Parsed Y: %f\r\n", x, y);
 		movement_loop(x, y);
 		// test_print(x, y);
+		if (z == 1.0)
+		{
+			waitms(30);
+			if (z == 1.0)
+			{
+				// while (z == 1.0);
+				parking();
+			}
+		}
 	}
 }

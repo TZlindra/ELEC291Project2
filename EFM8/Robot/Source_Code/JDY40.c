@@ -8,7 +8,7 @@ xdata char TXbuff[80];
 volatile int TXcount=0;
 
 volatile int flag = 0;
-volatile int commands[2];
+volatile int commands[3];
 
 int length;
 
@@ -204,22 +204,22 @@ int stringToInt(char *str) {
     return sign * result;
 }
 
-void splitString(const char *str, char *part1, char *part2) {
+void splitString(const char *str, char *part1, char *part2, char *part3) {
     // Get the length of the input string
     int length = strlen(str);
     int isNegative1 = 0; // Flag for negative first number
     int isNegative2 = 0; // Flag for negative second number
     const char *ptr = str;
 
-    printf("str: %s\n", str);
+    //printf("str: %s\n", str);
     //printf("part1: %p\n", (void*)part1);
     //printf("part2: %p\n", (void*)part2);
 
     // Check if the length of the string is less than 6
     // If it is, we cannot split the string as required
-    if (length < 6) {
+    if (length < 7) {
         printf("Error: Input string is too short to split.\n");
-       // printf("STR: %s \r\n", str);
+        printf("STR: %s \r\n", str);
         return;
     }
 
@@ -249,24 +249,27 @@ void splitString(const char *str, char *part1, char *part2) {
 
     if (isNegative2) {
         // Copy the first three characters of the input string to part1
-        strncpy(part2+1, str+length-3, 3);
+        strncpy(part2+1, str+length-4, 3);
         part2[4] = '\0'; // Null-terminate the string
         part2[0] = '-'; // Prepend '-'
     } else {
         // Copy the first three characters of the input string to part1
-        strncpy(part2, str+length-3, 3);
+        strncpy(part2, str+length-4, 3);
         part2[3] = '\0'; // Null-terminate the string
     }
 
+	strncpy(part3, str+length-1,1);
+	part3[2] = '\0';
     //printf("part 1: %s\n", part1);
     //printf("part 2: %s\n", part2);
 }
 
-void Trim(char *str, int *xin, int *yin) {
+void Trim(char *str, int *xin, int *yin, int *zyn) {
     int i, j;
     char * strStart = str;
     char *x = malloc(5 * sizeof(char));
     char *y = malloc(5 * sizeof(char));
+    char *z = malloc(2 * sizeof(char));
 
     for (i = 0, j = 0; str[i] != '\0'; i++) {
         if (isdigit(str[i]) || str[i] == '-') {
@@ -277,20 +280,22 @@ void Trim(char *str, int *xin, int *yin) {
    // printf("%p \n", x);
     //printf("%s \n", str);
     //printf("%p \n", &x);
-    splitString(str, x, y);
+    splitString(str, x, y, z);
 
     //printf("%p \n", y);
     //printf("%p \n", x);
 
     *xin = stringToInt(x);
     *yin = stringToInt(y);
-
-    free(x);
-    free(y);
+    *zyn = stringToInt(z);
 
     //printf("%d \n", *xin);
 
    // printf("%d \n", *yin);
+
+    free(x);
+    free(y);
+    free(z);
 }
 
 void Update_TX_Buff(int inductance) {
@@ -317,8 +322,8 @@ void RX_XY() {
 			clearUART1Buffer();
 			length = strlen(RXbuff);
             // printf("UNPARSED RX: %s\r\n", RXbuff);
-			if(length >= 10 && length <= 12){
-				Trim(RXbuff, &commands[0],&commands[1]);
+			if(length >= 12 && length <= 14){
+				Trim(RXbuff, &commands[0],&commands[1], &commands[2]);
 			}
 			// if(length >= 11){
 			// 	printf("X: %d \r\n", commands[0]);
@@ -349,6 +354,10 @@ float get_x_direction(void) {
 
 float get_y_direction(void) {
     return commands[1];
+}
+
+float get_z(void) {
+	return commands[2];
 }
 
 void eputs(char *String)

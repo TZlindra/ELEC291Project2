@@ -116,7 +116,7 @@ void main (void) {
 		RX_XY();
 
 		inductance = GetInductance_microH();
-		// printf("Inductance (MicroH): %d\r\n", inductance);
+		// printf("%d\r\n", inductance);
 
 		x = get_x_direction();
 		y = get_y_direction();

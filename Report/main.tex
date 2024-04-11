@@ -12,6 +12,7 @@
 \usepackage{placeins}
 \usepackage{caption}
 \usepackage{inconsolata}
+\usepackage{booktabs}
 \usepackage{hyperref}
 
 \title{ELEC 291 : Metal Detecting Robot}
@@ -183,7 +184,7 @@ As we settled on preliminary designs of our subsystems, we required approval fro
 
 \subsection{Use of Process}
 
-A principle we followed in development was the Work Breakdown Structure (\textit{WBS}) principle. A well planned design of individual elements ensured that we could
+We followed the Work Breakdown Structure (\textit{WBS}) principle during development. A well planned design of individual elements ensured that we could
 develop and test each module independently. This allowed us to identify and address issues in the early stages of development, and to
 ensure that we can swiftly and effectively integrate building blocks into a final product.
 
@@ -217,39 +218,59 @@ documents provided by Dr. Jesus Calvino-Fraga[10] as well as from our own compre
 
 \subsection{Problem Specification}
 
-We quickly encountered several issues throughout the project. The main issues were the period measurements of the metal detector, JDY communications between the microcontrollers, and the overall code integration with each module.
-
-\
-
-\textbf{Period Measurement}
-Although a seemingly trivial task, measuring a period which altered by less than 1ms was difficult to measure accurately. %continue here
+We encountered several related and recurring issues throughout the project, including inaccurate period measurements of the
+Colpitts Oscillator, unreliable JDY-40 communications between the microcontrollers, and
+the overall code integration between modules.
 
 \
 
 \textbf{JDY Communications}
-A key module which required extensive development time was the \textit{JDY-40} communication between the \textit{STM32} and \textit{EFM8}.
+A key module which required extensive development time was the \textit{JDY-40} communication between the \textit{STM32} and \textit{EFM8} microcontrollers.
 The bugs caused by this were the main blocker in integrating our firmware, as the communication was not reliable and often failed to transmit
-data between the two microcontrollers. To address this challenge, we had to introduce custom timer delays instead of relying on default ones,
-as the default delays blocked the execution of other code. These custom delays had to strike a balance,
-ensuring they weren't excessively slow or fast. Otherwise, we risked losing data due to transmitting too quickly or rendering it obsolete
-due to transmitting too slowly. We also had to ensure that the data was sent in a format that could be easily and accurately parsed by the
-receiving microcontroller. A major obstacle was finding that \textit{Git} commits with a functional \textit{JDY-40} module would suddenly behave erratically
+data between the two microcontrollers.
+
+In our design, we decided to time the transmission of data to ensure transmission occurred at a consistent rate (i.e. via ISR).
+This was to avoid the usage of synchronous delays, which block the execution of other code. We timed the ISR transmission to strike a balance,
+ensuring it wasn't excessively slow or fast. Otherwise, we risked losing data due to transmitting too quickly or rendered it obsolete
+due to slow data transmission. We also had to ensure that the data was sent in a format that could be easily and accurately parsed by the
+receiving microcontroller.
+
+We also had to ensure that the data was sent in a format that could be easily parsed by the receiving microcontroller. This was especially important in translating the
+$X$ and $Y$ coordinates from the joystick to the robot microcontroller.
+
+\
+
+A major obstacle was finding that \textit{Git} commits with a functional \textit{JDY-40} module would suddenly behave erratically
 (i.e. transmission delays, inaccurate data to be received). We believe this was partially due to software bugs, but also due to the high number of \textit{JDY-40s}
 in the lab environment during the latter part of the project.
 
+\
+
+\textbf{Period Measurement}
+Although a seemingly trivial task, measuring a period which altered by less than
+1ms was difficult to measure accurately. This was due to the implementation with \textit{EFM8} Timer 0,
+which monitored the number of clock cycles for a period signal during $n$ periods.
+
+\
+
+By nature, this needed to be an uninterrupted calculation such that the period could be accurately measured. We found that the period was often inaccurate due to the ISRs we implemented for
+parallel functionality (i.e. JDY-40 communication, PWM generation).
+
+\
+
 \textbf{Integration}
-Integrating all the code together was a major hassle. Some code that would work individually would suddenly malfunction when it was combined together.
-One example of this was when we added the \textit{JDY-40} program to the speaker code on the \textit{STM32}. \dots We realized the error was that Timer 2..
-Another key example was when we incorporated the \textit{JDY-40} code with the PWM code on the \textit{EFM8}, both \textit{JDY} and PWM failed due to
+Integrating all the code together was a major obstacle, partially due to the issue mentioned above. We tested our firmware modules and observed functionality
+individually, but when we combined them, we found that the code would often malfunction.
 
-
-%mainly involving communication between the controller and the robot. The JDY-40radio functionality often was often faulty, leading to the robot and the controller being unable to transmit signals between each other. We assembled into smaller groups to collectively debug the function and ensure it's compatibility with the rest of the code.
-
- %We went through similar processes for balancing speed/deterministic behavior with functionality and constructing extensive circuitry for parallel functionality for the period detection, JDY-40 communication, and PWM generation.
+One example of this was when we added the \textit{JDY-40} program to the speaker code on the \textit{STM32}. We had configured Timer 2 in PWM mode via Channel 1, which
+required a pin in conflict with the \textit{UART2} peripheral. Another key example was when we incorporated the \textit{JDY-40} code with the PWM code
+on the \textit{EFM8}. Timer 3 was being used for a \textit{JDY-40} delay, but we also needed to use Timer 3 for the PWM generation. This required us to
+reconfigure the PWM to use Timer 5 ISR to ensure that they were not in conflict with one another.
 
 \subsection{Solution Generation}
 
-We found that the best way to develop our solution was through the same four-step process as in project 1. This involved : \\
+We found that the best way to develop our solution was through the same four-step process as when developing the Oven Reflow Controller in Project 1.
+This involved : \\
 
 \begin{enumerate}
   \item Discussing the individual requirements and assigning development to team members.
@@ -260,33 +281,56 @@ We found that the best way to develop our solution was through the same four-ste
 
 To address recurring and ongoing issues, we relied on the \textit{WBS} principle to isolate them from the rest of our system.
 This was critical in investgating the firmware issues related to the \textit{JDY-40} radio and to understand whether the transmission rate was the culprit
-in unreliable and inaccurate data.
+in unreliable and inaccurate data. We also identified the issue with period measurement could be solved by thwarting ISR execution during the period calculation.
+Once we established functionality in these test environments, we were able to hone in on the root cause of the issues and develop solutions to address them. This was most evident
+in our reconfiguration of timers to deal with conflicts in between modules (i.e. speaker and \textit{JDY-40} on the \textit{STM32}, \textit{JDY-40} and PWM on the \textit{EFM8}).
+
 
 \
 
-We initially had both \textit{UART} transmission and reception in the same \textit{ISR}, but we observed that receiving data asynchronously
-caused our microcontroller to crash. We soon realized this functionality had to be synchronous and a part of the main program. However, we liked being able to control the timing of
-transmission to ensure that the data was sent at a consistent rate. We also had to ensure that the data was sent in a format that could be easily parsed by the receiving microcontroller.
+When redesigning our \textit{JDY-40} communication, we started from the test file with limited functionality and added features incrementally to find the cause behind
+the erratic behavior. We initially had both \textit{UART} transmission and reception in the same ISR for both microcontrollers, but we observed that receiving data asynchronously
+caused our microcontroller to crash. We soon realized this functionality had to be synchronous and a part of the main program. Since the response to an input is a synchronous process,
+we should update it synchronously as well. However, we appreciated being able to control the timing of transmission to ensure that the data was sent
+at a consistent rate. Due to this, we continued to use ISRs for transmission, and these were the contributing factor in transmission rate.
 
 \
 
-Tackling the problems in the section above in a collaborative manner allowed us to address them comprehensively and perform
-testing during the development process. We also found that ownership over individual subcomponents allowed us to effectively identify the problems in the section above.
+
+Tackling the problems we discovered in a collaborative manner allowed us to address them comprehensively and perform extensive testing during the
+development process. We also found that ownership over individual subcomponents allowed us to effectively identify the problems in the section above. Having a group member
+more familiar with a specific implementation was critical in swiftly addressing development challenges.
+
 
 \subsection{Solution Evaluation}
 
-To evaluate our final implementation, we emphasized
+To evaluate our final implementation, we emphasized end-to-end testing. This involved adding modules incrementally and seeing how they interact with one another to
+perform intended functions. Stress testing the controls was a key part of this, as we wanted to ensure that the robot could move the way the user intends. Since the user
+could be someone unfamiliar with the implementation, we included group members working on parallel functionality to test a given implementation. If the robot met a qualitative checklist
+of response time, accuracy, and reliability (as determined by the user), we considered the implementation successful. This was especially important once we had quantiatively tracked the
+output of signals with the lab equipment and with \texttt{printf();} statements. Once the modules functioned by themselves in a test environment, and functioned together as observed with
+available tools, we relied on user testing as our final evaluation metric.
+
 
 \subsection{Safety/Professionalism}
 
-To ensure our product was safe, we developed many safety algorithms in the program. Before the robot can be controlled, the user must enter a 4 digit passcode to "unlock" the remote controller. This was paired with a lock feature which would disable the remote in the need of an emergency or other purpose.
-In addition, we implemented a speed limiter and turn limiter on the remote controller for the movement of the robot. If the user wants to operate at a lower speed without the risk of too much speed, a simple click would enable this.
-Furthermore, all this information was displayed on an LCD to minimize confusion and to ensure clarity. To ensure professionalism, we maintained a clean and organized codebase, and we also maintained a professional attitude in our communication and collaboration during the project.
+To ensure our product was safe, we developed many safety algorithms in the program. Before the robot can be controlled, the user must enter a 4 digit passcode
+to "unlock" the remote controller. This was paired with a lock feature which would disable the remote in the need of an emergency or other purpose. In tandem with this,
+we had a power switch to both conserve battery life and to ensure that the robot could not be controlled in this state. In addition, we implemented a speed limiter and turn
+limiter on the remote controller for the movement of the robot. If the user wishes to operate at a lower speed without the risk of too much speed, a simple click would enable this.
+
+\
+
+Furthermore, all this information was displayed on an LCD to provide visual feedback of the controller settings.
+To ensure professionalism, we maintained a clean and organized codebase, and managed development updates with good source control practices. We also maintained a professional
+attitude in our communication and collaboration during the project.
 
 \subsection{Detailed Design}
 
 \subsubsection{Hardware Design}
-Both the robot circuit (EFM8) and the controller circuit (STM32) were very sophisticated systems with many connections. As seen in figure \ref{fig:stm32}, the relevant circuits
+The robot's EFM8 circuit and the controller's STM32 circuit were intricate systems, featuring numerous connections. However, these were not complex in design.
+
+As seen in figure \ref{fig:stm32}, the relevant circuits
 include the voltage dividers, joystick (ADC), JDY-40, and LCD. Conversely, in the figure \ref{fig:efm8}, the important circuits
 were the voltage dividers, JDY-40, metal detector and optocoupler/H-bridge circuits.
 
@@ -343,9 +387,9 @@ if (y_value > MINIMUM_PERCENT_ACTIVE * (4095 - Y_MIDPOINT) || y_value < - MINIMU
 \end{lstlisting}
 
 \textbf{Movement Logic/PWM Control} \\
-Once the values for X and Y are sent via the JDY-40 (PWM percentages), they are inputted into the function in the listing below (\ref{lst:pwm_manager}). This logic would establish independence between the x and y values, where y would control the strength of the PWM, and x would control the percentage difference between the two wheels.
+Once the values for X and Y are sent via the JDY-40 (PWM percentages), they are inputted into the function in the listing below (\ref{lst:efm8_pwm_manager}). This logic would establish independence between the x and y values, where y would control the strength of the PWM, and x would control the percentage difference between the two wheels.
 
-\begin{lstlisting} [language=C, caption={PWM Pulse Count Calculation}, label={lst:pwm_manager}, basicstyle=\ttfamily\tiny]
+\begin{lstlisting} [language=C, caption={EFM8 : PWM Pulse Count Calculation}, label={lst:efm8_pwm_manager}, basicstyle=\ttfamily\tiny]
 void PWM_manager(float x_value, float y_value)
 {
     if (x_value >= 0) // RIGHT TURN
@@ -361,36 +405,39 @@ void PWM_manager(float x_value, float y_value)
 }
 \end{lstlisting}
 
-The outputted values would be counters from 0-100, which would be used for counters for the PWM duty cycles for each wheel. We ran Timer 5 at a frequency of 10kHz to allow for very precise duty cycles. The exact code for the Timer 5 ISR is in the Appendix (\ref{lst:timer5pwm}) for more details.
+The outputted values would be counters from 0-100, which would be used for counters for the PWM duty cycles for each wheel. We ran Timer 5 at a frequency of 10kHz to allow for very precise duty cycles. The exact code for the Timer 5 ISR is in the Appendix (\ref{lst:efm8_timer5pwm}) for more details.
 
 \
 
 \textbf{JDY-40 Communications} \\
 
-%Movement code ISR
-%Multiple timer 0: Period
-%timer 3: Delay
-%timer 4: JDY
-%Timer 5: PWM
-
-%– Explain how you applied appropriate engineering knowledge,
-%judgment, and tools, in creating and analyzing design solutions. This has to be
-%one of biggest parts of the report. In this section you must include the description
-%and evaluation of each block (e.g. “A-stable Circuit”, or “Counter Initialization”):
 
 In order to share data between microcontrollers, we had to ensure our firmware operated deterministically and reliably.
-This required ensuring that the data received by each microcontroller was accurate to the transmission and that this did not slow down the remaining functionality of the
-system, especially for the robot \textit{EFM8} microcontroller.
+This required ensuring that the data received by each microcontroller was accurate to the transmitted data. It also required ensuring
+that this did not slow down the remaining functionality of the system, especially for the robot \textit{EFM8} microcontroller.
 
-As seen in figure \ref{fig:firmware_block_diagram}, we decided to periodically transmit data to the JDY-40 serial port module. This was done
+\
+
+As seen in figure \ref{fig:firmware_block_diagram}, we decided to periodically transmit data to the \textit{JDY-40} radio. This was done
 asynchronously via ISRs. Receiving and parsing the data was done in the main function however,
-as the subsequent instructions depended on a newly received value.
+as the subsequent instructions depended on a newly received value. This appeared as a function call to the following function on the \textit{STM32}.
+Note that this only updates the global variable \texttt{RX\_BUFF} when 2 bytes are received.
+
+\begin{lstlisting} [language=C, caption={STM32 : JDY-40 RX}, label={lst:jdy40parse}, basicstyle=\ttfamily\tiny]
+void RX_I(void) {
+	if (ReceivedBytes_2() > 0){
+		egets_2(RX_BUFF, sizeof(RX_BUFF)-1);
+		// printf("RX_BUFF: %s\r\n", RX_BUFF);
+	}
+	return;
+}
+\end{lstlisting}
 
 We prioritized frequent data transmission of movement controls from the joystick and implemented an \textit{STM32} ISR with a software counter
 to transmit this every $250 ms$ via \textit{UART} communication. This ensured we can smoothly control the speed and
 direction of the PWM for the robot Optocoupler and H-Bridge circuitry.
 
-\begin{lstlisting} [language=C, caption={Timer 21 Coordinate Transmission}, label={lst:timer5pwm}, basicstyle=\ttfamily\tiny]
+\begin{lstlisting} [language=C, caption={EFM8 : Timer 21 ISR}, label={lst:efm8_timer5pwm}, basicstyle=\ttfamily\tiny]
 void TIM21_Handler(void) {
 	TIM21->SR &= ~BIT0; // Clear Update Interrupt Flag
 	TX21Count++;
@@ -403,28 +450,101 @@ void TIM21_Handler(void) {
 \end{lstlisting}
 
 We were able to provide slightly more leeway for transmission of inductance values, as responsiveness wasn't as time-critical as movement controls. However, we
-decided to mirror the logic above on the \textit{EFM8} to send the calculated value every 250 $ms$ to the \textit{STM32}.
-
-\textbf{Data Parsing and Validation} \\ %unbold this later
-
-
-Throughout the project, we went through several prototypes for each of the functionalities and modules. Based on the learning points from previous labs and classes, we were able to implement each of the required functions into the final product.
-Timer 0 was used calculating the period when detecting any change in voltage, specifically caused by the inductor passing over any metal object. Timer 3 was used for getting the delay we used throughout the overall project. Timer 4 was the timer used for programming the JDY-40and communication between the controller and the robot. Timer 5 was used for getting the PWM.
+decided to mirror the logic above on the \textit{EFM8} to send the calculated value every 250 $ms$ to the \textit{STM32}. This is shown in the Appendix (\ref{lst:efm8_timer4isr}).
 
 \
 
-\textbf{Period Calculations for Metal Detector Circuit} \\
-The period calculation was done with an equation that was provided to us through a piece of example code by the professor. Adjusting for the values to match our robot's characteristics, we were able to obtain accurate period readings to use later to calculate the frequency and, in turn, detect when the inductor passes over metal.
+Data parsing and validation was an additional layer of complicated for the \textit{EFM8} system, as we needed to accurately process the $X$, $Y$, and $Z$ values from
+the \textit{STM32} transmission. This involved checking the length to ensure it was within the expected range of 12-14 characters. Note that we had to transmit a fixed length from the
+\textit{STM32} to account for this. Following this initial validation, we implemented a custom function to trim the non-numeric characters from the string, and assign the relevant data
+to the respect variables. This is shown in the Appendix (\ref{lst:efm8_jdy40rx}).
+
+\
+
+Parsing the received inductance values on the \textit{STM32} was a straightforward process as we only expected a single value and did not prepend any additional characters to the string.
+Hence, we were able to use \texttt{atoi()} to convert the string to an integer.
+
+\
+
+\textbf{Period Measurement and Inductance Calculation}
+
+In order to measure period, we used Timer 0 on the \textit{EFM8} to measure the number of clock cycles for a period signal.
+This was done synchronously, and the period was measured uninterrupted in our final implementation. This involved disabling all ISRs on the EFM8
+during this critical code segment, as shown below in \ref{lst:efm8_period}.
+
+\begin{lstlisting} [language=C, caption={EFM8 : Frequency Calculation}, label={lst:efm8_period}, basicstyle=\ttfamily\tiny]
+// Measure the period of a square signal at PERIOD_PIN
+unsigned long GetPeriod (int n) {
+    unsigned int overflow_count;
+    unsigned char i;
+
+    EA=0; // Disable interrupts
+    TR0=0; // Stop Timer/Counter 0
+    TMOD&=0b_1111_0000; // Set the bits of Timer/Counter 0 to zero
+    TMOD|=0b_0000_0001; // Timer/Counter 0 used as a 16-bit timer
+
+    ... // Wait for the signal to go low
+
+    // Reset the counter
+    TR0=0;
+    TL0=0; TH0=0; TF0=0; overflow_count=0;
+    TR0=1; // Start the timer
+
+    for(i=0; i<n; i++) // Measure the time of 'n' periods {
+        while(PERIOD_PIN!=0) // Count 16-bit timer overflows  { ... }
+        while(PERIOD_PIN!=1) // Count 16-bit timer overflows { ... }
+    }
+
+    TR0=0; // Stop timer 0, the 24-bit number [overflow_count-TH0-TL0] has the period in clock cycles!
+    EA=1; // Enable interrupts
+
+    return (overflow_count*65536+TH0*256+TL0);
+}
+
+unsigned long GetFrequency_Hz(void) {
+    long int count = GetPeriod(5);
+    long int frequency = (SYSCLK*5.0)/(count*12);
+
+    // printf("Frequency: %ld Hz\n", frequency);
+
+    if (count>0) return frequency;
+    else return 0;
+}
+\end{lstlisting}
+
+Disabling the ISRs was a critical part of this process, as we needed to ensure that the period was measured accurately.
+We reduced the number of periods measured to 5 to prevent the robot from being unresponsive to the user. This was a balance between
+accuracy and responsiveness, as we needed to ensure that the robot could still move while the inductance was being measured. This was a risk we took
+to build our final product.
+
+The inductance calculation itself involved basic float arithmetic and casting the result to an integer, as shown below in \ref{lst:efm8_inductance}.
+
+\begin{lstlisting} [language=C, caption={EFM8 : Inductance Calculation}, label={lst:efm8_inductance}, basicstyle=\ttfamily\tiny]
+int GetInductance_microH(void) {
+    long int freq = GetFrequency_Hz();
+    float CT_mF = GetCapacitance_mF();
+	float I_kH = MILLI_MULTIPLIER/(squared(2*PI*freq) * CT_mF);
+
+    return (int)(MILLI_MULTIPLIER * MILLI_MULTIPLIER * I_kH);
+}
+\end{lstlisting}
+
+Note that we made a decision to perform calculations from peripheral reads on the transmitting microcontroller, whether that be converting a period measurement to inductance on the \textit{EFM8},
+or the joystick values to standardized values on the \textit{STM32}. This was to ensure that the receiving microcontroller could focus on its core intended functionality, and not be bogged down by
+calculations it should not be responsible for.
+
+\
+
+It was essential for our robot to function both as a vehicle and to incorporate a metal detecting circuit as a feature of equal importance.
 
 \
 
 \textbf{Speaker} \\
-%The speaker was programmed with timer 2. Using past code as reference, and by heavily modifying the values to match the robot's characteristics, we were able to operate the speaker. The defining feature of the speaker is that the output signal can increase the harmonic of the signal when in close proximity to metal. To do this, we utilised counters to keep track of which harmonic the speaker's output should be at, depending on the detected inductance values.
 We implemented the speaker on the remote using timer 2 of the \textit{STM32}. We used a base frequency of 7040Hz, as this allowed us to output the perfect "A" note (sample chart shown here: \ref{fig:music_frequencies}), whereas other frequencies have decimal points (dividing the frequency by $2^n$).
 In the code shown in \ref{lst:Speaker}, the \texttt{new\_ratio} value served as a counter in the Timer 2 ISR to control the PWM speed for the speaker.
 The change in frequency was tied to the inductance value measured by the \textit{EFM8}.
 
-\begin{lstlisting} [language=C, caption={Speaker control}, label={lst:Speaker}, basicstyle=\ttfamily\tiny]
+\begin{lstlisting} [language=C, caption={STM32 : Speaker Thresholds}, label={lst:Speaker}, basicstyle=\ttfamily\tiny]
 float SetSpeakerFreq(float inductance_mH, float current_ratio) {
     float new_ratio, new_freq;
 
@@ -441,28 +561,97 @@ float SetSpeakerFreq(float inductance_mH, float current_ratio) {
 }
 \end{lstlisting}
 
-
-
 \noindent
-
 
 
 \subsection{Solution Assessment}
 
-We assessed our design through a set of tests.
+We assessed our design through a set of tests. Our final quantitative affirmation was observing the number of \textit{UART RX} samples it took for the robot to respond to the joystick input,
+as well as the number of \textit{UART RX} samples it took for the controller to receive the inductance value from the robot. This is shown in the
+figures \ref{fig:movement_controls_logs} and \ref{fig:inductance_detection_logs}. This accompanied our qualitative testing, where we validated this with a human user to ensure that the robot
+was responsive to the joystick input and provided both visual and auditory feedback when metal was detected.
+
+In our logging of the data, we noticed that data between transmitting and receiving microcontrollers were separated by a few samples (which spanned a few milliseconds). This was a latency which
+was deemed acceptable as in both cases, it met human expectation of response time. To further confirm this, we saved the log time of the data with a \textit{Python} script as shown below.
+
+\begin{lstlisting} [language=Python, caption={Python : Data Logging}, label={lst:python_logging}, basicstyle=\ttfamily\tiny]
+... # Import Packages, Open COM Ports
+
+s = 0
+while (robot_port.isOpen()) and (controller_port.isOpen()) and (s < 100):
+    print(f'[{dt.datetime.now()}] Reading data...')
+
+    robot_data = robot_port.readline().decode('utf-8').strip('\r\n')
+    controller_data = controller_port.readline().decode('utf-8').strip('\r\n')
+
+    ... # Parse and Process Data
+
+    new_df = pd.DataFrame(
+        {
+            'Datetime': [dt.datetime.now()],
+            'Robot X': [robot_x],
+            'Robot Y': [robot_y],
+            'Controller X': [controller_x],
+            'Controller Y': [controller_y]
+    })
+
+    if log_df.empty:
+        log_df = new_df
+    else:
+        log_df = pd.concat([log_df, new_df], ignore_index=True)
+
+    s += 1
+
+log_df.to_csv('Coordinate_Logs.csv', index=False)
+\end{lstlisting}
+
+This generated the $csv$ file with the following data in table \ref{table:data_log}.
+
+\begin{table}[ht]
+    \centering
+    \begin{tabular}{@{}lllll@{}}
+    \toprule
+    \textbf{Datetime}                & \textbf{Robot X} & \textbf{Robot Y} & \textbf{Controller X} & \textbf{Controller Y} \\ \midrule
+    2024-04-09 15:34:58.248238 & -100.0         & -100.0         & -99.0             & -100.0            \\
+    2024-04-09 15:34:58.537355 & -100.0         & -100.0         & -99.0             & -100.0            \\
+    2024-04-09 15:34:58.831054 & -99.0          & -100.0         & 0.0               & -100.0            \\
+    2024-04-09 15:34:59.115151 & -99.0          & -100.0         & 0.0               & -100.0            \\
+    2024-04-09 15:34:59.418781 & -100.0         & -100.0         & 0.0               & -100.0            \\ \addlinespace
+    ...                            & ...            & ...            & ...               & ...               \\ \addlinespace
+    2024-04-09 15:35:09.029631 & 99.0           & -100.0         & 99.0              & -100.0            \\
+    2024-04-09 15:35:09.330765 & 99.0           & -100.0         & 99.0              & -100.0            \\
+    2024-04-09 15:35:09.625331 & 99.0           & -100.0         & 100.0             & -100.0            \\
+    2024-04-09 15:35:09.914547 & 99.0           & -100.0         & 99.0              & -100.0            \\ \bottomrule
+    \end{tabular}
+    \caption{Selective log data for Robot and Controller Positions}
+    \label{table:data_log}
+\end{table}
+
 
 
 \section{Life Long Learning}
 
-Through this project, we gained valuable experience that would help us grow further in our respective fields of engineering. We initially encountered challenges regarding the communication between the controller and the robot, including those related to getting the JDY-40radios to communicate reliably, managing code bases for two different architectures and understanding their constraints (e.g. available timers), balancing speed/deterministic behavior with functionality, and developing extensive circuitry for parallel functionality.
+In this 3-week project, we learned what were perhaps some of the most important lessons in our undergraduate engineering degree so far. This project was a
+culmination of the knowledge we had gained in our previous courses, and it was a test of our ability to apply that knowledge in a practical setting. There was
+intricate circuitry which required us to apply our academic foundation in circuits and electromagnetism, as well as firmware development. This latter experience was
+best explored in this course, as we firsthand experienced the obstacles and constraints in programming single-purpose embedded systems. Software statements, including but not limited to
+\texttt{printf();} were not an option to ensure our robot behaved deterministically. Once we program it and power it via the battery, it must work as intended.
 
-On the hardware side of things, we learned how to assemble the controller and robot using multiple different microntrollers and construct the JDY-40module for radio communication. Utilizing the oscilloscope and multimeter, we were able to determine the characteristics for our firmware for those modules as well. Once again, we were able to expand upon the programming knowledge we learned in ELEC 291, CPSC 259, and CPEN 211 to program the necessary modules and integrate them into a single, cohesive product.
+\
+
+This helped us appreciate the well thought out design of the embedded electronics in everyday appliances, as well as feats of engineering (e.g. Apollo 11 Moon Landing). Another skill this taught us, which
+is coordinating and communicating challenges in a team of engineers. In the professional environment, an effective team is probably the leading contributing factor to the success of a project, and
+on a larger scale, the success of a company. This project was a microcosm of that and we were exposed to the key attributes of a valuable team member. This includes effective and respectful communication,
+a willingness to learn and adapt, and a strong work ethic. We also learned the importance of project management as we needed to develop individual components of the project in parallel, and then integrate them
+by the deadline. Altogether, this course provided a step into the professional world of engineering, and we are grateful for the experience.
 
 
-\section{Conclusions}
-By the end of the project, we were able to develop a functional controller-controlled metal-detecting robot. The robot can move in any direction based on the input from the controller, and can transmit a signal when it detects metal, which displays information on the LCD. During our demo, it was able to determine the type and amount of coins(loonie, toonie, etc) that it detected.
+\section{Conclusion}
 
-In addition, we explored additional engineering principles in our feature development. This project has reinforced our skills and our foundation for future engineering projects, and was an excellent learning experience for our team.
+In this project, we were able to develop a fully functional metal detecting robot, which can be smoothly controlled with a joystick. This was built through integration of electronic circuitry and firmware, designed
+to meet a predetermined set of requirements. We were able to operate within identified constraints and develop a solution which also took into account features which
+improved the user experience. This was a challenging project, but it was also a rewarding one. We were able to apply our academic knowledge in a practical setting, and
+this will be invaluable as we proceed to our third year in undergraduate electrical engineering.
 
 \renewcommand{\refname}{}
 
@@ -498,7 +687,7 @@ In addition, we explored additional engineering principles in our feature develo
     \label{fig:music_frequencies}
 \end{figure}
 
-\begin{lstlisting} [language=C, caption={Timer 5 PWM Generation}, label={lst:timer5pwm}, basicstyle=\ttfamily\tiny]
+\begin{lstlisting} [language=C, caption={EFM8 : Timer 5 PWM Generation}, label={lst:efm8_timer5pwm}, basicstyle=\ttfamily\tiny]
 if (count > 100)
     {
         count = 0;
@@ -516,5 +705,67 @@ if (count > 100)
 
     count++;
 \end{lstlisting}
+
+\begin{lstlisting} [language=C, caption={EFM8 : Timer 4 ISR}, label={lst:efm8_timer4isr}, basicstyle=\ttfamily\tiny]
+    void Timer4_ISR (void) interrupt INTERRUPT_TIMER4 {
+        int current_TR0 = TR0, current_TR5 = TR5;
+        TR0 = 0, TR5 = 0;
+
+        SFRPAGE=0x10;
+        TF4H = 0; // Clear Timer4 interrupt flag
+        TXcount++;
+
+        if(TXcount >= 250){
+            TXcount=0;
+            flag == 0;
+        }
+
+        if (current_TR0 == 1) TR0 = 1;
+        if (current_TR5 == 1) TR5 = 1;
+    }
+\end{lstlisting}
+
+\begin{lstlisting} [language=C, caption={EFM8 : JDY-40 RX}, label={lst:efm8_jdy40rx}, basicstyle=\ttfamily\tiny]
+void RX_XY() {
+    if(RXU1()) {
+	    getstr1(RXbuff);
+	    clearUART1Buffer();
+	    length = strlen(RXbuff);
+        // printf("UNPARSED RX: %s\r\n", RXbuff);
+	    if(length >= 12 && length <= 14){
+	    	Trim(RXbuff, &commands[0],&commands[1], &commands[2]);
+	    }
+	}
+}
+
+void Trim(char *str, int *xin, int *yin, int *zyn) {
+    int i, j;
+    char * strStart = str;
+    char *x = malloc(5 * sizeof(char));
+    char *y = malloc(5 * sizeof(char));
+    char *z = malloc(2 * sizeof(char));
+
+    for (i = 0, j = 0; str[i] != '\0'; i++) {
+        if (isdigit(str[i]) || str[i] == '-') {
+            str[j++] = str[i];
+        }
+    }
+    str[j] = '\0';  // Null-terminate the resulting string
+    splitString(str, x, y, z);
+
+    //printf("%p \n", y);
+    //printf("%p \n", x);
+
+    *xin = stringToInt(x);
+    *yin = stringToInt(y);
+    *zyn = stringToInt(z);
+
+
+    free(x);
+    free(y);
+    free(z);
+}
+\end{lstlisting}
+
 
 \end{document}

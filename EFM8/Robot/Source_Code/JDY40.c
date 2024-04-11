@@ -315,25 +315,15 @@ void TX_I(void) {
 }
 
 void RX_XY() {
-    if(RXU1())
-		{
-
-			getstr1(RXbuff);
-			clearUART1Buffer();
-			length = strlen(RXbuff);
-            // printf("UNPARSED RX: %s\r\n", RXbuff);
-			if(length >= 12 && length <= 14){
-				Trim(RXbuff, &commands[0],&commands[1], &commands[2]);
-			}
-			// if(length >= 11){
-			// 	printf("X: %d \r\n", commands[0]);
-			// 	printf("Y: %d \r\n", commands[1]);
-			// }
-			// else{
-			// 	printf("Invalid Length %d \r\n", length);
-			// }
+    if(RXU1()) {
+		getstr1(RXbuff);
+		clearUART1Buffer();
+		length = strlen(RXbuff);
+        // printf("UNPARSED RX: %s\r\n", RXbuff);
+		if(length >= 12 && length <= 14){
+			Trim(RXbuff, &commands[0],&commands[1], &commands[2]);
 		}
-	// printf("Nothing Recieved\r\n");
+	}
 }
 
 int NumDigs (char * s){

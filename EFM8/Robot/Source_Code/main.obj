@@ -15,7 +15,7 @@ R_GSINIT,code,0000,NO
 R_BSEG,bit,0000,NO
 R_XSEG,xdata,000E,NO
 BIT_BANK,data,0000,OV
-R_CONST,code,0030,NO
+R_CONST,code,001C,NO
 rbank0,data,0000,OV
 R_PSEG,xdata,0000,NO
 R_DINIT,code,0000,NO
@@ -25,20 +25,20 @@ R_IXSEG,xdata,000C,NO
 R_ISEG,idata,0000,NO
 R_HOME,code,0000,NO
 R_XINIT,code,000C,NO
-R_CSEG,code,02E9,NO
+R_CSEG,code,02C0,NO
 </SEGMENTS>
 
 <LOCALS>
 L002004?,R_CSEG,0029,0000
 L002001?,R_CSEG,001E,0000
-L005022?,R_CSEG,02E3,0000
-L005021?,R_CSEG,02AA,0000
+L005022?,R_CSEG,02BA,0000
+L005021?,R_CSEG,0281,0000
 __xinit__x,R_XINIT,0000,0000
 __xinit__y,R_XINIT,0004,0000
 __xinit__z,R_XINIT,0008,0000
 _main_inductance_1_132,R_XSEG,000C,0002
-L005003?,R_CSEG,0243,0000
-L005002?,R_CSEG,023F,0000
+L005003?,R_CSEG,021A,0000
+L005002?,R_CSEG,0216,0000
 _test_print_x_1_129,R_XSEG,0008,0004
 __str_0,R_CONST,0000,0000
 __str_1,R_CONST,0017,0000
@@ -311,13 +311,26 @@ FB
 12 addr16(_TX_I;)  
 12 addr16(_RX_XY;)  
 12 addr16(_GetInductance_microH;)  
-E5 82
-85 83 F0
+AA 82
+AB 83
 90 data16(_main_inductance_1_132;)  
+EA
 F0
 A3
-E5 F0
+EB
 F0
+C0 02
+C0 03
+74 data8(__str_1;)
+C0 E0
+74 data8(__str_1;0x0008;>>;)
+C0 E0
+74 80
+C0 E0
+12 addr16(_printf;)  
+E5 81
+24 FB
+F5 81
 12 addr16(_get_x_direction;)  
 AA 82
 AB 83
@@ -369,44 +382,6 @@ F0
 A3
 ED
 F0
-C0 02
-C0 03
-C0 04
-C0 05
-90 data16(_y;)  
-E0
-C0 E0
-A3
-E0
-C0 E0
-A3
-E0
-C0 E0
-A3
-E0
-C0 E0
-90 data16(_x;)  
-E0
-C0 E0
-A3
-E0
-C0 E0
-A3
-E0
-C0 E0
-A3
-E0
-C0 E0
-74 data8(__str_1;)
-C0 E0
-74 data8(__str_1;0x0008;>>;)
-C0 E0
-74 80
-C0 E0
-12 addr16(_printf;)  
-E5 81
-24 F1
-F5 81
 90 data16(_x;)  
 E0
 FA
@@ -583,8 +558,7 @@ EA
 0D
 0A
 00
-58 3A 25 2E 31 66 2C 20 59 3A 25 2E 31 66 2C 20 5A
-3A 25 2E 31 66 
+25 64 
 0D
 0A
 00

@@ -87,19 +87,19 @@ Instructor: Dr. Jesus Calvino-Fraga \\
 
 \subsection{Objective}
 
-The objective of this project was to develop a controller controlled metal-detecting robot. This was required to be
-battery operated and controlled using a wireless controller. The controller is used enable smooth of control the robot's
-motors; determining its direction and speed. It should also notify the user when the robot detects metal, via and LCD
-display and speaker. We should be able to differentiate between the metals detected by inductance as well as sound.
+The objective of this project was to develop a remote controlled metal-detecting robot. The robot was required to be
+battery operated and controlled using a wireless controller. The controller is used enable smooth control of the robot's
+motors; determining its direction and speed. It should also notify the user when the robot detects metal, via an LCD
+display and speaker. It should be able to differentiate between the metals detected by inductance as well as sound.
 
 \
 
 The ultimate goal of the project is to apply the learnings from the second set of labs in this course, with two families of microcontrollers.
-The circuitry used is familiar to prior in this course, but is designed to enable firmware detection of inductance with electromagnetism theory.
+The circuitry used is familiar to prior labs in this course, but is designed to enable firmware detection of inductance with electromagnetism theory.
 
 \subsection{System Block Diagrams}
 
-In order to meet these system requirements and specifications, we designed the hardware and software as shown below. We will refer to this later in the report.
+In order to meet these system requirements and specifications, we designed the hardware and software as shown in the system diagram below. We will refer to this later in the report.
 
 \begin{figure}[h]
         \centering
@@ -115,10 +115,10 @@ Prior to settling on a final design, we individually and collaboratively scoped 
 \subsection{Idea Generation}
 
 We generated ideas for our implementation by discussing the process for meeting each of the individual specifications.
-This enabled dissecting the problem into smaller and manageable parts, as well as effective task allocation for firmware and
+This allowed us to disect the problem into smaller and more manageable parts, as well as effective task allocation for firmware and
 hardware development. We discussed how each of these parts would work together to yield a fully functional robot. We prototyped individual components
 in isolated test environments to confirm details, such as the functionality of the joystick and PWM peripherals, the performance of the movement logic,
-and the the JDY-40transmission from one microcontroller to the next. Integrating these functional components into a functional product was the
+and the the JDY-40 transmission from one microcontroller to the next. Integrating these functional components into a functional product was the
 final step, allowing us to fine-tune initial designs collaboratively through end-to-end testing.
 
 \subsection{Investigation Design}
@@ -571,8 +571,10 @@ as well as the number of \textit{UART RX} samples it took for the controller to 
 figures \ref{fig:movement_controls_logs} and \ref{fig:inductance_detection_logs}. This accompanied our qualitative testing, where we validated this with a human user to ensure that the robot
 was responsive to the joystick input and provided both visual and auditory feedback when metal was detected.
 
-In our logging of the data, we noticed that data between transmitting and receiving microcontrollers were separated by a few samples (which spanned a few milliseconds). This was a latency which
-was deemed acceptable as in both cases, it met human expectation of response time. To further confirm this, we saved the log time of the data with a \textit{Python} script as shown below.
+\
+
+When logging the data, we noticed that values transmitted from one microcontroller was received by the other after a few samples (which spanned a few milliseconds). This was a latency which
+was deemed acceptable since, it met human expectations of response time. To further confirm this, we saved the log time of the data with a \textit{Python} script as shown below.
 
 \begin{lstlisting} [language=Python, caption={Python : Data Logging}, label={lst:python_logging}, basicstyle=\ttfamily\tiny]
 ... # Import Packages, Open COM Ports
@@ -605,7 +607,7 @@ while (robot_port.isOpen()) and (controller_port.isOpen()) and (s < 100):
 log_df.to_csv('Coordinate_Logs.csv', index=False)
 \end{lstlisting}
 
-This generated the $csv$ file with the following data in table \ref{table:data_log}.
+This generated the $csv$ file with the following data in table \ref{table:coordinates_log_table}.
 
 \begin{table}[ht]
     \centering
@@ -623,11 +625,9 @@ This generated the $csv$ file with the following data in table \ref{table:data_l
     2024-04-09 15:35:09.625331 & 99.0           & -100.0         & 100.0             & -100.0            \\
     2024-04-09 15:35:09.914547 & 99.0           & -100.0         & 99.0              & -100.0            \\ \bottomrule
     \end{tabular}
-    \caption{Selective log data for Robot and Controller Positions}
-    \label{table:data_log}
+    \caption{Log Data : Coordinates}
+    \label{table:coordinates_log_table}
 \end{table}
-
-
 
 \section{Life Long Learning}
 
@@ -660,6 +660,8 @@ this will be invaluable as we proceed to our third year in undergraduate electri
 \section{References}
 \begin{thebibliography}{10}
 
+\section{Bibliography}
+
 
 \end{thebibliography}
 
@@ -682,7 +684,7 @@ this will be invaluable as we proceed to our third year in undergraduate electri
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.3\textwidth]{Figures/Music_Frequencies.png}
+    \includegraphics[width=1\textwidth]{Figures/Music_Frequencies.png}
     \caption{Musical Notes and their Frequencies}
     \label{fig:music_frequencies}
 \end{figure}

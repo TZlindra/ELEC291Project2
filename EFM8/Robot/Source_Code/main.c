@@ -116,13 +116,13 @@ void main (void) {
 		RX_XY();
 
 		inductance = GetInductance_microH();
-		// printf("%d\r\n", inductance);
+		printf("%d\r\n", inductance);
 
 		x = get_x_direction();
 		y = get_y_direction();
 		z = get_z();
 
-		printf("X:%.1f, Y:%.1f, Z:%.1f\r\n", x, y, z);
+		// printf("X:%.1f, Y:%.1f, Z:%.1f\r\n", x, y, z);
 
 		if (x == 0 && y == 0) LEDA_PIN = 0, LEDB_PIN = 0;
 		else LEDA_PIN = 1, LEDB_PIN = 1;

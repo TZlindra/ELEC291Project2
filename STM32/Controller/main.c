@@ -297,7 +297,7 @@ void main(void) {
 		standardized_x = standardize_x(x, sensitivity_x);
 		standardized_y = standardize_y(y, sensitivity_y);
 
-		printf("X:%d, Y:%d, Z:%d\r\n", standardized_x, standardized_y, z);
+		// printf("X:%d, Y:%d, Z:%d\r\n", standardized_x, standardized_y, z);
 
 		Update_XYZ(standardized_x, standardized_y, z);
 		RX_I(); // Receive Inductance Value
@@ -305,7 +305,7 @@ void main(void) {
 		// display_buffs();
 		// inductance_microH = 850.0;
 		inductance_microH = Update_I(inductance_microH);
-		// printf("%0f\r\n", inductance_microH);
+		printf("%0f\r\n", inductance_microH);
 
 		// if (isButtonPressedGPIOB(BUTTON_S2)) SpeakerRatio = SetSpeakerFreq(inductance_microH, SpeakerRatio);
 

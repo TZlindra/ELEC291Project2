@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1712818244.35576 "c:/Muntakim_Files/School/School_Work/Engineering_Bachelors/2023/ELEC_291/Projects/Project_2/ELEC291Project2/Report/main.tex" "main.pdf" "main" 1712818245.48467 0
+["pdflatex"] 1712872570.1653 "c:/Muntakim_Files/School/School_Work/Engineering_Bachelors/2023/ELEC_291/Projects/Project_2/ELEC291Project2/Report/main.tex" "main.pdf" "main" 1712872571.94534 0
   "C:/Users/munta/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1712783442 94578 3d7812996b5e70e7dd3d06c67bb78c06 ""
   "C:/Users/munta/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/tcrm1000.pk" 1708044569 11548 2c9ee6d384129f23992eeada6c1e7d0f ""
   "C:/Users/munta/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1706737176 24210787 ec82fd334ad3edce9198fa3fba838d8c ""
@@ -111,7 +111,7 @@
   "C:/Users/munta/AppData/Local/Programs/MiKTeX/tex/latex/xcolor/xcolor.sty" 1700127522 55487 80a65caedd3722f4c20a14a69e785d8f ""
   "C:/Users/munta/AppData/Local/Programs/MiKTeX/tex/latex/xkeyval/xkeyval.sty" 1656236919 4937 4ce600ce9bd4ec84d0250eb6892fcf4f ""
   "Figures/Firmware_Block_Diagram.png" 1712783337 107318 51f238f11c95390d2addfaef0e406845 ""
-  "Figures/Inductance_Logs.jpg" 1712788674 84690 e06d173c70cea5ee8ca23c830ae5ecba ""
+  "Figures/Inductance_Logs.jpg" 1712871674 74407 01dbefb78aef82c8d29585fda89383d1 ""
   "Figures/Movement_Logs.jpg" 1712788850 163385 4bd631ebbfa038a4b62b22a79c696798 ""
   "Figures/Music_Frequencies.png" 1712798838 528227 e4a2c63d49582d9bd81bc3f0fe6b8f01 ""
   "Figures/jdy40.png" 1712783349 209851 951c255287a1d16d716febdd065f76d2 ""
@@ -122,11 +122,11 @@
   "Names/Martin.png" 1712783390 56242 210effcf0173c6cffa9c7c6d237875b7 ""
   "Names/Muntakim.png" 1712783393 2813 7fe47e4bdc731b3809df2c29a22be427 ""
   "Names/Tomaz.jpeg" 1712783397 9922 873b04c04b992eda69cc05c478e55adc ""
-  "c:/Muntakim_Files/School/School_Work/Engineering_Bachelors/2023/ELEC_291/Projects/Project_2/ELEC291Project2/Report/main.tex" 1712818243 41539 e904dd3a40fb73cdff6814d3fd6250e4 ""
-  "main.aux" 1712818245 7648 b4059004d143c3ab9e200d61cbccfef0 "pdflatex"
-  "main.out" 1712818245 3286 0a872811f242273795a21dacb3448fb6 "pdflatex"
-  "main.tex" 1712818243 41539 e904dd3a40fb73cdff6814d3fd6250e4 ""
-  "main.toc" 1712818245 1927 36bde0f73df1474476c26c97ff6f05cb "pdflatex"
+  "c:/Muntakim_Files/School/School_Work/Engineering_Bachelors/2023/ELEC_291/Projects/Project_2/ELEC291Project2/Report/main.tex" 1712872567 41578 db692934abc9ac34fd12280715602ce0 ""
+  "main.aux" 1712872571 7709 a5be2332974e22eade8b7ee10f1a19eb "pdflatex"
+  "main.out" 1712872571 3390 0faa40219708d4774e5f6c55185b1040 "pdflatex"
+  "main.tex" 1712872567 41578 db692934abc9ac34fd12280715602ce0 ""
+  "main.toc" 1712872571 1996 de9170833812e382e47a8f82ba50626d "pdflatex"
   (generated)
   "main.aux"
   "main.log"

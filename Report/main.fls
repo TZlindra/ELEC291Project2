@@ -237,7 +237,6 @@ INPUT .\Figures\Firmware_Block_Diagram.png
 INPUT .\Figures\Firmware_Block_Diagram.png
 INPUT .\Figures\Firmware_Block_Diagram.png
 INPUT .\Figures\Firmware_Block_Diagram.png
-INPUT C:\Users\munta\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmti10.tfm
 INPUT C:\Users\munta\AppData\Local\Programs\MiKTeX\tex\latex\inconsolata\ot1zi4.fd
 INPUT C:\Users\munta\AppData\Local\Programs\MiKTeX\tex\latex\inconsolata\ot1zi4.fd
 INPUT C:\Users\munta\AppData\Local\Programs\MiKTeX\tex\latex\inconsolata\ot1zi4.fd
@@ -257,6 +256,7 @@ INPUT .\Figures\Inductance_Logs.jpg
 INPUT .\Figures\Inductance_Logs.jpg
 INPUT .\Figures\Inductance_Logs.jpg
 INPUT .\Figures\Inductance_Logs.jpg
+INPUT C:\Users\munta\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmti10.tfm
 INPUT C:\Users\munta\AppData\Local\Programs\MiKTeX\tex\latex\listings\lstlang1.sty
 INPUT C:\Users\munta\AppData\Local\Programs\MiKTeX\tex\latex\listings\lstlang1.sty
 INPUT C:\Users\munta\AppData\Local\Programs\MiKTeX\tex\latex\listings\lstlang1.sty
@@ -315,8 +315,6 @@ INPUT C:\Users\munta\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\c
 INPUT C:\Users\munta\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmr5.pfb
 INPUT C:\Users\munta\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmr7.pfb
 INPUT C:\Users\munta\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmr7.pfb
-INPUT C:\Users\munta\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmsy10.pfb
-INPUT C:\Users\munta\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmsy10.pfb
 INPUT C:\Users\munta\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmsy7.pfb
 INPUT C:\Users\munta\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmsy7.pfb
 INPUT C:\Users\munta\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmti10.pfb

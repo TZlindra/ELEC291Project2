@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2024.1.31)  11 APR 2024 14:56
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2024.1.31)  11 APR 2024 17:02
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -320,36 +320,32 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 28
 )
 \Hy@SectionHShift=\skip52
 )
-Package translations Info: No language package found. I am going to use `english' as default language. on input line 51.
+Package translations Info: No language package found. I am going to use `english' as default language. on input line 52.
  (C:\Users\munta\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def
 File: l3backend-pdftex.def 2024-01-04 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count308
 \l__pdf_internal_box=\box65
-) (main.aux
-
-LaTeX Warning: Label `lst:efm8_timer5pwm' multiply defined.
-
-)
+) (main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 51.
-LaTeX Font Info:    ... okay on input line 51.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 51.
-LaTeX Font Info:    ... okay on input line 51.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 51.
-LaTeX Font Info:    ... okay on input line 51.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 51.
-LaTeX Font Info:    ... okay on input line 51.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 51.
-LaTeX Font Info:    ... okay on input line 51.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 51.
-LaTeX Font Info:    ... okay on input line 51.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 51.
-LaTeX Font Info:    ... okay on input line 51.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 51.
-LaTeX Font Info:    ... okay on input line 51.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 51.
-LaTeX Font Info:    ... okay on input line 51.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 52.
+LaTeX Font Info:    ... okay on input line 52.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 52.
+LaTeX Font Info:    ... okay on input line 52.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 52.
+LaTeX Font Info:    ... okay on input line 52.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 52.
+LaTeX Font Info:    ... okay on input line 52.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 52.
+LaTeX Font Info:    ... okay on input line 52.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 52.
+LaTeX Font Info:    ... okay on input line 52.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 52.
+LaTeX Font Info:    ... okay on input line 52.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 52.
+LaTeX Font Info:    ... okay on input line 52.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 52.
+LaTeX Font Info:    ... okay on input line 52.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -407,68 +403,68 @@ File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 )) (C:\Users\munta\AppData\Local\Programs\MiKTeX\tex/latex/translations/dicts\translations-basic-dictionary-english.trsl
 File: translations-basic-dictionary-english.trsl (english translation file `translations-basic-dictionary')
 )
-Package translations Info: loading dictionary `translations-basic-dictionary' for `english'. on input line 51.
+Package translations Info: loading dictionary `translations-basic-dictionary' for `english'. on input line 52.
 \symgns@font=\mathgroup4
 LaTeX Font Info:    Overwriting symbol font `gns@font' in version `bold'
-(Font)                  TS1/cmr/m/n --> TS1/cmr/b/n on input line 51.
-Package gensymb Info: Math companion symbols declared on input line 51.
-LaTeX Info: Redefining \degree on input line 51.
-LaTeX Info: Redefining \celsius on input line 51.
-Package gensymb Info: Using text companion symbols for \degree, \celsius and \perthousand on input line 51.
-LaTeX Info: Redefining \ohm on input line 51.
-Package gensymb Info: Using \textohm for \ohm on input line 51.
-LaTeX Info: Redefining \micro on input line 51.
-Package gensymb Info: Using \textmu for \micro on input line 51.
+(Font)                  TS1/cmr/m/n --> TS1/cmr/b/n on input line 52.
+Package gensymb Info: Math companion symbols declared on input line 52.
+LaTeX Info: Redefining \degree on input line 52.
+LaTeX Info: Redefining \celsius on input line 52.
+Package gensymb Info: Using text companion symbols for \degree, \celsius and \perthousand on input line 52.
+LaTeX Info: Redefining \ohm on input line 52.
+Package gensymb Info: Using \textohm for \ohm on input line 52.
+LaTeX Info: Redefining \micro on input line 52.
+Package gensymb Info: Using \textmu for \micro on input line 52.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: hyperref package is loaded.
 Package caption Info: End \AtBeginDocument code.
  (C:\Users\munta\AppData\Local\Programs\MiKTeX\tex/latex/upquote\upquote.sty
 Package: upquote 2012/04/19 v1.3 upright-quote and grave-accent glyphs in verbatim
 )
-Package hyperref Info: Link coloring OFF on input line 51.
+Package hyperref Info: Link coloring OFF on input line 52.
  (main.out) (main.out)
 \@outlinefile=\write3
 \openout3 = `main.out'.
 
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 54.
+(Font)              <12> on input line 55.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 54.
+(Font)              <8> on input line 55.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 54.
+(Font)              <6> on input line 55.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 61.
+(Font)              <7> on input line 62.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 61.
+(Font)              <5> on input line 62.
 <Names/Tomaz.jpeg, id=103, 197.73875pt x 175.65625pt>
 File: Names/Tomaz.jpeg Graphic file (type jpg)
 <use Names/Tomaz.jpeg>
-Package pdftex.def Info: Names/Tomaz.jpeg  used on input line 65.
+Package pdftex.def Info: Names/Tomaz.jpeg  used on input line 66.
 (pdftex.def)             Requested size: 42.67912pt x 37.91277pt.
 <Names/Martin.png, id=104, 541.02126pt x 350.30875pt>
 File: Names/Martin.png Graphic file (type png)
 <use Names/Martin.png>
-Package pdftex.def Info: Names/Martin.png  used on input line 68.
+Package pdftex.def Info: Names/Martin.png  used on input line 69.
 (pdftex.def)             Requested size: 42.67912pt x 27.62971pt.
 <Names/Muntakim.png, id=105, 251.7405pt x 102.3825pt>
 File: Names/Muntakim.png Graphic file (type png)
 <use Names/Muntakim.png>
-Package pdftex.def Info: Names/Muntakim.png  used on input line 70.
+Package pdftex.def Info: Names/Muntakim.png  used on input line 71.
 (pdftex.def)             Requested size: 42.67912pt x 17.35635pt.
 <Names/James.jpeg, id=107, 1541.76pt x 422.57875pt>
 File: Names/James.jpeg Graphic file (type jpg)
 <use Names/James.jpeg>
-Package pdftex.def Info: Names/James.jpeg  used on input line 72.
+Package pdftex.def Info: Names/James.jpeg  used on input line 73.
 (pdftex.def)             Requested size: 42.67912pt x 11.6967pt.
 <Names/Emile.png, id=108, 233.87375pt x 79.29625pt>
 File: Names/Emile.png Graphic file (type png)
 <use Names/Emile.png>
-Package pdftex.def Info: Names/Emile.png  used on input line 74.
+Package pdftex.def Info: Names/Emile.png  used on input line 75.
 (pdftex.def)             Requested size: 42.67912pt x 14.46992pt.
 <Names/Kyden.png, id=109, 249.93375pt x 184.2885pt>
 File: Names/Kyden.png Graphic file (type png)
 <use Names/Kyden.png>
-Package pdftex.def Info: Names/Kyden.png  used on input line 76.
+Package pdftex.def Info: Names/Kyden.png  used on input line 77.
 (pdftex.def)             Requested size: 42.67912pt x 31.46922pt.
  [1
 
@@ -480,81 +476,110 @@ Package pdftex.def Info: Names/Kyden.png  used on input line 76.
 <Figures/Firmware_Block_Diagram.png, id=153, 986.4855pt x 454.69875pt>
 File: Figures/Firmware_Block_Diagram.png Graphic file (type png)
 <use Figures/Firmware_Block_Diagram.png>
-Package pdftex.def Info: Figures/Firmware_Block_Diagram.png  used on input line 106.
+Package pdftex.def Info: Figures/Firmware_Block_Diagram.png  used on input line 108.
 (pdftex.def)             Requested size: 469.75502pt x 216.52531pt.
- [3 <./Figures/Firmware_Block_Diagram.png>]
-LaTeX Font Info:    Trying to load font information for OT1+zi4 on input line 135.
+
+
+Package caption Warning: \label without proper reference on input line 240.
+See the caption package documentation for explanation.
+
+
+LaTeX Warning: Reference `tab:project_requirements' on page 3 undefined on input line 116.
+
+[3 <./Figures/Firmware_Block_Diagram.png>]
+LaTeX Font Info:    Trying to load font information for OT1+zi4 on input line 139.
  (C:\Users\munta\AppData\Local\Programs\MiKTeX\tex/latex/inconsolata\ot1zi4.fd
 File: ot1zi4.fd 2018/01/14 OT1/zi4 (Inconsolata)
 )
 LaTeX Font Info:    Font shape `OT1/zi4/m/n' will be
-(Font)              scaled to size 10.0pt on input line 135.
+(Font)              scaled to size 10.0pt on input line 139.
  [4{C:/Users/munta/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/inconsolata/i4-ot1-0.enc}]
-<Figures/Movement_Logs.jpg, id=166, 961.191pt x 540.21825pt>
+<Figures/Movement_Logs.jpg, id=167, 961.191pt x 540.21825pt>
 File: Figures/Movement_Logs.jpg Graphic file (type jpg)
 <use Figures/Movement_Logs.jpg>
-Package pdftex.def Info: Figures/Movement_Logs.jpg  used on input line 158.
+Package pdftex.def Info: Figures/Movement_Logs.jpg  used on input line 165.
 (pdftex.def)             Requested size: 469.75502pt x 264.00859pt.
-<Figures/Inductance_Logs.jpg, id=167, 1110.0672pt x 614.295pt>
+<Figures/Inductance_Logs.jpg, id=168, 1110.0672pt x 614.295pt>
 File: Figures/Inductance_Logs.jpg Graphic file (type jpg)
 <use Figures/Inductance_Logs.jpg>
-Package pdftex.def Info: Figures/Inductance_Logs.jpg  used on input line 165.
+Package pdftex.def Info: Figures/Inductance_Logs.jpg  used on input line 172.
 (pdftex.def)             Requested size: 469.75502pt x 259.9518pt.
  [5 <./Figures/Movement_Logs.jpg>] [6 <./Figures/Inductance_Logs.jpg>]
-Underfull \hbox (badness 10000) in paragraph at lines 207--209
+Underfull \hbox (badness 10000) in paragraph at lines 220--222
 
  []
 
-[7] [8]
-Underfull \hbox (badness 10000) in paragraph at lines 272--274
+[7] [8] [9] [10]
 
- []
-
-[9] [10]
-
-LaTeX Warning: Reference `fig:stm32' on page 11 undefined on input line 333.
+LaTeX Warning: Reference `fig:stm32' on page 11 undefined on input line 363.
 
 
-LaTeX Warning: Reference `fig:efm8' on page 11 undefined on input line 334.
+LaTeX Warning: Reference `fig:efm8' on page 11 undefined on input line 364.
 
 [11] (C:\Users\munta\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
 File: lstlang1.sty 2023/02/27 1.9 listings language file
 ) (C:\Users\munta\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstmisc.sty
 File: lstmisc.sty 2023/02/27 1.9 (Carsten Heinz)
 )
-Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 373.
+Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 403.
 LaTeX Font Info:    Font shape `OT1/zi4/m/n' will be
-(Font)              scaled to size 5.0pt on input line 373.
+(Font)              scaled to size 5.0pt on input line 403.
  [12]
-Underfull \hbox (badness 10000) in paragraph at lines 412--413
+Underfull \hbox (badness 10000) in paragraph at lines 442--443
 
  []
 
 [13] [14] [15] (C:\Users\munta\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
 File: lstlang1.sty 2023/02/27 1.9 listings language file
 ) [16] [17] [18]
+Underfull \hbox (badness 10000) in paragraph at lines 696--697
+[]\OT1/cmr/m/n/10 Microchip, []$\OT1/zi4/m/n/10 ww1 . microchip . com / downloads / aemDocuments / documents / APID / ProductDocuments /
+ []
 
-LaTeX Warning: Empty `thebibliography' environment on input line 666.
+
+Overfull \hbox (1.7459pt too wide) in paragraph at lines 703--704
+[]\OT1/cmr/m/n/10 EFM8 Laser Bee Fam-ily EFM8LB1 Data Sheet - Sil-i-con Labs, www.silabs.com/documents/public/data-
+ []
+
+
+Overfull \hbox (1.50151pt too wide) in paragraph at lines 705--706
+[]\OT1/cmr/m/n/10 JDY-40 Wire-less Se-rial Port Mod-ule, w.electrodragon.com/w/images/0/05/EY-40[]English[]manual.pdf. 
+ []
+
+
+Overfull \hbox (89.02393pt too wide) in paragraph at lines 707--708
+[]\OT1/cmr/m/n/10 Microchip, ww1.microchip.com/downloads/aemDocuments/documents/APID/ProductDocuments/DataSheets/MCP1700-
+ []
+
+
+Overfull \hbox (54.46823pt too wide) in paragraph at lines 709--710
+[]\OT1/cmr/m/n/10 STM32, Datasheet - Stm32l051x6 Stm32l051x8 - Ac-cess Line, www.st.com/resource/en/datasheet/stm32l051c6.pdf,
+ []
+
+
+Overfull \hbox (33.56804pt too wide) in paragraph at lines 710--711
+[]\OT1/cmr/m/n/10 STM32, RM0377 Ref-er-ence Man-ual - -Based 32-Bit Mcus, www.st.com/resource/en/reference[]manual/rm0377-
+ []
 
 [19]
-<Figures/metaldetector.png, id=402, 409.53pt x 378.213pt>
+<Figures/metaldetector.png, id=405, 409.53pt x 378.213pt>
 File: Figures/metaldetector.png Graphic file (type png)
 <use Figures/metaldetector.png>
-Package pdftex.def Info: Figures/metaldetector.png  used on input line 673.
+Package pdftex.def Info: Figures/metaldetector.png  used on input line 719.
 (pdftex.def)             Requested size: 234.8775pt x 216.92253pt.
-<Figures/jdy40.png, id=403, 466.74374pt x 588.1975pt>
+<Figures/jdy40.png, id=406, 466.74374pt x 588.1975pt>
 File: Figures/jdy40.png Graphic file (type png)
 <use Figures/jdy40.png>
-Package pdftex.def Info: Figures/jdy40.png  used on input line 680.
+Package pdftex.def Info: Figures/jdy40.png  used on input line 726.
 (pdftex.def)             Requested size: 140.92793pt x 177.60045pt.
-<Figures/Music_Frequencies.png, id=404, 1465.475pt x 739.76375pt>
+<Figures/Music_Frequencies.png, id=407, 1465.475pt x 739.76375pt>
 File: Figures/Music_Frequencies.png Graphic file (type png)
 <use Figures/Music_Frequencies.png>
-Package pdftex.def Info: Figures/Music_Frequencies.png  used on input line 687.
-(pdftex.def)             Requested size: 469.75502pt x 237.1243pt.
+Package pdftex.def Info: Figures/Music_Frequencies.png  used on input line 733.
+(pdftex.def)             Requested size: 375.80544pt x 189.70396pt.
  [20
 
- <./Figures/metaldetector.png> <./Figures/jdy40.png (PNG copy)>] [21 <./Figures/Music_Frequencies.png (PNG copy)>] [22] (main.aux)
+ <./Figures/metaldetector.png> <./Figures/jdy40.png (PNG copy)>] [21 <./Figures/Music_Frequencies.png (PNG copy)>] [22] [23] (main.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
@@ -563,24 +588,21 @@ L3 programming layer <2024-01-22>
 
 LaTeX Warning: There were undefined references.
 
-
-LaTeX Warning: There were multiply-defined labels.
-
 Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 0FAA40219708D4774E5F6C55185B1040;3390.
  ) 
 Here is how much of TeX's memory you used:
- 17749 strings out of 474542
- 339855 string characters out of 5744446
- 2124978 words of memory out of 5000000
- 39521 multiletter control sequences out of 15000+600000
+ 17765 strings out of 474542
+ 340103 string characters out of 5744446
+ 2300978 words of memory out of 5000000
+ 39529 multiletter control sequences out of 15000+600000
  565105 words of font info for 59 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  75i,10n,80p,733b,2624s stack positions out of 10000i,1000n,20000p,200000b,200000s
- <C:\Users\munta\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1000.pk><C:/Users/munta/AppData/Local/Programs/MiKTeX/fonts/type1/public/inconsolata/Inconsolata-zi4r.pfb><C:/Users/munta/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/munta/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/munta/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/munta/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Users/munta/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/munta/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/munta/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/munta/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/munta/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr5.pfb><C:/Users/munta/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/munta/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/munta/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/munta/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on main.pdf (22 pages, 2067851 bytes).
+ <C:\Users\munta\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1000.pk><C:/Users/munta/AppData/Local/Programs/MiKTeX/fonts/type1/public/inconsolata/Inconsolata-zi4r.pfb><C:/Users/munta/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/munta/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/munta/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/munta/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Users/munta/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/munta/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/munta/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/munta/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/munta/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr5.pfb><C:/Users/munta/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/munta/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/munta/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.pfb>
+Output written on main.pdf (23 pages, 2061381 bytes).
 PDF statistics:
- 610 PDF objects out of 1000 (max. 8388607)
- 267 named destinations out of 1000 (max. 500000)
+ 625 PDF objects out of 1000 (max. 8388607)
+ 275 named destinations out of 1000 (max. 500000)
  261 words of extra memory for PDF output out of 10000 (max. 10000000)
 

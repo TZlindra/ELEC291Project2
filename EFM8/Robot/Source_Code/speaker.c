@@ -2,8 +2,7 @@
 #include "speaker.h"
 
 
-void TIMER2Init(void)
-{
+void TIMER2Init(void) {
 // Initialize timer 2 for periodic interrupts
 	TMR2CN0=0x00;   // Stop Timer2; Clear TF2;
 	CKCON0|=0b_0001_0000; // Timer 2 uses the system clock
@@ -13,15 +12,13 @@ void TIMER2Init(void)
 	TR2=1;         // Start Timer2 (TMR2CN is bit addressable)
 }
 
-void Timer2_ISR (void) interrupt INTERRUPT_TIMER2
-{
+void Timer2_ISR (void) interrupt INTERRUPT_TIMER2 {
 	SFRPAGE=0x0;
 	TF2H = 0; // Clear Timer2 interrupt flag
 	SPEAKER_OUT=!SPEAKER_OUT;
 }
 
-void ToggleSpeaker(int enable)
-{
+void ToggleSpeaker(int enable) {
     if (enable) TR2 = 1;
     else TR2 = 0;
 }

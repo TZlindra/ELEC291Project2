@@ -52,18 +52,6 @@ while (robot_port.isOpen()) and (controller_port.isOpen()) and (s < 100):
     except:
         controller_x, controller_y, controller_z = np.nan, np.nan, np.nan
 
-    # print(f'[{dt.datetime.now()}] Robot: {robot_data}')
-
-    # print(f'[{dt.datetime.now()}] Robot X: {robot_x}')
-    # print(f'[{dt.datetime.now()}] Robot Y: {robot_y}')
-    # print(f'[{dt.datetime.now()}] Robot Z: {robot_z}')
-
-    # print(f'[{dt.datetime.now()}] Controller X: {controller_x}')
-    # print(f'[{dt.datetime.now()}] Controller Y: {controller_y}')
-    # print(f'[{dt.datetime.now()}] Controller Z: {controller_z}')
-
-    # print(f'[{dt.datetime.now()}] Controller: {controller_data}')
-
     new_df = pd.DataFrame(
         {
             'Datetime': [dt.datetime.now()],

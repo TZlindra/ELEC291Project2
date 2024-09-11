@@ -54,7 +54,7 @@ From the following data, we determined that the number of samples between data t
 
 ## Controller
 
-<img align = "right" src="Report/Figures/Controller.jpg" style="float: right; max-height:200px; max-width:33%;"/>
+<img align = "right" src="Report/Figures/Controller.jpg" style="float: right; max-height:100px; max-width:33%;"/>
 
 The remote controller circuitry consisted of an **STM32** microcontroller with **ADC** joystick inputs, as well as visual/auditory feedback on an **LCD** display and speaker.
 
@@ -72,7 +72,7 @@ The [`Makefile`](/STM32/Controller/main.mk) was used to compile the **C** source
 
 ## Robot
 
-<img align = "left" src="Report/Figures/Robot.jpg" style="float: left; max-height:200px; max-width:33%;"/>
+<img align = "left" src="Report/Figures/Robot.jpg" style="float: left; max-height:100px; max-width:33%;"/>
 
 The robot circuitry was used to generate **Pulse-Width Modulation** (**PWM**) signals and drive the wheels for movement. A **Colpitts Oscillator** circuit was used to measure the period of a looped coil, and determine the equivalent inductance to detect magnetic material property.
 

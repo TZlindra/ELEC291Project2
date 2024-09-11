@@ -93,13 +93,6 @@ void getPasscode(void) {
     resetPasscode();
 
     while (state != s_success) {
-        // printf("Button S_0: %d\r\n", isPasscodeButtonPressed(BUTTON_S0));
-        // printf("Button S_1: %d\r\n", isPasscodeButtonPressed(BUTTON_S1));
-        // printf("Button S_2: %d\r\n", isPasscodeButtonPressed(BUTTON_S2));
-        // printf("Button S_3: %d\r\n", isPasscodeButtonPressed(BUTTON_S3));
-
-        // waitms(250); // Wait 500ms
-
         if (state != s_check) checkCombination();
         else if (correct_combination == 1) {
             state = s_success;

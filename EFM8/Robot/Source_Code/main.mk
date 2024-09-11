@@ -1,7 +1,7 @@
 SHELL=cmd
 CC=c51 --model-large # Need Added to Path
 COMPORT = $(shell type COMPORT.inc)
-OBJS=main.obj JDY40.obj global.obj movement_integration.obj inductance.obj speaker.obj
+OBJS=main.obj JDY40.obj global.obj movement.obj inductance.obj speaker.obj
 
 main.hex: $(OBJS)
 	$(CC) $(OBJS)
@@ -16,8 +16,8 @@ global.obj: global.c global.h
 JDY40.obj: JDY40.c JDY40.h inductance.h
 	$(CC) -c JDY40.c
 
-movement_integration.obj: movement_integration.c movement_integration.h
-	$(CC) -c movement_integration.c
+movement.obj: movement.c movement.h
+	$(CC) -c movement.c
 
 inductance.obj: inductance.c inductance.h
 	$(CC) -c inductance.c

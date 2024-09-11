@@ -113,7 +113,7 @@ We will refer to these later in the report.
 \section{Investigation}
 
 Prior to settling on a final design, we individually and collaboratively scoped out the
-constraints of our project components (listed in the project requirements in Table \ref{tab:project_requirements}).
+constraints of our project components (listed in the project requirements in Table \ref{table:project_requirements}).
 
 \subsection{Idea Generation}
 
@@ -126,7 +126,7 @@ final step, allowing us to fine-tune initial designs collaboratively through end
 
 \subsection{Investigation Design}
 
-To begin our design, we leveraged our knowledge of Labs 4-6 to understand how sub-circuitry and software modules should be implemented.
+To begin our design, we leveraged our knowledge of Labs 4-6 to understand how circuitry and software modules should be implemented.
 A few components required further research, such as the Colpitts Oscillator for the metal detector, and the JDY-40 radio module for data transmission. %ToDo : Add Bibliography
 For our circuitry, we referred to datasheets to ensure our electrical components were powered in the appropriate voltage ranges.
 We also determined capacitances which would enable a stable steady state for the Colpitts Oscillator and for us to meet expected inductance values.
@@ -176,10 +176,12 @@ response time and accuracy betweeen transmitted and received data streams.
 
 \subsection{Analysis of Results}
 
-From the graphs in \ref{fig:movement_controls_logs} and \ref{fig:movement_controls_logs}, we noted that the latency is displayed as a number of samples. This was due to the fact that we had
+From the graphs in Figures \ref{fig:movement_controls_logs} and \ref{fig:inductance_detection_logs}, we noted that the latency is displayed as a number of samples. This was due to the fact that we had
 many samples per second and wanted to visualize the microcontroller responsiveness to new information. In Figure \ref{fig:movement_controls_logs}, we
 see that the direction and speed was transmitted accurately from the STM32 to the EFM8. We modified both X and Y coordinates to test possible combinations and this was received in a reasonable number of samples.
 In Figure \ref{fig:inductance_detection_logs}, we see that the inductance values exhibited similar transmission behavior upon change.
+
+\
 
 The inductance experienced latency issues early on in the development process and we underwent many iterations on our
 firmware implementation to ensure that the period was measured accurately and we were able to calculate an inductance which could be
@@ -199,7 +201,7 @@ effectively combine building blocks.
 
 \
 
-Another process we emphasized was keeping track of software revisions in a well managed Git repository. We used Visual Studio Code : Live Share
+Another process we emphasized was keeping track of software revisions in a well managed Git repository. We used Visual Studio Code: Live Share
 to collaborate on the same codebase and to ensure that we were able to debug and test the code in real-time.
 
 \
@@ -215,10 +217,9 @@ Requirement functionality was prioritized in the integration process, including 
 The additional features (i.e. lock/unlock, speed limiter, turn limiter) were added after the core functionality was confirmed to be working as expected. This was due to an emphasis
 on meeting the project objective.
 
-\subsection{Need and Constraint Identification}.
-
+\subsection{Need and Constraint Identification}
 During firmware development, we identified the following constraints from the
-documents provided by Dr. Jesus Calvino-Fraga, as well as from our own comprehension : \\
+documents provided by Dr. Jesus Calvino-Fraga \cite{RequirementsPDF}, as well as from our own comprehension:
 
 \begin{table}[ht]
     \center
@@ -237,8 +238,8 @@ documents provided by Dr. Jesus Calvino-Fraga, as well as from our own comprehen
         the user via visual and auditory feedback. \\ \hline
         The transmission of data must be reliable and accurate. \\ \hline
     \end{tabular}
-    \label{tab:project_requirements}
     \caption{List of Project Requirements}
+    \label{table:project_requirements}
 \end{table}
 
 \subsection{Problem Specification}
@@ -249,7 +250,7 @@ the overall code integration between modules.
 
 \
 
-\textbf{JDY Communications}
+\textbf{JDY-40 Communications} \\
 A key module which required extensive development time was the JDY-40 communication between the STM32 and EFM8 microcontrollers.
 The bugs caused by this were the main blocker in integrating our firmware, as the communication was not reliable and often failed to transmit
 data between the two microcontrollers.
@@ -262,18 +263,19 @@ ensuring it wasn't excessively slow or fast. Otherwise, we risked losing data du
 due to slow data transmission. We also had to ensure that the data was sent in a format that could be easily and accurately parsed by the
 receiving microcontroller.
 
+\
+
 We also had to ensure that the data was sent in a format that could be easily parsed by the receiving microcontroller. This was especially important in translating the
 X and Y coordinates from the joystick to the robot microcontroller.
 
 \
 
 A major obstacle was finding that Git commits with a functional JDY-40 module would suddenly behave erratically
-(i.e. transmission delays, inaccurate data to be received). We believe this was partially due to software bugs, but also due to the high number of \textit{JDY-40s}
-in the lab environment during the latter part of the project.
+(i.e. transmission delays, inaccurate data to be received). We believe this was partially due to software bugs, but also due to the high number of JDY-40s in the lab environment during the latter part of the project.
 
 \
 
-\textbf{Period Measurement}
+\textbf{Period Measurement} \\
 Although a seemingly trivial task, measuring a period which altered by less than
 1ms was difficult to measure accurately. This was due to the implementation with EFM8 Timer 0,
 which monitored the number of clock cycles for a period signal during $n$ periods.
@@ -285,7 +287,7 @@ parallel functionality (i.e. JDY-40 communication, PWM generation). To overcome 
 
 \
 
-\textbf{Integration}
+\textbf{Integration} \\
 Integrating all the code together was a major obstacle, partially due to the issue mentioned above. We tested our firmware modules and observed functionality
 individually, but when we combined them, we found that the code would often malfunction.
 
@@ -319,6 +321,8 @@ in our reconfiguration of timers to deal with conflicts in between modules (i.e.
 
 When redesigning the JDY-40 communication, we started from the test C program provided by Dr. Jesus Calvino-Fraga.
 
+\
+
 We incrementally added code to the core (albeit limited) functionality of this program to determine the cause behind
 the erratic behavior. We initially had both the UART transmission and reception in ISRs for both microcontrollers, but we observed that receiving data asynchronously
 caused our microcontroller to crash. We soon realized this functionality should be synchronous and a part of the main program.
@@ -344,10 +348,10 @@ available tools, user testing was our final and conclusive evaluation metric.
 
 \subsection{Safety/Professionalism}
 
-To ensure our product was safe, we developed many safety algorithms in the program. Before the robot can be controlled, the user must enter a 4 digit passcode
+To ensure our product was safe, we developed many safety algorithms in the program. Before the robot could be controlled, the user had to enter a 4 digit passcode
 to "unlock" the remote controller. This was paired with a lock feature which would disable the controller in the need of an emergency or other purpose. In tandem with this,
 we had a power switch to both conserve battery life and to ensure that the robot could not be controlled in this state. In addition, we implemented a speed limiter and turn
-limiter on the remote controller for the movement of the robot. If the user wishes to operate at a lower speed without the risk of too much speed, a simple click would enable this.
+limiter on the remote controller for the movement of the robot. If the user wished to operate at a lower speed without the risk of too much speed, a simple click would enable this.
 
 \
 
@@ -360,14 +364,15 @@ attitude in our communication and collaboration during the project.
 \subsubsection{Hardware Design}
 The robot's EFM8 circuit and the controller's STM32 circuit were intricate systems, featuring numerous connections. However, these were not complex in design.
 
-As seen in Figure \ref{fig:stm32}, the relevant circuits
-include the voltage dividers, joystick (ADC), JDY-40, and LCD. Conversely, in the Figure \ref{fig:efm8}, the important circuits
+\
+
+As seen in the Figure \ref{fig:stm32} (STM32 Hardware Diagram), the relevant circuits include the voltage dividers, joystick (ADC), JDY-40, and LCD. Conversely, in the Figure \ref{fig:efm8} (EFM8 Hardware Diagram), the important circuits
 were the voltage dividers, JDY-40, metal detector and optocoupler/H-bridge circuits.
 
 \
 
 \textbf{Voltage Dividers} \\
-We had a total of 4 step down voltage dividers for this project. Since the controller and the robot needed to be battery powered, we were required to use an LM7805 to drop the voltage of a standard 9V alkaline battery to 5V to power circuits such as the EFM8, LCD, speakers and the metal detector circuit. For stabilizing capacitors we used 0.22uF and 0.1uF capacitors as shown in the LM7805 datasheet. Subsequently, this 5V voltage was also dropped down to a voltage of 3v3 to power the ADC, JDY-40s and the STM32. We used 2 1uF capacitors to stabilize the signal.
+We had a total of 4 step down voltage dividers for this project. Since the controller and the robot needed to be battery powered, we were required to use an LM7805 to drop the voltage of a standard 9V alkaline battery to 5V to power circuits such as the EFM8, LCD, speakers and the metal detector circuit. For stabilizing capacitors we used 0.22$\mu$F and 0.1$\mu$F capacitors as shown in the LM7805 datasheet\cite{LM7805}. Subsequently, this 5V voltage was also dropped down to a voltage of 3v3 using the MCP-1700 to power the ADC, JDY-40s and the STM32. We used 2 1$\mu$F capacitors to stabilize the signal (as suggested in the datasheet\cite{MCP1700}).
 
 \
 
@@ -382,18 +387,18 @@ The JDY-40 (\ref{fig:JDY-40}) was used on both controller and the robot for wire
 \
 
 \textbf{Metal Detector Circuit} \\
-To detect metal, we used Colpitts Oscillator (\ref{fig:metaldetector}) with a discrete CMOS Inverter. This would allow us to measure a frequency related to the inductance of the inductor by using the formula $f = \frac{1}{2 \pi \sqrt{LC_T}}$, where $C_T = \frac{C_1C_2}{C_1+C_2}$. Since we wanted to use lower capacitances to allow for a larger $\Delta f$, we ended up using $C_1 =$ 1nF and $C_2 =$ 10nF. This allowed for a stable steady state and were also within the recommended range proposed by Dr. Jesus Calvino-Fraga.
+To detect metal, we used Colpitts Oscillator (\ref{fig:metaldetector}) with a discrete CMOS Inverter. This would allow us to measure a frequency related to the inductance of the inductor by using the formula $f = \frac{1}{2 \pi \sqrt{LC_T}}$, where $C_T = \frac{C_1C_2}{C_1+C_2}$. Since we wanted to use lower capacitances to allow for a larger $\Delta f$, we ended up using $C_1 =$ 1nF and $C_2 =$ 10nF. This allowed for a stable steady state and were also within the recommended range proposed by Dr. Jesus Calvino-Fraga \cite{SlidesPDF}.
 
 \
 
 % optocoupler and H-bridge section
 \textbf{Optocoupler and H-Bridges} \\
 In order to convert our voltage PWM signal into a movable operation, we needed the h-bridge and optocouplers for each motor. The H-bridges would switch the polarity of the applied voltage, enabling for forward or backwards motion depending on the strength of the applied signal. Furthermore, the contrasting high voltage operations of the motor and low voltage operations from the EMF8 is an electrical concern that we addressed by implementing the optocouplers. The optocouplers electrically isolate the two circuits, preventing voltage spikes and limiting noise, improving compatibility and efficiency. \\
-Additionally, we used adequate resistors values to satisfy the 50\% current transfer ratio (CTR) and other conditions to achieve proper functionality.
+Additionally, we used adequate resistors values to satisfy the 50\% current transfer ratio (CTR) and other conditions to achieve proper functionality\cite{LTV-847}.
 
 \subsubsection{Firmware Design}
 This project required a strong firmware foundation to ensure the robot behaved as intended. This entailed developing $C$ programs in close coordination for the STM32 and EFM8 systems.
-The fundamental modules include the joystick input standardization, movement logic/PWM control, JDY-40 communications, speakers, and period calculations (metal detector).
+The fundamental modules include the joystick input standardization, movement logic/PWM control, JDY-40 communications, speakers, period calculations (metal detector) and a passcode menu on the controller.
 
 \
 
@@ -407,7 +412,7 @@ void standardize_directions(float* x_value, float* y_value) {
 }
 \end{lstlisting}
 
-This was paired with some more logic to convert this number into a percentage from 1-100\% for the x and y directions. As shown in Figure \ref{lst:movementstandardized2}, the value was divided by the total in the direction it was pointed to get a percent. This was paired with a minimum
+This was paired with some more logic to convert this number into a percentage from 0-100\% for the x and y directions. As shown in Figure \ref{lst:movementstandardized2}, the value was divided by the total in the direction it was pointed to get a percent. This was paired with a minimum
  active threshold of 5\%, due to the joystick value fluctuating slightly when it was not in motion.
 \begin{lstlisting} [language=C, caption={PWM Percentage Conversion}, label={lst:movementstandardized2}, basicstyle=\ttfamily\tiny]
 if (y_value > MINIMUM_PERCENT_ACTIVE * (4095 - Y_MIDPOINT) || y_value < - MINIMUM_PERCENT_ACTIVE * Y_MIDPOINT) {
@@ -440,16 +445,14 @@ The outputted values would be counters from 0-100, which would be used for count
 \
 
 \textbf{JDY-40 Communications} \\
-
-
-In order to share data between microcontrollers, we had to ensure our firmware operated deterministically and reliably.
-This required ensuring that the data received by each microcontroller was accurate to the transmitted data. It also required ensuring
+We had to ensure our firmware operated deterministically and reliably to share data between microcontrollers.
+This required validating that the data received by each microcontroller was accurate to the transmitted data. It also required tracking
 that this did not slow down the remaining functionality of the system, especially for the robot EFM8 microcontroller.
 
 \
 
 As seen in Figure \ref{fig:firmware_block_diagram}, we decided to periodically transmit data to the JDY-40 radio. This was done
-asynchronously via ISRs. Receiving and parsing the data was done in the main function however,
+asynchronously via ISR. Receiving and parsing the data was done in the main function however,
 as the subsequent instructions depended on a newly received value. This appeared as a function call to the following function on the STM32.
 Note that this only updates the global variable \texttt{RX\_BUFF} when 2 bytes are received.
 
@@ -464,10 +467,10 @@ void RX_I(void) {
 \end{lstlisting}
 
 We prioritized frequent data transmission of movement controls from the joystick and implemented an STM32 ISR with a software counter
-to transmit this every $250 ms$ via UART communication. This ensured we can smoothly control the speed and
+to transmit this every 250ms via UART communication. This ensured we could smoothly control the speed and
 direction of the PWM for the robot Optocoupler and H-Bridge circuitry.
 
-\begin{lstlisting} [language=C, caption={EFM8 : Timer 21 ISR}, label={lst:timer21isr}, basicstyle=\ttfamily\tiny]
+\begin{lstlisting} [language=C, caption={STM32 : Timer 21 ISR}, label={lst:stm32_timer21isr}, basicstyle=\ttfamily\tiny]
 void TIM21_Handler(void) {
 	TIM21->SR &= ~BIT0; // Clear Update Interrupt Flag
 	TX21Count++;
@@ -479,6 +482,14 @@ void TIM21_Handler(void) {
 }
 \end{lstlisting}
 
+The ISR was minimized to focus on transmission. We updated the transmission buffer within the main program, since the \texttt{sprintf();} function requires a relatively high number of clock cycles. This is shown below in Figure \ref{lst:stm32_update_txbuff}.
+
+\begin{lstlisting} [language=C, caption={STM32 : Update Transmission Buffer}, label={lst:stm32_update_txbuff}, basicstyle=\ttfamily\tiny]
+void Update_XYZ(int x_value, int y_value, int z_value) {
+	sprintf(TX_BUFF, "X%+04dY%+04dZ%01d\r\n", x_value, y_value, z_value);
+}
+\end{lstlisting}
+
 We were able to provide slightly more leeway for transmission of inductance values, as responsiveness wasn't as time-critical as movement controls. However, we
 decided to mirror the logic above on the EFM8 to send the calculated value every 250 $ms$ to the STM32. This is shown in the Appendix (\ref{lst:efm8_timer4isr}).
 
@@ -486,7 +497,7 @@ decided to mirror the logic above on the EFM8 to send the calculated value every
 
 Data parsing and validation was an additional layer of complicated for the EFM8 system, as we needed to accurately process the X, Y, and Z values from
 the STM32 transmission. This involved checking the length to ensure it was within the expected range of 12-14 characters. Note that we had to transmit a fixed length from the
-STM32 to account for this. Following this initial validation, we implemented a custom function to trim the non-numeric characters from the string, and assign the relevant data
+STM32 to account for this (i.e. in Figure \ref{lst:stm32_update_txbuff}). Following this initial validation, we implemented a custom function to trim the non-numeric characters from the string, and assign the relevant data
 to the respect variables. This is shown in the Appendix (\ref{lst:efm8_jdy40rx}).
 
 \
@@ -562,7 +573,7 @@ It was essential for our robot to function both as a vehicle and to incorporate 
 \textbf{Speaker} \\
 We implemented the speaker on the controller using Timer 2 of the STM32. We used a base frequency of 7040Hz, as this allowed us to output an clear and observable
 "A" note (sample chart shown here: \ref{fig:music_frequencies}), whereas other frequencies have decimal points (dividing the frequency by $2^n$).
-In the code shown in \ref{lst:Speaker}, the \texttt{new\_ratio} value served as a counter in the Timer 2 ISR to control the PWM speed for the speaker.
+In the code shown in listing \ref{lst:Speaker}, the \texttt{new\_ratio} value served as a counter in the Timer 2 ISR to control the PWM speed for the speaker.
 The change in frequency was tied to the inductance value measured by the EFM8.
 
 \begin{lstlisting} [language=C, caption={STM32 : Speaker Thresholds}, label={lst:Speaker}, basicstyle=\ttfamily\tiny]
@@ -582,7 +593,30 @@ float SetSpeakerFreq(float inductance_mH, float current_ratio) {
 }
 \end{lstlisting}
 
-\noindent
+\
+
+\textbf{Controller Passcode} \\
+In addition to the prior requirements, the STM32 was used to read button inputs via GPIO pins. We implemented firmware to protect access with a 4-digit passcode. The user was prompted for this when turning on the device and had the ability to lock when they were done driving the robot. This was encompassed within the function call shown in Figure \ref{lst:passcode_function}. Everytime a passcode button was pressed in this state, a \texttt{*} was printed to the LCD.
+
+\begin{lstlisting} [language=C, caption={STM32 : Controller Passcode}, label={lst:passcode_function}, basicstyle=\ttfamily\tiny]
+void getPasscode(void) {
+    resetPasscode();
+
+    while (state != s_success) {
+        if (state != s_check) checkCombination();
+        else if (correct_combination == 1) {
+            state = s_success;
+            LCDprint("RDY TO OPERATE!", 1, 1);
+        } else {
+            LCDprint("PASSCODE FAIL...", 1, 1);
+            waitms(1000); // Wait 1s
+            resetPasscode();
+        }
+    }
+    return;
+}
+\end{lstlisting}
+
 
 
 \subsection{Solution Assessment}
@@ -689,11 +723,13 @@ We were able to apply our academic knowledge in a practical setting, and this wi
 \begin{thebibliography}{10}
     \bibitem{RequirementsPDF} Calvino-Fraga, Jesus, \textit{ELEC291\_Project2\_Metal\_Detector\_Robot}. University of British Columbia, 2024.
 
-    \bibitem{SlidesPDF} Calvino-Fraga, Jesus, \textit{ELEC291\_Project\_2\_Met}. University of British Columbia, 2024.
-
     \bibitem{LM7805} \textit{LM340, LM340A and LM7805 Family Wide Vin 1.5-a Fixed ...,} \url{www.ti.com/lit/ds/symlink/lm340.pdf}, 2016.
 
     \bibitem{MCP1700} Microchip, \url{ww1.microchip.com/downloads/aemDocuments/documents/APID/ProductDocuments/DataSheets/MCP1700-Data-Sheet-20001826F.pdf}, 2022.
+
+    \bibitem{SlidesPDF} Calvino-Fraga, Jesus, \textit{ELEC291\_Project\_2}. University of British Columbia, 2024.
+
+    \bibitem{LTV-847} Mouser, Photocoupler Product Data Sheet LTV-817/827/847 \url{https://www.mouser.ca/datasheet/2/239/LTV-8X7_series_201610_-1544776.pdf}.
 
 \end{thebibliography}
 
@@ -705,7 +741,6 @@ We were able to apply our academic knowledge in a practical setting, and this wi
     \item JDY-40 Wireless Serial Port Module, w.electrodragon.com/w/images/0/05/EY-40\_English\_manual.pdf.
     \item Merlo, Maria Grazia. “The 4 Principles of an Effective Work Breakdown Structure.” A Journey into Software Best Practices with Maria Grazia Merlo, mariagraziamerlo.com/2015/12/27/the-4-core-principles-of-an-effective-work-breakdown-structure/, 2015.
     \item Microchip, ww1.microchip.com/downloads/aemDocuments/documents/APID/ProductDocuments/DataSheets/MCP1700-Data-Sheet-20001826F.pdf, 2022.
-    \item Mouser, www.mouser.com/datasheet/2/239/LTV-8X7\_series\_201610\_-1544776.pdf.
     \item STM32, Datasheet - Stm32l051x6 Stm32l051x8 - Access Line, www.st.com/resource/en/datasheet/stm32l051c6.pdf, 2019.
     \item STM32, RM0377 Reference Manual - -Based 32-Bit Mcus, www.st.com/resource/en/reference\_manual/rm0377-ultralowpower-stm32l0x1-advanced-armbased-32bit-mcus-stmicroelectronics.pdf, 2022.
     \item Storr, Wayne. “Colpitts Oscillator Tutorial and Colpitts Oscillator Design.” Basic Electronics Tutorials, www.electronics-tutorials.ws/oscillator/colpitts.html, 2022.
@@ -716,6 +751,20 @@ We were able to apply our academic knowledge in a practical setting, and this wi
 
 \begin{figure}[htbp]
     \centering
+    \includegraphics[width=1\textwidth]{Figures/efm8.png}
+    \caption{EFM8LB1 Hardware Diagram}
+    \label{fig:efm8}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1\textwidth]{Figures/stm32.png}
+    \caption{STM32 Hardware Diagram}
+    \label{fig:stm32}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
     \includegraphics[width=0.5\textwidth]{Figures/metaldetector.png}
     \caption{Colpitts Oscillator with Discrete CMOS Inverter}
     \label{fig:metaldetector}
@@ -723,7 +772,7 @@ We were able to apply our academic knowledge in a practical setting, and this wi
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.3\textwidth]{Figures/jdy40.png}
+    \includegraphics[width=0.5\textwidth]{Figures/jdy40.png}
     \caption{Example JDY-40 connections with a Microcontroller}
     \label{fig:JDY-40}
 \end{figure}

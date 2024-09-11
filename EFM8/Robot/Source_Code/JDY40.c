@@ -54,7 +54,7 @@ void Timer4_ISR (void) interrupt INTERRUPT_TIMER4 {
 	TF4H = 0; // Clear Timer4 interrupt flag
 	TXcount++;
 
-	if(TXcount >= 250){
+	if (TXcount >= 250) {
 		TXcount=0;
 		flag == 0;
 	}
@@ -72,8 +72,7 @@ void putchar1(char c) {
 }
 
 void sendstr1(char * s) {
-	while(*s)
-	{
+	while (*s) {
 		putchar1(*s);
 		s++;
 	}
@@ -96,21 +95,19 @@ char getchar1_with_timeout (void) {
 	unsigned int timeout;
     SFRPAGE = 0x20;
     timeout=0;
-	while (!RI1)
-	{
+	while (!RI1) {
 		SFRPAGE = 0x00;
 		Timer3us(20);
 		SFRPAGE = 0x20;
 		timeout++;
-		if(timeout==25000)
-		{
+		if (timeout==25000) {
 			SFRPAGE = 0x00;
 			return ('\n'); // Timeout after half second
 		}
 	}
 	RI1=0;
 	// Clear Overrun and Parity error flags
-	SCON1&=0b_0011_1111;
+	SCON1 &= 0b_0011_1111;
 	c = SBUF1;
 	SFRPAGE = 0x00;
 	return (c);
@@ -119,11 +116,9 @@ char getchar1_with_timeout (void) {
 void getstr1 (char * s) {
 	char c;
 
-	while(1)
-	{
-		c=getchar1_with_timeout();
-		if(c=='\n')
-		{
+	while(1) {
+		c = getchar1_with_timeout();
+		if (c=='\n') {
 			*s=0;
 			return;
 		}
@@ -144,11 +139,9 @@ bit RXU1(void) {
 void waitms_or_RI1(unsigned int ms) {
 	unsigned int j;
 	unsigned char k;
-	for(j=0; j<ms; j++)
-	{
-		for (k=0; k<4; k++)
-		{
-			if(RXU1()) return;
+	for (j=0; j<ms; j++) {
+		for (k=0; k<4; k++) {
+			if (RXU1()) return;
 			Timer3us(250);
 		}
 	}
@@ -260,8 +253,8 @@ void splitString(const char *str, char *part1, char *part2, char *part3) {
 
 	strncpy(part3, str+length-1,1);
 	part3[2] = '\0';
-    //printf("part 1: %s\n", part1);
-    //printf("part 2: %s\n", part2);
+    // printf("part 1: %s\n", part1);
+    // printf("part 2: %s\n", part2);
 }
 
 void Trim(char *str, int *xin, int *yin, int *zyn) {
@@ -277,9 +270,10 @@ void Trim(char *str, int *xin, int *yin, int *zyn) {
         }
     }
     str[j] = '\0';  // Null-terminate the resulting string
-   // printf("%p \n", x);
-    //printf("%s \n", str);
-    //printf("%p \n", &x);
+    // printf("%p \n", x);
+    // printf("%s \n", str);
+    // printf("%p \n", &x);
+
     splitString(str, x, y, z);
 
     //printf("%p \n", y);
@@ -290,7 +284,6 @@ void Trim(char *str, int *xin, int *yin, int *zyn) {
     *zyn = stringToInt(z);
 
     //printf("%d \n", *xin);
-
    // printf("%d \n", *yin);
 
     free(x);
@@ -303,15 +296,13 @@ void Update_TX_Buff(int inductance) {
 }
 
 void TX_I(void) {
-    if(flag == 0)
-		{
-			flag == 1;
-			sendstr1(TXbuff);
-			// printf("Data Sent: %s\r\n", TXbuff);
-			clearUART1Buffer();
-			waitms_or_RI1(200);
-
-		}
+    if (flag == 0) {
+		flag == 1;
+		sendstr1(TXbuff);
+		// printf("Data Sent: %s\r\n", TXbuff);
+		clearUART1Buffer();
+		waitms_or_RI1(200);
+	}
 }
 
 void RX_XY() {
@@ -326,7 +317,7 @@ void RX_XY() {
 	}
 }
 
-int NumDigs (char * s){
+int NumDigs (char * s) {
 	int i = 0;
 	int count = 0;
 
@@ -350,10 +341,8 @@ float get_z(void) {
 	return commands[2];
 }
 
-void eputs(char *String)
-{
-	while(*String)
-	{
+void eputs(char *String) {
+	while(*String) {
 		putchar(*String);
 		String++;
 	}
@@ -366,15 +355,13 @@ void PrintNumber(long int val, int Base, int digits) {
 	xdata char buff[NBITS+1];
 	buff[NBITS]=0;
 
-	if(val<0)
-	{
+	if (val<0) {
 		putchar('-');
 		val*=-1;
 	}
 
 	j=NBITS-1;
-	while ( (val>0) | (digits>0) )
-	{
+	while ( (val>0) | (digits>0) ) {
 		buff[j--]=HexDigit[val%Base];
 		val/=Base;
 		if(digits!=0) digits--;

@@ -1,4 +1,4 @@
-#include "movement_integration.h"
+#include "movement.h"
 
 #define LEFT_MOTOR_LHS  P2_4    //brown
 #define LEFT_MOTOR_RHS  P2_3    //black
@@ -17,8 +17,7 @@ int prev_PWM_percent_x = 0;
 int prev_PWM_percent_y = 0;
 int state = 0;
 
-void TIMER5Init(void)
-{
+void TIMER5Init(void) {
     // Initialize timer 5 for periodic interrupts
 	SFRPAGE=0x10;
 	TMR5CN0=0x00;   // Stop Timer5; Clear TF5; WARNING: lives in SFR page 0x10
@@ -29,8 +28,7 @@ void TIMER5Init(void)
 	TR5=1;         // Start Timer5 (TMR5CN0 is bit addressable)
 }
 
-void Timer5_ISR (void) interrupt INTERRUPT_TIMER5
-{
+void Timer5_ISR (void) interrupt INTERRUPT_TIMER5 {
     int current_TR0 = TR0, current_TR5 = TR5;
 	TR0 = 0, TR5 = 0;
 
@@ -87,28 +85,24 @@ void Timer5_ISR (void) interrupt INTERRUPT_TIMER5
     if (current_TR5 == 1) TR5 = 1;
 }
 
-void idle(void)
-{
+void idle(void) {
     LEFT_MOTOR_LHS = 0;
     RIGHT_MOTOR_LHS = 0;
     LEFT_MOTOR_RHS = 0;
     RIGHT_MOTOR_RHS = 0;
 }
 
-void straight(void)
-{
+void straight(void) {
     LEFT_MOTOR_RHS = 0;
     RIGHT_MOTOR_RHS = 0;
 }
 
-void backward(void)
-{
+void backward(void) {
     LEFT_MOTOR_RHS = 1;
     RIGHT_MOTOR_RHS = 1;
 }
 
-void PWM_manager(float x_value, float y_value)
-{
+void PWM_manager(float x_value, float y_value) {
     if (x_value >= 0) // RIGHT TURN
     {
         left_wheel = abs(y_value);
@@ -121,20 +115,14 @@ void PWM_manager(float x_value, float y_value)
     }
 
     // to account for the RIGHT wheel being stronger than the LEFT wheel
-    if (abs(y_value) <= 25)
-        new_right_wheel = 0.9*right_wheel;
-    else if (abs(y_value) <= 50)
-        new_right_wheel = 0.95*right_wheel;
-    else if (abs(y_value) <= 75)
-        new_right_wheel = 0.95*right_wheel;
-    else if (abs(y_value) <= 100)
-        new_right_wheel = 0.95*right_wheel;
-    else
-        new_right_wheel = 0.95*right_wheel;
+    if (abs(y_value) <= 25) new_right_wheel = 0.9*right_wheel;
+    else if (abs(y_value) <= 50) new_right_wheel = 0.95*right_wheel;
+    else if (abs(y_value) <= 75) new_right_wheel = 0.95*right_wheel;
+    else if (abs(y_value) <= 100) new_right_wheel = 0.95*right_wheel;
+    else new_right_wheel = 0.95*right_wheel;
 }
 
-void movement_manager(float PWM_percent_y, float prev_PWM_percent_y)
-{
+void movement_manager(float PWM_percent_y, float prev_PWM_percent_y) {
     if (prev_PWM_percent_y != PWM_percent_y)
     {
         if (PWM_percent_y >= 0)
@@ -149,12 +137,11 @@ void movement_manager(float PWM_percent_y, float prev_PWM_percent_y)
 
 }
 
-void movement_init(void)
-{
+void movement_init(void) {
     idle();
 }
-void movement_loop(float x, float y)
-{
+
+void movement_loop(float x, float y) {
         // printf("JDY x: %f, JDY y: %f\r\n", x, y);
         PWM_percent_x = x;
         PWM_percent_y = y;
@@ -166,7 +153,6 @@ void movement_loop(float x, float y)
         prev_PWM_percent_y = PWM_percent_y;
 }
 
-void parking(void)
-{
+void parking(void) {
     state = 1;
 }

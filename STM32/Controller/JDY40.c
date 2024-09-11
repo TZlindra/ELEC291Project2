@@ -105,14 +105,13 @@ void ConfigJDY40(void) {
 
 void Update_XYZ(int x_value, int y_value, int z_value) {
 	sprintf(TX_BUFF, "X%+04dY%+04dZ%01d\r\n", x_value, y_value, z_value);
-	// sprintf(TX_BUFF, "X%+04dY%+04d\r\n", x_value, y_value, z_value);
 }
 
 int Update_I(float inductance_microH) {
 	int rx_length = strlen(RX_BUFF);
-	// printf("Length: %d\r\n", rx_length);
-	// if (rx_length == 7) { // ToDo
 	int parsed = atoi(RX_BUFF);
+
+	// printf("Length: %d\r\n", rx_length);
 	return ((parsed >= 400) & (parsed <= 490)) ? parsed : inductance_microH;
 }
 

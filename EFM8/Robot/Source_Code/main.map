@@ -2,7 +2,7 @@ Modules linked:
    'main' from 'main.obj'
    'JDY40' from 'JDY40.obj'
    'global' from 'global.obj'
-   'movement_integration' from 'movement_integration.obj'
+   'movement' from 'movement.obj'
    'inductance' from 'inductance.obj'
    'speaker' from 'speaker.obj'
    'divulong' from 'C:\call51\Bin\..\lib\large\liblong.lib'
@@ -50,7 +50,7 @@ Memory use per module linked:
 C:00744 D:000 I:000 B:000 X:00026 - main
 C:03367 D:035 I:000 B:001 X:00272 - JDY40
 C:00199 D:000 I:000 B:000 X:00007 - global
-C:02040 D:005 I:000 B:001 X:00052 - movement_integration
+C:02040 D:005 I:000 B:001 X:00052 - movement
 C:00775 D:000 I:000 B:000 X:00008 - inductance
 C:00059 D:000 I:000 B:000 X:00002 - speaker
 C:00267 D:001 I:000 B:001 X:00012 - divulong
@@ -98,11 +98,11 @@ C:00013 D:000 I:000 B:000 X:00000 - ABSOLUTE
 C:14773 D:072 I:016 B:018 X:01524 - Totals
 
 INTERMAL RAM map (see legend below):
-00: 0 0 0 0 0 0 0 0 b c c c c c c c 
-10: c d d e e e e f f f f f f f f . 
-20: K B B B a a a a a a a a a a a a 
-30: a a a a a a a a a a a a a a a a 
-40: a a a a a a a g g g h h h h i i 
+00: 0 0 0 0 0 0 0 0 a a a a c d d d 
+10: d d d d d e e f f f f f f f f . 
+20: K B B B b b b b b b b b b b b b 
+30: b b b b b b b b b b b b b b b b 
+40: b b b b b b b g g g h h h h i i 
 50: i i i i i i i i i i i i i i . . 
 60: . . . . . . . . . . . . . . . . 
 70: . . . . . . . . . . . . . . . . 
@@ -122,11 +122,11 @@ Legend:
 	3: Register bank 3
 	B: bits (see 'BIT map' below)
 	K: BIT_BANK
-	a: JDY40:R_DSEG
-	b: bp:R_DSEG
-	c: modslong:R_DSEG
-	d: malloc:R_DSEG
-	e: movement_integration:R_DSEG
+	a: movement:R_DSEG
+	b: JDY40:R_DSEG
+	c: bp:R_DSEG
+	d: modslong:R_DSEG
+	e: malloc:R_DSEG
 	f: divslong:R_DSEG
 	g: ?lib?dseg?1
 	h: R_OSEG
@@ -208,7 +208,7 @@ Module Segments:
    JDY40:R_XINIT=C:003A, size=0004
    JDY40:R_XSEG=X:000E, size=010C
    abs:R_CSEG=C:2664, size=000F
-   bp:R_DSEG=D:0008, size=0001
+   bp:R_DSEG=D:000C, size=0001
    crt0:R_GSINIT=C:0096, size=0071
    divsint:R_CSEG=C:2673, size=0075
    divsint:R_XSEG=X:0195, size=0004
@@ -258,23 +258,23 @@ Module Segments:
    main:R_XINIT=C:002E, size=000C
    main:R_XSEG=X:0000, size=000E
    malloc:R_CSEG=C:21D7, size=01B2
-   malloc:R_DSEG=D:0011, size=0002
+   malloc:R_DSEG=D:0015, size=0002
    malloc:R_IXSEG=X:05F2, size=0002
    malloc:R_XINIT=C:005A, size=0002
    malloc:R_XSEG=X:017A, size=000A
    modslong:R_CSEG=C:2027, size=00C9
-   modslong:R_DSEG=D:0009, size=0008
+   modslong:R_DSEG=D:000D, size=0008
    modslong:R_XSEG=X:0167, size=0008
    modulong:R_CSEG=C:3612, size=0140
    modulong:R_OSEG=D:004A, size=0004
    modulong:R_XSEG=X:01B7, size=0009
-   movement_integration:BIT_BANK=D:0020, size=0001
-   movement_integration:R_BSEG=B:0009, size=0001
-   movement_integration:R_CSEG=C:11CF, size=07E0
-   movement_integration:R_DSEG=D:0013, size=0004
-   movement_integration:R_IXSEG=X:05D6, size=0018
-   movement_integration:R_XINIT=C:003E, size=0018
-   movement_integration:R_XSEG=X:0121, size=001C
+   movement:BIT_BANK=D:0020, size=0001
+   movement:R_BSEG=B:0009, size=0001
+   movement:R_CSEG=C:11CF, size=07E0
+   movement:R_DSEG=D:0008, size=0004
+   movement:R_IXSEG=X:05D6, size=0018
+   movement:R_XINIT=C:003E, size=0018
+   movement:R_XSEG=X:0121, size=001C
    mulint:R_CSEG=C:20F0, size=0020
    mulint:R_XSEG=X:016F, size=0002
    mullong:R_CSEG=C:26E8, size=006C
@@ -408,9 +408,9 @@ Public symbols:
    __taos=I:004E
    _abs=C:2664
    _backward=C:149C
-   _bp=D:0008
+   _bp=D:000C
    _bp_R_DSEG_size=L:0001
-   _bp_R_DSEG_start=L:0008
+   _bp_R_DSEG_start=L:000C
    _clearUART1Buffer=C:0734
    _commands=X:00AE
    _count=X:05D6
@@ -434,12 +434,12 @@ Public symbols:
    _main=C:031E
    _malloc=C:2255
    _malloc_R_DSEG_size=L:0002
-   _malloc_R_DSEG_start=L:0011
+   _malloc_R_DSEG_start=L:0015
    _modslong_R_DSEG_size=L:0008
-   _modslong_R_DSEG_start=L:0009
+   _modslong_R_DSEG_start=L:000D
+   _movement_R_DSEG_size=L:0004
+   _movement_R_DSEG_start=L:0008
    _movement_init=C:1887
-   _movement_integration_R_DSEG_size=L:0004
-   _movement_integration_R_DSEG_start=L:0013
    _movement_loop=C:188A
    _movement_loop_PARM_2=X:0135
    _movement_manager=C:1805
@@ -836,15 +836,15 @@ Local symbols:
    malloc:_malloc_current_header_1_9=X:0180
    malloc:_malloc_ret_1_9=X:0182
    malloc:_malloc_size_1_8=X:017E
-   malloc:_malloc_sloc0_1_0=D:0011
+   malloc:_malloc_sloc0_1_0=D:0015
    modslong:L002002?=C:20E8
    modslong:L002006?=C:2063
    modslong:L002007?=C:206B
    modslong:L002008?=C:209F
    modslong:L002009?=C:20AB
    modslong:__modslong_a_1_1=X:016B
-   modslong:__modslong_sloc0_1_0=D:0009
-   modslong:__modslong_sloc1_1_0=D:000D
+   modslong:__modslong_sloc0_1_0=D:000D
+   modslong:__modslong_sloc1_1_0=D:0011
    modulong:L002002?=C:36BF
    modulong:L002003?=C:363C
    modulong:L002007?=C:3713
@@ -853,50 +853,50 @@ Local symbols:
    modulong:__modulong_a_1_1=X:01BB
    modulong:__modulong_count_1_2=X:01BF
    modulong:__modulong_sloc0_1_0=D:004A
-   movement_integration:L003002?=C:12CE
-   movement_integration:L003005?=C:1282
-   movement_integration:L003006?=C:12F1
-   movement_integration:L003008?=C:1307
-   movement_integration:L003010?=C:1326
-   movement_integration:L003012?=C:13C9
-   movement_integration:L003013?=C:1455
-   movement_integration:L003015?=C:1469
-   movement_integration:L003018?=C:1471
-   movement_integration:L003027?=C:122E
-   movement_integration:L003031?=C:1334
-   movement_integration:L007004?=C:1598
-   movement_integration:L007005?=C:164E
-   movement_integration:L007007?=C:17CC
-   movement_integration:L007010?=C:1778
-   movement_integration:L007013?=C:171C
-   movement_integration:L007016?=C:16C0
-   movement_integration:L007026?=C:14ED
-   movement_integration:L007027?=C:159E
-   movement_integration:L008002?=C:1883
-   movement_integration:L008006?=C:1886
-   movement_integration:_PWM_manager_sloc0_1_0=D:0013
-   movement_integration:_PWM_manager_x_value_1_103=X:0129
-   movement_integration:_Timer5_ISR_sloc0_1_0=B:0009
-   movement_integration:__xinit__PWM_percent_x=C:0046
-   movement_integration:__xinit__PWM_percent_y=C:0044
-   movement_integration:__xinit__count=C:003E
-   movement_integration:__xinit__left_wheel=C:0048
-   movement_integration:__xinit__prev_PWM_percent_x=C:0050
-   movement_integration:__xinit__prev_PWM_percent_y=C:0052
-   movement_integration:__xinit__right_wheel=C:004C
-   movement_integration:__xinit__state=C:0054
-   movement_integration:__xinit__timer=C:0040
-   movement_integration:_movement_loop_x_1_114=X:0139
-   movement_integration:_movement_manager_PWM_percent_y_1_107=X:0131
-   movement_integration:b0=D:0020
-   movement_integration:b1=D:0020
-   movement_integration:b2=D:0020
-   movement_integration:b3=D:0020
-   movement_integration:b4=D:0020
-   movement_integration:b5=D:0020
-   movement_integration:b6=D:0020
-   movement_integration:b7=D:0020
-   movement_integration:bits=D:0020
+   movement:L003002?=C:12CE
+   movement:L003005?=C:1282
+   movement:L003006?=C:12F1
+   movement:L003008?=C:1307
+   movement:L003010?=C:1326
+   movement:L003012?=C:13C9
+   movement:L003013?=C:1455
+   movement:L003015?=C:1469
+   movement:L003018?=C:1471
+   movement:L003027?=C:122E
+   movement:L003031?=C:1334
+   movement:L007004?=C:1598
+   movement:L007005?=C:164E
+   movement:L007007?=C:17CC
+   movement:L007010?=C:1778
+   movement:L007013?=C:171C
+   movement:L007016?=C:16C0
+   movement:L007026?=C:14ED
+   movement:L007027?=C:159E
+   movement:L008002?=C:1883
+   movement:L008006?=C:1886
+   movement:_PWM_manager_sloc0_1_0=D:0008
+   movement:_PWM_manager_x_value_1_103=X:0129
+   movement:_Timer5_ISR_sloc0_1_0=B:0009
+   movement:__xinit__PWM_percent_x=C:0046
+   movement:__xinit__PWM_percent_y=C:0044
+   movement:__xinit__count=C:003E
+   movement:__xinit__left_wheel=C:0048
+   movement:__xinit__prev_PWM_percent_x=C:0050
+   movement:__xinit__prev_PWM_percent_y=C:0052
+   movement:__xinit__right_wheel=C:004C
+   movement:__xinit__state=C:0054
+   movement:__xinit__timer=C:0040
+   movement:_movement_loop_x_1_114=X:0139
+   movement:_movement_manager_PWM_percent_y_1_107=X:0131
+   movement:b0=D:0020
+   movement:b1=D:0020
+   movement:b2=D:0020
+   movement:b3=D:0020
+   movement:b4=D:0020
+   movement:b5=D:0020
+   movement:b6=D:0020
+   movement:b7=D:0020
+   movement:bits=D:0020
    print_format:L002003?=C:2964
    print_format:L003004?=C:298E
    print_format:L005003?=C:29CB

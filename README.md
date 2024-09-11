@@ -82,4 +82,4 @@ We have uploaded our Final Demo on <a href="https://www.youtube.com/watch?v=mVCB
 
 ## Credit
 
-This project was completed as part of the <b>The University of British Columbia Electrical and Computer Engineering</b> undergraduate program. The <b>ELEC 291 - Design Studio</b> course requirement was to complete this project. We received tremendous assistance and support from Dr. Jesus Calvino-Fraga in completing this.
+This project was completed as part of the <b>ELEC 291 - Design Studio</b> course requirement in the <b>The University of British Columbia Electrical and Computer Engineering</b>. We received tremendous assistance and support from Dr. Jesus Calvino-Fraga in completing this.

@@ -10,6 +10,7 @@
 * [Controller](#Controller)
 * [Robot](#Robot)
 * [Demonstration](#Demonstration)
+* [Report](#Report)
 * [Credit](#Credit)
 
 ## Overview
@@ -54,11 +55,13 @@ From the following data, we determined that the number of samples between data t
 
 ## Controller
 
-The remote controller circuitry consisted of an **STM32** microcontroller with **ADC** joystick inputs, as well as visual/auditory feedback in the form of an **LCD** display and speaker.
+<img align = "right" src="Report/Figures/Controller.jpg" style="max-height:200px; max-width:100%;"/>
+
+The remote controller circuitry consisted of an **STM32** microcontroller with **ADC** joystick inputs, as well as visual/auditory feedback on an **LCD** display and speaker.
 
 ### Extra Features
 
-Note that the joystick was designed to have the ability to switch between movement sensitivity, similar to as on a video game controller. This was implemented via **GPIO** toggle buttons. There was also a software enabled passcode used to unlock the controller.
+Note that the joystick was designed to have the ability to switch between movement sensitivity, similar to a video game controller. This was implemented via **GPIO** toggle buttons. There was also a software enabled passcode used to unlock the controller.
 
 The speaker was programmed to emit sounds of different frequencies for user feedback (i.e. similar to musical notes). We also transmitted a *z* coordinate in addition to *x,y* movement coordinates to enable additional robot functionality.
 
@@ -69,6 +72,8 @@ The controller firmware source code can be found in the [Controller](/STM32/Cont
 The [`Makefile`](/STM32/Controller/main.mk) was used to compile the **C** source files, link the `.o` object files and flash the [`main.hex`](/STM32/Controller/main.hex) executable onto the **STM32** (**ARM Cortex M0** family) microcontroller.
 
 ## Robot
+
+<img align = "left" src="Report/Figures/Robot.jpg" style="max-height:200px; max-width:100%;"/>
 
 The robot circuitry was used to generate **Pulse-Width Modulation** (**PWM**) signals and drive the wheels for movement. A **Colpitts Oscillator** circuit was used to measure the period of a looped coil, and determine the equivalent inductance to detect magnetic material property.
 
@@ -84,20 +89,11 @@ The [`Makefile`](/EFM8/Robot/Source_Code/main.mk) was used to compile the **C** 
 
 ## Demonstration
 
-We have uploaded our Final Demo on <a href="https://www.youtube.com/watch?v=mVCBSWdCpsY" target="_blank">Youtube</a>. We have also attached our [Project Report](/Report/ELEC291_TeamA9_MetalDetectorRobot.pdf) for detailed analysis of our engineered solution.
+We have uploaded our Final Demo on <a href="https://www.youtube.com/watch?v=mVCBSWdCpsY" target="_blank">Youtube</a>.
 
-<div style="text-align: center;">
-  <table>
-    <tr>
-      <th>Controller</th>
-      <th>Robot</th>
-    </tr>
-    <tr>
-      <td><img src="Report/Figures/Controller.jpg" style="max-height:200px; max-width:100%;"/></td>
-      <td><img src="Report/Figures/Robot.jpg" style="max-height:200px; max-width:100%;"/></td>
-    </tr>
-  </table>
-</div>
+## Report
+
+We have also attached our [Project Report](/Report/ELEC291_TeamA9_MetalDetectorRobot.pdf) for detailed analysis of our engineered solution.
 
 ## Credit
 

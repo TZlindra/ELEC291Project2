@@ -37,7 +37,7 @@ Notice how receives were implemented through the `main` program and are synchron
 
 We validated this with end-to-end testing on the actual robot with a human user (i.e. somebody other than the firmware owner for the system component).
 
-## Regression Testing
+#### Regression Testing
 
 We logged transmitted and received data to the **Serial Port** and analyzed data accuracy as well as latency with the [`coordinate_logger.py`](/Regression_Tests/Coordinates/coordinate_logger.py) and [`inductance_logger.py`](/Regression_Tests/Inductance/inductance_logger.py) **Python** scripts.
 
@@ -74,7 +74,14 @@ The robot firmware can be found in the [Robot](/EFM8/Robot) directory.
 
 ## Demonstration
 
-We have uploaded our Final Demo on <a href="https://www.youtube.com/watch?v=mVCBSWdCpsY" target="_blank">Youtube</a>. We have also attached our [report](/Report/ELEC291_TeamA9_MetalDetectorRobot.pdf) for detailed observation of our engineered solution.
+We have uploaded our Final Demo on <a href="https://www.youtube.com/watch?v=mVCBSWdCpsY" target="_blank">Youtube</a>. We have also attached our [Project Report](/Report/ELEC291_TeamA9_MetalDetectorRobot.pdf) for detailed observation of our engineered solution.
+
+| Controller | Robot |
+|------------|-------|
+| <img src="Report/Figures/Controller.jpg" height="50%"/> | <img src="Report/Figures/Robot.jpg" height="50%"/> |
+
+
+
 
 
 ## Credit

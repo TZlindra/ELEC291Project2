@@ -72,7 +72,7 @@ The [`Makefile`](/STM32/Controller/main.mk) was used to compile the **C** source
 
 ## Robot
 
-<img align = "left" src="Report/Figures/Robot.jpg" width = 200 height = 250>
+<img align = "right" src="Report/Figures/Robot.jpg" width = 200 height = 250>
 
 The robot circuitry was used to generate **Pulse-Width Modulation** (**PWM**) signals and drive the wheels for movement. A **Colpitts Oscillator** circuit was used to measure the period of a looped coil, and determine the equivalent inductance to detect magnetic material property.
 

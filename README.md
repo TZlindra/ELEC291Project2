@@ -10,7 +10,6 @@
 * [Controller](#Controller)
 * [Robot](#Robot)
 * [Demonstration](#Demonstration)
-* [Report](#Report)
 * [Credit](#Credit)
 
 ## Overview
@@ -55,7 +54,7 @@ From the following data, we determined that the number of samples between data t
 
 ## Controller
 
-<img align = "right" src="Report/Figures/Controller.jpg" style="max-height:200px; max-width:100%;"/>
+<img align = "right" src="Report/Figures/Controller.jpg" style="max-height:200px; max-width:33%;"/>
 
 The remote controller circuitry consisted of an **STM32** microcontroller with **ADC** joystick inputs, as well as visual/auditory feedback on an **LCD** display and speaker.
 
@@ -73,7 +72,7 @@ The [`Makefile`](/STM32/Controller/main.mk) was used to compile the **C** source
 
 ## Robot
 
-<img align = "left" src="Report/Figures/Robot.jpg" style="max-height:200px; max-width:100%;"/>
+<img align = "left" src="Report/Figures/Robot.jpg" style="max-height:200px; max-width:33%;"/>
 
 The robot circuitry was used to generate **Pulse-Width Modulation** (**PWM**) signals and drive the wheels for movement. A **Colpitts Oscillator** circuit was used to measure the period of a looped coil, and determine the equivalent inductance to detect magnetic material property.
 
@@ -90,8 +89,6 @@ The [`Makefile`](/EFM8/Robot/Source_Code/main.mk) was used to compile the **C** 
 ## Demonstration
 
 We have uploaded our Final Demo on <a href="https://www.youtube.com/watch?v=mVCBSWdCpsY" target="_blank">Youtube</a>.
-
-## Report
 
 We have also attached our [Project Report](/Report/ELEC291_TeamA9_MetalDetectorRobot.pdf) for detailed analysis of our engineered solution.
 

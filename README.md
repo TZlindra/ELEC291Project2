@@ -78,11 +78,7 @@ We have uploaded our Final Demo on <a href="https://www.youtube.com/watch?v=mVCB
 
 | Controller | Robot |
 |------------|-------|
-| <img src="Report/Figures/Controller.jpg" height="50%" width="50%"/> | <img src="Report/Figures/Robot.jpg" height="50%" width="50%"/> |
-
-
-
-
+| <img src="Report/Figures/Controller.jpg" style="max-height:200px; max-width:100%;"/> | <img src="Report/Figures/Robot.jpg" style="max-height:200px; max-width:100%;"/> |
 
 ## Credit
 

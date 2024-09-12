@@ -30,7 +30,7 @@ We have detailed how the robot and controller achieve the desired system functio
 
 The controller was programmed to transmit movement coordinates to the robot. The robot was programmed to transmit a calculated inductance corresponding to the amount of detected metal.
 
-Notice how receives were implemented through the `main` program and are synchronous tasks. We designed the **UART** transmission to be implemented asynchronously via **ISR**. There was a transmission delay of *200 ms* implemented from both microcontrollers. This enabled the **JDY-40** to transmit and receive data at a rate which kept data accuracy and response at an acceptable threshold.
+Notice how **UART RX** were implemented through the `main` program and are synchronous tasks. We designed the **UART TX** to be implemented asynchronously via **ISR**. There was a transmission delay of *200 ms* implemented from both microcontrollers. This enabled the **JDY-40** to transmit and receive data at a rate which kept data accuracy and response at an acceptable threshold.
 
 #### User Acceptance Testing
 

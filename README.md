@@ -20,7 +20,6 @@ We designed a wirelessly controlled, battery operated robot which detects metal 
 
 There was a separate circuit for a remote controller and the robot itself. A pair of **JDY-40** radios, connected via **UART**, enabled data transmission to and from the robot. This was comprised of subcircuitry, particularly **Octocouplers** and **H-bridges**, to drive vehicular movement.
 
-
 We have detailed how the robot and controller achieve the desired system functionality in this following [Architecture Diagram](https://www.figma.com/file/xqH8FoNDTfE8aC5VBbZg7c/ELEC-291-%3A-Project-2%2C-Firmware-Block-Diagram?type=whiteboard&node-id=0%3A1&t=QKUpWGOVw9C2EUxE-1). This was done through deterministic acquisition, transmission, and handling of data with both the electrical and firmware design.
 
 <p align="center">

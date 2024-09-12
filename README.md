@@ -65,7 +65,7 @@ The speaker was programmed to emit sounds of different frequencies for user feed
 
 ### Source Code
 
-The controller firmware source code can be found in the [Controller](/STM32/Controller) directory.
+The controller firmware source code can be found in the [`Controller`](/STM32/Controller) directory.
 
 The [`Makefile`](/STM32/Controller/main.mk) was used to compile the **C** source files, link the `.o` object files and flash the [`main.hex`](/STM32/Controller/main.hex) executable onto the **STM32** (**ARM Cortex M0** family) microcontroller.
 
@@ -81,7 +81,7 @@ The received *z* coordinate was used to implement an auto-parking feature in whi
 
 ### Source Code
 
-The robot firmware source code can be found in the [Robot](/EFM8/Robot/Source_Code) directory.
+The robot firmware source code can be found in the [`Robot`](/EFM8/Robot/Source_Code) directory.
 
 The [`Makefile`](/EFM8/Robot/Source_Code/main.mk) was used to compile the **C** source files, link the `.o` object files and flash the [`main.hex`](/STM32/Controller/main.hex) executable onto the **EFM8** (**8051** family) microcontroller.
 

@@ -82,7 +82,7 @@ The received *z* coordinate was used to implement an auto-parking feature in whi
 
 The robot firmware source code can be found in the [`Robot`](/EFM8/Robot/Source_Code) directory.
 
-The [`Makefile`](/EFM8/Robot/Source_Code/main.mk) was used to compile the **C** source files, link the `.o` object files and flash the [`main.hex`](/STM32/Controller/main.hex) executable onto the **EFM8** (**8051** family) microcontroller.
+The [`Makefile`](/EFM8/Robot/Source_Code/main.mk) was used to compile the **C** source files, link the `.o` object files and flash the [`main.hex`](/EFM8/Robot/Source_Code/main.hex) executable onto the **EFM8** (**8051** family) microcontroller.
 
 ## Demonstration
 

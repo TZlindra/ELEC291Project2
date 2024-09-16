@@ -50,7 +50,6 @@ From the following data, we determined that the number of samples between data t
     <img src="Report/Figures/Inductance_Logs.jpg" width="75%" height="75%" title="Regression Tests - Inductance">
 </p>
 
-
 ## Controller
 
 <img align = "right" src="Report/Figures/Controller.jpg" width = 200 height = 250>
